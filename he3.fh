@@ -1,0 +1,49 @@
+C Constants
+!      implicit none
+
+      real*8 he3_pabn   ! A-B-Normal crit.pt, bar
+      real*8 he3_tabn   ! A-B-Normal crit.pt, mK
+      real*8 he3_pa     ! A-N-Solid crit.pt, bar
+      real*8 he3_gyro   ! Gyromagnetic ratio
+      real*8 he3_amass  ! He3 atom mass, g
+      real*8 ANA        ! Avogadro constant, 1/mole
+      real*8 HC         ! R-gas constant, SGS
+      real*8 R          ! SGS
+      real*8 AKB        ! SGS
+      real*8 PI
+
+      common /he3_const/
+     .  he3_Pabn, he3_Tabn, he3_Pa, he3_gyro, he3_amass,
+     .  ANA, HC, R, AKB, PI
+
+C Functions
+      real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
+      real*8 He3_Tc        ! T_c [mK] vs P [bar]
+      real*8 He3_Tab       ! T_ab [mK] vs P [bar]
+
+      real*8 He3_Vm        ! Molar Volume [cm**3/mole] vs P [bar]
+      real*8 He3_Meff      ! Effective mass [g] vs P [bar]
+      real*8 He3_Pf        ! Fermi momentum [sgs] vs P [bar]
+      real*8 He3_Vf        ! Fermi velocity [cm/s] vs P [bar]
+
+      real*8 He3_gammaf    ! R-Gas constant GAMMA=C/RT [1/(K*mol)] vs P [bar]
+      real*8 He3_dnde      ! Density of state dN/dE vs P [bar]
+
+      real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
+
+      real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
+      real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
+      real*8 he3_swvel_per ! Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
+
+      real*8 He3_Ds_exp    ! spin diffusion coeff. in superfluid He3 (measured)
+      real*8 He3_Dn_exp    ! spin diffusion in normal He3
+      real*8 He3_D_exp     ! combined normal + superfluid spin diffusion
+
+      real*8 He3_susept    ! Suseptibility [sgs] vs P [bar], T [mK]
+
+      real*8 He3_tau_r     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+      real*8 He3_tau_f     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+
+      real*8 He3_yosida    ! Yosida function vs T/Tc
+      real*8 He3_Z0        ! Z0 vs P [bar]
+      real*8 He3_F0a       ! F0A vs P [bar]

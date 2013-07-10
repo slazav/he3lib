@@ -1,0 +1,14 @@
+! common block for using he3b_legg_rot1d
+
+       common /BLK_LEGG_EQ/
+     .    Hz,     ! Magnetic field along z axis [gauss]
+     .    Hx,     ! Magnetic field along x axis [gauss] - radio-freq field
+     .    W0,     ! Frame rotation velocity [rad/s] - radio-freq
+     .    Flegg,  ! Leggett frequency [Hz]
+     .    Diff,   ! spin diffusion coeff [cm**2/sec]
+     .    Cpar,   ! Parallell spin wave velocity [cm/s]
+     .    dCpar,  ! dC/dz (used for non-uniform aerogel calculations)
+     .    Tf,     ! Leggett-Takagi relaxation (Tf, not Tr!) [s]
+     .    T1      ! extra relaxation [...]
+
+        real*8 Hz, Hx, W0, Flegg, Diff, Cpar, dCpar, Tf, T1
