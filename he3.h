@@ -1,11 +1,16 @@
 extern struct{
-   double he3_pabn_, he3_tabn_, he3_pa_;
+   double he3_pabn_,
+          he3_tabn_,
+          he3_psmin_,
+          he3_tsmin_,
+          he3_pa_;
    double he3_gyro_, he3_amass_;
    double ana, r, hc, akb, pi;
    /* order in important - see common block in he3.fh */
 } he3_const_;
 
 double he3_pmelt_(double *T);  /* Melting pressure [bars] vs T [mK] */
+double he3_pvap_(double *T);   /* Vapor pressure [bar] vs T [K] */
 double he3_tc_(double *P);     /* T_c [mK] vs P [bar] */
 double he3_tab_(double *P);    /* T_ab [mK] vs P [bar] */
 

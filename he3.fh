@@ -3,6 +3,8 @@ C Constants
 
       real*8 he3_pabn   ! A-B-Normal crit.pt, bar
       real*8 he3_tabn   ! A-B-Normal crit.pt, mK
+      real*8 he3_psmin  ! Melting curve minimum, mK (Daunt, 1959)
+      real*8 he3_tsmin  ! Melting curve minimum, mK (Daunt, 1959)
       real*8 he3_pa     ! A-N-Solid crit.pt, bar
       real*8 he3_gyro   ! Gyromagnetic ratio
       real*8 he3_amass  ! He3 atom mass, g
@@ -13,11 +15,13 @@ C Constants
       real*8 PI
 
       common /he3_const/
-     .  he3_Pabn, he3_Tabn, he3_Pa, he3_gyro, he3_amass,
+     .  he3_pabn, he3_tabn, he3_psmin, he3_tsmin,
+     .  he3_pa, he3_gyro, he3_amass,
      .  ANA, HC, R, AKB, PI
 
 C Functions
       real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
+      real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]
       real*8 He3_Tc        ! T_c [mK] vs P [bar]
       real*8 He3_Tab       ! T_ab [mK] vs P [bar]
 

@@ -1,11 +1,16 @@
 function plot_diff()
   find_figure('Spin diffusion'); clf; hold on;
-  for pres=0:1:20;
-    temp=0:0.01:5;
-    plot(temp, he3_d_exp(pres, temp), 'g-');
-%    plot(temp, he3_ds_exp(pres, temp), 'r-');
-%    plot(temp, he3_dn_exp(pres, temp), 'b-');
-  end
+  title('Spin diffusion');
+
+  pres=0:0.1:36;
+  temp=0:0.01:5;
+  pp = repmat(pres', 1, length(temp));
+  tt = repmat(temp, length(pres), 1);
+  sigproc.plot_3di(temp,pres, he3_d_exp(pp, tt)');
+  plot(temp, he3_pmelt(temp), 'b-');
+  plot(he3_tab(pres), pres, 'b-');
+  plot(he3_tc(pres), pres, 'b-');
+
   xlabel('temperature, mK');
-  ylabel('Leggett freq^2, Hz^2');
+  ylabel('pressure, bar');
 end
