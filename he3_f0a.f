@@ -19,5 +19,5 @@
         IFAIL=1
         XCAP=((P-XMIN)-(XMAX-P))/(XMAX-XMIN)
         call E02AEE(M1,A,XCAP,He3_F0a,IFAIL)
-        if (IFAIL.NE.0) print *,'Error in E02AEE :',IFAIL
+        if (IFAIL.NE.0) He3_F0a=NaN
       end

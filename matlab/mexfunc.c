@@ -39,7 +39,6 @@ mexFunction(int nlhs, mxArray *plhs[],
 
   for (i=0; i<m*n; i++){
     out[i] = FUNC(in+i);
-    if (out[i]<0) out[i]=NAN;
   }
   return;
 #endif
@@ -86,7 +85,6 @@ mexFunction(int nlhs, mxArray *plhs[],
 
   for (i=0; i<m*n; i++){
     out[i] = FUNC(in1+(mode==1?0:i), in2+(mode==2?0:i));
-    if (out[i]<0) out[i]=NAN;
   }
   return;
 #endif

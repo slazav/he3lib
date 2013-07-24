@@ -50,7 +50,7 @@
           He3_Pmelt = (25.16D0 + 20.08201D0 * (T/1D3)**1.517083D0)
      .                * 0.980665D0
         else
-          He3_Pmelt = -1D0
+          He3_Pmelt = NaN
         endif
         return
       end

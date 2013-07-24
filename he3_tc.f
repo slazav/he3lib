@@ -15,7 +15,7 @@
      .       - .57248644D-5*P**4
      .       + .53010918D-7*P**5
         else
-          He3_Tc = -1D0
+          He3_Tc = NaN
         endif
         return
       end

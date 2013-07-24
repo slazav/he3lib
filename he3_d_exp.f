@@ -23,9 +23,9 @@
         call E02AEE(M1,A,XCAP,F,IFAIL)
         if (IFAIL.NE.0) then
           print *,'Error in E02AEE :',IFAIL
-          He3_Dn_exp = -1D0;
+          He3_Dn_exp = NaN;
         else if (he3_pmelt(T).lt.P.or.T.lt.He3_Tc(P)) then
-          He3_Dn_exp = -1D0;
+          He3_Dn_exp = NaN;
         else
 C       .89 accounts fo Grewall scale.
           DT2F=(F*0.89D0**2)
@@ -64,13 +64,13 @@ C       .89 accounts fo Grewall scale.
      ,              A,NA,WORK,NWORK,IFAIL)
         if (IFAIL.EQ.2) THEN
           print *,'Y out of range.'
-          He3_Ds_exp=-1D0
+          He3_Ds_exp=NaN
         else if (IFAIL.EQ.3) THEN
           print *,'X out of range.'
-          He3_Ds_exp=-1D0
+          He3_Ds_exp=NaN
         else if (IFAIL.NE.0) THEN
           print *,'Error:',IFAIL
-          He3_Ds_exp=-1D0
+          He3_Ds_exp=NaN
         else
           He3_Ds_exp = F(1)*he3_swvel_par(P,T)**(.6666666666666D0)
         end if

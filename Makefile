@@ -3,14 +3,15 @@
 #  -Wintrinsic-shadow -Wline-truncation\
 #  -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
 #  -Wline-truncation -Wintrinsics-std -Wsurprising -Wno-tabs -Wunderflow\
-#  -Wno-unused-parameter -Wno-align-commons
+#  -Wno-unused-parameter -Wno-align-commons -fno-range-check
 
 # gfortran parameters
 FFLAGS= -Werror -Wconversion\
   -Wline-truncation\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
-  -Wno-unused-parameter
+  -Wno-unused-parameter\
+  -fno-range-check
 
 LIBNAME=libhe3
 all: $(LIBNAME).a $(LIBNAME).so
@@ -35,8 +36,8 @@ LEGG_EQ_OBJS=
 
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
-  $(patsubst %,../libs/%.o,$(ADDOBJS))\
-  $(patsubst %,../legg_eq/%.o,$(LEGG_EQ_OBJS))
+  $(patsubst %,libs/%.o,$(ADDOBJS))\
+  $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
