@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{euscript}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{color}
+\usepackage{epsfig}
+
+\begin{document}
+
+\section{$^3$He library}
+
+\subsection*{Usage}
+
+This library provides some constant and functions, related with $^3$He properties.
+
+Supported Languages:
+
+\begin{itemize}
+
+\item[\bf Fortran]
+You should use {\tt he3.fh} include file and link with {\tt libhe3} library.
+
+\item[\bf C]
+You should use {\tt he3.h} include file and link with {\tt libhe3} library.
+Lowercase names with underscore should be used.
+
+\item[\bf Matlab]
+To compile {\tt mexglx} files you should run compile.m script from {\tt Matlab}
+folder. Lowercase names should be used.
+Functions which takes 1 argument can be used with array or matrix arguments.
+Functions which takes 2 arguments can work either with two equal size matrices
+or with number + matrix, or matrix+number. Examples:
+
+\begin{verbatim}
+>> he3_pabn
+ans =
+  21.2200
+\end{verbatim}
+
+\begin{verbatim}
+>> he3_tab(1:5)
+ans =
+  1.0614    1.1810    1.2895    1.3882    1.4782
+}
+\end{verbatim}
+
+\end{itemize}
+
+\subsection*{Phase diagram and molar volume}
+
+
+\subsection*{Fermi Liquid parameters}
+
+\end{document}
+
