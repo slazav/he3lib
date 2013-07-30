@@ -17,12 +17,20 @@ function plot_pars()
   plot(pdat,  fdat, 'g*');
   plot(press, F0a1(press), 'm-');
 
+  % http://spindry.phys.northwestern.edu/3He Calculator/Tabfoot.html
+  % Ramm, H., P. Pedroni, J.R. Thompson, and H. Meyer, J. Low Temp. Phys. 2, 539 (1970).
+  % The fit coefficients are from Halperin, W.P., and E. Varoquax, Helium Three ed.
+  %   W.P. Halperin, and L.P. Pitaevskii, Elsevier (1990). 
+  p = [-1.823e-6 2.057e-4 -6.232e-3 -7.007e-1];
+  plot(press, polyval(p, press), 'k-')
+
   plot(pdatE,  fdatE, 'r*');
 
-  legend('Greywall 1983, Mukharskii program', ...
+  legend('Greywall-1983, Mukharskii program', ...
          'Einzel JLTP 84 -- Samuli', ...
-         'Vollhardt-Wolfle - Wheately(1975)', ...
-         'Erkki, Thuneberg -- ve')
+         'Vollhardt-Wolfle - Wheately-1975', ...
+         'Erkki, Thuneberg -- ve', ...
+         'Ramm-1970, Halperin-1990');
 
 end
 

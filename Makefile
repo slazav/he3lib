@@ -22,8 +22,8 @@ FC=gfortran
 
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_pmelt he3_pvap he3_tab he3_tc\
-        he3_vm he3_meff he3_flegg he3_d_exp\
-        he3_gammaf he3_dnde he3_vf he3_pf\
+        he3_vm  he3_flegg he3_d_exp\
+        he3_gammaf he3_pf\
         he3_yosida he3_z0 he3_f0a he3_susept\
         he3_swvel he3_tau_lt
 
