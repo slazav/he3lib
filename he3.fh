@@ -19,6 +19,9 @@ C Constants
      .  he3_pa, he3_gyro, he3_amass,
      .  ANA, HC, R, AKB, PI
 
+      real*8 NaN
+      parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
+
 C Functions
       real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
       real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]

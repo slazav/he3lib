@@ -21,6 +21,6 @@
           call E02AEE(M1,A,XCAP,He3_yosida,IFAIL)
           if (IFAIL.NE.0)print *,'Error in E02AEE :',IFAIL
         else
-          He3_yosida = -1D0
+          He3_yosida = NaN
         end if
       end

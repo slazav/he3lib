@@ -19,7 +19,7 @@
      .       + .17038992D-5*Pr**5
         endif
         if (P.lt.0D0.or.P.gt.He3_Pmelt(He3_Tab)) then
-          He3_Tab = -1D0
+          He3_Tab = NaN
         endif
         return
       end

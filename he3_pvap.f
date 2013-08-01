@@ -17,7 +17,7 @@
      .     + 0.00505486D0 * T**4
           He3_Pvap = dexp(He3_Pvap) * 1.333224D-3 ! torr -> bar
         else
-          He3_Pvap = -1D0
+          He3_Pvap = NaN
         endif
         return
       end

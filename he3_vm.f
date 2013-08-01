@@ -18,6 +18,6 @@
      .       + 0.94759780D-4*P**4
      .       - 0.91253577D-6*P**5
         else
-          He3_Vm = -1D0
+          He3_Vm = NaN
         endif
       end
