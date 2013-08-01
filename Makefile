@@ -10,7 +10,7 @@ FFLAGS= -Werror -Wconversion\
   -Wline-truncation\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
-  -Wno-unused-parameter
+  -Wno-unused-parameter -fPIC
 
 LIBNAME=libhe3
 all: $(LIBNAME).a $(LIBNAME).so
@@ -30,13 +30,12 @@ LIBOBJS=he3_const he3_pmelt he3_pvap he3_tab he3_tc\
 ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
 
 # Legget equations
-#LEGG_EQ_OBJS=he3b_legg_rot1d
-LEGG_EQ_OBJS=
+LEGG_EQ_OBJS=he3b_legg_rot1d
 
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
-  $(patsubst %,../libs/%.o,$(ADDOBJS))\
-  $(patsubst %,../legg_eq/%.o,$(LEGG_EQ_OBJS))
+  $(patsubst %,libs/%.o,$(ADDOBJS))\
+  $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
@@ -45,4 +44,4 @@ $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
 
 clean:
-	rm -f *.a *.so *.o
+	rm -f *.a *.so *.o libs/*.o legg_eq/*.o
