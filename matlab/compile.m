@@ -1,4 +1,4 @@
-function compile_libhe3()
+function compile()
 
   func_i0 = {'he3_pabn' 'he3_tabn' 'he3_psmin' 'he3_tsmin'...
              'he3_pa' 'he3_gyro' 'he3_amass'};
@@ -12,10 +12,18 @@ function compile_libhe3()
   func_i2 = {'he3_flegg' 'he3_swvel' 'he3_swvel_par' 'he3_swvel_per' ...
              'he3_ds_exp' 'he3_dn_exp' 'he3_d_exp' 'he3_susept'};
 
-  function comp(name, narg)
+  function comp_octave(name, narg)
+    mex(['-DFUNC=' name '_ -DNARGIN=' num2str(narg)],...
+         '--output', name, '-lhe3', '-L.', '-Wl,--rpath=.',...
+         'mexfunc.c');
+  end
+  function comp_matlab(name, narg)
     mex(['-DFUNC=' name '_ -DNARGIN=' num2str(narg)],...
          '-output', name, 'mexfunc.c', './libhe3.so');
   end
+
+  if strcmp(ver().Name, 'Octave') comp=@comp_octave;
+  else comp=@comp_matlab; end
 
   for i = 1:length(func_i0) comp(func_i0{i}, 0); end
   for i = 1:length(func_i1) comp(func_i1{i}, 1); end
