@@ -5,8 +5,7 @@
         implicit none
         include 'he3.fh'
         real*8 P,T,Y,TTC,Z0
-        He3_susept = 0.25D0*he3_gyro**2*HC*He3_dNdE(P)*
-     .               HC*ANA/(1D0+He3_z0(P)/4D0)/He3_Vm(P)
+        He3_susept = he3_chi0(P)
         TTC=T/He3_Tc(P)
         if (TTC.LT.1D0) then
           Z0 = He3_z0(P)

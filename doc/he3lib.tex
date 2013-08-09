@@ -9,49 +9,141 @@
 
 \begin{document}
 
-\section{$^3$He library}
+\title{$^3$He library}
+\date{\today}
+\author{V.Z.}
+\maketitle
 
 \subsection*{Usage}
 
 This library provides some constant and functions, related with $^3$He properties.
 
-Supported Languages:
+\noindent Supported Languages:
 
-\begin{itemize}
+{\bf Fortran.}
+You can use {\tt he3.fh} include file and {\tt libhe3} library in
+fortran programs.
 
-\item[\bf Fortran]
-You should use {\tt he3.fh} include file and link with {\tt libhe3} library.
+{\bf C.}
+You can use {\tt he3.h} include file and {\tt libhe3} library in C programs.
+Lowercase names with underscore should be used (like {\tt he3\_pf\_}).
 
-\item[\bf C]
-You should use {\tt he3.h} include file and link with {\tt libhe3} library.
-Lowercase names with underscore should be used.
-
-\item[\bf Matlab]
-To compile {\tt mexglx} files you should run compile.m script from {\tt Matlab}
+{\bf Matlab, Octave.}
+To compile {\tt mex} files you should run compile.m script in the {\tt matlab}
 folder. Lowercase names should be used.
 Functions which takes 1 argument can be used with array or matrix arguments.
 Functions which takes 2 arguments can work either with two equal size matrices
-or with number + matrix, or matrix+number. Examples:
+or number + matrix, or matrix + number.
 
-\begin{verbatim}
->> he3_pabn
-ans =
-  21.2200
-\end{verbatim}
+\subsection*{General}
 
-\begin{verbatim}
->> he3_tab(1:5)
-ans =
-  1.0614    1.1810    1.2895    1.3882    1.4782
-}
-\end{verbatim}
+\medskip
 
-\end{itemize}
+\begin{tabular}{lp{9cm}}
+\tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
+\tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
+\tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\newline
+                     (absolute value!)\\
+\tt const\_na      & Avogadro constant $N_A = 6.02214129 \cdot 10^{23}$~[1/mol]\\
+\tt const\_kb      & Boltsman constant $k_B = 1.3806488 \cdot 10^{-16}$~[sgs]\\
+\tt const\_r       & R-gas constant $R = 8.314472 \cdot 10^{7}$~[sgs]\\
+\tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[sgs]\\
+\tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[sgs]\\
+\tt const\_pi      & $\pi = 3.1415926535897932$\\
 
-\subsection*{Phase diagram and molar volume}
+\end{tabular}
+
+\eject
+
+\subsection*{Phase diagram}
+
+Vapor pressure and critical point are from the {1962~$^3$He scale of
+temperatures}. Melting curve at 0.9 -- 250~mK and triple points on
+melting curve are from {PLTS-2000 temperature scale} ($\approx 2$\%
+difference from {Greywall-86} scale). Melting curve for higher
+temperatures is from {Osborne,Abraham,Weinstock-1951} and
+{Mills,Grilly-1955}. Superfluid transition, AB-transition and A-B-Normal
+triple point are from {Graywall-86}. See more information in the source
+file {\tt he3\_phase.f}.
+
+\medskip
+
+\begin{tabular}{lp{9cm}}
+\tt he3\_pcr      & Gas-liquid critical point pressure, $78.111\cdot 10^{-3}$~[bar] \\
+\tt he3\_tcr      & Gas-liquid critical point temperature, 3.324~[K] \\
+\tt he3\_pvap(T)  & Vapor pressure [bar] vs temperature~[K],\newline
+                    $ T = 0.2 - 3.324$~K \\
+\tt he3\_pmelt(T) & Melting pressure [bar] vs temperature~[K],\newline
+                    $ T = 0.0009 - 31$~K\\
+\tt he3\_psmin    & Melting curve minimum pressure, $29.3113$~[bar]\\
+\tt he3\_tsmin    & Melting curve minimum temperature, $0.31524$~[K]\\
+\tt he3\_tc(P)    & Superfluid transition temperature [mK] vs pressure~[bar],\newline
+                    $ P = 0 - 34.358 $~bar\\
+\tt he3\_ta       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
+\tt he3\_pa       & Superfluid trans. at melting curve, pressure, 34.3407~[bar]\\
+\tt he3\_tb       & A-B trans. at melting curve, temp., 1.1896~[mK]\\
+\tt he3\_pb       & A-B trans. at melting curve, pressure, 34.3609~[bar]\\
+\tt he3\_tneel    & Neel transition at melting curve, temp., 0.902~[mK]\\
+\tt he3\_pneel    & Neel transition at melting curve, pressure, 34.3934~[bar]\\
+\tt he3\_tab(P)   & A-B transition temperature [mK] vs pressure [bar],\newline
+                    $ P = 0 - 34.3609 $~bar, below 21.22 bar is equal to {\tt he3\_tc}\\
+\tt he3\_tabn     & A-B-Normal point temperature, 2.273~[mK]\\
+\tt he3\_pabn     & A-B-Normal point pressure, 21.22~[bar]\\
+\end{tabular}
+
+\eject
+
+\subsection*{Fermi-liquid parameters}
+
+Fermi-liquid parameters according to {Wheatley-75} table. Values are
+calculated using experimental data for molar volume, speed of sound,
+magnetic temperature $T^\star$, collected by {Wheatley-75} and heat
+capacity ($\gamma_f=C/RT$) measured by {Graywall-86}. Argument is
+pressure, [bar] in the range 0 -- 34.36. See more information in the
+source file {\tt he3\_fermi.f}.
+
+Measured values:
+
+\medskip
+
+\begin{tabular}{lp{9cm}}
+\tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol]\\
+\tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s]\\
+\tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
+\tt he3\_tmag(P)   & Magnetic temperature $T^\star$,~[K]\newline\\
+\end{tabular}
+
+Derived values:
+
+\medskip
+
+\begin{tabular}{lp{9cm}}
+\tt he3\_rho(P)    & Density $\rho = \mu/v_m$,~[g/cm$^3$]\\
+\tt he3\_2n0(P)    & $\displaystyle 2N(0) = \frac{\gamma_f}{v_m}
+                     \ \frac{3 N_A}{k_B \pi^2}$\\
+\tt he3\_pf(P)     & $\displaystyle p_F = h \left(\frac{3}{8\pi}
+                     \ \frac{N_A}{v_m}\right)^{1/3}$,~[g cm/s]\\
+\tt he3\_meff(P)   & $\displaystyle m^\star = \frac{h^3}{8\pi}
+                     \ \frac{2N(0)}{p_F}$,~[g]\\
+\tt he3\_mm(P)     & $m^\star/m_3$\\
+\tt he3\_vf(P)     & $\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
+\tt he3\_chi0(P)   & Normal phase susceptibility $\chi_N$\\
+
+\tt he3\_f0s(P)    &$\displaystyle F_0^s = 3m^\star m_3 c_1^2 / p_F^2 - 1$\\
+\tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
+\tt he3\_f0a(P)    &$\displaystyle F_0^a$\\
+\tt he3\_f1a(P)    &$\displaystyle F_1^a$\\
+\tt he3\_z0(P)     &$\displaystyle Z_0 = 4 (3 k_B T^\star m^\star / p_F^2 - 1)$\\
 
 
-\subsection*{Fermi Liquid parameters}
+\tt he3\_a(P)      &Average atomic spacing,
+                    $\displaystyle a=(v_m/N_A)^{1/3}$, \AA\\
+\tt he3\_gdk(P)    &Average dipolar coupling energy,
+                    $\displaystyle g_d/k_B = \frac{2\pi\gamma^2\hbar^2}{3 v_m k_B}$,~[K]\\
+\tt he3\_tfeff(P)  &Effective fermi temperature,
+                    $\displaystyle T_{F_{eff}} = \frac{\pi^2}{2\gamma_f}$,~[K]\\
+
+\end{tabular}
 
 \end{document}
 

@@ -1,3 +1,3 @@
 all:
 clean:
-	rm -f *.mexglx
+	rm -f *.mexglx *.mex
