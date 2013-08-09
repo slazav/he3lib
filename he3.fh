@@ -1,56 +1,78 @@
 C Constants
 !      implicit none
 
+      real*8 he3_gyro   ! Gyromagnetic ratio
+      real*8 he3_amass  ! He3 atom mass, g
+      real*8 he3_mmass  ! He3 molar mass, g/mol
+      real*8 const_na   ! Avogadro constant, 1/mole
+      real*8 const_kb   ! SGS
+      real*8 const_r    ! R-gas constant, kb*na, SGS
+      real*8 const_h    ! SGS
+      real*8 const_hbar ! SGS h/2pi
+      real*8 const_pi   ! 3.1415...
+      real*8 he3_pcr    ! Gas-liquid critical point pressure, bar
+      real*8 he3_tcr    ! Gas-liquid critical point temperature, K
       real*8 he3_pabn   ! A-B-Normal crit.pt, bar
       real*8 he3_tabn   ! A-B-Normal crit.pt, mK
       real*8 he3_psmin  ! Melting curve minimum, mK (Daunt, 1959)
       real*8 he3_tsmin  ! Melting curve minimum, mK (Daunt, 1959)
       real*8 he3_pa     ! A-N-Solid crit.pt, bar
-      real*8 he3_gyro   ! Gyromagnetic ratio
-      real*8 he3_amass  ! He3 atom mass, g
-      real*8 ANA        ! Avogadro constant, 1/mole
-      real*8 HC         ! R-gas constant, SGS
-      real*8 R          ! SGS
-      real*8 AKB        ! SGS
-      real*8 PI
+      real*8 he3_ta     ! A-N-Solid crit.pt, mK
+      real*8 he3_pb     ! A-B-Solid crit.pt, bar
+      real*8 he3_tb     ! A-B-Solid crit.pt, mK
+      real*8 he3_pneel  ! Neel, bar
+      real*8 he3_tneel  ! Neel, mK
 
       common /he3_const/
-     .  he3_pabn, he3_tabn, he3_psmin, he3_tsmin,
-     .  he3_pa, he3_gyro, he3_amass,
-     .  ANA, HC, R, AKB, PI
+     .  he3_gyro, he3_amass, he3_mmass,
+     .  const_na, const_kb, const_r, const_h, const_hbar,
+     .  const_pi,
+     .  he3_pcr, he3_tcr, he3_pabn, he3_tabn,
+     .  he3_psmin, he3_tsmin, he3_pa, he3_ta,
+     .  he3_pb, he3_tb, he3_pneel, he3_tneel
 
       real*8 NaN
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
 
 C Functions
-      real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
+      ! phase diagram
       real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]
+      real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
       real*8 He3_Tc        ! T_c [mK] vs P [bar]
       real*8 He3_Tab       ! T_ab [mK] vs P [bar]
 
+      ! Fermi-liquid
       real*8 He3_Vm        ! Molar Volume [cm**3/mole] vs P [bar]
+      real*8 He3_gammaf    ! R-Gas constant GAMMA=C/RT [1/(K*mol)] vs P [bar]
+      real*8 He3_c1        ! First sound velocity [cm/s] vs pressure [bar]
+      real*8 He3_tmag      ! Magnetic temperature [K] vs pressure [bar]
+
+      real*8 He3_rho       ! Density [g/cm^3] vs P [bar]
+      real*8 He3_2N0       ! 2N_0 vs P [bar]
+
+      real*8 He3_mm        ! Effective mass / atom mass vs P [bar]
       real*8 He3_Meff      ! Effective mass [g] vs P [bar]
       real*8 He3_Pf        ! Fermi momentum [sgs] vs P [bar]
       real*8 He3_Vf        ! Fermi velocity [cm/s] vs P [bar]
+      real*8 He3_Chi0      ! Susceptibility vs P [bar]
+      real*8 He3_F0a       ! F0a vs P [bar]
+      real*8 He3_F0s       ! F0s vs P [bar]
+      real*8 He3_F1a       ! F1a vs P [bar]
+      real*8 He3_F1s       ! F1s vs P [bar]
+      real*8 He3_Z0        ! Z0 vs P [bar]
+      real*8 He3_a         ! average atomic spacing, angstr.
+      real*8 He3_gdk       ! average dipolar coupling energy, K
+      real*8 He3_Tfeff     ! effective fermi temperature, K
 
-      real*8 He3_gammaf    ! R-Gas constant GAMMA=C/RT [1/(K*mol)] vs P [bar]
-      real*8 He3_dnde      ! Density of state dN/dE vs P [bar]
 
       real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
-
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
       real*8 he3_swvel_per ! Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
-
       real*8 He3_Ds_exp    ! spin diffusion coeff. in superfluid He3 (measured)
       real*8 He3_Dn_exp    ! spin diffusion in normal He3
       real*8 He3_D_exp     ! combined normal + superfluid spin diffusion
-
       real*8 He3_susept    ! Suseptibility [sgs] vs P [bar], T [mK]
-
       real*8 He3_tau_r     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
       real*8 He3_tau_f     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
-
       real*8 He3_yosida    ! Yosida function vs T/Tc
-      real*8 He3_Z0        ! Z0 vs P [bar]
-      real*8 He3_F0a       ! F0A vs P [bar]

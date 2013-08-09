@@ -14,5 +14,5 @@
         real*8 TTC, P
         P=20D0
         He3_tau_f = 1D0 /
-     .    (4D0*PI**2 *He3_Flegg(P, TTC)*He3_tau_r(TTC))
+     .    (4D0*const_pi**2 *He3_Flegg(P, TTC)*He3_tau_r(TTC))
       end

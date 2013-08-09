@@ -24,7 +24,7 @@
         if (IFAIL.NE.0) then
           print *,'Error in E02AEE :',IFAIL
           He3_Dn_exp = NaN;
-        else if (he3_pmelt(T).lt.P.or.T.lt.He3_Tc(P)) then
+        else if (he3_pmelt(T/1D3).lt.P.or.T.lt.He3_Tc(P)) then
           He3_Dn_exp = NaN;
         else
 C       .89 accounts fo Grewall scale.
