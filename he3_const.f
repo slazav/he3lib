@@ -1,7 +1,7 @@
 ! constants
 ! Origin: Mukharskii, Dmitriev
 
-      block data
+      block data he3_const_block
         implicit none
         include 'he3.fh'
         data
@@ -17,7 +17,8 @@
      .    he3_Pcr   /78.111D-3/,
      .    he3_Tcr   /3.324D0/,
      .    he3_Pabn   /21.22D0/,      ! A-B-Normal crit.pt, bar
-     .    he3_Tabn   /2.273D0/,      ! A-B-Normal crit.pt, mK
+     .    he3_Tabn   /2.2311D0/,     ! A-B-Normal crit.pt, mK.
+                                     ! Graywall -> PLTC correction (2.273->2.2311)
      .    he3_Psmin  /29.3113D0/,    ! Melting curve minimum, bar (PLTS2000)
      .    he3_Tsmin  /0.31524D0/,    ! Melting curve minimum, K (PLTS2000)
      .    he3_Pa     /34.3407D0/,    ! A-N-Solid crit.pt, bar (PLTS2000)

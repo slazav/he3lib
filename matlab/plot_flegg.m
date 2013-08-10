@@ -1,5 +1,5 @@
 function plot_flegg()
-  find_figure('Leggett freq'); clf; hold on;
+  figure; clf; hold on;
   title('Leggett freq^2, Hz^2');
 %  for pres=0:1:18;
 %    temp=0:0.01:1;

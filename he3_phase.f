@@ -26,11 +26,9 @@
 
 ! Melting pressure [bars] vs T [mK]
 ! Arg: T = 0.0009 .. 31 [K]
-! Note: Wrong for T<2e-4K?? - check range!
 ! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1985)
 ! Ref: Osborne, Abraham, Weinstock, 1951, 1952
 ! Ref: Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955)
-! Origin: Mukharskii, Dmitriev, Zavjalov
 ! see also: Johnson, Symko, Weatley -- Phis. Rev. Lett. 23, 1017 (1969)
       function He3_Pmelt(T)
         implicit none
@@ -53,17 +51,6 @@
      .     + 2.6833087D1 * T**8
      .     - 4.5875709D0 * T**9
          He3_Pmelt = He3_Pmelt * 10D0 ! MPa -> bar
-!!         Greywall. Phys. Rev.B v.33 #11 p.7520
-!          He3_Pmelt = He3_Pa
-!     .     - 0.19652970D-1*(T*1D3)**(-3)
-!     .     - 0.61880268D-1*(T*1D3)**(-2)
-!     .     - 0.78803055D-1*(T*1D3)**(-1)
-!     .     + 0.13050600D0
-!     .     - 0.43519381D-1*(T*1D3)
-!     .     + 0.13752791D-3*(T*1D3)**2
-!     .     - 0.17180436D-6*(T*1D3)**3
-!     .     - 0.22093906D-9*(T*1D3)**4
-!     .     + 0.85450245D-12*(T*1D3)**5
         else if (T.gt.0.25D0.and.T.le.0.5D0) then
 !         Interpolation
           He3_Pmelt = 33.2505D0
@@ -96,6 +83,30 @@
         return
       end
 
+! Greywall-86 melting pressure temperature scale [bars] vs T [mK]
+! Arg: T = 0.0009 .. 31K [K]
+! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1986)
+      function He3_Pmelt_gr(T)
+        implicit none
+        include 'he3.fh'
+        real*8 T
+        if (T.gt.9D-4.and.T.le.0.25D0) then
+          He3_Pmelt_gr = He3_Pa
+     .     - 0.19652970D-1 * (T*1D3)**(-3)
+     .     + 0.61880268D-1 * (T*1D3)**(-2)
+     .     - 0.78803055D-1 * (T*1D3)**(-1)
+     .     + 0.13050600D0
+     .     - 0.43519381D-1 * (T*1D3)
+     .     + 0.13752791D-3 * (T*1D3)**2
+     .     - 0.17180436D-6 * (T*1D3)**3
+     .     - 0.22093906D-9 * (T*1D3)**4
+     .     + 0.85450245D-12* (T*1D3)**5
+        else
+          He3_Pmelt_gr = He3_Pmelt(T)
+        endif
+        return
+      end
+
 ! T_c [mK] vs P [bar]
 ! Arg: P = 0 .. Pa [bar]
 ! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1985)
@@ -110,6 +121,7 @@
      .       + .25685169D-3*P**3
      .       - .57248644D-5*P**4
      .       + .53010918D-7*P**5
+             He3_Tc = 0.96756D0*He3_Tc + 0.031803D0  ! Greywall -> PLTC temp scale
         else
           He3_Tc = NaN
         endif
@@ -124,18 +136,19 @@
         implicit none
         include 'he3.fh'
         real*8 P, Pr
-        Pr = P - He3_Pabn
+        Pr = P - 21.22D0
         if (Pr.lt.0D0) then
           He3_Tab=He3_Tc(P)
         else
-          He3_Tab= He3_Tabn
+          He3_Tab= 2.273D0
      .       - .10322623D-1*Pr
      .       - .53633181D-2*Pr**2
      .       + .83437032D-3*Pr**3
      .       - .61709783D-4*Pr**4
      .       + .17038992D-5*Pr**5
+          He3_Tab = 0.96756D0*He3_Tab + 0.031803D0  ! Greywall -> PLTC temp scale
         endif
-        if (P.lt.0D0.or.P.gt.He3_Pa) then
+        if (P.lt.0D0.or.P.gt.He3_Pb) then
           He3_Tab = NaN
         endif
         return

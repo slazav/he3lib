@@ -1,5 +1,5 @@
 function plot_phase_diag()
-  find_figure('He3 phase diagram'); clf;
+  figure; clf;
   subplot(2,2,1); hold on;
   temp=0.3:0.01:3;
   plot(temp, he3_pmelt(temp/1000), 'b-');

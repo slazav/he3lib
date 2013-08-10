@@ -17,16 +17,20 @@ extern struct{
    /* order in important - see common block in he3.fh */
 } he3_const_;
 
+/* Phase diagram functions */
 double he3_pvap_(double *T);   /* Vapor pressure [bar] vs T [K] */
 double he3_pmelt_(double *T);  /* Melting pressure [bars] vs T [K] */
+double he3_pmelt_gr_(double *T);  /* Greywall-86 melting pressure [bars] vs T [K] */
 double he3_tc_(double *P);     /* T_c [mK] vs P [bar] */
 double he3_tab_(double *P);    /* T_ab [mK] vs P [bar] */
 
+/* Fermi-liquid values, measured */
 double he3_vm_(double *P);     /* Molar Volume [cm**3/mole] vs P [bar] */
 double he3_gammaf_(double *P); /* R-Gas constant GAMMA=C/RT [1/(K*mol)] vs P [bar] */
 double he3_c1_(double *P);     /* First sound velosity [cm/s] vs P [bar] */
 double he3_tmag_(double *P);   /* Magnetic temperature [K] vs P [bar] */
 
+/* Fermi-liquid values, derived */
 double he3_rho_(double *P);    /* Density [g/cm^3] vs P [bar] */
 double he3_2n0_(double *P);    /* 2N0 vs P [bar] */
 double he3_mm_(double *P);     /* Effective mass / atom mass vs P [bar] */
@@ -43,6 +47,14 @@ double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
 
+/* Gap */
+double he3_yosida_(double *ttc);             /* Yosida function vs T/Tc */
+double he3_bcsgap_(double *ttc);             /* BCS energy gap */
+double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correction to the BCS gap*/
+double he3_z3_(double *ttc, double *gap);
+double he3_z5_(double *ttc, double *gap);
+double he3_z7_(double *ttc, double *gap);
+
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
 
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
@@ -58,4 +70,3 @@ double he3_susept_(double *P, double *ttc); /* Suseptibility [sgs] vs P [bar], T
 double he3_tau_r_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 double he3_tau_f_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 
-double he3_yosida_(double *ttc);    /* Yosida function vs T/Tc */

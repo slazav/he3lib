@@ -3,9 +3,12 @@
 \usepackage{amssymb}
 \usepackage{euscript}
 \usepackage{graphicx}
-\graphicspath{{images/}}
+\graphicspath{{pics/}}
 \usepackage{color}
 \usepackage{epsfig}
+
+\renewcommand{\arraystretch}{1.5}
+\renewcommand{\tabcolsep}{1mm}
 
 \begin{document}
 
@@ -16,7 +19,7 @@
 
 \subsection*{Usage}
 
-This library provides some constant and functions, related with $^3$He properties.
+This library provides constant and functions, related with $^3$He properties.
 
 \noindent Supported Languages:
 
@@ -29,16 +32,23 @@ You can use {\tt he3.h} include file and {\tt libhe3} library in C programs.
 Lowercase names with underscore should be used (like {\tt he3\_pf\_}).
 
 {\bf Matlab, Octave.}
-To compile {\tt mex} files you should run compile.m script in the {\tt matlab}
+To compile {\tt mex} files you should run {\tt compile.m} script in the {\tt matlab}
 folder. Lowercase names should be used.
-Functions which takes 1 argument can be used with array or matrix arguments.
-Functions which takes 2 arguments can work either with two equal size matrices
-or number + matrix, or matrix + number.
+Functions which take 1 argument can be used with array or matrix argument.
+Functions which take 2 arguments can work either with two equal size matrices
+or with number + matrix or matrix + number.
 
+\subsection*{Location}
+\begin{itemize}
+\item[\bf GIT]  https://github.com/slazav/he3lib
+\item[\bf ROTA] /rota/programs/src/he3lib -- old, ``stable'' version.\\
+/home/slazav/he3lib/lib
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{General}
 
 \medskip
-
 \begin{tabular}{lp{9cm}}
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
 \tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
@@ -50,73 +60,84 @@ or number + matrix, or matrix + number.
 \tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[sgs]\\
 \tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[sgs]\\
 \tt const\_pi      & $\pi = 3.1415926535897932$\\
-
 \end{tabular}
+\medskip
+
+TODO: change $\gamma$ to negative value?
 
 \eject
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Phase diagram}
 
 Vapor pressure and critical point are from the {1962~$^3$He scale of
-temperatures}. Melting curve at 0.9 -- 250~mK and triple points on
-melting curve are from {PLTS-2000 temperature scale} ($\approx 2$\%
-difference from {Greywall-86} scale). Melting curve for higher
-temperatures is from {Osborne,Abraham,Weinstock-1951} and
+temperatures}. Melting curve at 0.9 -- 250~mK, minimum and triple points
+on melting curve are from {PLTS-2000 temperature scale}. Melting curve
+for higher temperatures is from {Osborne,Abraham,Weinstock-1951} and
 {Mills,Grilly-1955}. Superfluid transition, AB-transition and A-B-Normal
-triple point are from {Graywall-86}. See more information in the source
-file {\tt he3\_phase.f}.
+triple point are from {Graywall-86}; values are corrected to fit
+PLTS2000 temperature scale. See more information in the source file {\tt
+he3\_phase.f}.
 
 \medskip
-
 \begin{tabular}{lp{9cm}}
-\tt he3\_pcr      & Gas-liquid critical point pressure, $78.111\cdot 10^{-3}$~[bar] \\
-\tt he3\_tcr      & Gas-liquid critical point temperature, 3.324~[K] \\
 \tt he3\_pvap(T)  & Vapor pressure [bar] vs temperature~[K],\newline
                     $ T = 0.2 - 3.324$~K \\
+\tt he3\_pcr      & Gas-liquid critical point pressure, $78.111\cdot 10^{-3}$~[bar] \\
+\tt he3\_tcr      & Gas-liquid critical point temperature, 3.324~[K] \\
 \tt he3\_pmelt(T) & Melting pressure [bar] vs temperature~[K],\newline
                     $ T = 0.0009 - 31$~K\\
+\tt he3\_pmelt\_gr(T) & Same, but using Greywall-86 temperature scale at
+                    0.9--250~mK rather then PLTS2000\\
 \tt he3\_psmin    & Melting curve minimum pressure, $29.3113$~[bar]\\
 \tt he3\_tsmin    & Melting curve minimum temperature, $0.31524$~[K]\\
-\tt he3\_tc(P)    & Superfluid transition temperature [mK] vs pressure~[bar],\newline
-                    $ P = 0 - 34.358 $~bar\\
 \tt he3\_ta       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
 \tt he3\_pa       & Superfluid trans. at melting curve, pressure, 34.3407~[bar]\\
 \tt he3\_tb       & A-B trans. at melting curve, temp., 1.1896~[mK]\\
 \tt he3\_pb       & A-B trans. at melting curve, pressure, 34.3609~[bar]\\
 \tt he3\_tneel    & Neel transition at melting curve, temp., 0.902~[mK]\\
 \tt he3\_pneel    & Neel transition at melting curve, pressure, 34.3934~[bar]\\
+\tt he3\_tc(P)    & Superfluid transition temperature [mK] vs pressure~[bar],\newline
+                    $ P = 0 - 34.358 $~bar\\
 \tt he3\_tab(P)   & A-B transition temperature [mK] vs pressure [bar],\newline
                     $ P = 0 - 34.3609 $~bar, below 21.22 bar is equal to {\tt he3\_tc}\\
-\tt he3\_tabn     & A-B-Normal point temperature, 2.273~[mK]\\
+\tt he3\_tabn     & A-B-Normal point temperature, 2.2311~[mK]\\
 \tt he3\_pabn     & A-B-Normal point pressure, 21.22~[bar]\\
 \end{tabular}
+\medskip
 
 \eject
 
+\begin{figure}
+\includegraphics[scale=.6]{phase.eps}
+\end{figure}
+
+{\small\input{pics/phase.tex}}
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Fermi-liquid parameters}
 
 Fermi-liquid parameters according to {Wheatley-75} table. Values are
 calculated using experimental data for molar volume, speed of sound,
 magnetic temperature $T^\star$, collected by {Wheatley-75} and heat
 capacity ($\gamma_f=C/RT$) measured by {Graywall-86}. Argument is
-pressure, [bar] in the range 0 -- 34.36. See more information in the
+pressure, [bar] in the range 0 -- 34.4. See more information in the
 source file {\tt he3\_fermi.f}.
 
 Measured values:
 
 \medskip
-
 \begin{tabular}{lp{9cm}}
 \tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol]\\
 \tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s]\\
 \tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
 \tt he3\_tmag(P)   & Magnetic temperature $T^\star$,~[K]\newline\\
 \end{tabular}
+\medskip
 
 Derived values:
 
 \medskip
-
 \begin{tabular}{lp{9cm}}
 \tt he3\_rho(P)    & Density $\rho = \mu/v_m$,~[g/cm$^3$]\\
 \tt he3\_2n0(P)    & $\displaystyle 2N(0) = \frac{\gamma_f}{v_m}
@@ -129,7 +150,7 @@ Derived values:
 \tt he3\_vf(P)     & $\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
 \tt he3\_chi0(P)   & Normal phase susceptibility $\chi_N$\\
 
-\tt he3\_f0s(P)    &$\displaystyle F_0^s = 3m^\star m_3 c_1^2 / p_F^2 - 1$\\
+\tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
 \tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
 \tt he3\_f0a(P)    &$\displaystyle F_0^a$\\
 \tt he3\_f1a(P)    &$\displaystyle F_1^a$\\
@@ -137,13 +158,38 @@ Derived values:
 
 
 \tt he3\_a(P)      &Average atomic spacing,
-                    $\displaystyle a=(v_m/N_A)^{1/3}$, \AA\\
-\tt he3\_gdk(P)    &Average dipolar coupling energy,
+                    $\displaystyle a=(v_m/N_A)^{1/3}$,~\AA\\
+\tt he3\_gdk(P)    &Average dipolar coupling enegy,
                     $\displaystyle g_d/k_B = \frac{2\pi\gamma^2\hbar^2}{3 v_m k_B}$,~[K]\\
 \tt he3\_tfeff(P)  &Effective fermi temperature,
                     $\displaystyle T_{F_{eff}} = \frac{\pi^2}{2\gamma_f}$,~[K]\\
-
 \end{tabular}
+\medskip
 
+TODO:\\
+$F_0^a$ and $F_1^a$ are got from old Greywall table. It is better to
+calculate them from experimental data (becouse data for $m^\star$ is newer).\\
+$g_d$ in the texture library is completely different!
+
+\eject
+{\small\input{pics/fermi.tex}}
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Energy gap}
+
+These values are from ROTA texture library:
+
+\medskip
+\begin{tabular}{lp{9cm}}
+\tt he3\_bcsgap(ttc)    & $\Delta_{\rm BCS}/ k_B T_c$ for pure 3He-B\\
+\tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
+\tt he3\_z3(ttc, gap) &\\
+\tt he3\_z5(ttc, gap) &\\
+\tt he3\_z7(ttc, gap) &\\
+\end{tabular}
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
 

@@ -6,7 +6,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
 !          He3_Vm = ! Graywall-83
 !     .     +6.218603D-08 * P**6
 !     .     -7.287781D-06 * P**5
@@ -32,7 +32,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
           He3_gammaf =
      .     +0.27840464D+1
      .     +0.69575243D-1*P
@@ -49,7 +49,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
           He3_c1 =
      .     -4.604822D-07*P**6
      .     +5.472623D-05*P**5
@@ -69,7 +69,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
           He3_tmag =
      .     +2.119835D-09*P**6
      .     -2.382702D-07*P**5
@@ -172,7 +172,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
           He3_F0a =
      .      1.240297D-09 * P**6
      .     -1.402531D-07 * P**5
@@ -190,7 +190,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        if (P.ge.0D0.and.P.le.34.36D0) then
+        if (P.ge.0D0.and.P.le.34.40D0) then
           He3_F1a =
      .      +1.489333D-08 * P**6
      .      -1.661179D-06 * P**5

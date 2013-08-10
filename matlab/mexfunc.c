@@ -47,7 +47,7 @@ mexFunction(int nlhs, mxArray *plhs[],
 #if NARGIN == 2
   int m, n, m2, n2, i;
   double *in1, *in2, *out;
-  int mode;
+  int mode=0;
 
   if (nrhs != 2)
     mexErrMsgTxt("2 arguments required");

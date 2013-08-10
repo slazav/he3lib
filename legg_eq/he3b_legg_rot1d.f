@@ -45,7 +45,7 @@ C       fix n vector length
         CTG=ST/CTM      ! ctg(T/2) = sin(T)/(1-cos(T))
         UT=ST*(1.0D0+4.0D0*CT)*0.2666666D0
 
-        AUT = UT*Flegg**2/Wz*4.0D0*PI**2
+        AUT = UT*Flegg**2/Wz*4.0D0*const_pi**2
         AF  = -Cpar**2/Wz
         DAF = -2D0*Cpar*dCpar/Wz
 
