@@ -1,4 +1,4 @@
-! Constants
+! Constants (see he3_const.f)
       real*8 he3_gyro, he3_amass, he3_mmass
       real*8 const_na, const_kb, const_r
       real*8 const_h, const_hbar
@@ -6,42 +6,16 @@
       real*8 he3_pcr, he3_tcr, he3_pabn, he3_tabn
       real*8 he3_psmin, he3_tsmin, he3_pa, he3_ta, he3_pb, he3_tb
       real*8 he3_pneel, he3_tneel
-
-      parameter (he3_gyro   = 20378.0D0)       ! Gyromagnetic ratio (abs value!)
-      parameter (he3_amass  = 5.0079D-24)      ! He3 atom mass, g
-      parameter (he3_mmass  = 3.016D0)         ! He3 molar mass, g/mol
-
-      parameter (const_na   = 6.02214129D+23)  ! Avogadro constant, 1/mole
-      parameter (const_kb   = 1.3806488D-16)   ! SGS
-      parameter (const_r    = 8.314472D+7)     ! R-gas constant, kb*na, SGS
-      parameter (const_h    = 6.62606957D-27)  ! SGS
-      parameter (const_hbar = 1.054571726D-27) ! SGS
-      parameter (const_pi   = 3.1415926535897932D0)
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
 
-      parameter (he3_Pcr    = 78.111D-3)
-      parameter (he3_Tcr    = 3.324D0)
-      parameter (he3_Pabn   = 21.22D0)      ! A-B-Normal crit.pt, bar
-      parameter (he3_Tabn   = 2.2311D0)     ! A-B-Normal crit.pt, mK.
-                                            ! Graywall -> PLTC correction (2.273->2.231
-      parameter (he3_Psmin  = 29.3113D0)    ! Melting curve minimum, bar (PLTS2000)
-      parameter (he3_Tsmin  = 0.31524D0)    ! Melting curve minimum, K (PLTS2000)
-      parameter (he3_Pa     = 34.3407D0)    ! A-N-Solid crit.pt, bar (PLTS2000)
-      parameter (he3_Ta     = 2.444D0)      ! A-N-Solid crit.pt, mK  (PLTS2000)
-      parameter (he3_Pb     = 34.3609D0)    ! A-B-Solid crit.pt, bar (PLTS2000)
-      parameter (he3_Tb     = 1.896D0)      ! A-B-Solid crit.pt, mK  (PLTS2000)
-      parameter (he3_Pneel  = 34.3934D0)    ! A-B-Solid crit.pt, bar (PLTS2000)
-      parameter (he3_Tneel  = 0.902D0)      ! A-B-Solid crit.pt, mK  (PLTS2000)
-
-! Functions
-      ! phase diagram
+! Phase diagram functions (see he3_phase.f)
       real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]
       real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
       real*8 He3_Pmelt_gr  ! Greywall-86 melting pressure [bars] vs T [mK]
       real*8 He3_Tc        ! T_c [mK] vs P [bar]
       real*8 He3_Tab       ! T_ab [mK] vs P [bar]
 
-      ! Fermi-liquid
+! Fermi-liquid functions (see he3_fermi.f)
       real*8 He3_Vm        ! Molar Volume [cm**3/mole] vs P [bar]
       real*8 He3_gammaf    ! R-Gas constant GAMMA=C/RT [1/(K*mol)] vs P [bar]
       real*8 He3_c1        ! First sound velocity [cm/s] vs pressure [bar]
@@ -64,6 +38,7 @@
       real*8 He3_Tfeff     ! effective fermi temperature, K
       real*8 He3_lscatt    !
 
+! BCS gap + strong coupling correction (see he3_gap.f)
       real*8 He3_bcsgap    ! BCS energy gap
       real*8 He3_trivgap   ! Trivial strong-coupling correction to the BCS gap
       real*8 He3_Z3
@@ -72,6 +47,7 @@
       real*8 He3_yosida0   ! Yosida function vs T/Tc, gap
       real*8 He3_chi_b     ! B-phase susceptibility T/Tc, P
 
+! Other
       real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
