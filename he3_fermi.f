@@ -238,3 +238,44 @@
         real*8 P
         He3_a = const_pi**2/2D0 / he3_gammaf(P)
       end
+
+!     scattering factors
+!     notation: Einzel JLTP54 (A1 and A0)
+!     following Einzel & Wölfle JLTP 32 page 34 and 27
+      function He3_lscatt(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        real*8 f0s, f0a, f1s, f1a
+        real*8 A0s, A0a, A1s, A1a
+        real*8 S0,S1,T0,T1, W, Wa
+        f0s = he3_f0s(P)
+        f0a = he3_f0a(P)
+        f1s = he3_f1s(P)
+        f1a = he3_f1a(P)
+
+        A0s = f0s/(1D0+f0s)
+        A0a = f0a/(1D0+f0a)
+        A1s = f1s/(1D0+f1s/3D0)
+        A1a = f1a/(1D0+f1a/3D0)
+
+        S0 = A0s - 3D0*A0a
+        S1 = A1s - 3D0*A1a
+        T0 = A0s + A0a
+        T1 = A1s + A1a
+
+        !averages over Abrikosov angles, see Collision_integrals.nb
+        Wa = 1D0/60D0 *
+     .    (30D0*S0**2 - 20D0*S0*S1 + 14D0*S1**2
+     .     + 45D0*T0**2 - 30D0*T0*T1 + 21D0*T1**2)
+
+        W = 1D0/420D0 *
+     .    (- 70D0*S0**2 - 54D0*S1**2 + 175D0*T0**2
+     .     + 28D0*S0*(7D0*S1 + 10D0*T0 - 6D0*T1)
+     .     - 42D0*T0*T1 + 71D0*T1**2
+     .     + 8D0*S1*(-21D0*T0 + 19D0*T1))
+
+        He3_lscatt = W / Wa
+      end
+
+

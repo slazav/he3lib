@@ -46,6 +46,7 @@ double he3_z0_(double *P);     /* Z0 vs P [bar]  */
 double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
+double he3_lscatt_(double *P); /*  */
 
 /* Gap */
 double he3_yosida_(double *ttc);             /* Yosida function vs T/Tc */

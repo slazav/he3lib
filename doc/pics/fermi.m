@@ -34,6 +34,7 @@ p1(f, he3_z0(press),         '$Z_0$',      '5.2f');
 p1(f, he3_a(press),          '$a$,~\\AA',         '5.3f');
 p1(f, he3_gdk(press)/1e-9,  '$g_d/k_B$,~$\\mu$K',     '5.1f');
 p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K', '5.3f');
+p1(f, he3_lscatt(press),     '$\\lambda$', '5.3f');
 
 %%
 

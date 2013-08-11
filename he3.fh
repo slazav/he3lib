@@ -63,6 +63,7 @@ C Functions
       real*8 He3_a         ! average atomic spacing, angstr.
       real*8 He3_gdk       ! average dipolar coupling energy, K
       real*8 He3_Tfeff     ! effective fermi temperature, K
+      real*8 He3_lscatt    !
 
       real*8 He3_yosida    ! Yosida function vs T/Tc
       real*8 He3_bcsgap    ! BCS energy gap
