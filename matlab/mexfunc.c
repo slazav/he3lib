@@ -13,7 +13,7 @@ mexFunction(int nlhs, mxArray *plhs[],
 
   plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
   out = (double*)mxGetPr(plhs[0]);
-  *out = he3_const_.FUNC;
+  *out = FUNC;
   return;
 #endif
 

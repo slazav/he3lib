@@ -1,21 +1,25 @@
-extern struct{
-   double he3_gyro_, he3_amass_, he3_mmass_;
-   double const_na_, const_kb_, const_r_, const_h_, const_hbar_;
-   double const_pi_;
-   double he3_pcr_,
-          he3_tcr_,
-          he3_pabn_,
-          he3_tabn_,
-          he3_psmin_,
-          he3_tsmin_,
-          he3_pa_,
-          he3_ta_,
-          he3_pb_,
-          he3_tb_,
-          he3_pneel_,
-          he3_tneel_;
-   /* order in important - see common block in he3.fh */
-} he3_const_;
+/* Constants */
+extern double he3_gyro_;
+extern double he3_amass_;
+extern double he3_mmass_;
+extern double const_na_;
+extern double const_kb_;
+extern double const_r_;
+extern double const_h_;
+extern double const_hbar_;
+extern double const_pi_;
+extern double he3_pcr_;
+extern double he3_tcr_;
+extern double he3_pabn_;
+extern double he3_tabn_;
+extern double he3_psmin_;
+extern double he3_tsmin_;
+extern double he3_pa_;
+extern double he3_ta_;
+extern double he3_pb_;
+extern double he3_tb_;
+extern double he3_pneel_;
+extern double he3_tneel_;
 
 /* Phase diagram functions */
 double he3_pvap_(double *T);   /* Vapor pressure [bar] vs T [K] */

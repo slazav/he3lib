@@ -1,38 +1,39 @@
 C Constants
-!      implicit none
+!     implicit none
 
-      real*8 he3_gyro   ! Gyromagnetic ratio
-      real*8 he3_amass  ! He3 atom mass, g
-      real*8 he3_mmass  ! He3 molar mass, g/mol
-      real*8 const_na   ! Avogadro constant, 1/mole
-      real*8 const_kb   ! SGS
-      real*8 const_r    ! R-gas constant, kb*na, SGS
-      real*8 const_h    ! SGS
-      real*8 const_hbar ! SGS h/2pi
-      real*8 const_pi   ! 3.1415...
-      real*8 he3_pcr    ! Gas-liquid critical point pressure, bar
-      real*8 he3_tcr    ! Gas-liquid critical point temperature, K
-      real*8 he3_pabn   ! A-B-Normal crit.pt, bar
-      real*8 he3_tabn   ! A-B-Normal crit.pt, mK
-      real*8 he3_psmin  ! Melting curve minimum, mK (Daunt, 1959)
-      real*8 he3_tsmin  ! Melting curve minimum, mK (Daunt, 1959)
-      real*8 he3_pa     ! A-N-Solid crit.pt, bar
-      real*8 he3_ta     ! A-N-Solid crit.pt, mK
-      real*8 he3_pb     ! A-B-Solid crit.pt, bar
-      real*8 he3_tb     ! A-B-Solid crit.pt, mK
-      real*8 he3_pneel  ! Neel, bar
-      real*8 he3_tneel  ! Neel, mK
+      real*8 he3_gyro, he3_amass, he3_mmass
+      real*8 const_na, const_kb, const_r
+      real*8 const_h, const_hbar
+      real*8 const_pi, NaN
+      real*8 he3_pcr, he3_tcr, he3_pabn, he3_tabn
+      real*8 he3_psmin, he3_tsmin, he3_pa, he3_ta, he3_pb, he3_tb
+      real*8 he3_pneel, he3_tneel
 
-      common /he3_const/
-     .  he3_gyro, he3_amass, he3_mmass,
-     .  const_na, const_kb, const_r, const_h, const_hbar,
-     .  const_pi,
-     .  he3_pcr, he3_tcr, he3_pabn, he3_tabn,
-     .  he3_psmin, he3_tsmin, he3_pa, he3_ta,
-     .  he3_pb, he3_tb, he3_pneel, he3_tneel
+      parameter (he3_gyro   = 20378.0D0)       ! Gyromagnetic ratio (abs value!)
+      parameter (he3_amass  = 5.0079D-24)      ! He3 atom mass, g
+      parameter (he3_mmass  = 3.016D0)         ! He3 molar mass, g/mol
 
-      real*8 NaN
+      parameter (const_na   = 6.02214129D+23)  ! Avogadro constant, 1/mole
+      parameter (const_kb   = 1.3806488D-16)   ! SGS
+      parameter (const_r    = 8.314472D+7)     ! R-gas constant, kb*na, SGS
+      parameter (const_h    = 6.62606957D-27)  ! SGS
+      parameter (const_hbar = 1.054571726D-27) ! SGS
+      parameter (const_pi   = 3.1415926535897932D0)
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
+
+      parameter (he3_Pcr    = 78.111D-3)
+      parameter (he3_Tcr    = 3.324D0)
+      parameter (he3_Pabn   = 21.22D0)      ! A-B-Normal crit.pt, bar
+      parameter (he3_Tabn   = 2.2311D0)     ! A-B-Normal crit.pt, mK.
+                                            ! Graywall -> PLTC correction (2.273->2.231
+      parameter (he3_Psmin  = 29.3113D0)    ! Melting curve minimum, bar (PLTS2000)
+      parameter (he3_Tsmin  = 0.31524D0)    ! Melting curve minimum, K (PLTS2000)
+      parameter (he3_Pa     = 34.3407D0)    ! A-N-Solid crit.pt, bar (PLTS2000)
+      parameter (he3_Ta     = 2.444D0)      ! A-N-Solid crit.pt, mK  (PLTS2000)
+      parameter (he3_Pb     = 34.3609D0)    ! A-B-Solid crit.pt, bar (PLTS2000)
+      parameter (he3_Tb     = 1.896D0)      ! A-B-Solid crit.pt, mK  (PLTS2000)
+      parameter (he3_Pneel  = 34.3934D0)    ! A-B-Solid crit.pt, bar (PLTS2000)
+      parameter (he3_Tneel  = 0.902D0)      ! A-B-Solid crit.pt, mK  (PLTS2000)
 
 C Functions
       ! phase diagram
