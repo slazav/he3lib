@@ -9,8 +9,8 @@
         TTC=T/He3_Tc(P)
         if (TTC.LT.1D0) then
           Z0 = He3_z0(P)
-          Y  = He3_yosida(TTC)
-C         print *,Z,Y,((1.+Z0/4.)*(2.+Y)/3.)/(1.+Z0/4.*(2.+Y)/3.)
+          G  = he3_bcsgap(ttc)
+          Y  = He3_yosida0(ttc, G)
           He3_susept = He3_susept *
      .      ((1D0+Z0/4D0)*(2D0+Y)/3D0)/(1D0+Z0/4D0*(2D0+Y)/3D0)
         end if

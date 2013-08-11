@@ -1,6 +1,4 @@
-C Constants
-!     implicit none
-
+! Constants
       real*8 he3_gyro, he3_amass, he3_mmass
       real*8 const_na, const_kb, const_r
       real*8 const_h, const_hbar
@@ -35,7 +33,7 @@ C Constants
       parameter (he3_Pneel  = 34.3934D0)    ! A-B-Solid crit.pt, bar (PLTS2000)
       parameter (he3_Tneel  = 0.902D0)      ! A-B-Solid crit.pt, mK  (PLTS2000)
 
-C Functions
+! Functions
       ! phase diagram
       real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]
       real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
@@ -66,12 +64,12 @@ C Functions
       real*8 He3_Tfeff     ! effective fermi temperature, K
       real*8 He3_lscatt    !
 
-      real*8 He3_yosida    ! Yosida function vs T/Tc
       real*8 He3_bcsgap    ! BCS energy gap
       real*8 He3_trivgap   ! Trivial strong-coupling correction to the BCS gap
       real*8 He3_Z3
       real*8 He3_Z5
       real*8 He3_Z7
+      real*8 He3_yosida0   ! Yosida function vs T/Tc, gap
 
       real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]

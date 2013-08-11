@@ -63,7 +63,7 @@ or with number + matrix or matrix + number.
 \end{tabular}
 \medskip
 
-TODO: change $\gamma$ to negative value?
+\noindent TODO: change $\gamma$ to negative value?
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,7 +167,7 @@ Derived values:
 \end{tabular}
 \medskip
 
-TODO:\\
+\noindent TODO:\\
 $F_0^a$ and $F_1^a$ are got from old Greywall table. It is better to
 calculate them from experimental data (becouse data for $m^\star$ is newer).\\
 $g_d$ in the texture library is completely different!
@@ -179,17 +179,22 @@ $g_d$ in the texture library is completely different!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Energy gap}
 
-These values are from ROTA texture library:
+BCS energy gap + trivial strong coupling correction + some values
+derived from energy gap. See more information in the
+source file {\tt he3\_gap.f}.
 
 \medskip
 \begin{tabular}{lp{9cm}}
 \tt he3\_bcsgap(ttc)    & $\Delta_{\rm BCS}/ k_B T_c$ for pure 3He-B\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
-\tt he3\_z3(ttc, gap) &\\
-\tt he3\_z5(ttc, gap) &\\
-\tt he3\_z7(ttc, gap) &\\
+\tt he3\_z3(ttc, gap)      &\\
+\tt he3\_z5(ttc, gap)      &\\
+\tt he3\_z7(ttc, gap)      &\\
+\tt he3\_yosida0(ttc, gap) & Yosida function $Y_0$\\
 \end{tabular}
 \medskip
+
+\noindent TODO: add accurate calculation os $Y_n$. Add susceptibility.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

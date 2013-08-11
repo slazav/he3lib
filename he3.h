@@ -53,12 +53,12 @@ double he3_tfeff_(double *P);  /* effective fermi temperature, K */
 double he3_lscatt_(double *P); /*  */
 
 /* Gap */
-double he3_yosida_(double *ttc);             /* Yosida function vs T/Tc */
 double he3_bcsgap_(double *ttc);             /* BCS energy gap */
 double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correction to the BCS gap*/
 double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
+double he3_yosida0_(double *ttc, double *gap); /* Yosida function */
 
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
 
