@@ -58,7 +58,8 @@ double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correcti
 double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
-double he3_yosida0_(double *ttc, double *gap); /* Yosida function */
+double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
+double he3_yosida0_(double *ttc, double *gap); /* Y0 function (approx) */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
 
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */

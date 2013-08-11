@@ -2,7 +2,7 @@
 #include "math.h"
 #include "../he3.h"
 
-
+/* FUNC and NARGIN must be defined! */
 void
 mexFunction(int nlhs, mxArray *plhs[],
             int nrhs, const mxArray *prhs[]){
@@ -17,74 +17,51 @@ mexFunction(int nlhs, mxArray *plhs[],
   return;
 #endif
 
-/* Functions of one argument */
+#if NARGIN > 0
+
+  int m[NARGIN], n[NARGIN], s[NARGIN], i, maxm, maxn;
+  double *in[NARGIN];
+  double *out;
+
+  if (nrhs != NARGIN)
+    mexErrMsgTxt("wrong number of arguments");
+
+  if (nrhs > 3)
+    mexErrMsgTxt("functions with > 3 arguments are not supported in mexfunc.c");
+
+  maxm = nrhs? 0:1;
+  maxn = nrhs? 0:1;
+
+  for (i=0; i<NARGIN; i++){
+    if (!mxIsDouble(prhs[i]))
+      mexErrMsgTxt("non-numeric argument");
+    m[i] = mxGetM(prhs[i]);
+    n[i] = mxGetN(prhs[i]);
+    if (maxm<m[i]) maxm=m[i];
+    if (maxn<n[i]) maxn=n[i];
+    in[i] = mxGetPr(prhs[i]);
+  }
+  for (i=0; i<NARGIN; i++){
+    s[i] = (m[i] == 1 && n[i] == 1); /* scalar/vector */
+    if (!s[i] && (m[i] != maxm && n[i] != maxn))
+      mexErrMsgTxt("dimensions of arguments must agree");
+  }
+
+  plhs[0] = mxCreateDoubleMatrix(maxm, maxn, mxREAL);
+  if (plhs[0] == NULL)
+    mexErrMsgTxt("can't allocate memory");
+  out = mxGetPr(plhs[0]);
+
+  for (i=0; i<maxm*maxn; i++){
 #if NARGIN == 1
-  int m, n, i;
-  double *in, *out;
-
-  if (nrhs != 1)
-    mexErrMsgTxt("1 argument required"); 
-
-  if (!mxIsDouble(prhs[0]))
-    mexErrMsgTxt("argument is non-numeric");
-
-  m = mxGetM(prhs[0]);
-  n = mxGetN(prhs[0]);
-
-  in = mxGetPr(prhs[0]);
-  plhs[0] = mxCreateDoubleMatrix(m, n, mxREAL);
-  if (plhs[0] == NULL)
-    mexErrMsgTxt("can't allocate memory");
-  out = mxGetPr(plhs[0]);
-
-  for (i=0; i<m*n; i++){
-    out[i] = FUNC(in+i);
-  }
-  return;
+    out[i] = FUNC(in[0]+(s[0]?0:i));
 #endif
-
-/* Functions of two arguments */
 #if NARGIN == 2
-  int m, n, m2, n2, i;
-  double *in1, *in2, *out;
-  int mode=0;
-
-  if (nrhs != 2)
-    mexErrMsgTxt("2 arguments required");
-
-  if (!mxIsDouble(prhs[0]))
-    mexErrMsgTxt("argument 1 is non-numeric");
-
-  if (!mxIsDouble(prhs[1]))
-    mexErrMsgTxt("argument 2 is non-numeric");
-
-  m = mxGetM(prhs[0]);
-  n = mxGetN(prhs[0]);
-
-  m2 = mxGetM(prhs[1]);
-  n2 = mxGetN(prhs[1]);
-
-  if (m == m2 && n == n2){
-    mode=0;
-  }
-  else if (m==1 && n==1 && m2>0 && n2>0){ /* 1st arg - constant, 2nd - vector*/
-    m = m2; n = n2; mode = 1;
-  }
-  else if (m2==1 && n2==1 && m>0 && n>0){ /* 2st arg - constant, 1nd - vector*/
-    mode = 2;
-  }
-  else
-    mexErrMsgTxt("dimensions of arguments must agree");
-
-  in1 = mxGetPr(prhs[0]);
-  in2 = mxGetPr(prhs[1]);
-  plhs[0] = mxCreateDoubleMatrix(m, n, mxREAL);
-  if (plhs[0] == NULL)
-    mexErrMsgTxt("can't allocate memory");
-  out = mxGetPr(plhs[0]);
-
-  for (i=0; i<m*n; i++){
-    out[i] = FUNC(in1+(mode==1?0:i), in2+(mode==2?0:i));
+    out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i));
+#endif
+#if NARGIN == 3
+    out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i), in[2]+(s[2]?0:i));
+#endif
   }
   return;
 #endif

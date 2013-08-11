@@ -6,6 +6,29 @@
       real*8 he3_pcr, he3_tcr, he3_pabn, he3_tabn
       real*8 he3_psmin, he3_tsmin, he3_pa, he3_ta, he3_pb, he3_tb
       real*8 he3_pneel, he3_tneel
+
+        common /he3_gyro/   he3_gyro
+        common /he3_amass/  he3_amass
+        common /he3_mmass/  he3_mmass
+        common /const_na/   const_na
+        common /const_kb/   const_kb
+        common /const_r/    const_r
+        common /const_h/    const_h
+        common /const_hbar/ const_hbar
+        common /const_pi/   const_pi
+        common /he3_pcr/    he3_pcr
+        common /he3_tcr/    he3_tcr
+        common /he3_pabn/   he3_pabn
+        common /he3_tabn/   he3_tabn
+        common /he3_psmin/  he3_psmin
+        common /he3_tsmin/  he3_tsmin
+        common /he3_pa/     he3_pa
+        common /he3_ta/     he3_ta
+        common /he3_pb/     he3_pb
+        common /he3_tb/     he3_tb
+        common /he3_pneel/  he3_pneel
+        common /he3_tneel/  he3_tneel
+
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
 
 ! Phase diagram functions (see he3_phase.f)
@@ -44,7 +67,8 @@
       real*8 He3_Z3
       real*8 He3_Z5
       real*8 He3_Z7
-      real*8 He3_yosida0   ! Yosida function vs T/Tc, gap
+      real*8 He3_yosida    ! Yosida function Yn vs T/Tc, gap, n
+      real*8 He3_yosida0   ! Yosida function Y0 vs T/Tc, gap (approx)
       real*8 He3_chi_b     ! B-phase susceptibility T/Tc, P
 
 ! Other

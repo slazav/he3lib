@@ -120,6 +120,7 @@
         he3_z7 = y**6*(sum + corr1 - corr2)
       end
 
+
 ! Yosida function vs T/Tc, gap
       function he3_yosida0(ttc,gap)
         implicit none
@@ -128,18 +129,51 @@
         he3_yosida0 = 1 - he3_z3(ttc,gap)
       end
 
-! He3-B suseptibility
-      function He3_chi_b(P,T)
+! Yosida function vs T/Tc, gap
+! Based on Samuli's code
+! See D.Einzel JLTP 84
+      function he3_yosida(ttc, gap, n)
         implicit none
         include 'he3.fh'
-        real*8 P,T,G,Y,TTC,Z0
-        He3_susept = he3_chi_n(P)
-        TTC=T/He3_Tc(P)
-        if (TTC.LT.1D0) then
-          Z0 = He3_z0(P)
-          G  = he3_bcsgap(ttc)
-          Y  = He3_yosida0(ttc, G)
-          He3_susept = He3_susept * (1D0-Y/3D0)
-        end if
+        real*8 ttc, gap, n
+        real*8 dx, xp, xm
+        real*8 he3_yosida_int
+        integer i, maxi
+        maxi=100
+        dx=1D0/maxi;
+        he3_yosida = 0
+        ! intergation of he3_yosida_int from 0 to 1 using Gaussian quadrature
+        do i=1,maxi 
+          xp = dx * (i - 0.5D0 + 0.5D0/dsqrt(3D0))
+          xm = dx * (i - 0.5D0 - 0.5D0/dsqrt(3D0))
+          he3_yosida = he3_yosida
+     .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
+     .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
+        enddo
+      end
+! Integrand for Yosida function calculations
+      function he3_yosida_int(x, ttc,gap, n)
+        implicit none
+        real*8 x, ttc,gap, xi, ek, n
+        real*8 he3_yosida_int
+        xi = atanh(x)*2D0*ttc;
+        ek=sqrt(xi**2 + gap**2);
+        he3_yosida_int = 
+     .     (xi/ek)**n
+     .   / (cosh(ek/(2D0*ttc)))**2
+     .   * cosh(xi/(2D0*ttc))**2
+     .   * 2D0*ttc
       end
 
+! He3-B suseptibility
+      function He3_chi_b(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 p,ttc,G,Y
+        He3_chi_b = he3_chi_n(P)
+        if (TTC.LT.1D0) then
+          G  = he3_bcsgap(ttc)
+          Y  = He3_yosida0(ttc, G)
+          He3_chi_b = He3_chi_b * (1D0-Y/3D0)
+        end if
+      end

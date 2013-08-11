@@ -1,0 +1,41 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{euscript}
+\usepackage{graphicx}
+\graphicspath{{pics/}}
+\usepackage{color}
+\usepackage{epsfig}
+
+\begin{document}
+
+\subsection*{Yosida functions}
+
+$$
+Y_n = \int_0^\infty
+  \ \left(\frac{\xi}{\sqrt{\xi^2+\Delta^2}}\right)^n
+  \ \left(\cosh \frac{\sqrt{\xi^2+\Delta^2}}{2T}\right)^{-2}
+  \ d\xi,
+$$
+
+where $\xi$, $\Delta$ and $T$ can be measured in $T_c$ units.
+
+Let $x = \tanh(\xi/2T)$. Then $dx = d\xi/(2T\cosh^2(\xi/2T))$
+
+$$
+Y_n = \int_0^1
+  \ \left(\frac{\xi}{\sqrt{\xi^2+\Delta^2}}\right)^n
+  \ \left(\cosh \frac{\sqrt{\xi^2+\Delta^2}}{2T}\right)^{-2}
+  \ \left(\cosh\frac{\xi}{2T}\right)^2\ 2T \ dx
+$$
+
+Now we have finite limits and good integrand!
+
+\begin{figure}[h]
+\includegraphics[scale=.5]{yosida_int.eps}
+\caption{integrand for n=0,2,4 (red, green, blue) and temperatures
+0.01 0.05 0.2 0.4 0.6 0.8 0.9 0.95 0.99 Tc. Gap is calculated in BCS
+approximation.}
+\end{figure}
+
+\end{document}

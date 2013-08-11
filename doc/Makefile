@@ -1,4 +1,4 @@
-all:  pics/st he3lib.pdf
+all:  pics/st he3lib.pdf yosida.pdf
 
 pics/st:
 	makefile -C pics
