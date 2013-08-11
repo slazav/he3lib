@@ -1,4 +1,7 @@
-all:  he3lib.pdf
+all:  pics/st he3lib.pdf
+
+pics/st:
+	makefile -C pics
 
 %.pdf: %.ps
 	ps2pdf $<

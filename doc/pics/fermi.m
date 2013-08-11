@@ -1,5 +1,12 @@
-function fermi()
-  addpath ../../matlab
+#!/usr/bin/octave -qf
+
+function p1(f, x, t, fmt)
+  fprintf(f, t)
+  for i = 1:length(x); fprintf(f, ['& %' fmt], x(i) ); end;
+  fprintf(f, '\\\\\n');
+end
+
+addpath ../../matlab
 
 f=fopen('fermi.tex','w');
 press=[0:3:33];
@@ -25,7 +32,7 @@ p1(f, he3_meff(press)/1e-23, '$m^\\star, 10^{-23}$ g',   '5.3f');
 p1(f, he3_mm(press),         '$m^\\star/m_3$',             '5.3f');
 
 p1(f, he3_vf(press)/1e2,     '$v_F$,~m/s',        '5.2f');
-p1(f, he3_chi0(press)/1e-9,  '$\\chi_N, 10^{-9}$', '5.1f');
+p1(f, he3_chi_n(press)/1e-9, '$\\chi_N, 10^{-9}$', '5.1f');
 p1(f, he3_f0s(press),        '$F_0^s$',             '5.2f');
 p1(f, he3_f1s(press),        '$F_1^s$',    '5.2f');
 p1(f, he3_f0a(press),        '$F_0^a$',    '5.2f');
@@ -41,10 +48,4 @@ p1(f, he3_lscatt(press),     '$\\lambda$', '5.3f');
 fprintf(f, '\\end{tabular}\n');
 fclose(f);
 
-end
 
-function p1(f, x, t, fmt)
-  fprintf(f, t)
-  for i = 1:length(x); fprintf(f, ['& %' fmt], x(i) ); end;
-  fprintf(f, '\\\\\n');
-end

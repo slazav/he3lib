@@ -41,7 +41,7 @@ double he3_mm_(double *P);     /* Effective mass / atom mass vs P [bar] */
 double he3_meff_(double *P);   /* Effective mass [g] vs P [bar] */
 double he3_pf_(double *P);     /* Fermi momentum [sgs] vs P [bar] */
 double he3_vf_(double *P);     /* Fermi velocity [cm/s] vs P [bar] */
-double he3_chi0_(double *P);   /* Susceptibility vs P [bar]  */
+double he3_chi_n_(double *P);  /* Normal liquid susceptibility vs P [bar]  */
 double he3_f0a_(double *P);    /* F0a vs P [bar] */
 double he3_f0s_(double *P);    /* F0s vs P [bar] */
 double he3_f1a_(double *P);    /* F1a vs P [bar] */
@@ -59,6 +59,7 @@ double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
 double he3_yosida0_(double *ttc, double *gap); /* Yosida function */
+double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
 
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
 

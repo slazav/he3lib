@@ -53,7 +53,7 @@
       real*8 He3_Meff      ! Effective mass [g] vs P [bar]
       real*8 He3_Pf        ! Fermi momentum [sgs] vs P [bar]
       real*8 He3_Vf        ! Fermi velocity [cm/s] vs P [bar]
-      real*8 He3_Chi0      ! Susceptibility vs P [bar]
+      real*8 He3_Chi_N     ! Normal liquid susceptibility vs P [bar]
       real*8 He3_F0a       ! F0a vs P [bar]
       real*8 He3_F0s       ! F0s vs P [bar]
       real*8 He3_F1a       ! F1a vs P [bar]
@@ -70,6 +70,7 @@
       real*8 He3_Z5
       real*8 He3_Z7
       real*8 He3_yosida0   ! Yosida function vs T/Tc, gap
+      real*8 He3_chi_b     ! B-phase susceptibility T/Tc, P
 
       real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]

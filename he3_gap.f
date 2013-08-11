@@ -124,7 +124,22 @@
       function he3_yosida0(ttc,gap)
         implicit none
         include 'he3.fh'
-        real*8 t, gap
+        real*8 ttc, gap
         he3_yosida0 = 1 - he3_z3(ttc,gap)
+      end
+
+! He3-B suseptibility
+      function He3_chi_b(P,T)
+        implicit none
+        include 'he3.fh'
+        real*8 P,T,G,Y,TTC,Z0
+        He3_susept = he3_chi_n(P)
+        TTC=T/He3_Tc(P)
+        if (TTC.LT.1D0) then
+          Z0 = He3_z0(P)
+          G  = he3_bcsgap(ttc)
+          Y  = He3_yosida0(ttc, G)
+          He3_susept = He3_susept * (1D0-Y/3D0)
+        end if
       end
 

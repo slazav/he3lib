@@ -1,7 +1,13 @@
 all: fermi.tex phase.tex phase.eps
 
+
 %.tex: %.m
-	octave $<
+	octave -q $<
+	touch st
 
 %.eps: %.m
-	octave $<
+	octave -q $<
+	touch st
+
+clean:
+	rm -f st *.tex *.eps

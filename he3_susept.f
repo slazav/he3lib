@@ -4,8 +4,8 @@
       function He3_susept(P,T)
         implicit none
         include 'he3.fh'
-        real*8 P,T,Y,TTC,Z0
-        He3_susept = he3_chi0(P)
+        real*8 P,T,G,Y,TTC,Z0
+        He3_susept = he3_chi_n(P)
         TTC=T/He3_Tc(P)
         if (TTC.LT.1D0) then
           Z0 = He3_z0(P)

@@ -1,4 +1,11 @@
-function phase()
+#!/usr/bin/octave -qf
+
+
+function title1(t)
+  text(0.5,0.85, t, ...
+    'units', 'normalized', 'horizontalalignment', 'center');
+end
+
   addpath ../../matlab
 
   figure; clf;
@@ -108,11 +115,4 @@ fprintf(f, '\\\\\n');
 fprintf(f, '\\end{tabular}\n');
 fclose(f);
 
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function title1(t)
-  text(0.5,0.85, t, ...
-    'units', 'normalized', 'horizontalalignment', 'center');
-end
 
