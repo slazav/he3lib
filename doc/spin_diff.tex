@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{euscript}
+\usepackage{graphicx}
+\graphicspath{{pics/}}
+\usepackage{color}
+\usepackage{epsfig}
+
+\begin{document}
+
+\subsection*{Spin difusion}
+
+\def\tdp{\tau_D^\perp}
+\def\ol{\omega_L}
+\def\oe{\omega_{\rm exch}}
+\def\sm{S_{kzz}^{(-)}}
+\def\sp{S_{kzz}^{(+)}}
+
+Einzel, JLTP84 (1991) p.352; Bunkov et al, PRL 65
+
+$$
+D_\perp (T, \ol) =
+  \frac{v_F^2}{3\chi}\ t
+  \ \int_{-\infty}^{\infty}
+  d\xi_k\phi_k 3
+  \ \int \frac{{\sm}^2 - is{\sp}^2}{1+s^2{\sp}^2}
+  \  k_z^2\ \frac{d\Omega_k}{4\pi}
+$$
+
+$$
+\sp = u - k_z^2(u-1),\quad
+\sm = k_x^2(u-1) + 1,
+$$
+$$
+k_x = \cos\theta\ \cos\phi, \quad
+k_z = \sin\theta
+$$
+$$
+u=\frac{\xi}{\sqrt{\xi^2-\Delta^2}}, \quad
+s = t(\ol+\oe),\quad
+t = \frac{\tdp}{1-i\ol\tdp}
+$$
+
+$$
+\phi_k = \left(\cosh\frac{\sqrt{\xi^2-\Delta^2}}{T}\right)^{-2}
+$$
+
+Only $\sm$ depends on $\phi$. Do integration over $\phi$:
+
+$$
+\int_0^{2\pi} (A\cos^4\phi + B\cos^2\phi + C) d\phi =
+\frac34 \pi A + \pi B + 2\pi C
+$$
+
+
+$$
+D_\perp (T, \ol) =
+  \frac{v_F^2}{\chi}\ t
+  \ \int_{-\infty}^{\infty}
+  d\xi_k\phi_k
+  \ \int_0^\pi
+   \frac{3/8(u-1)^2\cos^4\theta + (u-1)\cos^2\theta + 1 - is{\sp}^2}{1+s^2{\sp}^2}
+  \  k_z^2\ \frac{d\theta}{2}
+$$
+
+$$
+$$
+
+\end{document}

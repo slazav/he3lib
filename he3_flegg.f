@@ -1,3 +1,18 @@
+! B-phase Leggett freq -- corrected to fit experimental data
+! See /rota/Analysis/T-calibration/NMR/201308
+! Correction is close to 2+F0a?
+      function he3_exp_nu_b(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,gap, corr
+        corr = dsqrt(0.952D0 +0.6383D0*dexp(-p/6.627D0)) ! correction
+        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
+        ! same as in he3_nu_b
+        he3_exp_nu_b = dsqrt(3D0 / 8D0 / const_pi / he3_chi_b(ttc,p))
+     .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
+     .    * gap * dlog(he3_tfeff(p)*const_kB/gap) * corr
+      end
+
 ! Legget freq^2, Lf^2 [Hz^2] vs P [bar], T/Tc
 ! Ahonen (18.7,21.1,25.4,29.0,32 bars), Osheroff(MP).
 ! Ahonen et.al.  JLTP. v.25 p.421(1976)

@@ -199,7 +199,7 @@ $\\
 \tt he3\_chi\_b(ttc, gap)    &B-phase susceptibility\newline
                              $\displaystyle \chi_B = \chi_N \frac{(1+F_0^a)\chi_0}{1+F_0^a\chi_0},
                              \qquad \chi_0 = 2/3 + Y_0/3$\\
-\tt he3\_nu\_b(ttc, gap)     &B-phase Leggett frequency\newline
+\tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency\newline
                              $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
                              \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}  $\\
 %\tt he3\_z3(ttc, gap)        &\\
@@ -218,6 +218,25 @@ these values can be derived from {\tt yosida}.\\
 \begin{figure}[h]
 \includegraphics[scale=.6]{gap.eps}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Other}
+
+\medskip
+\begin{tabular}{lp{9cm}}
+\tt he3\_exp\_nu\_b(ttc, p)     &B-phase Leggett frequency $\nu_B$ [Hz] vs
+                                 $T/T_c$ and $P$~[bar].\newline
+                                  Best fit to experimental data.\\
+\tt he3\_swvel(p,t) & Osheroff's spin wave velocity $s$,~cm/s
+                      vs $P$ [bar], $T$~[mK]. Value 1100 cm/s for
+                      melting pressure is recalculated assuming $s\sim v_F$.\\
+\tt he3\_swvel\_par(p,t) & Parallel Fomin spin wave velocity,\newline
+                          $c_\parallel = \sqrt{2}\ s$,~cm/s vs $P$ [bar], $T$ [mK].\\
+\tt he3\_swvel\_per(p,t) & Perp. Fomin spin wave velocity,\newline
+                          $c_\perp = \sqrt{3/2}\ s$,~cm/s vs $P$ [bar], $T$ [mK].\\
+
+\end{tabular}
+\medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

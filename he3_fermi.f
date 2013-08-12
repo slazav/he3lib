@@ -45,7 +45,7 @@
       end
 
 !     First sound velosity c1 (exp data), m/s, from Wheatley-75
-      function He3_c1(P) 
+      function He3_c1(P)
         implicit none
         include 'he3.fh'
         real*8 P
@@ -228,7 +228,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_a = const_pi**2/2D0 / he3_gammaf(P)
+        He3_tfeff = const_pi**2/2D0 / he3_gammaf(P)
       end
 
 !     Dcattering factors
@@ -258,6 +258,7 @@
         T1 = A1s + A1a
 
         !averages over Abrikosov angles, see Collision_integrals.nb
+        ! <W>/pi
         Wa = 1D0/60D0 *
      .    (30D0*S0**2 - 20D0*S0*S1 + 14D0*S1**2
      .     + 45D0*T0**2 - 30D0*T0*T1 + 21D0*T1**2)

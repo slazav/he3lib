@@ -8,25 +8,25 @@
         integer n, m
         real*8 ttc,root,y,dy,ynew,g,dg
         m = 30
-        dy = 1.0
-        ynew = 1.7638*SQRT(1-ttc)/(2*const_pi)
-        do while (ABS(dy) > 1.0E-8)
+        dy = 1.0D0
+        ynew = 1.7638D0*SQRT(1D0-ttc)/(2D0*const_pi)
+        do while (ABS(dy) > 1.0D-8)
           y = ynew
-          root = SQRT((m*ttc)**2+y**2)
-          g = LOG((m*ttc+root)/(2*m))
-     .        - (1D0/m**2-m*(ttc/root)**3)/24
-          dg = y/(root*(m*ttc+root))
-     .        - m*ttc**3*y/(8D0*root**5)
+          root = SQRT((dble(m)*ttc)**2+y**2)
+          g = LOG((dble(m)*ttc+root) / (2D0*dble(m)))
+     .        - (1D0/dble(m)**2 - dble(m)*(ttc/root)**3)/24D0
+          dg = y/(root*(dble(m)*ttc+root))
+     .        - dble(m)*ttc**3*y/(8D0*root**5)
           DO n=1,m
-            root=SQRT((ttc*(n-0.5D0))**2+y**2)
-            g = g + 1D0/(n-0.5D0) - ttc/root
+            root=SQRT((ttc*(dble(n)-0.5D0))**2 + y**2)
+            g = g + 1D0/(dble(n)-0.5D0) - ttc/root
             dg = dg + ttc*y/root**3
           end do
           dy = g/dg
           ynew = ynew-dy
         end do
-        he3_bcsgap = 2*const_pi*ynew
-        if (ttc >= 1.0) he3_bcsgap = 0D0
+        he3_bcsgap = 2D0*const_pi*ynew
+        if (ttc.ge.1D0) he3_bcsgap = 0D0
       end
 
 ! Trivial strong-coupling correction to the BCS energy gap
@@ -51,7 +51,7 @@
         x(2,1:5)  = (/ 1D0,1.024D0,1.048D0,1.068D0,1.085D0 /)
         x(1,1:5)  = (/ 1D0,1.024D0,1.048D0,1.068D0,1.085D0 /)
         it=INT(ttc*10D0 - 1D-5) + 1
-        wt1 = (0.1D0*it-ttc)/0.1D0
+        wt1 = (0.1D0*dble(it)-ttc)/0.1D0
         wt2 = 1D0 - wt1
         ic = 1
         do
@@ -60,7 +60,7 @@
           if (ic == 4) exit
         end do
         wc1 = (c(ic+1)-dcpcn)/(c(ic+1)-c(ic))
-        wc2 = 1 - wc1
+        wc2 = 1D0 - wc1
         corr = wt1*(wc1*x(it,ic)+wc2*x(it,ic+1))
         corr = corr + wt2*(wc1*x(it+1,ic)+wc2*x(it+1,ic+1))
         he3_trivgap = he3_bcsgap(ttc)*corr
@@ -71,16 +71,16 @@
         include 'he3.fh'
         integer i,maxi
         real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2*const_pi)
+        y = gap/(2D0*const_pi)
         sum = 0D0
         maxi = 100
-        mt = maxi*ttc
+        mt = dble(maxi)*ttc
         do i=1,maxi
-           sum = sum + ttc/((ttc*(i-0.5D0))**2+y**2)**1.5D0
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**1.5D0
         end do
-        help = SQRT(mt**2+y**2)
-        corr1 = 1/(help*(mt+help))
-        corr2 = mt**3/(8*help**5)
+        help = SQRT(mt**2 + y**2)
+        corr1 = 1D0/(help*(mt+help))
+        corr2 = mt**3/(8D0*help**5)
         he3_z3 = y**2*(sum + corr1 - corr2)
       end
 
@@ -89,16 +89,16 @@
         include 'he3.fh'
         integer i,maxi
         real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2*const_pi)
+        y = gap/(2D0*const_pi)
         sum = 0D0
         maxi = 100
-        mt = maxi*ttc
+        mt = dble(maxi)*ttc
         do i=1,maxi
-           sum = sum + ttc/((ttc*(i-0.5D0))**2 + y**2)**2.5D0
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2 + y**2)**2.5D0
         end do
         help = SQRT(mt**2+y**2)
-        corr1 = (mt+2*help)/(3*help**3*(mt+help)**2)
-        corr2 = 5*mt**3/(24*help**7)
+        corr1 = (mt+2D0*help)/(3D0*help**3*(mt+help)**2)
+        corr2 = 5D0*mt**3/(24D0*help**7)
         he3_z5 = y**4*(sum + corr1 - corr2)
       end
 
@@ -107,16 +107,17 @@
         include 'he3.fh'
         integer i,maxi
         real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2*const_pi)
+        y = gap/(2D0*const_pi)
         sum = 0D0
         maxi = 100
-        mt=maxi*ttc
+        mt=dble(maxi)*ttc
         do i=1,maxi
-           sum = sum + ttc/((ttc*(i-0.5D0))**2+y**2)**3.5D0
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**3.5D0
         end do
         help = SQRT(mt**2+y**2)
-        corr1 = (11*mt*mt+9*mt*help+8*y*y)/(15*help**5*(mt+help)**3)
-        corr2 = 7*mt**3/(24*help**9)
+        corr1 = (11D0*mt*mt + 9D0*mt*help + 8D0*y*y)/
+     .          (15D0*help**5*(mt+help)**3)
+        corr2 = 7D0*mt**3/(24D0*help**9)
         he3_z7 = y**6*(sum + corr1 - corr2)
       end
 
@@ -126,7 +127,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, gap
-        he3_yosida0 = 1 - he3_z3(ttc,gap)
+        he3_yosida0 = 1D0 - he3_z3(ttc,gap)
       end
 
 ! Yosida function vs T/Tc, gap
@@ -144,17 +145,17 @@
           return
         endif
         maxi=100
-        dx=1D0/maxi
+        dx=1D0/dble(maxi)
         he3_yosida = 0D0
         ! intergation of he3_yosida_int from 0 to 1 using Gaussian quadrature
         do i=1,maxi 
-          xp = dx * (i - 0.5D0 + 0.5D0/dsqrt(3D0))
-          xm = dx * (i - 0.5D0 - 0.5D0/dsqrt(3D0))
+          xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
+          xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
           he3_yosida = he3_yosida
      .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
      .       + he3_yosida_int(xm, ttc, gap, n) * dx/2D0
         enddo
-        he3_yosida = he3_yosida / (2*ttc)
+        he3_yosida = he3_yosida / (2D0*ttc)
       end
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2T change is made to get good integrand
@@ -197,7 +198,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc,p,gap
-        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1000 ! mk->K
+        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
         he3_nu_b = dsqrt(3D0 / 8D0 / const_pi / he3_chi_b(ttc,p))
      .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
      .    * gap * dlog(he3_tfeff(p)*const_kB/gap)

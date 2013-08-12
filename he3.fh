@@ -72,6 +72,7 @@
       real*8 He3_nu_b      ! B-phase Leggett frequency, Hz
 
 ! Other
+      real*8 He3_exp_nu_b  ! B-phase Leggett frequency, Hz
       real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]

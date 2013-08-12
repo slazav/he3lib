@@ -62,6 +62,8 @@ double he3_yosida0_(double *ttc, double *gap); /* Y0 function (approx) */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
 double he3_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
 
+
+double he3_exp_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
 
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
