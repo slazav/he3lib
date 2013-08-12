@@ -25,23 +25,22 @@ p1(f, he3_tmag(press)*1e3, '$T^\\star$, mK',         '5.1f');
 
 fprintf(f, '\\hline\n');
 
-p1(f, he3_rho(press),        '$\\rho$, g/cm$^3$',          '5.3f');
-p1(f, he3_2n0(press)/1e38,   '$2N(0), 10^{38}$',          '5.3f');
+p1(f, he3_rho(press),        '$\\rho$, g/cm$^3$',      '5.3f');
+p1(f, he3_2n0(press)/1e38,   '$2N(0), 10^{38}$',       '5.3f');
 p1(f, he3_pf(press)/1e-20,   '$p_F, 10^{-20}$ g cm/s', '5.3f');
-p1(f, he3_meff(press)/1e-23, '$m^\\star, 10^{-23}$ g',   '5.3f');
-p1(f, he3_mm(press),         '$m^\\star/m_3$',             '5.3f');
+p1(f, he3_meff(press)/1e-23, '$m^\\star, 10^{-23}$ g', '5.3f');
+p1(f, he3_mm(press),         '$m^\\star/m_3$',         '5.3f');
 
-p1(f, he3_vf(press)/1e2,     '$v_F$,~m/s',        '5.2f');
-p1(f, he3_chi_n(press)/1e-9, '$\\chi_N, 10^{-9}$', '5.1f');
+p1(f, he3_vf(press)/1e2,     '$v_F$,~m/s',          '5.2f');
+p1(f, he3_chi_n(press)/1e-9, '$\\chi_N, 10^{-9}$',  '5.1f');
 p1(f, he3_f0s(press),        '$F_0^s$',             '5.2f');
-p1(f, he3_f1s(press),        '$F_1^s$',    '5.2f');
-p1(f, he3_f0a(press),        '$F_0^a$',    '5.2f');
-p1(f, he3_f1a(press),        '$F_1^a$',    '5.2f');
-p1(f, he3_z0(press),         '$Z_0$',      '5.2f');
-p1(f, he3_a(press),          '$a$,~\\AA',         '5.3f');
-p1(f, he3_gdk(press)/1e-9,   '$g_d/k_B$,~$\\mu$K',     '5.1f');
-p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K', '5.3f');
-p1(f, he3_lscatt(press),     '$\\lambda$', '5.3f');
+p1(f, he3_f1s(press),        '$F_1^s$',             '5.2f');
+p1(f, he3_f0a(press),        '$F_0^a (Z0/4)$',      '5.2f');
+p1(f, he3_f1a(press),        '$F_1^a$',             '5.2f');
+p1(f, he3_a(press),          '$a$,~\\AA',           '5.3f');
+p1(f, he3_gdk(press)/1e-9,   '$g_d/k_B$,~$\\mu$K',  '5.1f');
+p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K',    '5.3f');
+p1(f, he3_lscatt(press),     '$\\lambda$',          '5.3f');
 
 %%
 

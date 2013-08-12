@@ -1,4 +1,4 @@
-all: fermi.tex phase.tex phase.eps
+all: fermi.tex phase.tex phase.eps gap.eps yosida_int.eps
 
 
 %.tex: %.m

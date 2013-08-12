@@ -139,41 +139,87 @@
         real*8 dx, xp, xm
         real*8 he3_yosida_int
         integer i, maxi
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          he3_yosida=NaN
+          return
+        endif
         maxi=100
-        dx=1D0/maxi;
-        he3_yosida = 0
+        dx=1D0/maxi
+        he3_yosida = 0D0
         ! intergation of he3_yosida_int from 0 to 1 using Gaussian quadrature
         do i=1,maxi 
           xp = dx * (i - 0.5D0 + 0.5D0/dsqrt(3D0))
           xm = dx * (i - 0.5D0 - 0.5D0/dsqrt(3D0))
           he3_yosida = he3_yosida
      .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
-     .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
+     .       + he3_yosida_int(xm, ttc, gap, n) * dx/2D0
         enddo
+        he3_yosida = he3_yosida / (2*ttc)
       end
 ! Integrand for Yosida function calculations
+! x = tanh(\xi)/2T change is made to get good integrand
+! and [0:1] integrating range.
       function he3_yosida_int(x, ttc,gap, n)
         implicit none
         real*8 x, ttc,gap, xi, ek, n
         real*8 he3_yosida_int
-        xi = atanh(x)*2D0*ttc;
-        ek=sqrt(xi**2 + gap**2);
-        he3_yosida_int = 
+        xi = datanh(x)*2D0*ttc
+        ek=dsqrt(xi**2 + gap**2)
+        he3_yosida_int =
      .     (xi/ek)**n
-     .   / (cosh(ek/(2D0*ttc)))**2
-     .   * cosh(xi/(2D0*ttc))**2
+     .   / (dcosh(ek/(2D0*ttc)))**2
+     .   * dcosh(xi/(2D0*ttc))**2
      .   * 2D0*ttc
       end
 
 ! He3-B suseptibility
+! see VW book ch.10 p.449; ch2 p.90
+! see Wheatley-75 f 3.7
+! There is also additional term to 3*chi0
+!  + 2/5 F2a (1-Y0)^2
       function He3_chi_b(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 p,ttc,G,Y
-        He3_chi_b = he3_chi_n(P)
-        if (TTC.LT.1D0) then
+        real*8 ttc,p,G,Y,F
+        F = He3_f0a(p)
+        He3_chi_b = he3_chi_n(p)*(1D0+F)
+        if (ttc.LT.1D0) then
           G  = he3_bcsgap(ttc)
-          Y  = He3_yosida0(ttc, G)
-          He3_chi_b = He3_chi_b * (1D0-Y/3D0)
+          Y  = He3_yosida(ttc, G, 0D0)
+          He3_chi_b = He3_chi_b *
+     .      ((1D0+F) * (2D0+Y)/3D0) /
+     .      ( 1D0+F * (2D0+Y)/3D0)
         end if
       end
+
+! B-phase Leggett freq
+      function he3_nu_b(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,gap
+        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1000 ! mk->K
+        he3_nu_b = dsqrt(3D0 / 8D0 / const_pi / he3_chi_b(ttc,p))
+     .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
+     .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
+      end
+
+! Suseptibility [sgs] vs P [bar], T [mK]
+! Origin: Mukharskii, Dmitriev
+
+      function He3_susept(P,T)
+        implicit none
+        include 'he3.fh'
+        real*8 P,T,G,Y,TTC,F
+        He3_susept = he3_chi_n(P)
+        TTC=T/He3_Tc(P)
+        if (TTC.LT.1D0) then
+          F = He3_f0a(P)
+          G  = he3_bcsgap(ttc)
+          Y  = He3_yosida0(ttc, G)
+          He3_susept = He3_susept *
+     .      ((1D0+F) * (2D0+Y)/3D0) /
+     .      ( 1D0+F * (2D0+Y)/3D0)
+        end if
+      end
+
+

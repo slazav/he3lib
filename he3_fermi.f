@@ -83,6 +83,12 @@
         endif
       end
 
+!!!!!!!
+!  Engel, Ihas, Phys. Rev. Lett. 55, 955958 (1985)
+!  Hamot, Lee, ... Halperin, JLTP 99 p651 (1995)
+
+
+
 !!!!!!!    derived values
 
 !     density, g/cm^3
@@ -168,19 +174,15 @@
         He3_F1s = 3D0*(he3_mm(P)-1D0)
       end
 
+      ! see also Halperin, JLTP 89 (1982)
+      ! same as Z0/4
       function He3_F0a(P) ! Greywall-83
         implicit none
         include 'he3.fh'
         real*8 P
         if (P.ge.0D0.and.P.le.34.40D0) then
-          He3_F0a =
-     .      1.240297D-09 * P**6
-     .     -1.402531D-07 * P**5
-     .     +6.139834D-06 * P**4
-     .     -1.325618D-04 * P**3
-     .     +1.563896D-03 * P**2
-     .     -1.187455D-02 * P**1
-     .     -7.000465D-01
+        he3_f0a = 
+     .   3D0*const_kb*he3_tmag(P)*he3_meff(P)/he3_pf(P)**2 - 1D0
         else
           He3_F0a = NaN
         endif
@@ -203,16 +205,6 @@
           He3_F1a = NaN
         endif
       end
-
-!     Z0 vs P [bar]
-      function He3_z0(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        he3_z0 = 4D0 *
-     .    (3D0*const_kb*he3_tmag(P)*he3_meff(P)/he3_pf(P)**2 - 1D0)
-      end
-
 
 !     average atomic spacing, angstr.
       function He3_a(P)
@@ -239,7 +231,8 @@
         He3_a = const_pi**2/2D0 / he3_gammaf(P)
       end
 
-!     scattering factors
+!     Dcattering factors
+!     From Samuli's code for spin diffusion
 !     notation: Einzel JLTP54 (A1 and A0)
 !     following Einzel & Wölfle JLTP 32 page 34 and 27
       function He3_lscatt(P)

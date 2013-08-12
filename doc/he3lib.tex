@@ -14,7 +14,7 @@
 
 \title{$^3$He library}
 \date{\today}
-\author{V.Z.}
+\author{\tt vladislav.zavyalov@aalto.fi}
 \maketitle
 
 \subsection*{Usage}
@@ -107,7 +107,7 @@ he3\_phase.f}.
 
 \eject
 
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=.6]{phase.eps}
 \end{figure}
 
@@ -148,13 +148,12 @@ Derived values:
                      \ \frac{2N(0)}{p_F}$,~[g]\\
 \tt he3\_mm(P)     & $m^\star/m_3$\\
 \tt he3\_vf(P)     & $\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
-\tt he3\_chi\_n(P)   & Normal phase susceptibility $\chi_N$\\
-
+\tt he3\_chi\_n(P) & Normal phase susceptibility $\chi_{N}$.\newline
+                   Without Fermi-liquid corrections (?)\\
 \tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
 \tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
-\tt he3\_f0a(P)    &$\displaystyle F_0^a$\\
+\tt he3\_f0a(P)    &$\displaystyle F_0^a = Z_0/4 = 3 k_B T^\star m^\star / p_F^2 - 1$\\
 \tt he3\_f1a(P)    &$\displaystyle F_1^a$\\
-\tt he3\_z0(P)     &$\displaystyle Z_0 = 4 (3 k_B T^\star m^\star / p_F^2 - 1)$\\
 
 
 \tt he3\_a(P)      &Average atomic spacing,
@@ -168,9 +167,11 @@ Derived values:
 \medskip
 
 \noindent TODO:\\
-$F_0^a$ and $F_1^a$ are got from old Greywall table. It is better to
-calculate them from experimental data (becouse data for $m^\star$ is newer).\\
-$g_d$ in the texture library is completely different!
+How to calculate $F_1^a$ from experimantal data?\\
+Compare/update $F_0^a$ using Halperin-92.\\
+Check $g_d$. In the texture library it is completely different!\\
+Add $F_2^a$. Halperin-95\\
+Fix susceptibility!
 
 \eject
 {\small\input{pics/fermi.tex}}
@@ -185,16 +186,38 @@ source file {\tt he3\_gap.f}.
 
 \medskip
 \begin{tabular}{lp{9cm}}
-\tt he3\_bcsgap(ttc)    & $\Delta_{\rm BCS}/ k_B T_c$ for pure 3He-B\\
+\tt he3\_bcsgap(ttc)    & BCS gap for 3He-B: $\Delta_{\rm BCS}/ k_B T_c$\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
-\tt he3\_z3(ttc, gap)      &\\
-\tt he3\_z5(ttc, gap)      &\\
-\tt he3\_z7(ttc, gap)      &\\
-\tt he3\_yosida0(ttc, gap) & Yosida function $Y_0$\\
+\tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(\Delta, T/T_c) =$\newline
+$\displaystyle
+= \frac{1}{2T/T_c}\ \int_0^\infty
+  \left(\frac{\xi}{\sqrt{\xi^2+\Delta^2}}\right)^n
+  \left(\cosh \frac{\sqrt{\xi^2+\Delta^2}}{2T/T_c}\right)^{-2}
+  d\xi
+$\\
+
+\tt he3\_chi\_b(ttc, gap)    &B-phase susceptibility\newline
+                             $\displaystyle \chi_B = \chi_N \frac{(1+F_0^a)\chi_0}{1+F_0^a\chi_0},
+                             \qquad \chi_0 = 2/3 + Y_0/3$\\
+\tt he3\_nu\_b(ttc, gap)     &B-phase Leggett frequency\newline
+                             $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
+                             \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}  $\\
+%\tt he3\_z3(ttc, gap)        &\\
+%\tt he3\_z5(ttc, gap)        &\\
+%\tt he3\_z7(ttc, gap)        &\\
+%\tt he3\_yosida0(ttc, gap)   & Yosida function $Y_0$\\
 \end{tabular}
 \medskip
 
-\noindent TODO: add accurate calculation os $Y_n$. Add susceptibility.
+\noindent TODO:\\
+Look at calculation of {\tt bcsgap}.\\
+Do we need {\tt z3,z5,z7} from texture code? Probably
+these values can be derived from {\tt yosida}.\\
+
+
+\begin{figure}[h]
+\includegraphics[scale=.6]{gap.eps}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

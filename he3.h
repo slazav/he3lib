@@ -42,11 +42,10 @@ double he3_meff_(double *P);   /* Effective mass [g] vs P [bar] */
 double he3_pf_(double *P);     /* Fermi momentum [sgs] vs P [bar] */
 double he3_vf_(double *P);     /* Fermi velocity [cm/s] vs P [bar] */
 double he3_chi_n_(double *P);  /* Normal liquid susceptibility vs P [bar]  */
-double he3_f0a_(double *P);    /* F0a vs P [bar] */
+double he3_f0a_(double *P);    /* F0a vs P [bar] (Z0/4)*/
 double he3_f0s_(double *P);    /* F0s vs P [bar] */
 double he3_f1a_(double *P);    /* F1a vs P [bar] */
 double he3_f1s_(double *P);    /* F1s vs P [bar] */
-double he3_z0_(double *P);     /* Z0 vs P [bar]  */
 double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
@@ -61,6 +60,7 @@ double he3_z7_(double *ttc, double *gap);
 double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
 double he3_yosida0_(double *ttc, double *gap); /* Y0 function (approx) */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
+double he3_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
 
 double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
 
