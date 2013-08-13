@@ -1,4 +1,3 @@
-
 ! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
 ! Newton iteration based on a note by EVT & RH
 ! From ROTA texture library
@@ -7,6 +6,14 @@
         include 'he3.fh'
         integer n, m
         real*8 ttc,root,y,dy,ynew,g,dg
+        if (ttc.ge.1) then
+          he3_bcsgap = 0D0
+          return
+        end if
+        if (ttc.lt.0) then
+          he3_bcsgap = NaN
+          return
+        end if
         m = 30
         dy = 1.0D0
         ynew = 1.7638D0*SQRT(1D0-ttc)/(2D0*const_pi)
@@ -17,7 +24,7 @@
      .        - (1D0/dble(m)**2 - dble(m)*(ttc/root)**3)/24D0
           dg = y/(root*(dble(m)*ttc+root))
      .        - dble(m)*ttc**3*y/(8D0*root**5)
-          DO n=1,m
+          do n=1,m
             root=SQRT((ttc*(dble(n)-0.5D0))**2 + y**2)
             g = g + 1D0/(dble(n)-0.5D0) - ttc/root
             dg = dg + ttc*y/root**3
@@ -27,6 +34,28 @@
         end do
         he3_bcsgap = 2D0*const_pi*ynew
         if (ttc.ge.1D0) he3_bcsgap = 0D0
+      end
+
+! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
+! Einzel approximation (D.Einzel JLTP 84 (1991))
+! <0.5% accuracy in the whole temperature range
+! 70 times faster
+      function he3_bcsgap_fast(ttc)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, dsc, ccn, c1,c2
+        if (ttc.ge.1) then
+          he3_bcsgap_fast = 0D0
+          return
+        end if
+        if (ttc.lt.0) then
+          he3_bcsgap_fast = NaN
+          return
+        end if
+        he3_bcsgap_fast = 1.764D0 *
+     .    dtanh( const_pi/1.764D0 *
+     .      sqrt(2D0/3D0 * 1.426D0 * (1D0-ttc)/ttc *
+     .          (1+0.1916D0*(1-ttc) + 0.2065D0*(1-ttc)**2)))
       end
 
 ! Trivial strong-coupling correction to the BCS energy gap
@@ -131,7 +160,6 @@
       end
 
 ! Yosida function vs T/Tc, gap
-! Based on Samuli's code
 ! See D.Einzel JLTP 84
       function he3_yosida(ttc, gap, n)
         implicit none
@@ -162,6 +190,7 @@
 ! and [0:1] integrating range.
       function he3_yosida_int(x, ttc,gap, n)
         implicit none
+        include 'he3.fh'
         real*8 x, ttc,gap, xi, ek, n
         real*8 he3_yosida_int
         xi = datanh(x)*2D0*ttc
@@ -171,6 +200,115 @@
      .   / (dcosh(ek/(2D0*ttc)))**2
      .   * dcosh(xi/(2D0*ttc))**2
      .   * 2D0*ttc
+      end
+
+! Collision integral in Einzel approximation
+! Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66
+      function he3_coll_int(xi,ttc, gap, g0, d0)
+        implicit none
+        include 'he3.fh'
+        real*8 he3_coll_int, xi, ttc, gap, x
+        real*8 J0,J1,J2,J3, K0,K1,K2,K3, I0,I1,I2,I3
+        real*8 a0,a1,a2,a3, b0,b1,b2, g0,d0
+
+        x = gap/ttc
+        a0 = -0.5768D0
+        a1 =  0.2694D0
+        a2 =  0.29D0
+        a3 = -0.08D0
+        J0 = 3D0/4D0/const_pi**0.5D0
+     .       * (1D0+2D0*x)**1.5D0
+     .       / (dexp(x) + a0 + a1*x + a2*x**2 + a3*x**3)
+        J1 = x**2 / (2*const_pi)**0.5D0
+     .       * (0.5D0 + x)**1.5D0
+     .       / (1.3D0 + x**2) * dexp(-x)
+        J2 = x**2 / (2*const_pi)**0.5D0
+     .       / (0.5D0 + x)**1.5D0
+     .       / (dexp(x)+2.3D0)
+        J3 = 3*x**4 / (2*const_pi)**0.5D0
+     .       / (0.5D0 + x)**1.5D0
+     .       / (0.2D0 + x**2)
+     .       / (dexp(x)+1D0+0.1D0*x**2)
+        b0 =  3.4296
+        b1 = -3.2148
+        b2 =  2.375D0
+        K0 = 9D0/8D0/(2*const_pi)**0.5D0
+     .       / (0.5D0 + x)**1.5D0
+     .       / (dexp(x) + b0 + b1*x + b2*x**2)
+        K1 = - 5D0/8D0/(2*const_pi)**0.5D0
+     .       * x**2 / (1D0+x)**1.5D0
+     .       * dexp(-x) / (const_pi**2 + x**2)
+        K2 = 3D0/8D0/(2*const_pi)**0.5D0
+     .       * x**2 / (1D0+x)**1.5D0
+     .       * dexp(-x) / (127D0/150D0 * const_pi**2 + x**2)
+        K3 = - 15D0/8D0/(2*const_pi)**0.5D0
+     .       * x**4/(1D0+x**2)**1.5D0
+     .       * dexp(-x) / (const_pi**2 + x**2)
+        I0 = J0 + K0 * (xi/ttc)**2
+        I1 = J1 + K1 * (xi/ttc)**2
+        I2 = J2 + K2 * (xi/ttc)**2
+        I3 = J3 + K3 * (xi/ttc)**2
+        he3_coll_int = ( I0 - g0*(I1+I2) + d0*I3 )
+      end
+
+! Integrand for tau_av calculations
+! e = tanh(\xi)/2ttc change is made to get good integrand (e = 0..1)
+      function he3_tau_av_int(x,ttc, gap, g0, d0)
+        implicit none
+        real*8 x,ttc, gap, g0, d0, xi, ek
+        real*8 he3_coll_int, he3_tau_av_int
+        xi = datanh(x)*2D0*ttc
+        ek=dsqrt(xi**2 + gap**2)
+        he3_tau_av_int = he3_coll_int(xi,ttc, gap, g0, d0)
+     .   / (dcosh(ek/(2D0*ttc)))**2
+     .   * dcosh(xi/(2D0*ttc))**2
+     .   * 2D0*ttc
+      end
+
+! Averaged quasiparticle lifetime
+! Einzel JLTP84 (1991) p.345
+      function he3_tau_av(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap, sum, g0, d0, Y0, tn0
+        real*8 dx, xp, xm
+        real*8 he3_tau_av_int
+        integer i, maxi
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          he3_tau_av=NaN
+          return
+        endif
+        g0  = he3_scatt_g0(p)
+        d0  = he3_scatt_d0(p)
+        gap = he3_trivgap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        tn0 = he3_tau_n0tc(p) / ttc**2
+        sum = 0D0
+        maxi=100
+        dx=1D0/dble(maxi)
+        ! intergation from 0 to 1 using Gaussian quadrature
+        do i=1,maxi 
+          xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
+          xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
+          sum = sum
+     .       + he3_tau_av_int(xp, ttc, gap, g0, d0) * dx/2D0
+     .       + he3_tau_av_int(xm, ttc, gap, g0, d0) * dx/2D0
+        enddo
+        he3_tau_av = Y0 * tn0 / sum
+      end
+
+! Spin diffusion transport time, s
+! Einzel JLTP84 (1991) p.349
+      function he3_tau_dperp(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, l1a, gap, y0, y2
+        l1a = he3_scatt_l1a(p)
+        gap = he3_trivgap(ttc, p)
+        y0  = he3_yosida(ttc, gap, 0D0)
+        y2  = he3_yosida(ttc, gap, 2D0)
+        he3_tau_dperp = he3_tau_av(ttc,p)
+     .   /(1D0 - l1a*(4D0/5D0*y0 + 1D0/5D0*y2)/y0)
       end
 
 ! He3-B suseptibility

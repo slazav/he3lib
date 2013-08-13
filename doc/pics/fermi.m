@@ -40,7 +40,10 @@ p1(f, he3_f1a(press),        '$F_1^a$',             '5.2f');
 p1(f, he3_a(press),          '$a$,~\\AA',           '5.3f');
 p1(f, he3_gdk(press)/1e-9,   '$g_d/k_B$,~$\\mu$K',  '5.1f');
 p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K',    '5.3f');
-p1(f, he3_lscatt(press),     '$\\lambda$',          '5.3f');
+p1(f, he3_tau_n0tc(press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
+p1(f, he3_scatt_l1a(press),    '$\\lambda_1^a$',      '5.3f');
+p1(f, he3_scatt_g0(press),     '$\\gamma_0$',         '5.3f');
+p1(f, he3_scatt_d0(press),     '$\\delta_0$',         '5.3f');
 
 %%
 

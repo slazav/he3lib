@@ -162,6 +162,8 @@ Derived values:
                     $\displaystyle g_d/k_B = \frac{2\pi\gamma^2\hbar^2}{3 v_m k_B}$,~[K]\\
 \tt he3\_tfeff(P)  &Effective fermi temperature,
                     $\displaystyle T_{F_{eff}} = \frac{\pi^2}{2\gamma_f}$,~[K]\\
+\tt he3\_tau\_n0(P) &Normal state quasiparticle lifetime at the Fermi level\newline
+                    $\displaystyle \tau_N(0,Tc) = \frac{32 e_F \hbar}{<W>(\pi k_B T_c)^2}$\\
 \tt he3\_lscatt(P) &Scattering factor $\lambda$\\
 \end{tabular}
 \medskip
@@ -173,7 +175,6 @@ Check $g_d$. In the texture library it is completely different!\\
 Add $F_2^a$. Halperin-95\\
 Fix susceptibility!
 
-\eject
 {\small\input{pics/fermi.tex}}
 
 \eject
@@ -186,7 +187,8 @@ source file {\tt he3\_gap.f}.
 
 \medskip
 \begin{tabular}{lp{9cm}}
-\tt he3\_bcsgap(ttc)    & BCS gap for 3He-B: $\Delta_{\rm BCS}/ k_B T_c$\\
+\tt he3\_bcsgap(ttc)       & BCS gap for 3He-B: $\Delta_{\rm BCS}/ k_B T_c$\\
+\tt he3\_bcsgap\_fast(ttc) & Einzel approximation (0.5\% accuracy, 70 times faster)\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(\Delta, T/T_c) =$\newline
 $\displaystyle

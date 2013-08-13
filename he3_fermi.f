@@ -231,11 +231,9 @@
         He3_tfeff = const_pi**2/2D0 / he3_gammaf(P)
       end
 
-!     Dcattering factors
-!     From Samuli's code for spin diffusion
-!     notation: Einzel JLTP54 (A1 and A0)
-!     following Einzel & Wölfle JLTP 32 page 34 and 27
-      function He3_lscatt(P)
+
+! Scattering...
+      subroutine he3_s0s1t0t1(P, S0,S1,T0,T1)
         implicit none
         include 'he3.fh'
         real*8 P
@@ -256,20 +254,90 @@
         S1 = A1s - 3D0*A1a
         T0 = A0s + A0a
         T1 = A1s + A1a
+      end
 
-        !averages over Abrikosov angles, see Collision_integrals.nb
-        ! <W>/pi
-        Wa = 1D0/60D0 *
-     .    (30D0*S0**2 - 20D0*S0*S1 + 14D0*S1**2
-     .     + 45D0*T0**2 - 30D0*T0*T1 + 21D0*T1**2)
+! Crossection averages over Abrikosov angles
+      function he3_crsect_w(P, S0,S1,T0,T1)
+        implicit none
+        include 'he3.fh'
+        real*8 P, S0,S1,T0,T1
+        he3_crsect_w = const_pi/2D0 *
+     .    (S0**2 - 2D0/3D0*S0*S1 + 7D0/15D0*S1**2
+     .     + 1.5D0*T0**2 - T0*T1 + 7D0/10D0*T1**2)
+      end
+      function he3_crsect_wi(P, S0,S1,T0,T1)
+        implicit none
+        include 'he3.fh'
+        real*8 P, S0,S1,T0,T1
+        he3_crsect_wi = const_pi/2D0 *
+     .    ((S0**2)/3D0 + 2D0/15D0*S0*S1 - 29D0/105D0*S1**2
+     .     + 2D0/3D0*S0*T0 - 2D0/5D0*S0*T1
+     .     + 5D0/3D0*(25D0-36D0*dlog(2D0))*T0**2
+     .     + (84D0-120D0*dlog(2D0))*T0*T1
+     .     + 5D0/21D0*(173D0-252D0*dlog(2D0))*T1**2)
+      end
+      function he3_crsect_wd(P, S0,S1,T0,T1)
+        implicit none
+        include 'he3.fh'
+        real*8 P, S0,S1,T0,T1
+        he3_crsect_wd = const_pi/2D0 *
+     .    (7D0/15D0*S0**2 - 18D0/35D0*S0*S1 + 107D0/315D0*S1**2
+     .     + 8D0/15D0*S0*T0 - 8D0/105D0*(S0*T1 + S1*T0)
+     .     + 8D0/63D0*S1*T1 + 29D0/30D0*T0**2
+     .     - 19D0/35D0*T0*T1 + 33D0/70D0*T1**2)
+      end
 
-        W = 1D0/420D0 *
+!     Scattering factors
+!     notation: Einzel JLTP54 (A1 and A0)
+!     following Einzel & Wölfle JLTP 32 page 34 and 27
+      function He3_scatt_l1a(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        real*8 S0,S1,T0,T1, W, Wl
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        W = he3_crsect_w(P, S0,S1,T0,T1)
+        Wl = const_pi * 1D0/420D0 *
      .    (- 70D0*S0**2 - 54D0*S1**2 + 175D0*T0**2
      .     + 28D0*S0*(7D0*S1 + 10D0*T0 - 6D0*T1)
      .     - 42D0*T0*T1 + 71D0*T1**2
      .     + 8D0*S1*(-21D0*T0 + 19D0*T1))
-
-        He3_lscatt = W / Wa
+        He3_scatt_l1a = Wl / W
       end
 
+      function He3_scatt_g0(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        real*8 S0,S1,T0,T1, W, Wi
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        W  = he3_crsect_w(P, S0,S1,T0,T1)
+        Wi = he3_crsect_wi(P, S0,S1,T0,T1)
+        He3_scatt_g0 = Wi / W
+      end
 
+      function He3_scatt_d0(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        real*8 S0,S1,T0,T1, W, Wd
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        W  = he3_crsect_w(P, S0,S1,T0,T1)
+        Wd = he3_crsect_wd(P, S0,S1,T0,T1)
+        He3_scatt_d0 = Wd / W
+      end
+
+! Normal state quasiparticle lifetime at the Fermi level
+! \tau_N(0,Tc)
+! Einzel JLTP32 (1978) p.28,34
+      function He3_tau_n0tc(p)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        real*8 S0,S1,T0,T1, W, Wa
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        W = he3_crsect_w(P, S0,S1,T0,T1)
+        He3_tau_n0tc = 32 *
+     .    he3_tfeff(P)*const_hbar/const_pi**2
+     .    / W / const_kb / he3_tc(P)**2 * 1D6
+      end
