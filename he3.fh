@@ -60,23 +60,26 @@
       real*8 He3_Tfeff     ! effective fermi temperature, K
 
       real*8 He3_tau_n0tc  ! Normal state quasiparticle lifetime at the Fermi level tau_N(0,Tc)
-      real*8 He3_scatt_l1a   !
-      real*8 He3_scatt_g0    !
-      real*8 He3_scatt_d0    !
-      real*8 He3_crsect_w    !
-      real*8 He3_crsect_wi   !
-      real*8 He3_crsect_wd   !
+      real*8 He3_scatt_l1a ! scattering papmeters
+      real*8 He3_scatt_g0  !
+      real*8 He3_scatt_d0  !
+      real*8 He3_crsect_w  ! crossections
+      real*8 He3_crsect_wi !
+      real*8 He3_crsect_wd !
 
 ! BCS gap + strong coupling correction (see he3_gap.f)
-      real*8 He3_bcsgap      ! BCS energy gap
-      real*8 He3_bcsgap_fast ! BCS energy gap approximation
-      real*8 He3_trivgap     ! Trivial strong-coupling correction to the BCS gap
+      real*8 He3_bcsgap       ! BCS energy gap
+      real*8 He3_bcsgap_fast  ! BCS energy gap approximation
+      real*8 He3_trivgap      ! Trivial strong-coupling correction to the BCS gap
+      real*8 He3_yosida       ! Yosida function Yn vs T/Tc, gap, n
+!      real*8 He3_yosida0_fast ! Yosida function Yn vs T/Tc, gap, n
+
       real*8 He3_Z3
       real*8 He3_Z5
       real*8 He3_Z7
-      real*8 He3_yosida      ! Yosida function Yn vs T/Tc, gap, n
       real*8 He3_yosida0     ! Yosida function Y0 vs T/Tc, gap (approx)
 
+      real*8 He3_tau0        ! Quasiparticle lifetime at fermi level, s
       real*8 He3_tau_av      ! Averaged quasiparticle lifetime
       real*8 He3_tau_dperp   ! Spin diffusion transport time
       real*8 He3_chi_b       ! B-phase susceptibility T/Tc, P

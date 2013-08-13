@@ -50,7 +50,7 @@ double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
 
-double he3_scatt_l1a_(double *P);   /*  */
+double he3_scatt_l1a_(double *P); /* Scattering parameters */
 double he3_scatt_g0_(double *P);
 double he3_scatt_d0_(double *P);
 double he3_tau_n0tc_(double *P);  /* Normal state quasiparticle lifetime at the Fermi level tau_N(0,Tc) */
@@ -59,13 +59,18 @@ double he3_tau_n0tc_(double *P);  /* Normal state quasiparticle lifetime at the 
 double he3_bcsgap_(double *ttc);             /* BCS energy gap */
 double he3_bcsgap_fast_(double *ttc);        /* BCS energy gap approximation */
 double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correction to the BCS gap*/
+double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
+// double he3_yosida0_fast_(double *ttc, double *gap);      /* Yosida0 approximation*/
+
 double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
-double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
-double he3_yosida0_(double *ttc, double *gap); /* Y0 function (approx) */
+double he3_yosida0_(double *ttc, double *gap); /* Y0 function -- old */
+
+double he3_tau0_(double *ttc, double *p);      /* Quasiparticle lifetime at fermi level, s */
 double he3_tau_av_(double *ttc, double *p);    /* Averaged quasiparticle lifetime, s */
 double he3_tau_dperp_(double *ttc, double *p); /* Spin diffusion transport time, s */
+
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 
