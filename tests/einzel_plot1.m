@@ -1,4 +1,4 @@
-function plot_tauav()
+function einzel_plot1()
   % Einzel JLTP32 (1978) p.35 fig.1
   addpath ~/he3lib/lib/matlab
 
@@ -6,7 +6,7 @@ function plot_tauav()
   ttc = 0.00:0.01:1;
   p=0;
 
-  tn=he3_tau_n0tc(p) ./ ttc.^2;
+  tn=he3_tau_n0(ttc,p);
   gap=he3_trivgap(ttc,p);
   t0=he3_tau0(ttc, p);
 

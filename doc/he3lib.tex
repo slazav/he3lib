@@ -6,6 +6,7 @@
 \graphicspath{{pics/}}
 \usepackage{color}
 \usepackage{epsfig}
+\usepackage{fullpage}
 
 \renewcommand{\arraystretch}{1.5}
 \renewcommand{\tabcolsep}{1mm}
@@ -103,15 +104,12 @@ he3\_phase.f}.
 \tt he3\_tabn     & A-B-Normal point temperature, 2.2311~[mK]\\
 \tt he3\_pabn     & A-B-Normal point pressure, 21.22~[bar]\\
 \end{tabular}
-\medskip
 
 \eject
 
 \begin{figure}[h]
-\includegraphics[scale=.6]{phase.eps}
+\includegraphics[scale=.68]{phase.eps}
 \end{figure}
-
-{\small\input{pics/phase.tex}}
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,6 +122,7 @@ capacity ($\gamma_f=C/RT$) measured by {Graywall-86}. Argument is
 pressure, [bar] in the range 0 -- 34.4. See more information in the
 source file {\tt he3\_fermi.f}.
 
+\medskip
 Measured values:
 
 \medskip
@@ -133,7 +132,6 @@ Measured values:
 \tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
 \tt he3\_tmag(P)   & Magnetic temperature $T^\star$,~[K]\newline\\
 \end{tabular}
-\medskip
 
 Derived values:
 
@@ -162,20 +160,16 @@ Derived values:
                     $\displaystyle g_d/k_B = \frac{2\pi\gamma^2\hbar^2}{3 v_m k_B}$,~[K]\\
 \tt he3\_tfeff(P)  &Effective fermi temperature,
                     $\displaystyle T_{F_{eff}} = \frac{\pi^2}{2\gamma_f}$,~[K]\\
-\tt he3\_tau\_n0(P) &Normal state quasiparticle lifetime at the Fermi level\newline
-                    $\displaystyle \tau_N(0,Tc) = \frac{32 e_F \hbar}{<W>(\pi k_B T_c)^2}$\\
-\tt he3\_lscatt(P) &Scattering factor $\lambda$\\
 \end{tabular}
 \medskip
 
 \noindent TODO:\\
-How to calculate $F_1^a$ from experimantal data?\\
-Compare/update $F_0^a$ using Halperin-92.\\
-Check $g_d$. In the texture library it is completely different!\\
-Add $F_2^a$. Halperin-95\\
+How to calculate $F_1^a$ from experimantal data?
+Compare/update $F_0^a$ using Halperin-92.
+Check $g_d$. In the texture library it is completely different!
+Add $F_2^a$ (Halperin-95).
 Fix susceptibility!
 
-{\small\input{pics/fermi.tex}}
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,16 +181,12 @@ source file {\tt he3\_gap.f}.
 
 \medskip
 \begin{tabular}{lp{9cm}}
-\tt he3\_bcsgap(ttc)       & BCS gap for 3He-B: $\Delta_{\rm BCS}/ k_B T_c$\\
-\tt he3\_bcsgap\_fast(ttc) & Einzel approximation (0.5\% accuracy, 70 times faster)\\
+\tt he3\_bcsgap(ttc)       & BCS gap for 3He-B in $T_c$ units, $\Delta_{\rm BCS}/ k_B T_c$\\
+\tt he3\_bcsgap\_fast(ttc) & Einzel approximation for BCS gap (0.5\% accuracy, 70 times faster)\newline
+                             {\small(Einzel-1991, f.66)}\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
-\tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(\Delta, T/T_c) =$\newline
-$\displaystyle
-= \frac{1}{2T/T_c}\ \int_0^\infty
-  \left(\frac{\xi}{\sqrt{\xi^2+\Delta^2}}\right)^n
-  \left(\cosh \frac{\sqrt{\xi^2+\Delta^2}}{2T/T_c}\right)^{-2}
-  d\xi
-$\\
+\tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(T/T_c,\Delta)$\newline
+{\small(Einzel-1991, f.66)}\\\\
 
 \tt he3\_chi\_b(ttc, gap)    &B-phase susceptibility\newline
                              $\displaystyle \chi_B = \chi_N \frac{(1+F_0^a)\chi_0}{1+F_0^a\chi_0},
@@ -209,10 +199,6 @@ $\\
 %\tt he3\_z7(ttc, gap)        &\\
 %\tt he3\_yosida0(ttc, gap)   & Yosida function $Y_0$\\
 
-\tt he3\_tau0(ttc, gap) & Quasiparticle lifetime at fermi level, $\tau(0,T)$ s\newline
-                             $\tau(E,T) = \tau_N(0,T) / I (E,T)$\\
-\tt he3\_tau\_av(ttc, gap) & Average quasiparticle lifetime $\bar\tau(T)$\newline
-                             $\bar\tau =Y_0/ \int \phi_k/tau(E_k) d\xi $\\
 
 \end{tabular}
 \medskip
@@ -222,10 +208,53 @@ Look at calculation of {\tt bcsgap}.\\
 Do we need {\tt z3,z5,z7} from texture code? Probably
 these values can be derived from {\tt yosida}.\\
 
-
 \begin{figure}[h]
 \includegraphics[scale=.6]{gap.eps}
 \end{figure}
+\eject
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Transport properties}
+
+Pressure-dependant values, derived from Fermi-liquid parameters:
+
+\medskip
+\begin{tabular}{lp{9cm}}
+\tt he3\_scatt\_g0(P)  & Scattering factor $\gamma_0$ {\small(Einzel-1991, f.66)}\\
+\tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0$ {\small(Einzel-1991, f.67)}\\
+\tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ {\small(Einzel-1978, f.74)}\\
+
+\tt he3\_tau\_n0(ttc,p) &Normal state quasiparticle lifetime at the Fermi level, s.
+                    $$\tau_N(0,T,P) = \tau_N(0,T_c,P) \left(\frac{T_c}{T}\right)^2$$
+                    {\small(Einzel-1991, p.325)}\\
+\tt he3\_tau\_n0(ttc,p) &Thermal average of normal state quasiparticle lifetime, s.
+                    $$\bar\tau_N = \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>$$
+                    {\small(Einzel-1978, p.325)}\\
+\end{tabular}
+\medskip
+
+\medskip
+\begin{tabular}{lp{9cm}}
+\tt he3\_tau0(ttc, p)      & Bogoliubov quasiparticle lifetime at the Fermi level, s.
+                           $$1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$$
+                            {\small(Einzel-1991, f.74,76. Einzel-1990 f.A1)}\\
+
+\tt he3\_tau\_av(ttc, p)   & Thermal average of Bogoliubov quasiparticle lifetime, s.
+                           $$1/\bar\tau = \frac{1}{Y_0}
+                           \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$$
+                            {\small(Einzel-1991, f.77)}\\
+
+\tt he3\_tau\_dperp(ttc, p) & Spin diffusion transport time, s
+                           $$1/\tau_D^\perp = \frac{1}{\bar\tau}
+                            \left(1-\lambda_1^a \frac{4Y_0 + Y_2}{5Y_0}\right)$$ \\
+
+\tt he3\_tau\_dpar(ttc, p) & Spin diffusion transport time, s
+                           $$1/\tau_D^\parallel = \frac{1}{\bar\tau}
+                            \left(1-\lambda_1^a \frac{2Y_0 + 3Y_2}{5Y_0}\right)$$
+                            {\small(Einzel-1991, f.90,96)}\\
+\end{tabular}
+\medskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Other}
@@ -247,5 +276,12 @@ these values can be derived from {\tt yosida}.\\
 \medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\eject
+Pressure-dependent values:
+\medskip
+
+{\small\input{ptable.tex}}
+
 \end{document}
 

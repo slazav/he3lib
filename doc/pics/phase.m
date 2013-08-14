@@ -87,32 +87,5 @@ end
 
   print phase.eps -deps -color
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% make table
-f=fopen('phase.tex','w');
-press=[0:3:33];
-fprintf(f, '\\noindent\\begin{tabular}{r|');
-for i = 1:length(press); fprintf(f, 'c'); end
-fprintf(f, '}\n');
-
-fprintf(f, 'P, bar')
-for i = 1:length(press); fprintf(f, '& %2d', press(i)); end
-fprintf(f, '\\\\\n');
-
-fprintf(f, '\\hline');
-
-fprintf(f, '$T_c$, mK')
-for i = 1:length(press); fprintf(f, '& %5.3f', he3_tc(press(i))); end
-fprintf(f, '\\\\\n');
-
-fprintf(f, '$T_{AB}$, mK')
-for i = 1:length(press);
-  if (press(i)>he3_pabn) fprintf(f, '& %5.3f', he3_tab(press(i)));
-  else  fprintf(f, '& --'); end
-end
-fprintf(f, '\\\\\n');
-
-fprintf(f, '\\end{tabular}\n');
-fclose(f);
 
 

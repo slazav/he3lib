@@ -2,19 +2,31 @@
 
 function p1(f, x, t, fmt)
   fprintf(f, t)
-  for i = 1:length(x); fprintf(f, ['& %' fmt], x(i) ); end;
+  for i = 1:length(x);
+    if isnan(x(i))
+      fprintf(f, '& --');
+    else
+      fprintf(f, ['& %' fmt], x(i) );
+    end
+  end;
   fprintf(f, '\\\\\n');
 end
 
-addpath ../../matlab
+addpath ../matlab
 
-f=fopen('fermi.tex','w');
+f=fopen('ptable.tex','w');
 press=[0:3:33];
 fprintf(f, '\\noindent\\begin{tabular}{r|');
 for i = 1:length(press); fprintf(f, 'c'); end
 fprintf(f, '}\n');
 
 p1(f, press, 'P, bar', '2d');
+
+fprintf(f, '\\hline');
+
+p1(f, he3_tc(press),       '$T_c$, mK',      '5.3f');
+tab=he3_tab(press); tab(find(press<he3_pabn)) = nan;
+p1(f, tab,  '$T_{AB}$, mK',   '5.3f');
 
 fprintf(f, '\\hline');
 
@@ -35,15 +47,22 @@ p1(f, he3_vf(press)/1e2,     '$v_F$,~m/s',          '5.2f');
 p1(f, he3_chi_n(press)/1e-9, '$\\chi_N, 10^{-9}$',  '5.1f');
 p1(f, he3_f0s(press),        '$F_0^s$',             '5.2f');
 p1(f, he3_f1s(press),        '$F_1^s$',             '5.2f');
-p1(f, he3_f0a(press),        '$F_0^a (Z0/4)$',      '5.2f');
+p1(f, he3_f0a(press),        '$F_0^a$',             '5.2f');
 p1(f, he3_f1a(press),        '$F_1^a$',             '5.2f');
 p1(f, he3_a(press),          '$a$,~\\AA',           '5.3f');
 p1(f, he3_gdk(press)/1e-9,   '$g_d/k_B$,~$\\mu$K',  '5.1f');
 p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K',    '5.3f');
-p1(f, he3_tau_n0tc(press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
+
+fprintf(f, '\\hline\n');
+
+p1(f, he3_tau_n0(1, press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
 p1(f, he3_scatt_l1a(press),    '$\\lambda_1^a$',      '5.3f');
 p1(f, he3_scatt_g0(press),     '$\\gamma_0$',         '5.3f');
 p1(f, he3_scatt_d0(press),     '$\\delta_0$',         '5.3f');
+
+fprintf(f, '\\hline\n');
+
+p1(f, press, 'P, bar', '2d');
 
 %%
 

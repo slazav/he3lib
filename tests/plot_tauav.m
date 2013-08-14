@@ -5,9 +5,9 @@ function plot_tauav()
   ttc = 0.00:0.01:1;
   p=0;
 
-  tn=he3_tau_n0tc(p) ./ ttc.^2;
+  tn=he3_tau_n0(ttc, p);
 
-  if 0
+  if 1
     % full range temp
     tav=he3_tau_av(ttc, p);
     save tau_av tav
@@ -43,16 +43,12 @@ function plot_tauav()
     load ts
   end
 
-%  semilogy(ttc, tav./tn, 'r-');
-%  semilogy(ttc, tav_lt./tn, 'b-');
-%  semilogy(ttc, tav_ht./tn, 'g-');
-%  semilogy(ttc, he3_tau0(ttc, p)./tn, 'k-');
-%  semilogy(ttc, ts./tn, 'm--');
-%  semilogy([0 1], [1 1], 'k-');
-%  ylim(10.^[-1 2]);
-
-gap=he3_trivgap(ttc,p);
-plot(gap./ttc, tn./he3_tau0(ttc, p), 'k-');
-xlim([0 9]);
+  semilogy(ttc, tav./tn, 'r-');
+  semilogy(ttc, tav_lt./tn, 'b-');
+  semilogy(ttc, tav_ht./tn, 'g-');
+  semilogy(ttc, he3_tau0(ttc, p)./tn, 'k-');
+  semilogy(ttc, ts./tn, 'm--');
+  semilogy([0 1], [1 1], 'k-');
+  ylim(10.^[-1 2]);
 
 end

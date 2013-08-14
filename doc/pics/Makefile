@@ -1,9 +1,4 @@
-all: fermi.tex phase.tex phase.eps gap.eps yosida_int.eps
-
-
-%.tex: %.m
-	octave -q $<
-	touch st
+all: phase.eps gap.eps yosida_int.eps
 
 %.eps: %.m
 	octave -q $<
