@@ -161,20 +161,21 @@
 
 
 ! Integrand for Yosida function calculations
-! x = tanh(\xi)/2T change is made to get good integrand
-! and [0:1] integrating range.
+! x = tanh(\xi)/2 change is made to get good integrand
+! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
+! See also tests/plot_yosida_int.m
       function he3_yosida_int(x, ttc,gap, n)
         implicit none
         include 'he3.fh'
-        real*8 x, ttc,gap, xi, ek, n
+        real*8 x, ttc,gap, xi, ek, n, C
         real*8 he3_yosida_int
-        xi = datanh(x)*2D0*ttc
+        C=2D0
+        xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
         he3_yosida_int =
      .     (xi/ek)**n
-     .   / (dcosh(ek/(2D0*ttc)))**2
-     .   * dcosh(xi/(2D0*ttc))**2
-     .   * 2D0*ttc
+     .     / (dcosh(ek/(2D0*ttc)))**2
+     .     * C / (1-x**2)
       end
 
 ! Yosida function vs T/Tc, gap

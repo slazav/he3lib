@@ -7,7 +7,7 @@ function plot_tauav()
 
   tn=he3_tau_n0(ttc, p);
 
-  if 1
+  if 0
     % full range temp
     tav=he3_tau_av(ttc, p);
     save tau_av tav
@@ -46,9 +46,20 @@ function plot_tauav()
   semilogy(ttc, tav./tn, 'r-');
   semilogy(ttc, tav_lt./tn, 'b-');
   semilogy(ttc, tav_ht./tn, 'g-');
-  semilogy(ttc, he3_tau0(ttc, p)./tn, 'k-');
   semilogy(ttc, ts./tn, 'm--');
+  semilogy(ttc, he3_tau0(ttc, p)./tn, 'k-');
   semilogy([0 1], [1 1], 'k-');
   ylim(10.^[-1 2]);
 
+  legend(...
+    '\tau',...
+    'low temp approx',...
+    'high temp approx',...
+    'Samuli''s code',...
+    '\tau_0',...
+    '\tau_N'...
+  );
+  xlabel('T/T_c');
+  ylabel('\tau/\tau_N');
+  print -deps -color plot_tauav.eps
 end

@@ -81,6 +81,10 @@
       real*8 He3_scatt_g0  !
       real*8 He3_scatt_d0  !
 
+      real*8 he3_coll_int    ! Collision integral in Einzel approximation
+      real*8 he3_coll_int_lt ! Collision integral for low temp (good for < 0.7Tc)
+      real*8 he3_coll_int_ht ! Collision integral for high temp (not very useful)
+
       real*8 He3_tau_n0      ! Normal state quasiparticle lifetime at the Fermi level, s
       real*8 He3_tau_n_av    ! Thermal average normal state quasiparticle lifetime, s
       real*8 He3_tau0        ! Bogoliubov quasiparticle lifetime at the Fermi level, s
@@ -88,6 +92,7 @@
       real*8 He3_fpath       ! Mean free path of Bogoliubov quasiparticles
       real*8 He3_tau_dperp   ! Spin diffusion perpendicular transport time
       real*8 He3_tau_dpar    ! Spin diffusion parallel transport time
+      real*8 He3_sdiff       ! Spin diffusion D_perp
 
 ! Other
       real*8 He3_exp_nu_b  ! B-phase Leggett frequency, Hz

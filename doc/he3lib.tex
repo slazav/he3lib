@@ -170,6 +170,12 @@ Check $g_d$. In the texture library it is completely different!
 Add $F_2^a$ (Halperin-95).
 Fix susceptibility!
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\eject
+Pressure-dependent values:
+\medskip
+
+{\small\input{ptable.tex}}
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,8 +211,7 @@ source file {\tt he3\_gap.f}.
 
 \noindent TODO:\\
 Look at calculation of {\tt bcsgap}.\\
-Do we need {\tt z3,z5,z7} from texture code? Probably
-these values can be derived from {\tt yosida}.\\
+Yosida function is incorrect below 0.2~$Tc$!.
 
 \begin{figure}[h]
 \includegraphics[scale=.6]{gap.eps}
@@ -216,7 +221,7 @@ these values can be derived from {\tt yosida}.\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Transport properties}
 
-Pressure-dependant values, derived from Fermi-liquid parameters:
+Pressure-dependent values, derived from Fermi-liquid parameters:
 
 \medskip
 \begin{tabular}{lp{9cm}}
@@ -225,13 +230,33 @@ Pressure-dependant values, derived from Fermi-liquid parameters:
 \tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ {\small(Einzel-1978, f.74)}\\
 
 \tt he3\_tau\_n0(ttc,p) &Normal state quasiparticle lifetime at the Fermi level, s.
-                    $$\tau_N(0,T,P) = \tau_N(0,T_c,P) \left(\frac{T_c}{T}\right)^2$$
+                    $$\tau_N(0,T) = \tau_N(0,T_c) \left(\frac{T_c}{T}\right)^2
+                    = \frac{32 E_F\hbar}{{<}W{>}(\pi k_B T)^2}$$
                     {\small(Einzel-1991, p.325)}\\
 \tt he3\_tau\_n0(ttc,p) &Thermal average of normal state quasiparticle lifetime, s.
-                    $$\bar\tau_N = \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>$$
-                    {\small(Einzel-1978, p.325)}\\
+                    $$\bar\tau_N = \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>
+                    = \frac34 \tau_N(0,T)$$
+                    {\small(Einzel-1991, f.4-5)}\\
 \end{tabular}
 \medskip
+
+Collision integral for Bogoliubov quasiparticles:
+
+\medskip
+\begin{tabular}{lp{9cm}}
+\tt he3\_coll\_int(xi, ttc, gap, g0, d0) &
+   Collision integral in Einzel approximation\newline
+   {\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66)}\\
+\tt he3\_coll\_int\_lt(xi, ttc, gap, g0, d0) &
+   Collision integral for low temp (good for $< 0.7 T_c$)\newline
+   {\small (Einzel, JLTP84 (1991), f.76)}\\
+\tt he3\_coll\_int\_ht(xi, ttc, gap, g0, d0) &
+   Collision integral for high temp\newline
+   {\small (Einzel, JLTP84 (1991), f.75)}\\
+\end{tabular}
+\medskip
+
+Bogoliubov quasiparticles lifetime and mean free path:
 
 \medskip
 \begin{tabular}{lp{9cm}}
@@ -277,11 +302,6 @@ Pressure-dependant values, derived from Fermi-liquid parameters:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\eject
-Pressure-dependent values:
-\medskip
-
-{\small\input{ptable.tex}}
 
 \end{document}
 

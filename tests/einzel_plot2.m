@@ -3,31 +3,34 @@ function einzel_plot2()
   addpath ~/he3lib/lib/matlab
 
   figure; clf; hold on;
-  ttc = 0.00:0.01:1;
+  ttc = 0:0.005:1;
   p=0;
 
   tn0=he3_tau_n0(1, p);
   vf=he3_vf(p);
   gap=he3_trivgap(ttc,p);
   l=he3_fpath(ttc, p);
-%  l = vf*tn0*(he3_yosida(ttc,gap,2)./he3_yosida(ttc,gap,0)).^2;
 
+  plot(1-ttc, l.*exp(-gap./ttc)/vf/tn0 , 'k.-');
+
+  % Low temperature approximation
   g0 = he3_scatt_g0(p);
   d0 = he3_scatt_d0(p);
   w0 = (1 - 2/3*g0 + d0);
-  l_lt = vf*tn0*sqrt(2*pi)/3./gap.^2 .*exp(gap./ttc)/w0;
-
-  plot(1-ttc, l.*exp(-gap./ttc)/vf/tn0, 'k-');
-%  plot(1-ttc, l_lt.*exp(-gap./ttc)/vf/tn0, 'r-');
-
-  plot(1-ttc, sqrt(2*pi)/3./gap.^2/w0, 'r-');
-
-  plot(1-ttc, he3_yosida0(ttc, gap).*sqrt(ttc).*exp(gap./ttc), 'g-');
+  ttch = 0:0.01:0.2;
+  gaph=he3_trivgap(ttch,p);
+  l_lt = sqrt(2*pi)/3./gaph.^2/w0;
+  plot(1-ttch, l_lt, 'r-');
 
 %  plot(ttc, l, 'k-');
 %  plot(ttc, l_lt, 'b');
 
   xlim([0 1]);
-  ylim([0 10]);
+  ylim([0 0.8]);
+  xlabel('1-T/T_c')
+  ylabel('L exp(-\Delta/T)/(v_F \tau_N(0,T_c))')
+  title('Mean free path of Bogoliubov quasiparticle in He3-B')
+
+  print -deps -color einzel_plot2.eps
 
 end
