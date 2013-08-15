@@ -151,6 +151,7 @@
 
 ! Collision integral in Einzel approximation
 ! Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66
+! + my small fixes
       function he3_coll_int(xi,ttc, gap, g0, d0)
         implicit none
         include 'he3.fh'
@@ -176,13 +177,15 @@
      .       / (0.5D0 + x)**0.5D0
      .       / (0.2D0 + x**2)
      .       / (dexp(x)+1D0+0.1D0*x**2)
-        b0 =  5.2644D0 ! 3.4296D0
+        b0 =  3.4296D0
 !             Possible error. I(0,E) should be same as he3_coll_int_ht
         b1 = -3.2148D0
         b2 =  2.375D0
         K0 = 9D0/8D0/(2D0*const_pi)**0.5D0
-     .       / (0.5D0 + x)**0.5D0
+     .       / (1D0 + x)**0.5D0 !!! Was: (0.5D0 + x)**0.5D0
      .       / (dexp(x) + b0 + b1*x + b2*x**2)
+!           Typo in the paper. This can be checked using Einzel-1978 f.80 high-temp
+!           limit, I = 1 + (gap/ttc)^(A + B (Ep/T)^2) and calculating A and B. - slazav
         K1 = - 5D0/8D0/(2D0*const_pi)**0.5D0
      .       * x**2 / (1D0+x)**0.5D0
      .       * dexp(-x) / (const_pi**2 + x**2)
@@ -190,11 +193,9 @@
      .       * x**2 / (1D0+x)**0.5D0
      .       * dexp(-x) / (127D0/150D0 * const_pi**2 + x**2)
         K3 = - 15D0/8D0/(2D0*const_pi)**0.5D0
-     .       * x**4 / (1D0+x)**0.5D0
+     .       * x**4 / (1D0+x)**0.5D0  !!! Was: x**4 / (1D0+x**2)**0.5D0
      .       * dexp(-x) / (const_pi**2 + x**2)**2
-!       Possible error in K3: in the paper it contains (1+x**2)
-!       but maybe it is (1+x), because Ki sould be ~exp(x)/x at low temp.
-!       Anyway change looks negligable.
+!           Possible typo in the paper: Ki sould be ~exp(x)/x at low temp. - slazav
         I0 = J0 + K0 * (xi/ttc)**2
         I1 = J1 + K1 * (xi/ttc)**2
         I2 = J2 + K2 * (xi/ttc)**2
@@ -218,11 +219,16 @@
 
 ! Collision integral for high temp (good above 0.95 Tc)
 ! Einzel, JLTP84 (1991), p.345
+! Einzel, JLTP32 (1978), f.80 - first (gap/ttc)^2 term
       function he3_coll_int_ht(xi,ttc, gap, g0, d0)
         implicit none
         include 'he3.fh'
         real*8 xi, ttc, gap, x, g0,d0,w0
-        he3_coll_int_ht = 1D0 + (xi**2 + gap**2)/(ttc*const_pi)**2
+        he3_coll_int_ht = 1D0
+     .     + (xi**2 + gap**2)/(ttc*const_pi)**2
+     .     - (gap/ttc/const_pi)**2 *
+     .          (6D0*dlog(2D0) + const_pi**2/18D0 
+     .             + 3.3D0*(xi**2 + gap**2)/(ttc*const_pi)**2)
       end
 
 ! Quasiparticle lifetime at fermi level

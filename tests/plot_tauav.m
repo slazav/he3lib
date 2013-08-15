@@ -45,7 +45,7 @@ function plot_tauav()
   semilogy(ttc, Y0.*he3_tau0lt(ttc, p), 'r-.');
 
   semilogy(ttc, Y0.*tav_lt, 'b--');
-  semilogy(ttc, Y0.*tav_ht, 'c--');
+  semilogy(ttc, Y0.*tav_ht, 'b-.');
 
   semilogy(ttc, Y0.*ts, 'g-', 'linewidth', 2);
 

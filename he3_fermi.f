@@ -154,7 +154,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_chi_n = he3_2n0(P)/2D0 *(he3_gyro*const_hbar/2D0)**2
+        He3_chi_n = he3_2n0(P)/4D0 *(he3_gyro*const_hbar/2D0)**2
      .    / (1D0 + he3_f0a(P))
       end
 

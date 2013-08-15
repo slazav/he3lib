@@ -2,7 +2,7 @@ all: he3lib.pdf yosida.pdf spin_diff.pdf
 
 he3lib.pdf: ptable.tex
 ptable.tex: ptable.m
-	octave -q $<
+	octave -q $< || rm -f ptable.tex
 
 %.pdf: %.ps
 	ps2pdf $<
