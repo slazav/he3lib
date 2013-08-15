@@ -17,7 +17,7 @@ function plot_yosida_int()
     c = 3;  % important power factor
     xi = atanh(x) * c;
     Ek=sqrt(xi.^2+gap.^2);
-    phi=(cosh(Ek/(2*ttc))).^(-2);
+    phi=(cosh(Ek/(2*ttc))).^(-2) /2/ttc;
     I = he3_coll_int(xi, ttc, gap, g0, d0);
     int = I .* phi ./ (1-x.^2) * c;
   end
@@ -26,7 +26,6 @@ function plot_yosida_int()
     c = 2;  % important power factor
     xi = atanh(x) * c;
     Ek=sqrt(xi.^2+gap.^2);
-    phi=(cosh(Ek/(2*ttc))).^(-2);
     fp = 1./(1 + exp(Ek./ttc));
     I = he3_coll_int(xi, ttc, gap, g0, d0);
     int = 1./I.^2 .* (xi./Ek).^2 .* fp ./ (1-x.^2) * c;

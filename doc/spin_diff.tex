@@ -43,25 +43,33 @@ t = \frac{\tdp}{1-i\ol\tdp}
 $$
 
 $$
-\phi_k = \left(\cosh\frac{\sqrt{\xi^2-\Delta^2}}{T}\right)^{-2}
+\phi_k = \frac{1}{2T}\left(\cosh\frac{\sqrt{\xi^2-\Delta^2}}{T}\right)^{-2}
+$$
+
+Spheical integral:
+
+$$
+\int F\ \frac{d\Omega_k}{4\pi} =
+  \frac1{4\pi}\int_{-\pi/2}^{\pi/2} \cos\theta\ d\theta
+  \ \int_0^{2\pi} F d\phi
 $$
 
 Only $\sm$ depends on $\phi$. Do integration over $\phi$:
 
 $$
 \int_0^{2\pi} (A\cos^4\phi + B\cos^2\phi + C) d\phi =
-\frac34 \pi A + \pi B + 2\pi C
+2\pi(\frac38 A + \frac12 B + C)
 $$
 
 
 $$
 D_\perp (T, \ol) =
-  \frac{v_F^2}{\chi}\ t
+  \frac{v_F^2}{2\chi}\ t
   \ \int_{-\infty}^{\infty}
   d\xi_k\phi_k
-  \ \int_0^\pi
+  \ \int_{-\pi/2}^{\pi/2}
    \frac{3/8(u-1)^2\cos^4\theta + (u-1)\cos^2\theta + 1 - is{\sp}^2}{1+s^2{\sp}^2}
-  \  k_z^2\ \frac{d\theta}{2}
+  \  k_z^2 \cos\theta \ d\theta
 $$
 
 $$

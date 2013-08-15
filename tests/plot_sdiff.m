@@ -1,35 +1,36 @@
 function plot_sdiff()
   addpath ~/he3lib/lib/matlab
-  addpath ~/he3lib/diff
 
   figure; clf; hold on;
   ttc = 0:0.01:1;
   p=30;
 
-  dn = he3_sdiff(1, p, 0);
-  plot(ttc, he3_sdiff(ttc, p, 1e4)/dn, 'r-');
-  plot(ttc, he3_sdiff(ttc, p, 1e6)/dn, 'b-');
+  plot(ttc, he3_sdiff_nh(ttc, p), 'r-');
+  plot(ttc, he3_sdiff_hperp(ttc, p), 'b-');
+  plot(ttc, he3_sdiff_hpar(ttc, p), 'g-');
+  plot(ttc, he3_sdiff(ttc, p, 1e6), 'c-', 'linewidth', 2);
+  plot(ttc, he3_sdiff(ttc, p, 1e4), 'b-', 'linewidth', 2);
+  plot(ttc, he3_sdiff(ttc, p, 0), 'm--');
+  xlim([0 1])
+  ylim([0 0.4])
 
-  s1d=diff_coeff(p, ttc, 1e4);
-  s2d=diff_coeff(p, ttc, 1e6);
-  plot(ttc, s1d/dn, 'r-');
-  plot(ttc, s2d/dn, 'b-');
-  save sdiff s1d s2d ttc p
+  % improved Samuli's code
+  %addpath ~/he3lib/diff
+  %s1d=diff_coeff(p, ttc, 1e4);
+  %s2d=diff_coeff(p, ttc, 1e6);
+%  s2=load('sdiff_sam2');
+%  plot(s2.ttc, s2.s1d/dn, 'm-');
+%  plot(s2.ttc, s2.s2d/dn, 'm-');
 
+  legend(
+   'Normal hydrodynamic',...
+   'Superfluid hydrodynamic D_{perp}',...
+   'Superfluid hydrodynamic D_{par}',...
+   'Superfluid D_{perp} 1000 kHz',...
+   'Superfluid D_{perp} 0 Hz',...
+  '');
 
-%  plot(ttc, he3_sdiff(ttc, 29, 460000), 'b-');
+%   'Superfluid D_{perp} 10 kHz',...
 
-%  ylim(10.^[-1 2]);
-%
-%  legend(...
-%    '\tau',...
-%    'low temp approx',...
-%    'high temp approx',...
-%    'Samuli''s code',...
-%    '\tau_0',...
-%    '\tau_N'...
-%  );
-%  xlabel('T/T_c');
-%  ylabel('\tau/\tau_N');
 %  print -deps -color plot_sdiff.eps
 end

@@ -174,8 +174,8 @@
         ek=dsqrt(xi**2 + gap**2)
         he3_yosida_int =
      .     (xi/ek)**n
-     .     / (dcosh(ek/(2D0*ttc)))**2
-     .     * C / (1-x**2)
+     .     / (dcosh(ek/(2D0*ttc)))**2 / 2D0/ttc
+     .     * C / (1D0-x**2)
       end
 
 ! Yosida function vs T/Tc, gap
@@ -202,7 +202,6 @@
      .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
      .       + he3_yosida_int(xm, ttc, gap, n) * dx/2D0
         enddo
-        he3_yosida = he3_yosida / (2D0*ttc)
       end
 
 ! Yosida0 -- does not work
@@ -240,7 +239,7 @@
         include 'he3.fh'
         real*8 ttc,p,G,Y,F
         F = He3_f0a(p)
-        He3_chi_b = he3_chi_n(p)*(1D0+F)
+        He3_chi_b = he3_chi_n(p)
         if (ttc.LT.1D0) then
           G  = he3_bcsgap(ttc)
           Y  = He3_yosida(ttc, G, 0D0)
@@ -261,7 +260,7 @@
      .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
       end
 
-! Suseptibility [sgs] vs P [bar], T [mK]
+! Suseptibility [sgs] vs P [bar], T [mK] -- Old
 ! Origin: Mukharskii, Dmitriev
 
       function He3_susept(P,T)

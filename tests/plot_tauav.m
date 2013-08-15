@@ -6,14 +6,7 @@ function plot_tauav()
   p=0;
 
   tn=he3_tau_n0(ttc, p);
-
-  if 0
-    % full range temp
-    tav=he3_tau_av(ttc, p);
-    save tau_av tav
-  else
-    load tau_av
-  end
+  Y0=he3_yosida(ttc, p, 0);
 
   if 0
     % low temp
@@ -43,23 +36,34 @@ function plot_tauav()
     load ts
   end
 
-  semilogy(ttc, tav./tn, 'r-');
-  semilogy(ttc, tav_lt./tn, 'b-');
-  semilogy(ttc, tav_ht./tn, 'g-');
-  semilogy(ttc, ts./tn, 'm--');
-  semilogy(ttc, he3_tau0(ttc, p)./tn, 'k-');
-  semilogy([0 1], [1 1], 'k-');
-  ylim(10.^[-1 2]);
+  semilogy(ttc, Y0.*he3_tau_n0(ttc, p), 'r-');
+  semilogy(ttc, Y0.*he3_tau_n_av(ttc, p), 'b-');
+
+  semilogy(ttc, Y0.*he3_tau0(ttc, p), 'r-', 'linewidth', 2);
+  semilogy(ttc, Y0.*he3_tau_av(ttc, p), 'b-', 'linewidth', 2);
+
+  semilogy(ttc, Y0.*he3_tau0lt(ttc, p), 'r-.');
+
+  semilogy(ttc, Y0.*tav_lt, 'b--');
+  semilogy(ttc, Y0.*tav_ht, 'c--');
+
+  semilogy(ttc, Y0.*ts, 'g-', 'linewidth', 2);
+
+  xlim([0.3 1]);
+  ylim(10.^[-7 -4]);
 
   legend(...
-    '\tau',...
-    'low temp approx',...
-    'high temp approx',...
+    '\tau_N(0)',...
+    '<\tau_N(E)>',...
+    '\tau(0)',...
+    '<\tau(E)>',...
+    '\tau(E) low temp limit',...
+    '<\tau(E)> with low temp I(E,T)',...
+    '<\tau(E)> with high temp I(E,T)',...
     'Samuli''s code',...
-    '\tau_0',...
-    '\tau_N'...
+    ''
   );
   xlabel('T/T_c');
-  ylabel('\tau/\tau_N');
+  ylabel('Y_0 \tau');
   print -deps -color plot_tauav.eps
 end

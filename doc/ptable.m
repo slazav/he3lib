@@ -59,6 +59,7 @@ p1(f, he3_tau_n0(1, press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
 p1(f, he3_scatt_l1a(press),    '$\\lambda_1^a$',      '5.3f');
 p1(f, he3_scatt_g0(press),     '$\\gamma_0$',         '5.3f');
 p1(f, he3_scatt_d0(press),     '$\\delta_0$',         '5.3f');
+p1(f, he3_scatt_w0(press),     '$w_0$',               '5.3f');
 
 fprintf(f, '\\hline\n');
 

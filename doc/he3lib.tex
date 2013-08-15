@@ -50,7 +50,7 @@ or with number + matrix or matrix + number.
 \subsection*{General}
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
 \tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
 \tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\newline
@@ -80,15 +80,14 @@ PLTS2000 temperature scale. See more information in the source file {\tt
 he3\_phase.f}.
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_pvap(T)  & Vapor pressure [bar] vs temperature~[K],\newline
                     $ T = 0.2 - 3.324$~K \\
 \tt he3\_pcr      & Gas-liquid critical point pressure, $78.111\cdot 10^{-3}$~[bar] \\
 \tt he3\_tcr      & Gas-liquid critical point temperature, 3.324~[K] \\
 \tt he3\_pmelt(T) & Melting pressure [bar] vs temperature~[K],\newline
                     $ T = 0.0009 - 31$~K\\
-\tt he3\_pmelt\_gr(T) & Same, but using Greywall-86 temperature scale at
-                    0.9--250~mK rather then PLTS2000\\
+\tt he3\_pmelt\_gr(T) & Same, but using Greywall-86 temperature scale rather then PLTS2000\\
 \tt he3\_psmin    & Melting curve minimum pressure, $29.3113$~[bar]\\
 \tt he3\_tsmin    & Melting curve minimum temperature, $0.31524$~[K]\\
 \tt he3\_ta       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
@@ -126,7 +125,7 @@ source file {\tt he3\_fermi.f}.
 Measured values:
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol]\\
 \tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s]\\
 \tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
@@ -136,7 +135,7 @@ Measured values:
 Derived values:
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_rho(P)    & Density $\rho = \mu/v_m$,~[g/cm$^3$]\\
 \tt he3\_2n0(P)    & $\displaystyle 2N(0) = \frac{\gamma_f}{v_m}
                      \ \frac{3 N_A}{k_B \pi^2}$\\
@@ -144,15 +143,13 @@ Derived values:
                      \ \frac{N_A}{v_m}\right)^{1/3}$,~[g cm/s]\\
 \tt he3\_meff(P)   & $\displaystyle m^\star = \frac{h^3}{8\pi}
                      \ \frac{2N(0)}{p_F}$,~[g]\\
-\tt he3\_mm(P)     & $m^\star/m_3$\\
-\tt he3\_vf(P)     & $\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
-\tt he3\_chi\_n(P) & Normal phase susceptibility $\chi_{N}$.\newline
-                   Without Fermi-liquid corrections (?)\\
+\tt he3\_mm(P)     &$m^\star/m_3$\\
+\tt he3\_vf(P)     &$\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
+\tt he3\_chi\_n(P) &$\displaystyle \chi_{N} = N(0) \frac{(\gamma\hbar)^2}{4(1 + F_0^a)}$.\\
 \tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
 \tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
 \tt he3\_f0a(P)    &$\displaystyle F_0^a = Z_0/4 = 3 k_B T^\star m^\star / p_F^2 - 1$\\
 \tt he3\_f1a(P)    &$\displaystyle F_1^a$\\
-
 
 \tt he3\_a(P)      &Average atomic spacing,
                     $\displaystyle a=(v_m/N_A)^{1/3}$,~\AA\\
@@ -164,11 +161,9 @@ Derived values:
 \medskip
 
 \noindent TODO:\\
-How to calculate $F_1^a$ from experimantal data?
-Compare/update $F_0^a$ using Halperin-92.
+Recalculate $F_0^a$ $F_1^a$ from experimantal data!
+(Original - Ramm-1970, see also Halperin-92). Add $F_2^a$ (Halperin-95). 
 Check $g_d$. In the texture library it is completely different!
-Add $F_2^a$ (Halperin-95).
-Fix susceptibility!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \eject
@@ -186,18 +181,19 @@ derived from energy gap. See more information in the
 source file {\tt he3\_gap.f}.
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_bcsgap(ttc)       & BCS gap for 3He-B in $T_c$ units, $\Delta_{\rm BCS}/ k_B T_c$\\
 \tt he3\_bcsgap\_fast(ttc) & Einzel approximation for BCS gap (0.5\% accuracy, 70 times faster)\newline
-                             {\small(Einzel-1991, f.66)}\\
+                             {\small(Einzel-1991, f.68)}\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(T/T_c,\Delta)$\newline
 {\small(Einzel-1991, f.66)}\\\\
 
 \tt he3\_chi\_b(ttc, gap)    &B-phase susceptibility\newline
-                             $\displaystyle \chi_B = \chi_N \frac{(1+F_0^a)\chi_0}{1+F_0^a\chi_0},
-                             \qquad \chi_0 = 2/3 + Y_0/3$\\
-\tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency\newline
+                             $\displaystyle \chi_B =
+                             \chi_N \frac{(1+F_0^a)(2 + Y_0)}
+                                         {3+F_0^a(2 + Y_0)}$\\
+\tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency, Hz\newline
                              $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
                              \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}  $\\
 %\tt he3\_z3(ttc, gap)        &\\
@@ -210,8 +206,8 @@ source file {\tt he3\_gap.f}.
 \medskip
 
 \noindent TODO:\\
-Look at calculation of {\tt bcsgap}.\\
-Yosida function is incorrect below 0.2~$Tc$!.
+Look at calculation of {\tt bcsgap} and {\tt trivgap}.\\
+Check susceptibility code.
 
 \begin{figure}[h]
 \includegraphics[scale=.6]{gap.eps}
@@ -224,29 +220,41 @@ Yosida function is incorrect below 0.2~$Tc$!.
 Pressure-dependent values, derived from Fermi-liquid parameters:
 
 \medskip
-\begin{tabular}{lp{9cm}}
-\tt he3\_scatt\_g0(P)  & Scattering factor $\gamma_0$ {\small(Einzel-1991, f.66)}\\
-\tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0$ {\small(Einzel-1991, f.67)}\\
+\noindent\begin{tabular}{lp{12.5cm}}
+\tt he3\_scatt\_g0(P)  & Scattering factor $\gamma_0$ {\small(Einzel-1978, f.66)}\\
+\tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0$ {\small(Einzel-1978, f.67)}\\
+\tt he3\_scatt\_w0(P)  & $w_0 = 1 - 3/2 \gamma_0 + \delta_0$ {\small(Einzel-1978, f.79)}\\
 \tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ {\small(Einzel-1978, f.74)}\\
+\end{tabular}
+\medskip
 
-\tt he3\_tau\_n0(ttc,p) &Normal state quasiparticle lifetime at the Fermi level, s.
-                    $$\tau_N(0,T) = \tau_N(0,T_c) \left(\frac{T_c}{T}\right)^2
-                    = \frac{32 E_F\hbar}{{<}W{>}(\pi k_B T)^2}$$
+Normal state lifetime:
+
+\medskip
+\noindent\begin{tabular}{lp{12.5cm}}
+\tt he3\_tau\_n0(ttc,p) &Normal state quasiparticle lifetime at the Fermi level, s.\newline
+                    $\displaystyle \tau_N(0,T) =
+                    \tau_N(0,T_c) \left(\frac{T_c}{T}\right)^2
+                    = \frac{32 E_F\hbar}{{<}W{>}(\pi k_B T)^2}$\newline
                     {\small(Einzel-1991, p.325)}\\
-\tt he3\_tau\_n0(ttc,p) &Thermal average of normal state quasiparticle lifetime, s.
-                    $$\bar\tau_N = \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>
-                    = \frac34 \tau_N(0,T)$$
+\tt he3\_tau\_n\_av(ttc,p) &Thermal average of normal state quasiparticle lifetime, s.\newline
+                    $\displaystyle \bar\tau_N =
+                    \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>
+                    = \frac34 \tau_N(0,T)\quad$
                     {\small(Einzel-1991, f.4-5)}\\
+\tt he3\_tau\_nd(ttc,p) & Spin diffusion transport time for a normal Fermi-liquid, s\newline
+                    $\displaystyle \tau_{ND} = \tau_1 = \bar\tau_N/(1-\lambda_1^a)\quad$
+                    {\small(Einzel-1991, p.328)}\\
 \end{tabular}
 \medskip
 
 Collision integral for Bogoliubov quasiparticles:
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_coll\_int(xi, ttc, gap, g0, d0) &
-   Collision integral in Einzel approximation\newline
-   {\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66)}\\
+   Full temperatur range approximation\newline
+   {\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)}\\
 \tt he3\_coll\_int\_lt(xi, ttc, gap, g0, d0) &
    Collision integral for low temp (good for $< 0.7 T_c$)\newline
    {\small (Einzel, JLTP84 (1991), f.76)}\\
@@ -259,24 +267,40 @@ Collision integral for Bogoliubov quasiparticles:
 Bogoliubov quasiparticles lifetime and mean free path:
 
 \medskip
-\begin{tabular}{lp{9cm}}
-\tt he3\_tau0(ttc, p)      & Bogoliubov quasiparticle lifetime at the Fermi level, s.
-                           $$1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$$
+\noindent\begin{tabular}{lp{12.5cm}}
+\tt he3\_tau0(ttc, p)      & Lifetime at the Fermi level, s.
+                           $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$\newline
                             {\small(Einzel-1991, f.74,76. Einzel-1990 f.A1)}\\
 
-\tt he3\_tau\_av(ttc, p)   & Thermal average of Bogoliubov quasiparticle lifetime, s.
-                           $$1/\bar\tau = \frac{1}{Y_0}
-                           \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$$
+\tt he3\_tau0lt(ttc, p)    & $\displaystyle 1/\tau, T\rightarrow0$ limit (does not depend on energy).
+                            {\small(Einzel-1978, f.79)}\\
+
+\tt he3\_tau\_av(ttc, p)   & Thermal average lifetime, s.
+                           $\displaystyle\quad 1/\bar\tau = \frac{1}{Y_0}
+                           \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$\newline
                             {\small(Einzel-1991, f.77)}\\
+\tt he3\_tau\_dperp(ttc, p) & Spin diff. transport time, s.
+                           \ $\displaystyle 1/\tau_D^\perp = \frac{1}{\bar\tau}
+                            \left(1-\lambda_1^a \frac{4Y_0 + Y_2}{5Y_0}\right)$ \\
 
-\tt he3\_tau\_dperp(ttc, p) & Spin diffusion transport time, s
-                           $$1/\tau_D^\perp = \frac{1}{\bar\tau}
-                            \left(1-\lambda_1^a \frac{4Y_0 + Y_2}{5Y_0}\right)$$ \\
-
-\tt he3\_tau\_dpar(ttc, p) & Spin diffusion transport time, s
-                           $$1/\tau_D^\parallel = \frac{1}{\bar\tau}
-                            \left(1-\lambda_1^a \frac{2Y_0 + 3Y_2}{5Y_0}\right)$$
+\tt he3\_tau\_dpar(ttc, p) & Spin diff. transport time, s.
+                        \ $\displaystyle 1/\tau_D^\parallel = \frac{1}{\bar\tau}
+                            \left(1-\lambda_1^a \frac{2Y_0 + 3Y_2}{5Y_0}\right)$\newline
                             {\small(Einzel-1991, f.90,96)}\\
+\end{tabular}
+\medskip
+
+Spin diffusion:
+
+\medskip
+\noindent\begin{tabular}{lp{12.5cm}}
+\tt he3\_sdiff\_nh(ttc, p)    & Hydrodynamic spin diffusion in normal liquid, $D_0$, cm$^2$/s\newline
+                              {\small (Einzel JLTP84 (1991) f.23)}\\
+\tt he3\_sdiff\_hperp(ttc, p) & Hydrodynamic spin diffusion $D_\perp^{\rm hyd}$, cm$^2$/s
+                              {(\small Einzel JLTP84 (1991) f.102)}\\
+\tt he3\_sdiff\_hpar(ttc, p)  & Hydrodynamic spin diffusion $D_\parallel^{\rm hyd}$, cm$^2$/s\\
+\tt he3\_sdiff(ttc, p, nu0)   & Spin diffusion $D_\perp$, cm$^2$/s
+                              {\small(Einzel-1991, f.108)}\\
 \end{tabular}
 \medskip
 
@@ -285,7 +309,7 @@ Bogoliubov quasiparticles lifetime and mean free path:
 \subsection*{Other}
 
 \medskip
-\begin{tabular}{lp{9cm}}
+\noindent\begin{tabular}{lp{12.5cm}}
 \tt he3\_exp\_nu\_b(ttc, p)     &B-phase Leggett frequency $\nu_B$ [Hz] vs
                                  $T/T_c$ and $P$~[bar].\newline
                                   Best fit to experimental data.\\

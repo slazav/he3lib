@@ -149,14 +149,13 @@
       end
 
 ! Suseptibility [sgs] vs P [bar], T [mK]
-! Origin: Mukharskii, Dmitriev program
+! Einzel-1991 f.10
       function He3_chi_n(P)
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_chi_n = 0.25D0 * he3_gyro**2 * const_hbar**2
-     .   * const_na/const_kb**2/const_pi**2 * He3_gammaf(P)
-     .   / he3_tmag(P) / he3_meff(P) * he3_pf(P)**2 / He3_Vm(P)
+        He3_chi_n = he3_2n0(P)/2D0 *(he3_gyro*const_hbar/2D0)**2
+     .    / (1D0 + he3_f0a(P))
       end
 
       function He3_F0s(P)
