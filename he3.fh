@@ -70,7 +70,7 @@
       real*8 He3_Z5
       real*8 He3_Z7
       real*8 He3_yosida0     ! Yosida function Y0 vs T/Tc, gap (approx)
-!      real*8 He3_yosida0_fast ! Yosida function Yn vs T/Tc, gap, n
+      real*8 He3_yosida0_fast ! Yosida function Yn vs T/Tc, gap, n
 
       real*8 He3_chi_b       ! B-phase susceptibility T/Tc, P
       real*8 He3_nu_b        ! B-phase Leggett frequency, Hz

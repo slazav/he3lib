@@ -205,28 +205,30 @@
         he3_yosida = he3_yosida / (2D0*ttc)
       end
 
-!! Yosida0 -- does not work
-!! Einzel approximation (D.Einzel JLTP 130 (2003))
-!      function he3_yosida0_fast(ttc, gap)
-!        implicit none
-!        include 'he3.fh'
-!        real*8 ttc, gap, gap0, k
-!        if (ttc.lt.0D0.or.ttc.gt.1D0) then
-!          he3_yosida0_fast=NaN
-!          return
-!        endif
-!        ! gap at ttc=0. scale from bcsgap to our gap function
-!        gap0 = gap * he3_bcsgap_fast(0D0)/he3_bcsgap_fast(ttc)
+! Yosida0 -- does not work
+! Einzel approximation (D.Einzel JLTP 130 (2003))
+      function he3_yosida0_fast(ttc, gap)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, gap, gap0, k
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          he3_yosida0_fast=NaN
+          return
+        endif
+        ! gap at ttc=0. scale from bcsgap to our gap function
+         gap0 = gap * he3_bcsgap_fast(0D0)/he3_bcsgap_fast(ttc)
 !        k = (2.5D0 - gap0)
 !     .    / (1D0 - dsqrt(2D0*const_pi*gap)
 !     .             *dexp(-gap)*(1D0 + 3D0/8D0/gap))
-!
-!        he3_yosida0_fast =
-!     .     dsqrt(2D0*const_pi*gap/ttc) * dexp(-gap/ttc)
-!     .     * (1D0 + 3D0/8D0 * ttc/gap)
-!     .     * (1D0 - ttc**k)
-!     .   + dexp(gap - gap/ttc) * ttc**(k-0.5D0)
-!      end
+
+        k = 2.388693D0
+
+        he3_yosida0_fast =
+     .     dsqrt(2D0*const_pi*gap/ttc) * dexp(-gap/ttc)
+     .     * (1D0 + 3D0/8D0 * ttc/gap) * (gap-gap/ttc)
+     .     * (1D0 - ttc**k)
+     .   + dexp(gap - gap/ttc) * ttc**(k-0.5D0)
+      end
 
 ! He3-B suseptibility
 ! see VW book ch.10 p.449; ch2 p.90

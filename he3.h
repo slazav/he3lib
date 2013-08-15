@@ -63,7 +63,7 @@ double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
 double he3_yosida0_(double *ttc, double *gap); /* Y0 function -- old */
-// double he3_yosida0_fast_(double *ttc, double *gap);      /* Yosida0 approximation*/
+double he3_yosida0_fast_(double *ttc, double *gap);      /* Yosida0 approximation*/
 
 /* Transport */
 double he3_scatt_l1a_(double *P); /* Scattering parameters */

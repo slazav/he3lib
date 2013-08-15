@@ -10,16 +10,20 @@ function plot_yosida_lt()
   Y0o = he3_yosida0(ttc,gap);
   Ylt = sqrt(2*pi*gap./ttc) .* exp(-gap./ttc);
 
-  addpath('/rota/Analysis/NMRcalc/spinwaves/Spinwave_relaxation/Diffusion coeff/Calc_diff_coeff');
-  for i=1:length(ttc); Y0s(i) = yosida(p, ttc(i),0); end
+%  addpath('/rota/Analysis/NMRcalc/spinwaves/Spinwave_relaxation/Diffusion coeff/Calc_diff_coeff');
+%  for i=1:length(ttc); Y0s(i) = yosida(p, ttc(i),0); end
 
-  plot([0 0.1], [1 1], 'k-');
-  plot(ttc, Y0./Ylt, 'r-');
-  plot(ttc, Y0o./Ylt, 'g-');
-  plot(ttc, Y0s./Ylt, 'b-');
+%  plot([0 0.1], [1 1], 'k-');
+%  plot(ttc, Y0o./Ylt, 'g-');
+%  plot(ttc, Y0./Ylt, 'r-');
+%  plot(ttc, he3_yosida0_fast(ttc, gap)./Ylt, 'b-');
+
+  plot(ttc, Y0, 'r-');
+  plot(ttc, he3_yosida0_fast(ttc, gap), 'b-');
+%  plot(ttc, Y0s./Ylt, 'b-');
 
   xlim([0 1]);
-  ylim([0.7 1.2]);
+  ylim([0 1.2]);
   xlabel('ttc')
   ylabel('Y0/Y0lt')
   title(t);

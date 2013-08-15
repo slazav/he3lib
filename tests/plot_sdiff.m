@@ -4,12 +4,20 @@ function plot_sdiff()
 
   figure; clf; hold on;
   ttc = 0:0.01:1;
-  p=0;
-  no0=823000;
+  p=30;
 
-  plot(ttc, he3_sdiff(ttc, p, 1e4), 'r-');
-  plot(ttc, he3_sdiff(ttc, p, 1e6), 'b-');
-%  plot(ttc, diff_coeff(p, ttc, no0), 'b-');
+  dn = he3_sdiff(1, p, 0);
+  plot(ttc, he3_sdiff(ttc, p, 1e4)/dn, 'r-');
+  plot(ttc, he3_sdiff(ttc, p, 1e6)/dn, 'b-');
+
+  s1d=diff_coeff(p, ttc, 1e4);
+  s2d=diff_coeff(p, ttc, 1e6);
+  plot(ttc, s1d/dn, 'r-');
+  plot(ttc, s2d/dn, 'b-');
+  save sdiff s1d s2d ttc p
+
+
+%  plot(ttc, he3_sdiff(ttc, 29, 460000), 'b-');
 
 %  ylim(10.^[-1 2]);
 %
