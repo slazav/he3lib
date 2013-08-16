@@ -97,6 +97,7 @@
       real*8 He3_tau_dperp   ! Spin diffusion perpendicular transport time
       real*8 He3_tau_dpar    ! Spin diffusion parallel transport time
       real*8 he3_sdiff_nh    ! Hydrodynamic spin diffusion in normal liquid, cm2/s
+      real*8 he3_sdiff_nperp ! Spin diffusion D_perp in normal liquid, cm2/s
       real*8 he3_sdiff_hperp ! Hydrodynamic spin diffusion D_perp, cm2/s
       real*8 he3_sdiff_hpar  ! Hydrodynamic spin diffusion D_par, cm2/s
       real*8 He3_sdiff       ! Spin diffusion D_perp

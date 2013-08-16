@@ -154,3 +154,14 @@
         return
       end
 
+! T_ab [mk] vs P, H
+! Inseob Hahn PhD thesis, p79
+! real*8 p0,p1,p2,q1,pp
+! real*8 Bc,f3,f4,Pa
+! Pa = 34.338
+! pp = P/Pa
+! Bc=(3391D0 + 21500D0*pp - 8490D0*pp**2) / (1+2.098D0*pp)
+! f3 = 1.41D0
+! f4 = -0.29D0 -0.41D0*pp
+! f5 = (1-f3*Ta**6 - f4*Ta**8 - (1-f3-f4)*Ta**2 + (1+2f3+3f4)*(Ta**4-Ta**2))/
+!        /

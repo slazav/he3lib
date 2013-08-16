@@ -187,8 +187,16 @@
         real*8 dx, xp, xm
         real*8 he3_yosida_int
         integer i, maxi
-        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+        if (ttc.lt.0D0) then
           he3_yosida=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_yosida=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_yosida=1D0
           return
         endif
         maxi=100
@@ -264,7 +272,8 @@
         include 'he3.fh'
         real*8 ttc,p,gap
         gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
-        he3_nu_b = dsqrt(3D0 / 8D0 / const_pi / he3_chi_b(ttc,p))
+        he3_nu_b = dsqrt(3D0 / 8D0 / const_pi /
+     .                   he3_chi_b(ttc,p)/he3_chi_n(p))
      .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
      .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
       end

@@ -87,6 +87,7 @@ double he3_fpath_(double *ttc, double *p);     /* Mean free path of Bogoliubov q
 double he3_tau_dperp_(double *ttc, double *p); /* Spin diffusion perp transport time, s */
 double he3_tau_dpar_(double *ttc, double *p);  /* Spin diffusion parallel transport time, s */
 double he3_sdiff_nh_(double *ttc, double *p);  /* Hydrodynamic spin diffusion in normal liquid, cm2/s */
+double he3_sdiff_nperp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
 double he3_sdiff_hperp_(double *ttc, double *p);  /* Hydrodynamic spin diffusion D_perp, cm2/s*/
 double he3_sdiff_hpar_(double *ttc, double *p);   /* Hydrodynamic spin diffusion D_par, cm2/s*/
 double he3_sdiff_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
