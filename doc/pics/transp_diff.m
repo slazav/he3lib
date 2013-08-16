@@ -1,4 +1,5 @@
-function plot_sdiff()
+#!/usr/bin/octave -qf
+
   addpath ~/he3lib/lib/matlab
 
   figure; clf; hold on;
@@ -20,6 +21,8 @@ function plot_sdiff()
 
   xlim([0.5 1.5])
   ylim([0 0.05])
+  xlegend('T/T_c')
+  ylegend('D, cm^2/s')
 
   text(0.95,0.010, 'D_\perp(1MHz)','fontweight','bold');
   text(1.20,0.021, 'D_\perp(0Hz) = \tau_{||}(0Hz)','fontweight','bold');
@@ -38,5 +41,4 @@ function plot_sdiff()
 
 %   'Superfluid D_{perp} 10 kHz',...
 
-  print -deps -color plot_sdiff.eps
-end
+  print -deps -color transp_diff.eps

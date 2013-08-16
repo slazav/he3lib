@@ -20,7 +20,8 @@ FC=gfortran
 ###################################
 
 # he3 constants and functions (see src/)
-LIBOBJS=he3_const he3_phase he3_fermi he3_gap he3_transp\
+LIBOBJS=he3_const he3_phase he3_fermi he3_gap\
+        he3_transp_n he3_transp_b\
         he3_flegg he3_d_exp\
         he3_swvel he3_tau_lt
 

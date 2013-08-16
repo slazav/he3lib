@@ -1,4 +1,4 @@
-all: he3lib.pdf yosida.pdf spin_diff.pdf
+all: he3lib.pdf spin_diff.pdf
 
 he3lib.pdf: ptable.tex
 ptable.tex: ptable.m

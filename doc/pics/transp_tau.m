@@ -1,4 +1,5 @@
-function plot_tauav()
+#!/usr/bin/octave -qf
+
   addpath ~/he3lib/lib/matlab
 
   figure; clf; hold on;
@@ -31,9 +32,9 @@ function plot_tauav()
     for i = 1:length(ttc)
       ts(i) = tau(p, ttc(i));
     end
-    save ts ts
+    save tau_samuli ts
   else
-    load ts
+    load tau_samuli
   end
 
   semilogy(ttc, Y0.*he3_tau_n0(ttc, p), 'r-');
@@ -50,7 +51,7 @@ function plot_tauav()
   semilogy(ttc, Y0.*ts, 'g-', 'linewidth', 2);
 
   xlim([0.3 1]);
-  ylim(10.^[-7 -4]);
+  ylim(10.^[-6.5 -5]);
 
   legend(...
     '\tau_N(0)',...
@@ -65,5 +66,4 @@ function plot_tauav()
   );
   xlabel('T/T_c');
   ylabel('Y_0 \tau');
-  print -deps -color plot_tauav.eps
-end
+  print -deps -color transp_tau.eps

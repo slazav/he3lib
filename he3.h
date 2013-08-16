@@ -66,32 +66,37 @@ double he3_z7_(double *ttc, double *gap);
 double he3_yosida0_(double *ttc, double *gap); /* Y0 function -- old */
 double he3_yosida0_fast_(double *ttc, double *gap);      /* Yosida0 approximation*/
 
-/* Transport */
+/* Transport in the normal phase */
+double he3_tau_n0_(double *ttc, double *P);    /* Normal state quasiparticle lifetime at the Fermi level, s */
+double he3_tau_n_av_(double *ttc, double *P);  /* Thermal average quasiparticle lifetime, s */
+double he3_tau_nd_(double *ttc, double *P);    /* Spin diffusion transport time for a normal Fermi-liquid, s */
+double he3_sdiff_nh_(double *ttc, double *p);  /* Hydrodynamic spin diffusion in normal liquid, cm2/s */
+double he3_sdiff_nperp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
+
+/* Transport in the B phase */
 double he3_scatt_l1a_(double *P); /* Scattering parameters */
 double he3_scatt_g0_(double *P);
 double he3_scatt_d0_(double *P);
 double he3_scatt_w0_(double *P); /* w0 = 1 - 2/3 g0 + d0 */
+double he3_crsect_w_(double *P); /* Crossections */
+double he3_crsect_wi_(double *P);
+double he3_crsect_wd_(double *P);
+double he3_crsect_wl_(double *P);
 double he3_coll_int_(double *xi, double *ttc, double *gap,
-            double *g0, double *d0); /* Collision integral in Einzel approximation */
+            double *g0, double *d0); /* Collision integral approximation ttc=0..1*/
 double he3_coll_int_lt_(double *xi, double *ttc, double *gap,
             double *g0, double *d0); /* Collision integral for low temp (good for < 0.7Tc) */
 double he3_coll_int_ht_(double *xi, double *ttc, double *gap,
             double *g0, double *d0); /* Collision integral for high temp */
-double he3_tau_n0_(double *ttc, double *P);    /* Normal state quasiparticle lifetime at the Fermi level, s */
-double he3_tau_n_av_(double *ttc, double *P);  /* Thermal average quasiparticle lifetime, s */
-double he3_tau_nd_(double *ttc, double *P);    /* Spin diffusion transport time for a normal Fermi-liquid, s */
 double he3_tau0_(double *ttc, double *p);      /* Bogoliubov quasiparticle lifetime at the Fermi level, s */
 double he3_tau0lt_(double *ttc, double *p);    /* he3_tau0_ at T->0 */
 double he3_tau_av_(double *ttc, double *p);    /* Thermal average quasiparticle lifetime, s */
 double he3_fpath_(double *ttc, double *p);     /* Mean free path of Bogoliubov quasiparticles */
 double he3_tau_dperp_(double *ttc, double *p); /* Spin diffusion perp transport time, s */
 double he3_tau_dpar_(double *ttc, double *p);  /* Spin diffusion parallel transport time, s */
-double he3_sdiff_nh_(double *ttc, double *p);  /* Hydrodynamic spin diffusion in normal liquid, cm2/s */
-double he3_sdiff_nperp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
 double he3_sdiff_hperp_(double *ttc, double *p);  /* Hydrodynamic spin diffusion D_perp, cm2/s*/
 double he3_sdiff_hpar_(double *ttc, double *p);   /* Hydrodynamic spin diffusion D_par, cm2/s*/
 double he3_sdiff_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
-
 
 /* Other */
 double he3_exp_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
