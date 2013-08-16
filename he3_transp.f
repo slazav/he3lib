@@ -403,6 +403,21 @@
         he3_sdiff_nh = vf**2 / 3D0 * (1+f0a) * tau
       end
 
+! Spin diffusion Dperp in normal liquid, cm2/s
+! Einzel JLTP84 (1991) f.22, Bunkov PRL65
+      function he3_sdiff_nperp(ttc, p, nu0)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, nu0
+        real*8 vf, f0a, tau, oe
+        f0a  = he3_f0a(p)
+        vf   = he3_vf(p)
+        tau  = he3_tau_nd(ttc,p)
+        oe  = -f0a/(1D0+f0a) * nu0*2*const_pi
+        he3_sdiff_nperp = vf**2 / 3D0 * (1+f0a)
+     .    * tau /(1 + (tau * oe)**2)
+      end
+
 ! Hydrodynamic spin diffusion D_perp, cm2/s
 ! Einzel JLTP84 (1991) f.102
       function he3_sdiff_hperp(ttc, p)
@@ -443,7 +458,8 @@
 ! Integrand for spin diffusion calculation
 ! Integration is similar to Y0 calculation in he3_gap.f
 ! 2D integration needed: x [0:1] and th angle [0:pi]
-! Einzel JLTP84 (191) f.108
+! Bunkov PRL65 (1990) f.3
+! Einzel JLTP84 (1991) f.108 - typo in the formula: Szz- should be Sxx-
 ! o0 -- Larmor freq (rad/s)
 ! oe -- Exchange freq (rad/s)
 ! td -- Spin diffusion perpendicular transport time, s
@@ -521,7 +537,7 @@
         Y0  = he3_yosida(ttc, gap, 0D0);
         chi0 = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
         o0  = nu0*2*const_pi
-        oe  = -f0a*o0*chi0
+        oe  = -f0a*chi0 * o0
         td  = he3_tau_dperp(ttc, p)
 
         sum = (0D0, 0D0)

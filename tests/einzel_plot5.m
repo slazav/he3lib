@@ -1,4 +1,4 @@
-function einzel_plot4()
+function einzel_plot5()
   % Einzel JLTP84 (1991) p.353 fig.7
 
   addpath ~/he3lib/lib/matlab

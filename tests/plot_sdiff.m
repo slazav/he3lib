@@ -2,17 +2,31 @@ function plot_sdiff()
   addpath ~/he3lib/lib/matlab
 
   figure; clf; hold on;
-  ttc = 0:0.01:1;
+  ttc = 0.5:0.01:1;
   p=30;
 
-  plot(ttc, he3_sdiff_nh(ttc, p), 'r-');
-  plot(ttc, he3_sdiff_hperp(ttc, p), 'b-');
-  plot(ttc, he3_sdiff_hpar(ttc, p), 'g-');
-  plot(ttc, he3_sdiff(ttc, p, 1e6), 'c-', 'linewidth', 2);
-  plot(ttc, he3_sdiff(ttc, p, 1e4), 'b-', 'linewidth', 2);
+  f=2e6;
+
+  plot(ttc, he3_sdiff_hpar(ttc, p), 'r-');
+  plot(ttc, he3_sdiff_hperp(ttc, p), 'r-', 'linewidth', 2);
+  plot(ttc, he3_sdiff(ttc, p, f), 'b-', 'linewidth', 2);
   plot(ttc, he3_sdiff(ttc, p, 0), 'm--');
-  xlim([0 1])
-  ylim([0 0.4])
+
+  ttc = 1:0.01:1.5;
+  plot(ttc, he3_sdiff_nh(ttc, p), 'r-', 'linewidth', 2);
+  plot(ttc, he3_sdiff_nperp(ttc, p, f), 'b-', 'linewidth', 2);
+
+  plot([1 1], [0 0.05], 'k--');
+
+  xlim([0.5 1.5])
+  ylim([0 0.05])
+
+  text(0.95,0.010, 'D_\perp(1MHz)','fontweight','bold');
+  text(1.20,0.021, 'D_\perp(0Hz) = \tau_{||}(0Hz)','fontweight','bold');
+  text(1.20,0.019, 'D_{||}(1MHz)','fontweight','bold');
+  text(0.66,0.040, 'D_{||}(0Hz)','fontweight','bold');
+  text(0.66,0.038, 'D_{||}(1MHz)','fontweight','bold');
+  text(0.90,0.040, 'D_\perp(0Hz)','fontweight','bold');
 
   % improved Samuli's code
   %addpath ~/he3lib/diff
@@ -22,15 +36,6 @@ function plot_sdiff()
 %  plot(s2.ttc, s2.s1d/dn, 'm-');
 %  plot(s2.ttc, s2.s2d/dn, 'm-');
 
-  legend(
-   'Normal hydrodynamic',...
-   'Superfluid hydrodynamic D_{perp}',...
-   'Superfluid hydrodynamic D_{par}',...
-   'Superfluid D_{perp} 1000 kHz',...
-   'Superfluid D_{perp} 0 Hz',...
-  '');
-
 %   'Superfluid D_{perp} 10 kHz',...
-
-%  print -deps -color plot_sdiff.eps
+  print -deps -color plot_sdiff.eps
 end
