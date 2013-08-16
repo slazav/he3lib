@@ -104,10 +104,10 @@ he3\_phase.f}.
 \tt he3\_pabn     & A-B-Normal point pressure, 21.22~[bar]\\
 \end{tabular}
 
-\eject
 
-\begin{figure}[h]
-\includegraphics[scale=.68]{phase.eps}
+\begin{figure}[p]
+\includegraphics[scale=.7]{phase1.eps}
+\includegraphics[scale=.7]{phase2.eps}
 \end{figure}
 
 \eject
@@ -145,7 +145,7 @@ Derived values:
                      \ \frac{2N(0)}{p_F}$,~[g]\\
 \tt he3\_mm(P)     &$m^\star/m_3$\\
 \tt he3\_vf(P)     &$\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
-\tt he3\_chi\_n(P) &$\displaystyle \chi_{N} = N(0) \frac{(\gamma\hbar)^2}{4(1 + F_0^a)}$.\\
+\tt he3\_chi\_n(P) &$\displaystyle \chi_{N} = 2N(0) \frac{(\gamma\hbar)^2}{4(1 + F_0^a)}$.\\
 \tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
 \tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
 \tt he3\_f0a(P)    &$\displaystyle F_0^a = Z_0/4 = 3 k_B T^\star m^\star / p_F^2 - 1$\\
@@ -189,10 +189,13 @@ source file {\tt he3\_gap.f}.
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(T/T_c,\Delta)$\newline
 {\small(Einzel-1991, f.66)}\\\\
 
-\tt he3\_chi\_b(ttc, gap)    &B-phase susceptibility\newline
-                             $\displaystyle \chi_B =
-                             \chi_N \frac{(1+F_0^a)(2 + Y_0)}
-                                         {3+F_0^a(2 + Y_0)}$\\
+\tt he3\_rho\_nb(ttc, p)     &B-phase normal component density\newline
+                             $\displaystyle \frac{\rho_B^n}{\rho_0} =
+                               \frac{(3 + F_1^s)*Y_0}{3 + f_1^s*Y_0}$\\
+\tt he3\_chi\_b(ttc, p)      &B-phase susceptibility\newline
+                             $\displaystyle \frac{\chi_B}{\chi_N} =
+                               \frac{(1+F_0^a)(2 + Y_0)}
+                                     {3+F_0^a(2 + Y_0)}$\\
 \tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency, Hz\newline
                              $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
                              \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}  $\\

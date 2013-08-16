@@ -18,6 +18,6 @@ function plot_yosida_lt()
   xlabel('ttc')
   ylabel('Y_n')
   title(t);
-  legend('Y0', 'Y1', 'Y3');
+  legend('Y0', 'Y1', 'Y2');
   print -deps -color plot_yosida.eps
 end

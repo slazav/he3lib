@@ -72,7 +72,8 @@
       real*8 He3_yosida0     ! Yosida function Y0 vs T/Tc, gap (approx)
       real*8 He3_yosida0_fast ! Yosida function Yn vs T/Tc, gap, n
 
-      real*8 He3_chi_b       ! B-phase susceptibility T/Tc, P
+      real*8 He3_rho_nb      ! B-phase Normal component density \rho_nb/\rho_0
+      real*8 He3_chi_b       ! B-phase susceptibility chi_B/chi_0 vs T/Tc, P
       real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
 
 ! Transport

@@ -521,7 +521,7 @@
         Y0  = he3_yosida(ttc, gap, 0D0);
         chi0 = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
         o0  = nu0*2*const_pi
-        oe  = -f0a*o0*chi0
+        oe  = -f0a*o0*chi0  ! Einzel-1991 p.349
         td  = he3_tau_dperp(ttc, p)
 
         sum = (0D0, 0D0)

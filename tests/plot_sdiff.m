@@ -5,14 +5,30 @@ function plot_sdiff()
   ttc = 0:0.01:1;
   p=30;
 
-  plot(ttc, he3_sdiff_nh(ttc, p), 'r-');
-  plot(ttc, he3_sdiff_hperp(ttc, p), 'b-');
-  plot(ttc, he3_sdiff_hpar(ttc, p), 'g-');
-  plot(ttc, he3_sdiff(ttc, p, 1e6), 'c-', 'linewidth', 2);
-  plot(ttc, he3_sdiff(ttc, p, 1e4), 'b-', 'linewidth', 2);
-  plot(ttc, he3_sdiff(ttc, p, 0), 'm--');
-  xlim([0 1])
-  ylim([0 0.4])
+  f=2e6
+
+%  plot(ttc, he3_sdiff_nh(ttc, p), 'r--');
+  plot(ttc, he3_sdiff_hperp(ttc, p), 'r-', 'linewidth', 2);
+  plot(ttc, he3_sdiff_hpar(ttc, p), 'r-');
+%  plot(ttc, he3_sdiff(ttc, p, 1e6), 'c-', 'linewidth', 2);
+  plot(ttc, he3_sdiff(ttc, p, f), 'b-', 'linewidth', 2);
+%  plot(ttc, he3_sdiff(ttc, p, 0), 'm--', 'linewidth', 2);
+
+  ttc = 1:0.01:1.5;
+
+  l = 1/(1+he3_f0a(p)) - 1/(1+he3_f1a(p)/3);
+  l = 1/(1+he3_f0a(p)) - 1/(1+he3_f0a(p)/6);
+
+
+  oe = f * 2*pi * l;
+  tau = he3_tau_nd(ttc, p);
+  plot(ttc, he3_sdiff_nh(ttc, p), 'r-', 'linewidth', 2);
+  plot(ttc, he3_sdiff_nh(ttc, p) ./ (1+(oe*tau).^2), 'b-', 'linewidth', 2);
+  plot(ttc, he3_sdiff_nh(ttc, p), 'b-');
+
+
+  xlim([0 2])
+  ylim([0 0.05])
 
   % improved Samuli's code
   %addpath ~/he3lib/diff
@@ -32,5 +48,5 @@ function plot_sdiff()
 
 %   'Superfluid D_{perp} 10 kHz',...
 
-%  print -deps -color plot_sdiff.eps
+  print -deps -color plot_sdiff.eps
 end

@@ -56,7 +56,8 @@ double he3_bcsgap_fast_(double *ttc);        /* BCS energy gap approximation */
 double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correction to the BCS gap*/
 double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
 
-double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility vs P [bar]  */
+double he3_rho_nb_(double *ttc, double *P); /* B-phase Normal component density \rho_nb/\rho_0 */
+double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility chi_b/chi_0  */
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 
 double he3_z3_(double *ttc, double *gap);

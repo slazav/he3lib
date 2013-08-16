@@ -229,7 +229,19 @@
      .   + dexp(gap - gap/ttc) * ttc**(k-0.5D0)
       end
 
-! He3-B suseptibility
+! B-phase Normal component density \rho_n^B/\rho_0
+! VW book f.3.92
+      function he3_rho_nb(ttc, p)
+        implicit none
+        real*8 ttc,p,f1s,gap,Y0
+        include 'he3.fh'
+        f1s = He3_f1s(p)
+        gap = he3_bcsgap(ttc)
+        Y0  = He3_yosida(ttc, gap, 0D0)
+        he3_rho_nb = (3D0+f1s)*Y0/(3D0+f1s*Y0)
+      end
+
+! He3-B suseptibility chi_b / chi_0
 ! see VW book ch.10 p.449; ch2 p.90
 ! see Wheatley-75 f 3.7
 ! There is also additional term to 3*chi0
@@ -237,16 +249,13 @@
       function He3_chi_b(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc,p,G,Y,F
-        F = He3_f0a(p)
-        He3_chi_b = he3_chi_n(p)
-        if (ttc.LT.1D0) then
-          G  = he3_bcsgap(ttc)
-          Y  = He3_yosida(ttc, G, 0D0)
-          He3_chi_b = He3_chi_b *
-     .      ((1D0+F) * (2D0+Y)/3D0) /
-     .      ( 1D0+F * (2D0+Y)/3D0)
-        end if
+        real*8 ttc,p,f0a,gap,Y0
+        f0a = He3_f0a(p)
+        gap = he3_bcsgap(ttc)
+        Y0  = He3_yosida(ttc, gap, 0D0)
+        He3_chi_b =
+     .    (1D0 + f0a) * (2D0+Y0) /
+     .    (3D0 + f0a * (2D0+Y0))
       end
 
 ! B-phase Leggett freq
@@ -259,6 +268,7 @@
      .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
      .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
       end
+
 
 ! Suseptibility [sgs] vs P [bar], T [mK] -- Old
 ! Origin: Mukharskii, Dmitriev
