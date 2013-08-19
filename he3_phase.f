@@ -154,14 +154,31 @@
         return
       end
 
-! T_ab [mk] vs P, H
-! Inseob Hahn PhD thesis, p79
-! real*8 p0,p1,p2,q1,pp
-! real*8 Bc,f3,f4,Pa
-! Pa = 34.338
-! pp = P/Pa
-! Bc=(3391D0 + 21500D0*pp - 8490D0*pp**2) / (1+2.098D0*pp)
-! f3 = 1.41D0
-! f4 = -0.29D0 -0.41D0*pp
-! f5 = (1-f3*Ta**6 - f4*Ta**8 - (1-f3-f4)*Ta**2 + (1+2f3+3f4)*(Ta**4-Ta**2))/
-!        /
+!! B_ab [mk] vs P, ttc
+!! Inseob Hahn PhD thesis, p79
+!      function He3_Bab(P,ttc)
+!        implicit none
+!        include 'he3.fh'
+!        real*8 P,ttc
+!        real*8 p0,p1,p2,q1,pp
+!        real*8 f1,f2,f3,f4,f5
+!        real*8 Bc,B0,gr, Pa,Ta, BB,X2
+!        Pa = 34.338
+!        pp = P/Pa
+!        Bc=(3391D0 + 21500D0*pp - 8490D0*pp**2) / (1+2.098D0*pp)
+!        f3 = 1.41D0
+!        f4 = -0.29D0 -0.41D0*pp
+!        B0 = 1.97 * ttc * (1D0+he3_f0a(P))
+!        gr = 0.616D0 - 1.174D0* pp + 0.301 * pp**2
+!        Ta = 1D0-(B/B0)**2/gr
+!        BB = (B0/Bc)**2 / 4D0 * gr
+!        f5 = (1D0 - f3*Ta**6 - f4*Ta**8 - (1D0-f3-f4)*Ta**2
+!     .        + (1D0+2D0*f3+3D0*f4)*(Ta**4-Ta**2))
+!     .       /(BB * (Ta**4-Ta**2)) - 1D0
+!        f2 = BB * (1D0+f5) - (1D0+2D0*f3+3D0*f4)
+!        f1 = 1D0 + f5-f2-f3-f4
+!        X2 = dsqrt(
+!     .   (f1*ttc**2 + f2*ttc**4 + f3*ttc**6 + f4*ttc**8)
+!     .    / (1+f5*ttc**2))
+!        He3_Bab = dsqrt(1D0 - X2**2) * Bc
+!      end

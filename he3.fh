@@ -37,6 +37,7 @@
       real*8 He3_Pmelt_gr  ! Greywall-86 melting pressure [bars] vs T [mK]
       real*8 He3_Tc        ! T_c [mK] vs P [bar]
       real*8 He3_Tab       ! T_ab [mK] vs P [bar]
+      real*8 He3_Bab       ! B_ab vs ttc, P [bar]
 
 ! Fermi-liquid functions (see he3_fermi.f)
       real*8 He3_Vm        ! Molar Volume [cm**3/mole] vs P [bar]
