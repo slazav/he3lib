@@ -237,6 +237,28 @@
      .   + dexp(gap - gap/ttc) * ttc**(k-0.5D0)
       end
 
+! Eizel-1991 f.90
+      function he3_yosida_par(ttc, gap)
+        implicit none
+        real*8 ttc,gap
+        include 'he3.fh'
+        he3_yosida_par = (
+     .       2D0 * he3_yosida(ttc, gap,0D0)
+     .     + 3D0 * he3_yosida(ttc, gap,2D0)
+     .    )/5D0
+      end
+
+! Eizel-1991 f.90
+      function he3_yosida_perp(ttc, gap)
+        implicit none
+        real*8 ttc,gap
+        include 'he3.fh'
+        he3_yosida_par = (
+     .       4D0 * he3_yosida(ttc, gap,0D0)
+     .     + 1D0 * he3_yosida(ttc, gap,2D0)
+     .    )/5D0
+      end
+
 ! B-phase Normal component density \rho_n^B/\rho_0
 ! VW book f.3.92
       function he3_rho_nb(ttc, p)

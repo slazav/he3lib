@@ -1,6 +1,7 @@
 all: he3lib.pdf spin_diff.pdf
 
-he3lib.pdf: ptable.tex
+he3lib.dvi: ptable.tex he3lib.tex
+
 ptable.tex: ptable.m
 	octave -q $< || rm -f ptable.tex
 
@@ -9,6 +10,7 @@ ptable.tex: ptable.m
 %.ps: %.dvi
 	dvips $<
 %.dvi: %.tex
+	make -C pics
 	latex $<
 
 clean:

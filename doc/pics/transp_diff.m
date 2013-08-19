@@ -21,8 +21,8 @@
 
   xlim([0.5 1.5])
   ylim([0 0.05])
-  xlegend('T/T_c')
-  ylegend('D, cm^2/s')
+  xlabel('T/T_c')
+  ylabel('D, cm^2/s')
 
   text(0.95,0.010, 'D_\perp(1MHz)','fontweight','bold');
   text(1.20,0.021, 'D_\perp(0Hz) = \tau_{||}(0Hz)','fontweight','bold');

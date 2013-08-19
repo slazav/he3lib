@@ -298,13 +298,13 @@
       function he3_tau_dperp(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, l1a, gap, y0, y2
+        real*8 ttc, p, l1a, gap, Y0, Yp
         l1a = he3_scatt_l1a(p)
         gap = he3_trivgap(ttc, p)
-        y0  = he3_yosida(ttc, gap, 0D0)
-        y2  = he3_yosida(ttc, gap, 2D0)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Yp  = he3_yosida_perp(ttc, gap)
         he3_tau_dperp = he3_tau_av(ttc,p)
-     .   /(1D0 - l1a*(4D0*y0 + y2)/5D0/y0)
+     .   /(1D0 - l1a*Yp/Y0)
       end
 
 ! Spin diffusion parallel transport time, s
@@ -312,13 +312,13 @@
       function he3_tau_dpar(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, l1a, gap, y0, y2
+        real*8 ttc, p, l1a, gap, Y0, Yp
         l1a = he3_scatt_l1a(p)
         gap = he3_trivgap(ttc, p)
-        y0  = he3_yosida(ttc, gap, 0D0)
-        y2  = he3_yosida(ttc, gap, 2D0)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Yp  = he3_yosida(ttc, gap, 2D0)
         he3_tau_dpar = he3_tau_av(ttc,p)
-     .   /(1D0 - l1a*(2D0*y0 + 3D0*y2)/5D0/y0)
+     .   /(1D0 - l1a*Yp/Y0)
       end
 
 ! Hydrodynamic spin diffusion D_perp, cm2/s
@@ -327,16 +327,15 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        real*8 gap, tau, f0a, Y0, Y2, V2Y, chi0, vf
-        gap = he3_trivgap(ttc, p)
+        real*8 gap, tau, f0a, Y0, chi0, vf
+        gap  = he3_trivgap(ttc, p)
         tau  = he3_tau_dperp(ttc,p)
         vf   = he3_vf(p)
         f0a  = he3_f0a(p)
         Y0   = he3_yosida(ttc, gap, 0D0)
-        Y2   = he3_yosida(ttc, gap, 2D0)
-        V2Y  = vf**2 * (4D0*Y0 + Y2)/5D0  ! Vrms2_perp * Y0 (f.87)
         chi0 = (2D0+Y0)/(3D0+f0a*(2D0+Y0))
-        he3_sdiff_hperp = V2Y/3D0/chi0 * tau
+        he3_sdiff_hperp = vf**2*tau/3D0/chi0
+     .                    * he3_yosida_perp(ttc,gap)
       end
 
 ! Hydrodynamic spin diffusion D_par, cm2/s
@@ -345,16 +344,15 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        real*8 gap, tau, f0a, Y0, Y2, V2Y, chi0, vf
-        gap = he3_trivgap(ttc, p)
+        real*8 gap, tau, f0a, Y0, chi0, vf
+        gap  = he3_trivgap(ttc, p)
         tau  = he3_tau_dpar(ttc,p)
         vf   = he3_vf(p)
         f0a  = he3_f0a(p)
         Y0   = he3_yosida(ttc, gap, 0D0)
-        Y2   = he3_yosida(ttc, gap, 2D0)
-        V2Y  = vf**2 * (2D0*Y0 + 3D0*Y2)/5D0  ! Vrms2_par * Y0
         chi0 = (2D0+Y0)/(3D0+f0a*(2D0+Y0))
-        he3_sdiff_hpar = V2Y/3D0/chi0 * tau
+        he3_sdiff_hperp = vf**2*tau/3D0/chi0
+     .                    * he3_yosida_par(ttc,gap)
       end
 
 

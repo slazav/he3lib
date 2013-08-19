@@ -65,6 +65,8 @@
       real*8 He3_bcsgap_fast  ! BCS energy gap approximation
       real*8 He3_trivgap      ! Trivial strong-coupling correction to the BCS gap
       real*8 He3_yosida       ! Yosida function Yn vs T/Tc, gap, n
+      real*8 He3_yosida_par   !
+      real*8 He3_yosida_perp  !
 
       real*8 He3_Z3
       real*8 He3_Z5

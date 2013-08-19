@@ -21,7 +21,7 @@ figure; clf; hold on;
   plot(ttc, he3_yosida(ttc,gg30,2), 'g', 'linewidth', 2)
   plot(ttc, he3_yosida(ttc,gg30,4), 'b', 'linewidth', 2)
 
-  legend('BCS gap', 'P=0', 'P=30', 'location', 'southwest')
+  legend('BCS gap', 'P=0', 'P=30', 'location', 'northeast')
 
 %  plot(ttc, he3_z3(ttc,gg), 'r')
 %  plot(ttc, he3_z5(ttc,gg), 'g')
