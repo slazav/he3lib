@@ -47,7 +47,7 @@
         real*8 p,ttc
         real*8 S0,S1,T0,T1, W
         W = he3_crsect_w(p)
-        He3_tau_n0 = 32 *
+        He3_tau_n0 = 32D0 *
      .    he3_tfeff(P)*const_hbar/const_pi**2
      .    / W / const_kb / (1D-3*ttc*he3_tc(P))**2
       end
@@ -82,7 +82,7 @@
         tau  = he3_tau_nd(ttc,p)
         vf   = he3_vf(p)
         f0a  = he3_f0a(p)
-        he3_sdiff_nh = vf**2 / 3D0 * (1+f0a) * tau
+        he3_sdiff_nh = vf**2 / 3D0 * (1D0+f0a) * tau
       end
 
 ! Spin diffusion Dperp in normal liquid, cm2/s
@@ -95,7 +95,7 @@
         f0a  = he3_f0a(p)
         vf   = he3_vf(p)
         tau  = he3_tau_nd(ttc,p)
-        oe  = -f0a/(1D0+f0a) * nu0*2*const_pi
-        he3_sdiff_nperp = vf**2 / 3D0 * (1+f0a)
-     .    * tau /(1 + (tau * oe)**2)
+        oe  = -f0a/(1D0+f0a) * nu0*2D0*const_pi
+        he3_sdiff_nperp = vf**2 / 3D0 * (1D0+f0a)
+     .    * tau /(1D0 + (tau * oe)**2)
       end

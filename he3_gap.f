@@ -6,11 +6,11 @@
         include 'he3.fh'
         integer n, m
         real*8 ttc,root,y,dy,ynew,g,dg
-        if (ttc.ge.1) then
+        if (ttc.ge.1D0) then
           he3_bcsgap = 0D0
           return
         end if
-        if (ttc.lt.0) then
+        if (ttc.lt.0D0) then
           he3_bcsgap = NaN
           return
         end if
@@ -44,18 +44,18 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, dsc, ccn, c1,c2
-        if (ttc.ge.1) then
+        if (ttc.ge.1D0) then
           he3_bcsgap_fast = 0D0
           return
         end if
-        if (ttc.lt.0) then
+        if (ttc.lt.0D0) then
           he3_bcsgap_fast = NaN
           return
         end if
         he3_bcsgap_fast = 1.764D0 *
      .    dtanh( const_pi/1.764D0 *
      .      sqrt(2D0/3D0 * 1.426D0 * (1D0-ttc)/ttc *
-     .          (1+0.1916D0*(1-ttc) + 0.2065D0*(1-ttc)**2)))
+     .          (1D0+0.1916D0*(1D0-ttc) + 0.2065D0*(1D0-ttc)**2)))
       end
 
 ! Trivial strong-coupling correction to the BCS energy gap

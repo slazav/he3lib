@@ -139,7 +139,7 @@
         implicit none
         include 'he3.fh'
         real*8 xi, ttc, gap, x, g0,d0,w0
-        x=xi/dsqrt(2*ttc*gap)
+        x=xi/dsqrt(2D0*ttc*gap)
         w0 = (1D0 - 2D0/3D0*g0 + d0)
         he3_coll_int_lt =
      .    3D0/2D0/const_pi * gap/ttc * he3_yosida(ttc,gap, 0D0)
@@ -351,8 +351,8 @@
         f0a  = he3_f0a(p)
         Y0   = he3_yosida(ttc, gap, 0D0)
         chi0 = (2D0+Y0)/(3D0+f0a*(2D0+Y0))
-        he3_sdiff_hperp = vf**2*tau/3D0/chi0
-     .                    * he3_yosida_par(ttc,gap)
+        he3_sdiff_hpar = vf**2*tau/3D0/chi0
+     .                 * he3_yosida_par(ttc,gap)
       end
 
 
@@ -380,16 +380,17 @@
         kz=dsin(th)
         kp=dcos(th)
 
-        t = td / dcmplx(1D0, -o0*td)
-        s = (o0 + oe) * t
+        Sp2 = dcmplx((u - kz**2*(u-1D0))**2, 0D0)
 
-        Sp2 = (u - kz**2*(u-1D0))**2
+        t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
+        s = dcmplx((o0 + oe), 0D0) * t
 
-        he3_sdiff_int =  t * kz**2 * kp
-     .    * (3D0/8D0*(u-1D0)**2 * kp**4
-     .         + (u-1D0)*kp**2 + 1 - (0,1)*s*Sp2)
-     .    / (1 + s**2*Sp2)
-     .    * phi * C/(1D0-x**2)
+
+        he3_sdiff_int =  t * dcmplx(kz**2 * kp, 0D0)
+     .    * dcmplx(3D0/8D0*(u-1D0)**2 * kp**4
+     .         + (u-1D0)*kp**2 + 1D0, -s*Sp2)
+     .    / ((1D0,0D0) + s**2*Sp2)
+     .    *dcmplx(phi * C/(1D0-x**2), 0D0)
       end
 
 ! Integrand for spin diffusion calculation - 2
@@ -411,10 +412,10 @@
           tp = dt * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
           tm = dt * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
           sum = sum
-     .       + he3_sdiff_int(x, tp, ttc,gap,o0,oe,td) * dt/2D0
-     .       + he3_sdiff_int(x, tm, ttc,gap,o0,oe,td) * dt/2D0
+     .     + he3_sdiff_int(x, tp, ttc,gap,o0,oe,td)*dcmplx(dt/2D0,0D0)
+     .     + he3_sdiff_int(x, tm, ttc,gap,o0,oe,td)*dcmplx(dt/2D0,0D0)
         enddo
-        he3_sdiff_int2 = 2D0 * sum
+        he3_sdiff_int2 = (2D0,0D0) * sum
       end
 
 ! Spin diffusion coefficient D_perp, cm2/s
@@ -437,7 +438,7 @@
         f0a = he3_f0a(p)
         Y0  = he3_yosida(ttc, gap, 0D0);
         chi0 = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
-        o0  = nu0*2*const_pi
+        o0  = nu0*2D0*const_pi
         oe  = -f0a*o0*chi0  ! Einzel-1991 p.349
         td  = he3_tau_dperp(ttc, p)
 
@@ -449,8 +450,8 @@
           xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
           xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
           sum = sum
-     .       + he3_sdiff_int2(xp, ttc, gap, o0, oe, td) * dx/2D0
-     .       + he3_sdiff_int2(xm, ttc, gap, o0, oe, td) * dx/2D0
+     .     +he3_sdiff_int2(xp, ttc, gap, o0, oe, td)*dcmplx(dx/2D0,0D0)
+     .     +he3_sdiff_int2(xm, ttc, gap, o0, oe, td)*dcmplx(dx/2D0,0D0)
         enddo
 
         he3_sdiff = dreal(sum) * Vf**2 / chi0 / 2D0
