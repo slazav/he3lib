@@ -387,8 +387,8 @@
 
 
         he3_sdiff_int =  t * dcmplx(kz**2 * kp, 0D0)
-     .    * dcmplx(3D0/8D0*(u-1D0)**2 * kp**4
-     .         + (u-1D0)*kp**2 + 1D0, -s*Sp2)
+     .    * (dcmplx(3D0/8D0*(u-1D0)**2 * kp**4
+     .         + (u-1D0)*kp**2 + 1D0, 0D0) -s*Sp2)
      .    / ((1D0,0D0) + s**2*Sp2)
      .    *dcmplx(phi * C/(1D0-x**2), 0D0)
       end

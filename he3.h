@@ -50,6 +50,8 @@ double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
 
+double he3_cv_n_(double *t, double *v);    /* C_v */
+
 /* Gap */
 double he3_bcsgap_(double *ttc);             /* BCS energy gap */
 double he3_bcsgap_fast_(double *ttc);        /* BCS energy gap approximation */

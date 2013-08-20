@@ -60,6 +60,8 @@
       real*8 He3_gdk       ! average dipolar coupling energy, K
       real*8 He3_Tfeff     ! effective fermi temperature, K
 
+      real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
+
 
 ! BCS gap + strong coupling correction (see he3_gap.f)
       real*8 He3_bcsgap       ! BCS energy gap
