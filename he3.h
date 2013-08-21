@@ -129,3 +129,6 @@ double he3_susept_(double *P, double *ttc); /* Suseptibility [sgs] vs P [bar], T
 double he3_tau_r_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 double he3_tau_f_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 
+/* ROTA */
+
+double rota_c_ns_(double *t, double *i); /* Nuclear stage heat capacity [J/K] vs T[K] and I[A] */

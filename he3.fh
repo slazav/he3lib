@@ -139,3 +139,6 @@
       real*8 He3_susept    ! Suseptibility [sgs] vs P [bar], T [mK]
       real*8 He3_tau_r     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
       real*8 He3_tau_f     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+
+! ROTA
+      real*8 rota_c_ns     ! Nuclear stage heat capacity [J/K] vs T[K] and I[A]
