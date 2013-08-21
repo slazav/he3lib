@@ -26,18 +26,21 @@ This library provides constant and functions for various $^3$He properties.
 
 {\bf Fortran.}
 You can use {\tt he3.fh} include file and {\tt libhe3} library in
-fortran programs.
+fortran programs. All functions and arguments are {\tt real*8}.
 
-{\bf C.}
-You can use {\tt he3.h} include file and {\tt libhe3} library in C programs.
-Lowercase names with underscore should be used (like {\tt he3\_pf\_}).
+{\bf C.} You can use {\tt he3.h} include file and {\tt libhe3} library
+in C programs. Lowercase names with underscore should be used (like {\tt
+he3\_pf\_}). Type of arguments is always {\tt double*}, type of returned
+values is {\tt double}.
 
-{\bf Matlab, Octave.}
-To compile {\tt mex} files you should run {\tt compile.m} script in the {\tt matlab}
-folder. Lowercase names should be used.
-Functions which take 1 argument can be used with array or matrix argument.
-Functions which take 2 arguments can work either with two equal size matrices
-or with number + matrix or matrix + number.
+{\bf Matlab, Octave.} To compile {\tt mex} files you should run {\tt
+compile.m} script in the {\tt matlab} folder. Lowercase names should be
+used. In function arguments you can use a mix of numbers and arrays or
+matrices of the same size. Example:
+\begin{verbatim}
+  ttc=0:0.1:1; p=10;
+  I = he3_coll_int(0, ttc, he3_trivgap(ttc,p), he3_scatt_g0(p), he3_scatt_d0(p));
+\end{verbatim}
 
 \subsection*{Location}
 \begin{itemize}
