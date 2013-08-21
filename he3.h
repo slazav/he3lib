@@ -12,21 +12,31 @@ extern double he3_pcr_;
 extern double he3_tcr_;
 extern double he3_pabn_;
 extern double he3_tabn_;
-extern double he3_psmin_;
-extern double he3_tsmin_;
+extern double he3_pm_;
+extern double he3_tm_;
 extern double he3_pa_;
 extern double he3_ta_;
 extern double he3_pb_;
 extern double he3_tb_;
-extern double he3_pneel_;
-extern double he3_tneel_;
+extern double he3_ps_;
+extern double he3_ts_;
+
+extern double he3_pa_plts_;
+extern double he3_ta_plts_;
+extern double he3_pb_plts_;
+extern double he3_tb_plts_;
+extern double he3_ps_plts_;
+extern double he3_ts_plts_;
 
 /* Phase diagram functions */
 double he3_pvap_(double *T);   /* Vapor pressure [bar] vs T [K] */
-double he3_pmelt_(double *T);  /* Melting pressure [bars] vs T [K] */
-double he3_pmelt_gr_(double *T);  /* Greywall-86 melting pressure [bars] vs T [K] */
-double he3_tc_(double *P);     /* T_c [mK] vs P [bar] */
-double he3_tab_(double *P);    /* T_ab [mK] vs P [bar] */
+double he3_pmelt_(double *T);  /* Melting pressure [bars] vs T [K] (Greywall86) */
+double he3_tc_(double *P);     /* T_c [mK] vs P [bar] (Greywall86) */
+double he3_tab_(double *P);    /* T_ab [mK] vs P [bar] (Greywall86) */
+
+double he3_pmelt_plts_(double *T);  /* PLTS2000 melting pressure [bars] vs T [K] */
+double he3_gr2plts_(double *T);     /* Greywall86 -> PLTS2000 temperature conversion */
+double he3_plts2gr_(double *T);     /* PLTS2000 -> Greywall86 temperature conversion */
 
 /* Fermi-liquid values, measured */
 double he3_vm_(double *P);     /* Molar Volume [cm**3/mole] vs P [bar] */

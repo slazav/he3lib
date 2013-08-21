@@ -4,8 +4,10 @@
       real*8 const_h, const_hbar
       real*8 const_pi, NaN
       real*8 he3_pcr, he3_tcr, he3_pabn, he3_tabn
-      real*8 he3_psmin, he3_tsmin, he3_pa, he3_ta, he3_pb, he3_tb
-      real*8 he3_pneel, he3_tneel
+      real*8 he3_pm, he3_tm, he3_pa, he3_ta
+      real*8 he3_pb, he3_tb, he3_ps, he3_ts
+      real*8 he3_pa_plts, he3_ta_plts
+      real*8 he3_pb_plts, he3_tb_plts, he3_ps_plts, he3_ts_plts
 
         common /he3_gyro/   he3_gyro
         common /he3_amass/  he3_amass
@@ -20,23 +22,33 @@
         common /he3_tcr/    he3_tcr
         common /he3_pabn/   he3_pabn
         common /he3_tabn/   he3_tabn
-        common /he3_psmin/  he3_psmin
-        common /he3_tsmin/  he3_tsmin
+        common /he3_pm/     he3_pm
+        common /he3_tm/     he3_tm
         common /he3_pa/     he3_pa
         common /he3_ta/     he3_ta
         common /he3_pb/     he3_pb
         common /he3_tb/     he3_tb
-        common /he3_pneel/  he3_pneel
-        common /he3_tneel/  he3_tneel
+        common /he3_ps/     he3_ps
+        common /he3_ts/     he3_ts
+        common /he3_pa_plts/  he3_pa_plts
+        common /he3_ta_plts/  he3_ta_plts
+        common /he3_pb_plts/  he3_pb_plts
+        common /he3_tb_plts/  he3_tb_plts
+        common /he3_ps_plts/  he3_ps_plts
+        common /he3_ts_plts/  he3_ts_plts
 
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
 
 ! Phase diagram functions (see he3_phase.f)
-      real*8 He3_Pvap      ! Vapor pressure [bar] vs T [K]
-      real*8 He3_Pmelt     ! Melting pressure [bars] vs T [mK]
-      real*8 He3_Pmelt_gr  ! Greywall-86 melting pressure [bars] vs T [mK]
-      real*8 He3_Tc        ! T_c [mK] vs P [bar]
-      real*8 He3_Tab       ! T_ab [mK] vs P [bar]
+      real*8 He3_Pvap       ! Vapor pressure [bar] vs T [K]
+      real*8 He3_Pmelt      ! Melting pressure [bars] vs T [mK] (based on Greywall-1985 scale)
+      real*8 He3_Tc         ! T_c [mK] vs P [bar]
+      real*8 He3_Tab        ! T_ab [mK] vs P [bar]
+
+      real*8 He3_Pmelt_plts ! PLTS2000 melting pressure [bars] vs T [mK]
+      real*8 He3_gr2plts    ! Greywall -> PLTS2000 temperature conversion
+      real*8 He3_plts2gr    ! PLTS2000 -> Greywall temperature conversion
+
       real*8 He3_Bab       ! B_ab vs ttc, P [bar]
 
 ! Fermi-liquid functions (see he3_fermi.f)

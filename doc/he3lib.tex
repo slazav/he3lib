@@ -20,7 +20,7 @@
 
 \subsection*{Usage}
 
-This library provides constant and functions, related with $^3$He properties.
+This library provides constant and functions for various $^3$He properties.
 
 \noindent Supported Languages:
 
@@ -71,13 +71,13 @@ or with number + matrix or matrix + number.
 \subsection*{Phase diagram}
 
 Vapor pressure and critical point are from the {1962~$^3$He scale of
-temperatures}. Melting curve at 0.9 -- 250~mK, minimum and triple points
-on melting curve are from {PLTS-2000 temperature scale}. Melting curve
-for higher temperatures is from {Osborne,Abraham,Weinstock-1951} and
-{Mills,Grilly-1955}. Superfluid transition, AB-transition and A-B-Normal
-triple point are from {Graywall-86}; values are corrected to fit
-PLTS2000 temperature scale. See more information in the source file {\tt
-he3\_phase.f}.
+temperatures}. Melting curve $P_m(T)$ at 0.9 -- 250~mK, $T_c(P)$,
+$T_{AB}(P)$ and all tricritical points are from {Greywall-86 temperature
+scale}. Melting curve minimum is from PLTS-2000 temperature scale.
+Melting curve for higher temperatures is from {Osborne, Abraham, Weinstock-1951} and {Mills, Grilly-1955} with
+interpolation in the regions 0.25--0.5K and 1.5--2.0K. PLTS-2000 melting
+curve and critical points on it are also available. See more information
+in the source file {\tt he3\_phase.f}.
 
 \medskip
 \noindent\begin{tabular}{lp{12.5cm}}
@@ -87,15 +87,14 @@ he3\_phase.f}.
 \tt he3\_tcr      & Gas-liquid critical point temperature, 3.324~[K] \\
 \tt he3\_pmelt(T) & Melting pressure [bar] vs temperature~[K],\newline
                     $ T = 0.0009 - 31$~K\\
-\tt he3\_pmelt\_gr(T) & Same, but using Greywall-86 temperature scale rather then PLTS2000\\
-\tt he3\_psmin    & Melting curve minimum pressure, $29.3113$~[bar]\\
-\tt he3\_tsmin    & Melting curve minimum temperature, $0.31524$~[K]\\
-\tt he3\_ta       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
-\tt he3\_pa       & Superfluid trans. at melting curve, pressure, 34.3407~[bar]\\
-\tt he3\_tb       & A-B trans. at melting curve, temp., 1.1896~[mK]\\
-\tt he3\_pb       & A-B trans. at melting curve, pressure, 34.3609~[bar]\\
-\tt he3\_tneel    & Neel transition at melting curve, temp., 0.902~[mK]\\
-\tt he3\_pneel    & Neel transition at melting curve, pressure, 34.3934~[bar]\\
+\tt he3\_pm       & Melting curve minimum pressure, $29.3113$~[bar]\\
+\tt he3\_tm       & Melting curve minimum temperature, $0.31524$~[K]\\
+\tt he3\_pa       & Superfluid trans. at melting curve, pressure, 34.3380~[bar]\\
+\tt he3\_ta       & Superfluid trans. at melting curve, temp., 2.491~[mK]\\
+\tt he3\_pb       & A-B trans. at melting curve, pressure, 34.3580~[bar]\\
+\tt he3\_tb       & A-B trans. at melting curve, temp., 1.932~[mK]\\
+\tt he3\_ps       & Neel transition at melting curve, pressure, 34.3905~[bar]\\
+\tt he3\_ts       & Neel transition at melting curve, temp., 0.9291~[mK]\\
 \tt he3\_tc(P)    & Superfluid transition temperature [mK] vs pressure~[bar],\newline
                     $ P = 0 - 34.358 $~bar\\
 \tt he3\_tab(P)   & A-B transition temperature [mK] vs pressure [bar],\newline
@@ -103,8 +102,21 @@ he3\_phase.f}.
 \tt he3\_tabn     & A-B-Normal point temperature, 2.2311~[mK]\\
 \tt he3\_pabn     & A-B-Normal point pressure, 21.22~[bar]\\
 \end{tabular}
+\medskip
 
-\noindent TODO: revert to Greywall-86 temperature scale? Add Tc(P,H).
+PLTS-2000 temperature scale:
+
+\medskip
+\noindent\begin{tabular}{lp{12.5cm}}
+\tt he3\_pmelt\_plts(T) & PLTS-2000 melting presure [bar] vs temperature~[K].\\
+\tt he3\_pa\_plts       & Superfluid trans. at melting curve, pressure, 34.3407~[bar]\\
+\tt he3\_ta\_plts       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
+\tt he3\_pb\_plts       & A-B trans. at melting curve, pressure, 34.3609~[bar]\\
+\tt he3\_tb\_plts       & A-B trans. at melting curve, temp., 1.896~[mK]\\
+\tt he3\_ps\_plts       & Neel transition at melting curve, pressure, 34.3934~[bar]\\
+\tt he3\_ts\_plts       & Neel transition at melting curve, temp., 0.902~[mK]\\
+\end{tabular}
+\medskip
 
 \begin{figure}[p]
 \includegraphics[scale=1.3]{phase1.eps}\\

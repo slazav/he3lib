@@ -24,9 +24,11 @@
         return
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 ! Melting pressure [bars] vs T [mK]
 ! Arg: T = 0.0009 .. 31 [K]
-! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1985)
+! Ref: Greywall. PRB33 7520 (1986) f.A1
 ! Ref: Osborne, Abraham, Weinstock, 1951, 1952
 ! Ref: Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955)
 ! see also: Johnson, Symko, Weatley -- Phis. Rev. Lett. 23, 1017 (1969)
@@ -35,63 +37,7 @@
         include 'he3.fh'
         real*8 T
         if (T.gt.9D-4.and.T.le.0.25D0) then
-!!        PLTS2000
-          He3_Pmelt =
-     .     - 1.3855442D-12 * T**(-3)
-     .     + 4.5557026D-9  * T**(-2)
-     .     - 6.4430869D-6  * T**(-1)
-     .     + 3.4467434D0
-     .     - 4.4176438D0 * T**1
-     .     + 1.5417437D1 * T**2
-     .     - 3.5789858D1 * T**3
-     .     + 7.1499125D1 * T**4
-     .     - 1.0414379D2 * T**5
-     .     + 1.0518538D2 * T**6
-     .     - 6.9443767D1 * T**7
-     .     + 2.6833087D1 * T**8
-     .     - 4.5875709D0 * T**9
-         He3_Pmelt = He3_Pmelt * 10D0 ! MPa -> bar
-        else if (T.gt.0.25D0.and.T.le.0.5D0) then
-!         Interpolation
-          He3_Pmelt = 33.2505D0
-     .     - 24.6026D0 *T
-     .     + 34.5713D0 *T**2
-     .     + 20.4086D0 *T**3
-     .     - 26.3258D0 *T**4
-        else if (T.gt.0.5D0.and.T.le.1.5D0) then
-!         Osborne, Abraham, Weinstock, 1951
-!         Pm = 26.8 + 13.1 T^2 [atm], T = 0.5 .. 1.5
-!         atm->bar: 1.01325
-          He3_Pmelt = (26.8D0 + 13.1D0 * T**2) * 1.01325D0
-        else if (T.gt.1.5D0.and.T.le.2.06D0) then
-!         Interpolation
-          He3_Pmelt = 24.787D0
-     .    + 9.4456D0 *T
-     .    + 0.0933D0 *T**2
-     .    + 7.6155D0 *T**3
-     .    - 1.5327D0 *T**4
-        else if (T.gt.2.06D0.and.T.le.31D0) then
-!         Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955))
-!         Pm = 25.16 + 20.08201 T^1.517083  [kg/cm2] P=76-3500
-!         He4: -17.80 + 17.31457 T^1.555414 [kg/cm2] P=37-3500
-!         kgf/cm2 -> bar: 0.980665
-          He3_Pmelt = (25.16D0 + 20.08201D0 * T**1.517083D0)
-     .                * 0.980665D0
-        else
-          He3_Pmelt = NaN
-        endif
-        return
-      end
-
-! Greywall-86 melting pressure temperature scale [bars] vs T [mK]
-! Arg: T = 0.0009 .. 31K [K]
-! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1986)
-      function He3_Pmelt_gr(T)
-        implicit none
-        include 'he3.fh'
-        real*8 T
-        if (T.gt.9D-4.and.T.le.0.25D0) then
-          He3_Pmelt_gr = He3_Pa
+          He3_Pmelt = 34.3380D0
      .     - 0.19652970D-1 * (T*1D3)**(-3)
      .     + 0.61880268D-1 * (T*1D3)**(-2)
      .     - 0.78803055D-1 * (T*1D3)**(-1)
@@ -101,15 +47,44 @@
      .     - 0.17180436D-6 * (T*1D3)**3
      .     - 0.22093906D-9 * (T*1D3)**4
      .     + 0.85450245D-12* (T*1D3)**5
+        else if (T.gt.0.25D0.and.T.le.0.5D0) then
+!         Interpolation (see tests/pmelt_interp.m)
+          He3_Pmelt =
+     .      3786.422495 * T**5
+     .     -6984.120614 * T**4
+     .     +5051.847883 * T**3
+     .     -1756.109750 * T**2
+     .      +289.300690 * T
+     .       +11.551436
+        else if (T.gt.0.5D0.and.T.le.1.5D0) then
+!         Osborne, Abraham, Weinstock, 1951
+!         Pm = 26.8 + 13.1 T^2 [atm], T = 0.5 .. 1.5
+!         atm->bar: 1.01325
+          He3_Pmelt = (26.8D0 + 13.1D0 * T**2) * 1.01325D0
+        else if (T.gt.1.5D0.and.T.le.2D0) then
+!         Interpolation (see tests/pmelt_interp.m)
+          He3_Pmelt =
+     .      -53.992350 * T**3
+     .     +286.394879 * T**2
+     .     -454.915548 * T
+     .     +277.229670
+        else if (T.gt.2D0.and.T.le.31D0) then
+!         Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955))
+!         Pm = 25.16 + 20.08201 T^1.517083  [kg/cm2] P=76-3500
+!         He4: -17.80 + 17.31457 T^1.555414 [kg/cm2] P=37-3500
+!         kgf/cm2 -> bar: 0.980665
+          He3_Pmelt = (25.16D0 + 20.08201D0 * T**1.517083D0)
+     .                * 0.980665D0 ! kgf/cm2 -> bar
         else
-          He3_Pmelt_gr = He3_Pmelt(T)
+          He3_Pmelt = NaN
         endif
         return
       end
 
+
 ! T_c [mK] vs P [bar]
 ! Arg: P = 0 .. Pa [bar]
-! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1985)
+! Ref: Greywall. PRB33 (1986) f.5
       function He3_Tc(P)
         implicit none
         include 'he3.fh'
@@ -121,7 +96,6 @@
      .       + .25685169D-3*P**3
      .       - .57248644D-5*P**4
      .       + .53010918D-7*P**5
-             He3_Tc = 0.96756D0*He3_Tc + 0.031803D0  ! Greywall -> PLTC temp scale
         else
           He3_Tc = NaN
         endif
@@ -130,7 +104,7 @@
 
 ! T_ab [mK] vs P [bar]
 ! Arg: P = 0 .. Pmelt [bar]
-! Ref: Greywall. Phys. Rev.B v.33 #11 p.7520 (1985)
+! Ref: Greywall. PRB33 (1986) f.15
 ! Note: Pabn=21.22 bar, Tabn = 2.273 mK
       function He3_Tab(P)
         implicit none
@@ -146,13 +120,64 @@
      .       + .83437032D-3*Pr**3
      .       - .61709783D-4*Pr**4
      .       + .17038992D-5*Pr**5
-          He3_Tab = 0.96756D0*He3_Tab + 0.031803D0  ! Greywall -> PLTC temp scale
         endif
         if (P.lt.0D0.or.P.gt.He3_Pb) then
           He3_Tab = NaN
         endif
         return
       end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Greywall -> PLTS2000 conversion T [mK] vs T [mK]
+      function He3_gr2plts(t)
+        implicit none
+        real*8 t, he3_gr2plts
+        he3_gr2plts = 0.96756D0*t + 0.031803D0
+      end
+      function He3_plts2gr(t)
+        implicit none
+        real*8 t, he3_plts2gr
+        he3_plts2gr = (t - 0.031803D0)/0.96756D0
+      end
+
+! PLTS2000 melting pressure temperature scale [bars] vs T [mK]
+! Arg: T = 0.0009 .. 0.250 [K]
+      function He3_Pmelt_plts(T)
+        implicit none
+        include 'he3.fh'
+        real*8 T
+        if (T.gt.9D-4.and.T.le.0.25D0) then
+          He3_Pmelt_plts =
+     .     - 1.3855442D-12 * T**(-3)
+     .     + 4.5557026D-9  * T**(-2)
+     .     - 6.4430869D-6  * T**(-1)
+     .     + 3.4467434D0
+     .     - 4.4176438D0 * T**1
+     .     + 1.5417437D1 * T**2
+     .     - 3.5789858D1 * T**3
+     .     + 7.1499125D1 * T**4
+     .     - 1.0414379D2 * T**5
+     .     + 1.0518538D2 * T**6
+     .     - 6.9443767D1 * T**7
+     .     + 2.6833087D1 * T**8
+     .     - 4.5875709D0 * T**9
+         He3_Pmelt_plts = He3_Pmelt_plts * 10D0 ! MPa -> bar
+        else if (T.gt.0.25D0.and.T.le.0.5D0) then
+!         Interpolation (see tests/pmelt_interp.m)
+          He3_Pmelt_plts =
+     .      -117.241694 * T**5
+     .      +319.841794 * T**4
+     .      -304.391790 * T**3
+     .      +167.316047 * T**2
+     .       -49.031497 * T
+     .       +34.882895
+        else
+          He3_Pmelt_plts = He3_Pmelt(T)
+        endif
+        return
+      end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !! B_ab [mk] vs P, ttc
 !! Inseob Hahn PhD thesis, p79
