@@ -297,11 +297,12 @@
           he3_cv_n = s1
           return
         endif
+
         if (t.ge.0.1.and.t.lt.2.5) then
           s1=0D0
-          do i=1,4
+          do i=0,3
             do j=0,2
-              s1 = s1 + b(i,j+1) * v**j * t**(-i)
+              s1 = s1 + b(i+1,j+1) * v**j * t**(-i)
             enddo
           enddo
           s2=0D0

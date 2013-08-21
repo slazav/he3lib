@@ -26,8 +26,8 @@ LIBOBJS=he3_const he3_phase he3_fermi he3_gap\
         he3_swvel he3_tau_lt
 
 # additional fitting functions used in libhe3
-ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE\
-        dgesv dgetrs dlaswp dtrsm lsame xerbla
+ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
+#        dgesv dgetrs dlaswp dtrsm lsame xerbla
 
 
 
