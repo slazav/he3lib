@@ -126,6 +126,8 @@
       real*8 he3_sdiff_hperp ! Hydrodynamic spin diffusion D_perp, cm2/s
       real*8 he3_sdiff_hpar  ! Hydrodynamic spin diffusion D_par, cm2/s
       real*8 He3_sdiff       ! Spin diffusion D_perp
+      real*8 He3_sdiff_mm       ! Spin diffusion D_perp
+
 
 ! Other
       real*8 He3_exp_nu_b  ! B-phase Leggett frequency, Hz
