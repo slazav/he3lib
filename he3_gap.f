@@ -164,11 +164,14 @@
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
 ! See also tests/plot_yosida_int.m
-      function he3_yosida_int(x, ttc,gap, n)
+      function he3_yosida_int(x, args)
         implicit none
         include 'he3.fh'
-        real*8 x, ttc,gap, xi, ek, n, C
+        real*8 x, args(3), ttc, gap, xi, ek, n, C
         real*8 he3_yosida_int
+        ttc=args(1)
+        gap=args(2)
+        n=args(3)
         C=2D0
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
@@ -178,15 +181,16 @@
      .     * C / (1D0-x**2)
       end
 
+
 ! Yosida function vs T/Tc, gap
 ! See D.Einzel JLTP 84
       function he3_yosida(ttc, gap, n)
         implicit none
         include 'he3.fh'
-        real*8 ttc, gap, n
-        real*8 dx, xp, xm
+        real*8 ttc, gap, n, args(3)
         real*8 he3_yosida_int
-        integer i, maxi
+        external he3_yosida_int
+
         if (ttc.lt.0D0) then
           he3_yosida=NaN
           return
@@ -199,17 +203,9 @@
           he3_yosida=1D0
           return
         endif
-        maxi=100
-        dx=1D0/dble(maxi)
-        he3_yosida = 0D0
-        ! intergation of he3_yosida_int from 0 to 1 using Gaussian quadrature
-        do i=1,maxi 
-          xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
-          xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
-          he3_yosida = he3_yosida
-     .       + he3_yosida_int(xp, ttc, gap, n) * dx/2D0
-     .       + he3_yosida_int(xm, ttc, gap, n) * dx/2D0
-        enddo
+
+        args = (/ttc, gap, n/)
+        he3_yosida = math_dint(he3_yosida_int, 0D0, 1D0, 100, args)
       end
 
 ! Yosida0 -- does not work

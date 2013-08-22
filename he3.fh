@@ -39,6 +39,10 @@
 
       parameter (NaN = 0D0/0D0) !! -fno-range-check should be used
 
+! Math (see he3_math.f)
+      real*8     math_dint ! integrate real*8 function
+      complex*16 math_cint ! integrate complex*16 function
+
 ! Phase diagram functions (see he3_phase.f)
       real*8 He3_Pvap       ! Vapor pressure [bar] vs T [K]
       real*8 He3_Pmelt      ! Melting pressure [bars] vs T [mK] (based on Greywall-1985 scale)
