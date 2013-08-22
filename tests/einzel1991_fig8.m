@@ -1,4 +1,4 @@
-function einzel_plot5()
+function einzel1991_fig8()
   % Einzel JLTP84 (1991) p.353 fig.7
 
   addpath ~/he3lib/lib/matlab
@@ -23,5 +23,5 @@ function einzel_plot5()
   xlabel('T/T_c');
   ylabel('D, cm^2/s');
 
-  print -deps -color einzel_plot5.eps
+  print -deps -color einzel1991_fig8.eps
 end

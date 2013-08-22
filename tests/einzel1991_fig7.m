@@ -1,4 +1,4 @@
-function einzel_plot4()
+function einzel1991_fig7()
   % Einzel JLTP84 (1991) p.353 fig.7
 
   addpath ~/he3lib/lib/matlab
@@ -24,5 +24,5 @@ function einzel_plot4()
   xlabel('T/T_c');
   ylabel('D/D0');
 
-  print -deps -color einzel_plot4.eps
+  print -deps -color einzel1991_fig7.eps
 end

@@ -1,4 +1,4 @@
-function einzel_plot1()
+function einzel1978_fig1()
   % Einzel JLTP32 (1978) p.35 fig.1
   addpath ~/he3lib/lib/matlab
 
@@ -24,6 +24,6 @@ function einzel_plot1()
   ylim([0 1]);
   xlim([0 9]);
 
-  print -deps -color einzel_plot1.eps
+  print -deps -color einzel1978_fig1.eps
 
 end

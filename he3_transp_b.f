@@ -221,11 +221,10 @@
       function he3_tau_av(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, gap, sum, g0, d0, Y0, tn, args(4)
+        real*8 ttc, p, gap, g0, d0, Y0, tn, args(4)
         real*8 dx, xp, xm
         real*8 he3_tau_av_int
         external he3_tau_av_int
-        integer i, maxi
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
           he3_tau_av=NaN
           return
@@ -238,21 +237,38 @@
      .   / math_dint(he3_tau_av_int, 0D0, 1D0, 100, args)
       end
 
-! Integrand for he3_fpath calculation
+! Integrands for he3_fpath calculation
 ! Integration is similar to Y0 calculation in he3_gap.f
-      function he3_fpath_int(x,ttc, gap, g0, d0)
+      function he3_fpath_int1(x, args)
         implicit none
         include 'he3.fh'
-        real*8 x,ttc, gap, g0, d0, xi, ek, I, C
-        real*8 he3_fpath_int
-        C=2D0 ! see tests/plot_tauav_int.m
+        real*8 x,args(4),ttc, gap, g0, d0, xi, ek, I, C
+        real*8 he3_fpath_int1
+        ttc=args(1)
+        gap=args(2)
+        g0=args(3)
+        d0=args(4)
+        C=1D0 ! see tests/plot_tauav_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
         I = he3_coll_int(xi,ttc, gap, g0, d0)
-        he3_fpath_int =
-     .   1D0/I**2  ! (t/tN)^2
+        he3_fpath_int1 = 1D0/I**2  ! (t/tN)^2
      .   * (xi/Ek)**2
      .   / (1D0 + dexp(Ek/ttc)) ! Fermi function
+     .   * C/(1D0-x**2)
+      end
+      function he3_fpath_int2(x, args)
+        implicit none
+        include 'he3.fh'
+        real*8 x,args(4),ttc, gap, xi, ek, C
+        real*8 he3_fpath_int2
+        ttc=args(1)
+        gap=args(2)
+        C=1D0 ! see tests/plot_tauav_int.m
+        xi = datanh(x)*C
+        Ek=dsqrt(xi**2 + gap**2)
+        he3_fpath_int2 =
+     .   1D0 / (1D0 + dexp(Ek/ttc)) ! Fermi function
      .   * C/(1D0-x**2)
       end
 
@@ -261,32 +277,22 @@
       function he3_fpath(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, gap, sum, g0, d0, tn, vf, Ife
+        real*8 ttc, p, gap, tn, vf, Ife, args(4)
         real*8 dx, xp, xm
-        real*8 he3_fpath_int
-        integer i, maxi
+        real*8 he3_fpath_int1, he3_fpath_int2
+        external he3_fpath_int1, he3_fpath_int2
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
           he3_fpath=NaN
           return
         endif
-        g0  = he3_scatt_g0(p)
-        d0  = he3_scatt_d0(p)
         gap = he3_trivgap(ttc, p)
         tn  = he3_tau_n0(ttc, p)
         vf  = he3_vf(p)
-        sum = 0D0
-        maxi=100
-        dx=1D0/dble(maxi)
-        ! intergation from 0 to 1 using Gaussian quadrature
-        do i=1,maxi 
-          xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
-          xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
-          sum = sum
-     .       + he3_fpath_int(xp, ttc, gap, g0, d0) * dx/2D0
-     .       + he3_fpath_int(xm, ttc, gap, g0, d0) * dx/2D0
-        enddo
         Ife = ttc * dlog(1D0+dexp(-gap/ttc)) ! integral of fermi function
-        he3_fpath = vf * tn * dsqrt(sum/Ife)
+        args = (/ttc,gap,he3_scatt_g0(p),he3_scatt_d0(p)/)
+        he3_fpath = vf * tn
+     .    *dsqrt(math_dint(he3_fpath_int1, 0D0, 1D0, 1000, args)/
+     .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000, args))
       end
 
 ! Spin diffusion perpendicular transport time, s

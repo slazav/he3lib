@@ -1,7 +1,8 @@
-function einzel_plot2()
+function einzel1978_fig2()
   % Einzel JLTP32 (1978) p.36 fig.2
-  addpath ~/he3lib/lib/matlab
+  t = 'Mean free path of Bogoliubov quasiparticle in He3-B';
 
+  addpath ~/he3lib/lib/matlab
   figure; clf; hold on;
   ttc = 0:0.005:1;
   p=0;
@@ -29,8 +30,8 @@ function einzel_plot2()
   ylim([0 0.8]);
   xlabel('1-T/T_c')
   ylabel('L exp(-\Delta/T)/(v_F \tau_N(0,T_c))')
-  title('Mean free path of Bogoliubov quasiparticle in He3-B')
+  title(t);
 
-  print -deps -color einzel_plot2.eps
+  print -deps -color einzel1978_fig2.eps
 
 end

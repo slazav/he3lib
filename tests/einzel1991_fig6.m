@@ -1,4 +1,4 @@
-function einzel_plot3()
+function einzel1991_fig6()
   % Einzel JLTP84 (1991) p.351 fig.6
   % Hydrodynamic spin diffusion
   addpath ~/he3lib/lib/matlab
@@ -24,7 +24,7 @@ function einzel_plot3()
   xlim([0 1])
   ylim([0 24])
 
-  print -deps -color einzel_plot3a.eps
+  print -deps -color einzel1991_fig6a.eps
 
   figure; clf; hold on;
   plot(ttc, Dpar/dtc, 'b.-');
@@ -32,6 +32,6 @@ function einzel_plot3()
   xlim([0.96 1])
   ylim([0.8 1.2])
 
-  print -deps -color einzel_plot3b.eps
+  print -deps -color einzel1991_fig6b.eps
 
 end
