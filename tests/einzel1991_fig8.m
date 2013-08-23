@@ -19,7 +19,7 @@ function einzel1991_fig8()
     ' 0 bar',...
     ''
   );
-%  ylim([0 0.5]);
+  ylim([0 0.5]);
   xlabel('T/T_c');
   ylabel('D, cm^2/s');
 

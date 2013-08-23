@@ -367,13 +367,20 @@
 ! o0 -- Larmor freq (rad/s)
 ! oe -- Exchange freq (rad/s)
 ! td -- Spin diffusion perpendicular transport time, s
-      function he3_sdiff_int(x, th, ttc, gap, o0, oe, td)
+      function he3_sdiff_int(x, th, args)
 ! tau_dp w0 w_exch Vf suspar
         implicit none
-        real*8 x,th, ttc, gap, o0, oe, td
+        real*8 x,th, args(5), ttc, gap, o0, lambda, td
         real*8 C, xi, Ek, kz, kp, phi, u
         complex*16 t,s, Sp2
         complex*16 he3_sdiff_int
+
+        ttc=args(1)
+        gap=args(2)
+        o0     = args(3)
+        lambda = args(4)
+        td     = args(5)
+
         C=2D0
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
@@ -386,8 +393,7 @@
         Sp2 = dcmplx((u - kz**2*(u-1D0))**2, 0D0)
 
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
-        s = dcmplx((o0 + oe), 0D0) * t
-
+        s = dcmplx(o0*(1+lambda), 0D0) * t
 
         he3_sdiff_int =  t * dcmplx(kz**2 * kp, 0D0)
      .    * (dcmplx(3D0/8D0*(u-1D0)**2 * kp**4
@@ -396,42 +402,16 @@
      .    *dcmplx(phi * C/(1D0-x**2), 0D0)
       end
 
-! Integrand for spin diffusion calculation - 2
-! Integrate he3_sdiff_int by th angle [0:pi/2] and multiply by 2,
-! keep x for future integration
-      function he3_sdiff_int2(x, ttc, gap, o0, oe, td)
-        implicit none
-        include 'he3.fh'
-        real*8 x, ttc, gap, o0, oe, td
-        real*8 dt, tp, tm
-        complex*16 he3_sdiff_int, he3_sdiff_int2, sum
-        integer i, maxi
-
-        sum = (0D0, 0D0)
-        maxi = 100
-        dt = const_pi/2D0/dble(maxi)
-        ! intergation th from 0 to pi using Gaussian quadrature
-        do i=1,maxi
-          tp = dt * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
-          tm = dt * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
-          sum = sum
-     .     + he3_sdiff_int(x, tp, ttc,gap,o0,oe,td)*dcmplx(dt/2D0,0D0)
-     .     + he3_sdiff_int(x, tm, ttc,gap,o0,oe,td)*dcmplx(dt/2D0,0D0)
-        enddo
-        he3_sdiff_int2 = (2D0,0D0) * sum
-      end
-
 ! Spin diffusion coefficient D_perp, cm2/s
 ! Integrate he3_sdiff_int2 by th angle [0:pi],
       function he3_sdiff(ttc, p, nu0)
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
-        real*8 gap, Vf, chi0, Y0, f0a
-        real*8 o0, oe, td
-        real*8 dx, xp, xm
-        complex*16 he3_sdiff_int2, sum
-        integer i, maxi
+        real*8 args(5), gap, Vf, chi0, Y0, f0a
+        real*8 o0, lambda, td
+        complex*16 he3_sdiff_int
+        external he3_sdiff_int
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
           he3_sdiff=NaN
           return
@@ -440,24 +420,15 @@
         Vf  = he3_vf(p)
         f0a = he3_f0a(p)
         Y0  = he3_yosida(ttc, gap, 0D0);
-        chi0 = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
-        o0  = nu0*2D0*const_pi
-        oe  = -f0a*o0*chi0  ! Einzel-1991 p.349
-        td  = he3_tau_dperp(ttc, p)
+        chi0    = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
+        o0      = nu0*2D0*const_pi
+        lambda  = -f0a*chi0  ! Einzel-1991 p.349
+        td      = he3_tau_dperp(ttc, p)
 
-        sum = (0D0, 0D0)
-        maxi=100
-        dx=1D0/dble(maxi)
-        ! intergation x from 0 to 1 using Gaussian quadrature
-        do i=1,maxi
-          xp = dx * (dble(i) - 0.5D0 + 0.5D0/dsqrt(3D0))
-          xm = dx * (dble(i) - 0.5D0 - 0.5D0/dsqrt(3D0))
-          sum = sum
-     .     +he3_sdiff_int2(xp, ttc, gap, o0, oe, td)*dcmplx(dx/2D0,0D0)
-     .     +he3_sdiff_int2(xm, ttc, gap, o0, oe, td)*dcmplx(dx/2D0,0D0)
-        enddo
-
-        he3_sdiff = dreal(sum) * Vf**2 / chi0 / 2D0
+        args = (/ttc, gap, o0, lambda, td/)
+        he3_sdiff = dreal(math_cint2d(he3_sdiff_int,
+     .        0D0, 1D0, 100, 0D0, const_pi/2D0, 100, args))
+     .    * Vf**2 / chi0
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
