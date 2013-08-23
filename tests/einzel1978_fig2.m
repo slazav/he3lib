@@ -12,7 +12,10 @@ function einzel1978_fig2()
   gap=he3_trivgap(ttc,p);
   l=he3_fpath(ttc, p);
 
-  plot(1-ttc, l.*exp(-gap./ttc)/vf/tn0 , 'k.-');
+  [x,y] = textread('einzel1978_fig2.dat', '%f %f', 'commentstyle', 'shell');
+  plot(x,y, 'k-');
+
+  plot(1-ttc, l.*exp(-gap./ttc)/vf/tn0 , 'r.-');
 
   % Low temperature approximation
   g0 = he3_scatt_g0(p);
@@ -21,7 +24,7 @@ function einzel1978_fig2()
   ttch = 0:0.01:0.2;
   gaph=he3_trivgap(ttch,p);
   l_lt = sqrt(2*pi)/3./gaph.^2/w0;
-  plot(1-ttch, l_lt, 'r-');
+  plot(1-ttch, l_lt, 'b-');
 
 %  plot(ttc, l, 'k-');
 %  plot(ttc, l_lt, 'b');

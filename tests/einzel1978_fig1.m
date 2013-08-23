@@ -1,7 +1,6 @@
 function einzel1978_fig1()
   % Einzel JLTP32 (1978) p.35 fig.1
   addpath ~/he3lib/lib/matlab
-
   figure; clf; hold on;
   ttc = 0.00:0.01:1;
   p=0;
@@ -13,11 +12,15 @@ function einzel1978_fig1()
   t0=he3_tau0(ttc, p);
   ta=he3_tau_av(ttc, p);
 
+  [x,y] = textread('einzel1978_fig1.dat', '%f %f', 'commentstyle', 'shell');
+  plot(x,y, 'k-');
+
   plot(gap./ttc, tn0./t0, 'b-');
   plot(gap./ttc, tna./ta, 'r-');
   xlabel('\Delta/T')
   ylabel('\tau_N/\tau')
-  legend('\tau_N(0)/\tau(0)',...
+  legend('original data',...
+         '\tau_N(0)/\tau(0)',...
          '<\tau_N(E)>/<\tau(E)>'...
   )
 
