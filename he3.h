@@ -111,7 +111,8 @@ double he3_tau_dpar_(double *ttc, double *p);  /* Spin diffusion parallel transp
 double he3_sdiff_hperp_(double *ttc, double *p);  /* Hydrodynamic spin diffusion D_perp, cm2/s*/
 double he3_sdiff_hpar_(double *ttc, double *p);   /* Hydrodynamic spin diffusion D_par, cm2/s*/
 double he3_sdiff_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
-double he3_sdiff_mm_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
+double he3_sdiff_perp_xx_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
+double he3_sdiff_perp_zz_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
 
 /* Other */
 double he3_exp_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */

@@ -294,6 +294,7 @@
      .                   he3_chi_b(ttc,p)/he3_chi_n(p))
      .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
      .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
+     .    * dsqrt(0.9574D0 + 0.3682D0*dexp(-p/6.9234D0)) ! fit to experimental data
       end
 
 
