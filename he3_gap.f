@@ -95,71 +95,6 @@
         he3_trivgap = he3_bcsgap(ttc)*corr
       end
 
-      function he3_z3(ttc,gap)
-        implicit none
-        include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt = dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**1.5D0
-        end do
-        help = SQRT(mt**2 + y**2)
-        corr1 = 1D0/(help*(mt+help))
-        corr2 = mt**3/(8D0*help**5)
-        he3_z3 = y**2*(sum + corr1 - corr2)
-      end
-
-      function he3_z5(ttc,gap)
-        implicit none
-        include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt = dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2 + y**2)**2.5D0
-        end do
-        help = SQRT(mt**2+y**2)
-        corr1 = (mt+2D0*help)/(3D0*help**3*(mt+help)**2)
-        corr2 = 5D0*mt**3/(24D0*help**7)
-        he3_z5 = y**4*(sum + corr1 - corr2)
-      end
-
-      function he3_z7(ttc,gap)
-        implicit none
-        include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt=dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**3.5D0
-        end do
-        help = SQRT(mt**2+y**2)
-        corr1 = (11D0*mt*mt + 9D0*mt*help + 8D0*y*y)/
-     .          (15D0*help**5*(mt+help)**3)
-        corr2 = 7D0*mt**3/(24D0*help**9)
-        he3_z7 = y**6*(sum + corr1 - corr2)
-      end
-
-
-! Yosida function vs T/Tc, gap -- old code
-      function he3_yosida0(ttc,gap)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc, gap
-        he3_yosida0 = 1D0 - he3_z3(ttc,gap)
-      end
-
-
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
@@ -208,31 +143,6 @@
         he3_yosida = math_dint(he3_yosida_int, 0D0, 1D0, 100, args)
       end
 
-! Yosida0 -- does not work
-! Einzel approximation (D.Einzel JLTP 130 (2003))
-      function he3_yosida0_fast(ttc, gap)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc, gap, gap0, k
-        if (ttc.lt.0D0.or.ttc.gt.1D0) then
-          he3_yosida0_fast=NaN
-          return
-        endif
-        ! gap at ttc=0. scale from bcsgap to our gap function
-         gap0 = gap * he3_bcsgap_fast(0D0)/he3_bcsgap_fast(ttc)
-!        k = (2.5D0 - gap0)
-!     .    / (1D0 - dsqrt(2D0*const_pi*gap)
-!     .             *dexp(-gap)*(1D0 + 3D0/8D0/gap))
-
-        k = 2.388693D0
-
-        he3_yosida0_fast =
-     .     dsqrt(2D0*const_pi*gap/ttc) * dexp(-gap/ttc)
-     .     * (1D0 + 3D0/8D0 * ttc/gap) * (gap-gap/ttc)
-     .     * (1D0 - ttc**k)
-     .   + dexp(gap - gap/ttc) * ttc**(k-0.5D0)
-      end
-
 ! Eizel-1991 f.90
       function he3_yosida_par(ttc, gap)
         implicit none
@@ -259,10 +169,10 @@
 ! VW book f.3.92
       function he3_rho_nb(ttc, p)
         implicit none
-        real*8 ttc,p,f1s,gap,Y0
+        real*8 ttc,p,gap,f1s,Y0
         include 'he3.fh'
         f1s = He3_f1s(p)
-        gap = he3_bcsgap(ttc)
+        gap = he3_trivgap(ttc,p)
         Y0  = He3_yosida(ttc, gap, 0D0)
         he3_rho_nb = (3D0+f1s)*Y0/(3D0+f1s*Y0)
       end
@@ -275,46 +185,13 @@
       function He3_chi_b(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc,p,f0a,gap,Y0
+        real*8 ttc,p,gap,f0a,Y0
         f0a = He3_f0a(p)
-        gap = he3_bcsgap(ttc)
+        gap = he3_trivgap(ttc,p)
         Y0  = He3_yosida(ttc, gap, 0D0)
         He3_chi_b =
      .    (1D0 + f0a) * (2D0+Y0) /
      .    (3D0 + f0a * (2D0+Y0))
-      end
-
-! B-phase Leggett freq
-      function he3_nu_b(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc,p,gap
-        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
-        he3_nu_b = dsqrt(3D0 / 8D0 / const_pi /
-     .                   he3_chi_b(ttc,p)/he3_chi_n(p))
-     .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
-     .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
-     .    * dsqrt(0.9574D0 + 0.3682D0*dexp(-p/6.9234D0)) ! fit to experimental data
-      end
-
-
-! Suseptibility [sgs] vs P [bar], T [mK] -- Old
-! Origin: Mukharskii, Dmitriev
-
-      function He3_susept(P,T)
-        implicit none
-        include 'he3.fh'
-        real*8 P,T,G,Y,TTC,F
-        He3_susept = he3_chi_n(P)
-        TTC=T/He3_Tc(P)
-        if (TTC.LT.1D0) then
-          F = He3_f0a(P)
-          G  = he3_bcsgap(ttc)
-          Y  = He3_yosida0(ttc, G)
-          He3_susept = He3_susept *
-     .      ((1D0+F) * (2D0+Y)/3D0) /
-     .      ( 1D0+F * (2D0+Y)/3D0)
-        end if
       end
 
 

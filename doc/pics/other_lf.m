@@ -111,5 +111,5 @@ ttc=0:0.01:1;
   xlabel('T/T_c');
   ylabel('\nu_B^2, Hz^2');
 
-print gap_lf.eps -deps "-S640,480" -color
+  print other_lf.eps -deps "-S800,600" -color
 

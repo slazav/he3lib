@@ -89,35 +89,28 @@
       real*8 He3_yosida_par   !
       real*8 He3_yosida_perp  !
 
-      real*8 He3_Z3
-      real*8 He3_Z5
-      real*8 He3_Z7
-      real*8 He3_yosida0     ! Yosida function Y0 vs T/Tc, gap (approx)
-      real*8 He3_yosida0_fast ! Yosida function Yn vs T/Tc, gap, n
-
       real*8 He3_rho_nb      ! B-phase Normal component density \rho_nb/\rho_0
       real*8 He3_chi_b       ! B-phase susceptibility chi_B/chi_0 vs T/Tc, P
       real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
 
 ! Transport in the normal phase
-
-      real*8 He3_tau_n0      ! Normal state quasiparticle lifetime at the Fermi level, s
-      real*8 He3_tau_n_av    ! Thermal average normal state quasiparticle lifetime, s
-      real*8 He3_tau_nd      ! Spin diffusion transport time for a normal Fermi-liquid, s
-      real*8 he3_sdiff_nh    ! Hydrodynamic spin diffusion in normal liquid, cm2/s
-      real*8 he3_sdiff_nperp ! Spin diffusion D_perp in normal liquid, cm2/s
-
-! Transport in the B phase
+      real*8 He3_crsect_w  ! Crossections
+      real*8 He3_crsect_wi !
+      real*8 He3_crsect_wd !
+      real*8 He3_crsect_wl !
 
       real*8 He3_scatt_l1a ! scattering papmeters
       real*8 He3_scatt_g0  !
       real*8 He3_scatt_d0  !
       real*8 He3_scatt_w0  ! w0 = 1 - 2/3 g0 + d0
 
-      real*8 He3_crsect_w  ! Crossections
-      real*8 He3_crsect_wi !
-      real*8 He3_crsect_wd !
-      real*8 He3_crsect_wl !
+      real*8 He3_tau_n0      ! Normal state quasiparticle lifetime at the Fermi level, s
+      real*8 He3_tau_n_av    ! Thermal average normal state quasiparticle lifetime, s
+      real*8 He3_tau_nd      ! Spin diffusion transport time for a normal Fermi-liquid, s
+      real*8 he3_diffn_hydr     ! Hydrodynamic spin diffusion in normal liquid, cm2/s
+      real*8 he3_diffn_perp     ! Spin diffusion D_perp in normal liquid, cm2/s
+
+! Transport in the B phase
 
       real*8 he3_coll_int    ! Collision integral in Einzel approximation
       real*8 he3_coll_int_lt ! Collision integral for low temp (good for < 0.7Tc)
@@ -129,24 +122,24 @@
       real*8 He3_fpath       ! Mean free path of Bogoliubov quasiparticles
       real*8 He3_tau_dperp   ! Spin diffusion perpendicular transport time
       real*8 He3_tau_dpar    ! Spin diffusion parallel transport time
-      real*8 he3_sdiff_hperp ! Hydrodynamic spin diffusion D_perp, cm2/s
-      real*8 he3_sdiff_hpar  ! Hydrodynamic spin diffusion D_par, cm2/s
+      real*8 he3_diff_hperp_zz ! Hydrodynamic spin diffusion D_perp_zz, cm2/s
+      real*8 he3_diff_hpar_zz  ! Hydrodynamic spin diffusion D_par_zz, cm2/s
 
-      real*8 He3_sdiff_all   ! Spin diffusion D_perp
-      real*8 He3_sdiff       ! Spin diffusion D_perp
-      real*8 He3_sdiff_perp_xx ! Spin diffusion D_perp
-      real*8 He3_sdiff_perp_zz ! Spin diffusion D_perp
+      real*8 He3_diff_all        ! Spin diffusion D_perp
+      real*8 He3_diff_perp_xx    ! Spin diffusion D_perp_xx
+      real*8 He3_diff_perp_xx_im ! Spin diffusion D_perp_xx
+      real*8 He3_diff_perp_zz    ! Spin diffusion D_perp_zz
+      real*8 He3_diff_perp_zz_im ! Spin diffusion D_perp_zz
+      real*8 He3_diff_par_xx     ! Spin diffusion D_par_xx
+      real*8 He3_diff_par_zz     ! Spin diffusion D_par_zz
 
 ! Other
-      real*8 He3_exp_nu_b  ! B-phase Leggett frequency, Hz
-      real*8 He3_Flegg     ! Legget freq^2, [Hz^2] vs P [bar], T/Tc
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
       real*8 he3_swvel_per ! Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
       real*8 He3_Ds_exp    ! spin diffusion coeff. in superfluid He3 (measured)
       real*8 He3_Dn_exp    ! spin diffusion in normal He3
       real*8 He3_D_exp     ! combined normal + superfluid spin diffusion
-      real*8 He3_susept    ! Suseptibility [sgs] vs P [bar], T [mK]
       real*8 He3_tau_r     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
       real*8 He3_tau_f     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
 

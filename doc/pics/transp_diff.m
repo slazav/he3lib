@@ -3,33 +3,42 @@
   addpath ~/he3lib/lib/matlab
 
   figure; clf; hold on;
-  ttc = [0.5:0.01:0.95 0.951:0.001:1];
+  ttc = [0.2:0.01:0.95 0.951:0.001:1 1.01:0.01 1.5];
   p=30;
 
-  f=2e6;
+  for f=[0 1e6]
+    plot(ttc, he3_diff_perp_zz(ttc, p, f), 'r-');
+    plot(ttc, he3_diff_perp_xx(ttc, p, f), 'b-');
+    plot(ttc, he3_diff_perp_zz_im(ttc, p, f), 'r-');
+    plot(ttc, he3_diff_perp_xx_im(ttc, p, f), 'b-');
+%    plot(ttc, he3_diff_par_zz(ttc, p, f), 'g-');
+%    plot(ttc, he3_diff_par_xx(ttc, p, f), 'm-');
+  end
 
-  plot(ttc, he3_sdiff_hpar(ttc, p), 'r-');
-  plot(ttc, he3_sdiff_hperp(ttc, p), 'r-', 'linewidth', 2);
-  plot(ttc, he3_sdiff(ttc, p, f), 'b-', 'linewidth', 2);
-  plot(ttc, he3_sdiff(ttc, p, 0), 'm--');
 
-  ttc = 1:0.01:1.5;
-  plot(ttc, he3_sdiff_nh(ttc, p), 'r-', 'linewidth', 2);
-  plot(ttc, he3_sdiff_nperp(ttc, p, f), 'b-', 'linewidth', 2);
+%  plot(ttc, he3_sdiff_hperp_zz(ttc, p), 'r-', 'linewidth', 2);
+%  plot(ttc, he3_sdiff_perp_zz(ttc, p, f), 'b-', 'linewidth', 2);
+%  plot(ttc, he3_sdiff_perp_zz(ttc, p, 0), 'm--');
 
-  plot([1 1], [0 0.05], 'k--');
+%  plot(ttc, he3_diffn_hydr(ttc, p),    'r-');
+%  plot(ttc, he3_diffn_perp(ttc, p, 0), 'b--');
 
-  xlim([0.5 1.5])
-  ylim([0 0.05])
+  plot([1 1], [-1 1], 'k--');
+  plot([0 2], [0 0], 'k--');
+
+  xlim([0.2 1.5])
+  ylim([-0.05 0.08])
   xlabel('T/T_c')
   ylabel('D, cm^2/s')
 
-  text(0.95,0.010, 'D_\perp(1MHz)','fontweight','bold');
-  text(1.20,0.021, 'D_\perp(0Hz) = \tau_{||}(0Hz)','fontweight','bold');
-  text(1.20,0.019, 'D_{||}(1MHz)','fontweight','bold');
-  text(0.66,0.040, 'D_{||}(0Hz)','fontweight','bold');
-  text(0.66,0.038, 'D_{||}(1MHz)','fontweight','bold');
-  text(0.90,0.040, 'D_\perp(0Hz)','fontweight','bold');
+  text(1.17,0.025, 'D^\perp (0Hz)','fontweight','bold');
+  text(1.10,0.008, 'D^\perp (1MHz)','fontweight','bold');
+  text(0.45,0.067, 'D^\perp_{zz} (0Hz)','fontweight','bold');
+  text(0.33,0.051, 'Re D^\perp_{zz} (1MHz)','fontweight','bold');
+  text(0.74,0.066, 'D^\perp_{xx} (0Hz)','fontweight','bold');
+  text(0.48,0.015, 'Re D^\perp_{xx} (1MHz)','fontweight','bold');
+  text(0.46,-0.011, 'Im D^\perp_{zz} (0Hz)','fontweight','bold');
+  text(0.73,-0.035, 'Im D^\perp_{xx} (1MHz)','fontweight','bold');
 
   % improved Samuli's code
   %addpath ~/he3lib/diff
@@ -41,4 +50,4 @@
 
 %   'Superfluid D_{perp} 10 kHz',...
 
-  print -deps -color transp_diff.eps
+  print transp_diff.eps -deps -color "-S800,600"

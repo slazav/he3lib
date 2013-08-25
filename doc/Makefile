@@ -16,3 +16,4 @@ ptable.tex: ptable.m
 clean:
 	rm -f *.aux *.log *.nav *.out *.snm *.toc *.dvi *.eps
 	rm -f ptable.tex
+	make -C pics clean

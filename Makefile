@@ -22,8 +22,7 @@ FC=gfortran
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_phase he3_fermi he3_math he3_gap\
         he3_transp_n he3_transp_b\
-        he3_flegg he3_d_exp\
-        he3_swvel he3_tau_lt\
+        he3_other\
         he3_rota
 
 # additional fitting functions used in libhe3
@@ -48,3 +47,5 @@ $(LIBNAME).so: $(OBJS)
 
 clean:
 	rm -f *.a *.so *.o libs/*.o legg_eq/*.o
+	make -C matlab clean
+	make -C doc clean

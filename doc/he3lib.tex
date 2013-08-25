@@ -53,7 +53,7 @@ matrices of the same size. Example:
 \subsection*{General}
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
 \tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
 \tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\newline
@@ -83,7 +83,7 @@ curve and critical points on it are also available. See more information
 in the source file {\tt he3\_phase.f}.
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_pvap(T)  & Vapor pressure [bar] vs temperature~[K],\newline
                     $ T = 0.2 - 3.324$~K \\
 \tt he3\_pcr      & Gas-liquid critical point pressure, $78.111\cdot 10^{-3}$~[bar] \\
@@ -110,7 +110,7 @@ in the source file {\tt he3\_phase.f}.
 PLTS-2000 temperature scale:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_pmelt\_plts(T) & PLTS-2000 melting presure [bar] vs temperature~[K].\\
 \tt he3\_pa\_plts       & Superfluid trans. at melting curve, pressure, 34.3407~[bar]\\
 \tt he3\_ta\_plts       & Superfluid trans. at melting curve, temp., 2.444~[mK]\\
@@ -141,7 +141,7 @@ source file {\tt he3\_fermi.f}.
 Measured values:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol]\\
 \tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s]\\
 \tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
@@ -151,7 +151,7 @@ Measured values:
 Derived values:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_rho(P)    & Density $\rho = \mu/v_m$,~[g/cm$^3$]\\
 \tt he3\_2n0(P)    & $\displaystyle 2N(0) = \frac{\gamma_f}{v_m}
                      \ \frac{3 N_A}{k_B \pi^2}$\\
@@ -179,7 +179,7 @@ Derived values:
 \noindent TODO:\\
 Recalculate $F_0^a$ $F_1^a$ from experimantal data (Now there are some extra
 not-consistent data)!
-(see Ramm-1970, Halperin-92 ...). Add $F_2^a$ (Halperin-95). 
+(see Ramm-1970, Halperin-92 ...). Add $F_2^a$ (Halperin-95).
 Check $g_d$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,53 +198,60 @@ derived from energy gap. See more information in the
 source file {\tt he3\_gap.f}.
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_bcsgap(ttc)       & BCS gap for 3He-B in $T_c$ units, $\Delta_{\rm BCS}/ k_B T_c$\\
 \tt he3\_bcsgap\_fast(ttc) & Einzel approximation for BCS gap (0.5\% accuracy, 70 times faster)\newline
                              {\small(Einzel-1991, f.68)}\\
 \tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
-\tt he3\_yosida(ttc, gap, n) & Yosida functions $Y_n(T/T_c,\Delta)$\\
+\tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
+                               \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
+                               \phi_k\ d\xi_k$\\
 \tt he3\_yosida\_par(ttc, gap)  & $Y_q^\parallel(T/T_c,\Delta)$\\
 \tt he3\_yosida\_perp(ttc, gap) & $Y_q^\perp(T/T_c,\Delta)$\\
 
 \tt he3\_rho\_nb(ttc, p)     &B-phase normal component density\newline
-                             $\displaystyle \frac{\rho_B^n}{\rho_0} =
-                               \frac{(3 + F_1^s) Y_0}{3 + f_1^s Y_0}$\\
+                             $\displaystyle \frac{\rho_B^n}{\rho_{N}} =
+                               \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$\\
 \tt he3\_chi\_b(ttc, p)      &B-phase susceptibility\newline
                              $\displaystyle \frac{\chi_B}{\chi_N} =
                                \frac{(1+F_0^a)(2 + Y_0)}
                                      {3+F_0^a(2 + Y_0)}$\\
-\tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency, Hz\newline
-                             $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
-                             \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}  $\\
-%\tt he3\_z3(ttc, gap)        &\\
-%\tt he3\_z5(ttc, gap)        &\\
-%\tt he3\_z7(ttc, gap)        &\\
-%\tt he3\_yosida0(ttc, gap)   & Yosida function $Y_0$\\
-
-
 \end{tabular}
 \medskip
 
 \noindent TODO:\\
-Look at calculation of {\tt bcsgap} and {\tt trivgap}.\\
-Wrong $Y_q^{\perp,\parallel}(T/T_c,\Delta)$? Check integration in Einzel-1991 f.90.\\
+Look at calculation of {\tt bcsgap} and {\tt trivgap}, include experimental data and reference.\\
 
 \begin{figure}[h]
-\includegraphics[scale=1.25]{gap1.eps}\\
-\end{figure}
-\begin{figure}[p]
-\includegraphics[scale=1.25]{gap_sus.eps}\\
-\includegraphics[scale=1.25]{gap_lf.eps}
+\includegraphics[scale=1.35]{gap1.eps}\\
 \end{figure}
 \eject
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Transport properties in the normal phase}
 
+See more information in the source file {\tt he3\_transp\_n.f}.
+
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
-\tt he3\_scatt\_w(P) & Scattering crossection ${<}W{>}$ {\small(Einzel-1978, f.82)}\\
+
+Crossections and scattering factors:
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_scatt\_w(P)   & Scattering crossection ${<}W{>}$ {\small(Einzel-1978, f.82)}\\
+\tt he3\_scatt\_wi(P)  & ${<}W_I{>}$ {\small(Einzel-1978, f.82)}\\
+\tt he3\_scatt\_wd(P)  & ${<}W_D{>}$ {\small(Einzel-1978, f.82)}\\
+\tt he3\_scatt\_wl(P)  & ${<}W_L{>}$ {\small(Einzel-1978, f.71)}\\
+\tt he3\_scatt\_g0(P)  & Scattering factor $\gamma_0 = <W_I>/<W>$ {\small(Einzel-1978, f.66)}\\
+\tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0 = <W_D>/<W>$ {\small(Einzel-1978, f.67)}\\
+\tt he3\_scatt\_w0(P)  & $w_0 = 1 - 3/2 \gamma_0 + \delta_0$ {\small(Einzel-1978, f.79)}\\
+\tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ used in spin diffusion
+                         transport time\newline {\small(Einzel-1978, f.74)}\\
+\end{tabular}
+\medskip
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_tau\_n0(ttc,p) &Normal state quasiparticle lifetime at the Fermi level, s.\newline
                     $\displaystyle \tau_N(0,T) =
                     \tau_N(0,T_c) \left(\frac{T_c}{T}\right)^2
@@ -259,35 +266,31 @@ Wrong $Y_q^{\perp,\parallel}(T/T_c,\Delta)$? Check integration in Einzel-1991 f.
                     $\displaystyle \tau_{ND} = \tau_1 = \bar\tau_N/(1-\lambda_1^a)\quad$
                     {\small(Einzel-1991, p.328)}\\
 
-\tt he3\_sdiff\_nh(ttc, p)    & Hydrodynamic spin diffusion in normal liquid, $D_0$, cm$^2$/s\newline
+\tt he3\_diffn\_hydr(ttc, p)     & Hydrodynamic spin diffusion in normal liquid, $D_0$, cm$^2$/s\newline
                               {\small (Einzel JLTP84 (1991) f.23)}\\
-\tt he3\_sdiff\_nperp(ttc, p, nu0) & Spin diffusion in normal liquid, $D^N_\perp$, cm$^2$/s\newline
+\tt he3\_diffn\_perp(ttc, p, nu0) & Perpendicular component of spin diffusion, reduced because of
+                              the Leggett-Rice effect, $D_N^\perp$, cm$^2$/s\newline
                               {\small (Einzel JLTP84 (1991) f.22)}\\
 \end{tabular}
 \medskip
+
+\noindent TODO: Now temperature is measured in $T_c$ units which is strange for the normal phase.
+Maybe it is better to use K here.
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Transport properties in the B phase}
 
-Crosssections and scattering factors:
+Values for {\tt he3\_tau0, he3\_tau\_av, he3\_diff\_*} are extended to
+$T>T_c$ region using normal phase functions. See more information in the
+source file {\tt he3\_transp\_b.f}.
 
-\medskip
-\noindent\begin{tabular}{lp{12.5cm}}
-\tt he3\_scatt\_wi(P)  & ${<}W_I{>}$ {\small(Einzel-1978, f.82)}\\
-\tt he3\_scatt\_wd(P)  & ${<}W_I{>}$ {\small(Einzel-1978, f.82)}\\
-\tt he3\_scatt\_wl(P)  & ${<}W_I{>}$ {\small(Einzel-1978, f.71)}\\
-\tt he3\_scatt\_g0(P)  & Scattering factor $\gamma_0 = <W_I>/<W>$ {\small(Einzel-1978, f.66)}\\
-\tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0 = <W_D>/<W>$ {\small(Einzel-1978, f.67)}\\
-\tt he3\_scatt\_w0(P)  & $w_0 = 1 - 3/2 \gamma_0 + \delta_0$ {\small(Einzel-1978, f.79)}\\
-\tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ {\small(Einzel-1978, f.74)}\\
-\end{tabular}
 \medskip
 
 Collision integral for Bogoliubov quasiparticles:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_coll\_int(xi, ttc, gap, g0, d0) &
    Full temperatur range approximation\newline
    {\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)}\\
@@ -303,25 +306,24 @@ Collision integral for Bogoliubov quasiparticles:
 Bogoliubov quasiparticles lifetime and mean free path:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
+\noindent\begin{tabular}{lp{11cm}}
 \tt he3\_tau0(ttc, p)      & Lifetime at the Fermi level, s.
                            $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$\newline
                             {\small(Einzel-1991, f.74,76. Einzel-1990 f.A1)}\\
 
 \tt he3\_tau0lt(ttc, p)    & $\displaystyle 1/\tau, T\rightarrow0$ limit (does not depend on energy).
                             {\small(Einzel-1978, f.79)}\\
-
 \tt he3\_tau\_av(ttc, p)   & Thermal average lifetime, s.
                            $\displaystyle\quad 1/\bar\tau = \frac{1}{Y_0}
                            \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$\newline
                             {\small(Einzel-1991, f.77)}\\
-\tt he3\_tau\_dperp(ttc, p) & Spin diff. transport time, s.
-                           \ $\displaystyle 1/\tau_D^\perp = \frac{1}{\bar\tau}
-                            \left(1-\lambda_1^a \frac{4Y_0 + Y_2}{5Y_0}\right)$ \\
+\tt he3\_fpathv(ttc, p)    & Mean free path, cm\newline
+                             {\small (Einzel JLTP32 (1978) f.84)}\\
 
-\tt he3\_tau\_dpar(ttc, p) & Spin diff. transport time, s.
-                        \ $\displaystyle 1/\tau_D^\parallel = \frac{1}{\bar\tau}
-                            \left(1-\lambda_1^a \frac{2Y_0 + 3Y_2}{5Y_0}\right)$\newline
+\tt he3\_tau\_dperp(ttc, p) &\\
+\tt he3\_tau\_dpar(ttc, p)  & Spin diff. transport time, s.
+                           \ $\tau_D^{\perp,\parallel} = \bar\tau
+                            /(1-\lambda_1^a Y^{\perp,\parallel})$\newline
                             {\small(Einzel-1991, f.90,96)}\\
 \end{tabular}
 \medskip
@@ -329,35 +331,62 @@ Bogoliubov quasiparticles lifetime and mean free path:
 Spin diffusion:
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
-\tt he3\_sdiff\_hperp(ttc, p) & Hydrodynamic spin diffusion $D_\perp^{\rm hyd}$, cm$^2$/s
-                              {(\small Einzel JLTP84 (1991) f.102)}\\
-\tt he3\_sdiff\_hpar(ttc, p)  & Hydrodynamic spin diffusion $D_\parallel^{\rm hyd}$, cm$^2$/s\\
-\tt he3\_sdiff(ttc, p, nu0)   & Spin diffusion $D_\perp$, cm$^2$/s
-                              {\small(Einzel-1991, f.108)}\\
+\noindent\begin{tabular}{p{6cm}p{10cm}}
+\tt he3\_diff\_hperp\_zz(ttc, p)\newline
+\tt he3\_diff\_hpar\_zz(ttc, p)
+& Spin diffusion in hydrodynamic limit ($\omega_L tau \ll 1$),
+  $D^{\perp,\parallel}_{zz}(\omega_L=0)$, cm$^2$/s\newline
+  {(\small Einzel JLTP84 (1991) f.102)}\\
+
+\tt he3\_diff\_perp\_xx(ttc, p, nu0)\newline
+\tt he3\_diff\_perp\_zz(ttc, p, nu0)\newline
+\tt he3\_diff\_perp\_xx\_im(ttc, p, nu0)\newline
+\tt he3\_diff\_perp\_zz\_im(ttc, p, nu0)\newline
+\tt he3\_diff\_par\_xx(ttc, p, nu0)\newline
+\tt he3\_diff\_par\_zz(ttc, p, nu0)\newline
+&Components of spin diffusion tenzor, cm$^2$/s\newline
+{\small(Bunkov et al, 1990 f.3; Einzel, 1991, f.108;\newline
+Markelov, Mukharsky, 1992, f.7,8)}\\
 \end{tabular}
 \medskip
 
-TODO:\\
-Small difference between $D_\perp^{\rm hyd}$ and $D_\perp(\nu_0=0)$. Problem with
-$Y^{\perp,\parallel}$?\\
-Exchange coupling strength is different in few places.
-Mean free path is wrong!\\
+\noindent TODO: Exchange coupling strength is in the $F_1^a = 0$ limit.\\
+{\tt he3\_diff\_par\_zz} from Markelov-Mukharsky paper does not correspond
+to Einzel's hydrodynamic approximation {\tt he3\_diff\_hpar\_zz}!\\
+How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?
 
 \begin{figure}[p]
-\includegraphics[scale=0.7]{transp_tau.eps}\\
-\includegraphics[scale=0.7]{transp_diff.eps}
+\includegraphics[scale=1.1]{transp_tau.eps}\\
+\includegraphics[scale=1.1]{transp_diff.eps}
 \end{figure}
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Legget frequency}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_nu\_b(ttc, p)       &B-phase Leggett frequency, Hz\newline
+                             $\displaystyle \nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
+                             \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}
+                             \ C(P)$\newline
+                             Small pressure correction $C(P)$ is added to fit exerimental data\\
+\end{tabular}
+\medskip
+
+\begin{figure}[h]
+\includegraphics[scale=1.1]{other_lf.eps}\\
+\end{figure}
+
+\eject
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Other}
 
 \medskip
-\noindent\begin{tabular}{lp{12.5cm}}
-%\tt he3\_exp\_nu\_b(ttc, p)     &B-phase Leggett frequency $\nu_B$ [Hz] vs
-%                                 $T/T_c$ and $P$~[bar].\newline
-%                                  Best fit to experimental data.\\
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_cv\_n(ttc, p)       &Normal phase heat capacity $C_v^N$, {\small Greywall-1983}\\
+
 \tt he3\_swvel(p,t) & Osheroff's spin wave velocity $s$,~cm/s
                       vs $P$ [bar], $T$~[mK]. Value 1100 cm/s for
                       melting pressure is recalculated assuming $s\sim v_F$.\\
@@ -368,6 +397,16 @@ Mean free path is wrong!\\
 
 \end{tabular}
 \medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{ROTA specific functions}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt rota\_c\_ns(t, i) &Nuclear stage heat capacity [J/K] vs T[K] and I[A]\\
+\end{tabular}
+\medskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

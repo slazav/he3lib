@@ -69,33 +69,26 @@ double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correcti
 double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
 double he3_yosida_par_(double *ttc, double *gap);
 double he3_yosida_perp_(double *ttc, double *gap);
-
 double he3_rho_nb_(double *ttc, double *P); /* B-phase Normal component density \rho_nb/\rho_0 */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility chi_b/chi_0  */
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 
-double he3_z3_(double *ttc, double *gap);
-double he3_z5_(double *ttc, double *gap);
-double he3_z7_(double *ttc, double *gap);
-double he3_yosida0_(double *ttc, double *gap); /* Y0 function -- old */
-double he3_yosida0_fast_(double *ttc, double *gap);      /* Yosida0 approximation*/
-
 /* Transport in the normal phase */
-double he3_tau_n0_(double *ttc, double *P);    /* Normal state quasiparticle lifetime at the Fermi level, s */
-double he3_tau_n_av_(double *ttc, double *P);  /* Thermal average quasiparticle lifetime, s */
-double he3_tau_nd_(double *ttc, double *P);    /* Spin diffusion transport time for a normal Fermi-liquid, s */
-double he3_sdiff_nh_(double *ttc, double *p);  /* Hydrodynamic spin diffusion in normal liquid, cm2/s */
-double he3_sdiff_nperp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
-
-/* Transport in the B phase */
-double he3_scatt_l1a_(double *P); /* Scattering parameters */
-double he3_scatt_g0_(double *P);
-double he3_scatt_d0_(double *P);
-double he3_scatt_w0_(double *P); /* w0 = 1 - 2/3 g0 + d0 */
 double he3_crsect_w_(double *P); /* Crossections */
 double he3_crsect_wi_(double *P);
 double he3_crsect_wd_(double *P);
 double he3_crsect_wl_(double *P);
+double he3_scatt_l1a_(double *P); /* Scattering parameters */
+double he3_scatt_g0_(double *P);
+double he3_scatt_d0_(double *P);
+double he3_scatt_w0_(double *P); /* w0 = 1 - 2/3 g0 + d0 */
+double he3_tau_n0_(double *ttc, double *P);    /* Normal state quasiparticle lifetime at the Fermi level, s */
+double he3_tau_n_av_(double *ttc, double *P);  /* Thermal average quasiparticle lifetime, s */
+double he3_tau_nd_(double *ttc, double *P);    /* Spin diffusion transport time for a normal Fermi-liquid, s */
+double he3_diffn_hydr_(double *ttc, double *p);   /* Hydrodynamic spin diffusion in normal liquid, cm2/s */
+double he3_diffn_perp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
+
+/* Transport in the B phase */
 double he3_coll_int_(double *xi, double *ttc, double *gap,
             double *g0, double *d0); /* Collision integral approximation ttc=0..1*/
 double he3_coll_int_lt_(double *xi, double *ttc, double *gap,
@@ -108,16 +101,16 @@ double he3_tau_av_(double *ttc, double *p);    /* Thermal average quasiparticle 
 double he3_fpath_(double *ttc, double *p);     /* Mean free path of Bogoliubov quasiparticles */
 double he3_tau_dperp_(double *ttc, double *p); /* Spin diffusion perp transport time, s */
 double he3_tau_dpar_(double *ttc, double *p);  /* Spin diffusion parallel transport time, s */
-double he3_sdiff_hperp_(double *ttc, double *p);  /* Hydrodynamic spin diffusion D_perp, cm2/s*/
-double he3_sdiff_hpar_(double *ttc, double *p);   /* Hydrodynamic spin diffusion D_par, cm2/s*/
-double he3_sdiff_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
-double he3_sdiff_perp_xx_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
-double he3_sdiff_perp_zz_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp, cm2/s */
+double he3_diff_hperp_zz_(double *ttc, double *p);    /* Hydrodynamic spin diffusion D_perp_zz, cm2/s*/
+double he3_diff_hpar_zz_(double *ttc, double *p);     /* Hydrodynamic spin diffusion D_par_zz, cm2/s*/
+double he3_diff_perp_xx_(double *ttc, double *p, double *nu0);     /* Spin diffusion Re D_perp_xx, cm2/s */
+double he3_diff_perp_xx_im_(double *ttc, double *p, double *nu0);  /* Spin diffusion Im D_perp_xx, cm2/s */
+double he3_diff_perp_zz_(double *ttc, double *p, double *nu0);     /* Spin diffusion Re D_perp_zz, cm2/s */
+double he3_diff_perp_zz_im_(double *ttc, double *p, double *nu0);  /* Spin diffusion Im D_perp_zz, cm2/s */
+double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_xx, cm2/s */
+double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
 
 /* Other */
-double he3_exp_nu_b_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
-double he3_flegg_(double *P, double *ttc); /* Legget freq^2, [Hz^2] vs P [bar], T/Tc */
-
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
 double he3_swvel_par_(double *P, double *ttc); /* Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
 double he3_swvel_per_(double *P, double *ttc); /* Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
@@ -125,8 +118,6 @@ double he3_swvel_per_(double *P, double *ttc); /* Parallel Fomin spin wave vel. 
 double he3_ds_exp_(double *P, double *ttc); /* spin diffusion coeff. in superfluid He3 (measured) */
 double he3_dn_exp_(double *P, double *ttc); /* spin diffusion in normal He3 */
 double he3_d_exp_(double *P, double *ttc);  /* combined normal + superfluid spin diffusion */
-
-double he3_susept_(double *P, double *ttc); /* Suseptibility [sgs] vs P [bar], T [mK] */
 
 double he3_tau_r_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 double he3_tau_f_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */

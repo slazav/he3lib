@@ -1,4 +1,5 @@
 #!/usr/bin/octave -qf
+# interpolation of melting pressure between measured ranges.
 
 function p = pmelt1(t)
 % Greywall-86
@@ -61,8 +62,6 @@ function dp = dpmelt1a(t)
   - 9 * 4.5875709D0 * t.^8;
   dp = dp * 10D0; % MPa -> bar
 end
-
-
 
 function p = pmelt2(t)
 % Osborne, Abraham, Weinstock, 1951

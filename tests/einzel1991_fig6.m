@@ -13,11 +13,12 @@ function einzel1991_fig6()
   l=he3_fpath(ttc, p);
 
 
-%  dtc = he3_vf(p)^2/3/he3_chi_b(1,p) * he3_tau_n_av(1,p)
-  dtc = he3_sdiff_hpar(1,p);
-  Dpar  = he3_sdiff_hpar(ttc,p);
-  Dperp = he3_sdiff_hperp(ttc,p);
+  dtc = he3_diff_hpar_zz(1,p);
+  Dpar  = he3_diff_hpar_zz(ttc,p);
+  Dperp = he3_diff_hperp_zz(ttc,p);
 
+  plotdat('einzel1991_fig6a1.dat', 'k-');
+  plotdat('einzel1991_fig6a2.dat', 'k-');
   plot(ttc, Dpar/dtc, 'b.-');
   plot(ttc, Dperp/dtc, 'r.-');
 
@@ -27,6 +28,8 @@ function einzel1991_fig6()
   print -deps -color einzel1991_fig6a.eps
 
   figure; clf; hold on;
+  plotdat('einzel1991_fig6b1.dat', 'k-');
+  plotdat('einzel1991_fig6b2.dat', 'k-');
   plot(ttc, Dpar/dtc, 'b.-');
   plot(ttc, Dperp/dtc, 'r.-');
   xlim([0.96 1])
@@ -34,4 +37,8 @@ function einzel1991_fig6()
 
   print -deps -color einzel1991_fig6b.eps
 
+end
+function plotdat(f, c)
+  [x,y] = textread(f, '%f %f', 'commentstyle', 'shell');
+  plot(x,y, c);
 end

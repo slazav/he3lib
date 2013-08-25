@@ -7,28 +7,19 @@ function einzel1991_fig8()
   ttc = 0.4:0.01:1;
   f=460000;
 
-  plot(ttc, he3_sdiff(ttc, 29, f), 'r-');
-  plot(ttc, he3_sdiff(ttc, 20, f), 'g-');
-  plot(ttc, he3_sdiff(ttc, 11, f), 'b-');
-  plot(ttc, he3_sdiff(ttc,  0, f), 'm-');
+  plot(ttc, he3_diff(ttc, 29, f), 'r-');
+  plot(ttc, he3_diff(ttc, 20, f), 'g-');
+  plot(ttc, he3_diff(ttc, 11, f), 'b-');
+  plot(ttc, he3_diff(ttc,  0, f), 'm-');
 
-  [x,y] = textread('einzel1991_fig8c1.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'k-');
-  [x,y] = textread('einzel1991_fig8c2.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'k-');
-  [x,y] = textread('einzel1991_fig8c3.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'k-');
-  [x,y] = textread('einzel1991_fig8c4.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'k-');
-
-  [x,y] = textread('einzel1991_fig8e1.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'ko');
-  [x,y] = textread('einzel1991_fig8e2.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'kd');
-  [x,y] = textread('einzel1991_fig8e3.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'ko');
-  [x,y] = textread('einzel1991_fig8e4.dat', '%f %f', 'commentstyle', 'shell');
-  plot(x,y, 'ks');
+  plotdat('einzel1991_fig8c1.dat', 'k-');
+  plotdat('einzel1991_fig8c2.dat', 'k-');
+  plotdat('einzel1991_fig8c3.dat', 'k-');
+  plotdat('einzel1991_fig8c4.dat', 'k-');
+  plotdat('einzel1991_fig8e1.dat', 'ko');
+  plotdat('einzel1991_fig8e2.dat', 'kd');
+  plotdat('einzel1991_fig8e3.dat', 'ko');
+  plotdat('einzel1991_fig8e4.dat', 'ks');
 
   legend(...
     '29 bar',...
@@ -43,4 +34,9 @@ function einzel1991_fig8()
   ylabel('D, cm^2/s');
 
   print -deps -color einzel1991_fig8.eps
+end
+
+function plotdat(f, c)
+  [x,y] = textread(f, '%f %f', 'commentstyle', 'shell');
+  plot(x,y, c);
 end

@@ -55,11 +55,15 @@ p1(f, he3_tfeff(press),      '$T_{F_{eff}}$,~K',    '5.3f');
 
 fprintf(f, '\\hline\n');
 
-p1(f, he3_tau_n0(1, press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
-p1(f, he3_scatt_l1a(press),    '$\\lambda_1^a$',      '5.3f');
+p1(f, he3_crsect_w(press),     '${<}W{>}$',           '5.1f');
+p1(f, he3_crsect_wi(press),     '${<}W_I{>}$',        '5.2f');
+p1(f, he3_crsect_wd(press),     '${<}W_D{>}$',        '5.2f');
+p1(f, he3_crsect_wl(press),     '${<}W_L{>}$',        '5.2f');
 p1(f, he3_scatt_g0(press),     '$\\gamma_0$',         '5.3f');
 p1(f, he3_scatt_d0(press),     '$\\delta_0$',         '5.3f');
 p1(f, he3_scatt_w0(press),     '$w_0$',               '5.3f');
+p1(f, he3_scatt_l1a(press),    '$\\lambda_1^a$',      '5.3f');
+p1(f, he3_tau_n0(1, press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
 
 fprintf(f, '\\hline\n');
 
