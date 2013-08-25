@@ -67,6 +67,12 @@ p1(f, he3_tau_n0(1, press)/1e-6, '$\\tau_N(0,T_c)$, $\\mu$s', '5.3f');
 
 fprintf(f, '\\hline\n');
 
+p1(f, he3_trivgap(0, press),  '$\\Delta_{WC+}(T=0)/T_c$', '5.3f');
+p1(f, he3_chi_b(0, press),    '$\\chi_B(T=0)/\\chi_N$', '5.3f');
+p1(f, he3_nu_b(0, press)/1e3, '$\\nu_B(T=0), kHz$', '5.1f');
+
+fprintf(f, '\\hline\n');
+
 p1(f, press, 'P, bar', '2d');
 
 %%
