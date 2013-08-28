@@ -145,3 +145,4 @@
 
 ! ROTA
       real*8 rota_c_ns     ! Nuclear stage heat capacity [J/K] vs T[K] and I[A]
+      real*8 rota_fork_cal ! Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
