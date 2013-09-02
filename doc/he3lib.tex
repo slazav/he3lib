@@ -211,6 +211,10 @@ source file {\tt he3\_gap.f}.
 \tt he3\_yosida\_par(ttc, gap)  & $Y_q^\parallel(T/T_c,\Delta)$\\
 \tt he3\_yosida\_perp(ttc, gap) & $Y_q^\perp(T/T_c,\Delta)$\\
 
+\tt he3\_z3(ttc, gap) & From texture library. Incorrect at $T < 0.2 T_c$!\\
+\tt he3\_z5(ttc, gap) &\\
+\tt he3\_z7(ttc, gap) &\\
+
 \tt he3\_rho\_nb(ttc, p)     &B-phase normal component density\newline
                              $\displaystyle \frac{\rho_B^n}{\rho_{N}} =
                                \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$\\
@@ -222,10 +226,11 @@ source file {\tt he3\_gap.f}.
 \medskip
 
 \noindent TODO:\\
-Look at calculation of {\tt bcsgap} and {\tt trivgap}, include experimental data and reference.\\
+Look at calculation of {\tt bcsgap} and {\tt trivgap}, include experimental data and reference. Fix
+Z1..Z3.\\
 
 \begin{figure}[h]
-\includegraphics[scale=1.35]{gap1.eps}\\
+\includegraphics[scale=1.2]{gap1.eps}\\
 \end{figure}
 \eject
 

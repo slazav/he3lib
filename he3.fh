@@ -78,9 +78,6 @@
       real*8 He3_gdk       ! average dipolar coupling energy, K
       real*8 He3_Tfeff     ! effective fermi temperature, K
 
-      real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
-
-
 ! BCS gap + strong coupling correction (see he3_gap.f)
       real*8 He3_bcsgap       ! BCS energy gap
       real*8 He3_bcsgap_fast  ! BCS energy gap approximation
@@ -88,10 +85,9 @@
       real*8 He3_yosida       ! Yosida function Yn vs T/Tc, gap, n
       real*8 He3_yosida_par   !
       real*8 He3_yosida_perp  !
-
+      real*8 He3_z3, He3_z5, He3_z7
       real*8 He3_rho_nb      ! B-phase Normal component density \rho_nb/\rho_0
       real*8 He3_chi_b       ! B-phase susceptibility chi_B/chi_0 vs T/Tc, P
-      real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
 
 ! Transport in the normal phase
       real*8 He3_crsect_w  ! Crossections
@@ -134,6 +130,8 @@
       real*8 He3_diff_par_zz     ! Spin diffusion D_par_zz
 
 ! Other
+      real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
+      real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
       real*8 he3_swvel_per ! Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]

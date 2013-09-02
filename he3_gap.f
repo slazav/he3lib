@@ -165,6 +165,62 @@
      .    )/5D0
       end
 
+! From texture library. Incorrect below 0.2Tc
+      function he3_z3(ttc,gap)
+        implicit none
+        include 'he3.fh'
+        integer i,maxi
+        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
+        y = gap/(2D0*const_pi)
+        sum = 0D0
+        maxi = 100
+        mt = dble(maxi)*ttc
+        do i=1,maxi
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**1.5D0
+        end do
+        help = SQRT(mt**2 + y**2)
+        corr1 = 1D0/(help*(mt+help))
+        corr2 = mt**3/(8D0*help**5)
+        he3_z3 = y**2*(sum + corr1 - corr2)
+      end
+
+      function he3_z5(ttc,gap)
+        implicit none
+        include 'he3.fh'
+        integer i,maxi
+        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
+        y = gap/(2D0*const_pi)
+        sum = 0D0
+        maxi = 100
+        mt = dble(maxi)*ttc
+        do i=1,maxi
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2 + y**2)**2.5D0
+        end do
+        help = SQRT(mt**2+y**2)
+        corr1 = (mt+2D0*help)/(3D0*help**3*(mt+help)**2)
+        corr2 = 5D0*mt**3/(24D0*help**7)
+        he3_z5 = y**4*(sum + corr1 - corr2)
+      end
+
+      function he3_z7(ttc,gap)
+        implicit none
+        include 'he3.fh'
+        integer i,maxi
+        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
+        y = gap/(2D0*const_pi)
+        sum = 0D0
+        maxi = 100
+        mt=dble(maxi)*ttc
+        do i=1,maxi
+           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**3.5D0
+        end do
+        help = SQRT(mt**2+y**2)
+        corr1 = (11D0*mt*mt + 9D0*mt*help + 8D0*y*y)/
+     .          (15D0*help**5*(mt+help)**3)
+        corr2 = 7D0*mt**3/(24D0*help**9)
+        he3_z7 = y**6*(sum + corr1 - corr2)
+      end
+
 ! B-phase Normal component density \rho_n^B/\rho_0
 ! VW book f.3.92
       function he3_rho_nb(ttc, p)

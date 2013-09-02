@@ -60,8 +60,6 @@ double he3_a_(double *P);      /* average atomic spacing, angstr. */
 double he3_gdk_(double *P);    /* average dipolar coupling energy, K */
 double he3_tfeff_(double *P);  /* effective fermi temperature, K */
 
-double he3_cv_n_(double *t, double *v);    /* C_v */
-
 /* Gap */
 double he3_bcsgap_(double *ttc);             /* BCS energy gap */
 double he3_bcsgap_fast_(double *ttc);        /* BCS energy gap approximation */
@@ -69,9 +67,11 @@ double he3_trivgap_(double *ttc, double *p); /* Trivial strong-coupling correcti
 double he3_yosida_(double *ttc, double *gap, double *n); /* Yosida functions */
 double he3_yosida_par_(double *ttc, double *gap);
 double he3_yosida_perp_(double *ttc, double *gap);
+double he3_z3_(double *ttc, double *gap);
+double he3_z5_(double *ttc, double *gap);
+double he3_z7_(double *ttc, double *gap);
 double he3_rho_nb_(double *ttc, double *P); /* B-phase Normal component density \rho_nb/\rho_0 */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility chi_b/chi_0  */
-double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 
 /* Transport in the normal phase */
 double he3_crsect_w_(double *P); /* Crossections */
@@ -111,6 +111,8 @@ double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffu
 double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
 
 /* Other */
+double he3_cv_n_(double *t, double *v);    /* C_v */
+double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
 double he3_swvel_par_(double *P, double *ttc); /* Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
 double he3_swvel_per_(double *P, double *ttc); /* Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
