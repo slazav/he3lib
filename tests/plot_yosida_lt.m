@@ -7,26 +7,26 @@ function plot_yosida_lt()
 
   gap=he3_trivgap(ttc,p);
   Y0  = he3_yosida(ttc,gap,0);
-  Y0o = he3_yosida0(ttc,gap);
+  Y0o = 1-he3_z3(ttc,gap);
   Ylt = sqrt(2*pi*gap./ttc) .* exp(-gap./ttc);
 
 %  addpath('/rota/Analysis/NMRcalc/spinwaves/Spinwave_relaxation/Diffusion coeff/Calc_diff_coeff');
 %  for i=1:length(ttc); Y0s(i) = yosida(p, ttc(i),0); end
 
   plot([0 0.1], [1 1], 'k-');
-  plot(ttc, Y0o./Ylt, 'g-');
   plot(ttc, Y0./Ylt, 'r-');
-  plot(ttc, he3_yosida0_fast(ttc, gap)./Ylt, 'b-');
+  plot(ttc, Y0o./Ylt, 'g-');
+%  plot(ttc, he3_yosida0_fast(ttc, gap)./Ylt, 'b-');
 
 %  plot(ttc, Y0, 'r-');
 %  plot(ttc, he3_yosida0_fast(ttc, gap), 'b-');
 %  plot(ttc, Y0s./Ylt, 'b-');
 
   xlim([0 1]);
-  ylim([0 1.2]);
+  ylim([0.6 1.4]);
   xlabel('ttc')
   ylabel('Y0/Y0lt')
   title(t);
-  legend('correct value', 'he3lib', 'texture lib', 'Samuli''s code')
+  legend('LT limit', 'he3lib', 'texture lib', 'Samuli''s code')
   print -deps -color plot_yosida_lt.eps
 end
