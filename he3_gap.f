@@ -16,16 +16,16 @@
         end if
         m = 30
         dy = 1.0D0
-        ynew = 1.7638D0*SQRT(1D0-ttc)/(2D0*const_pi)
-        do while (ABS(dy) > 1.0D-8)
+        ynew = 1.7638D0*DSQRT(1D0-ttc)/(2D0*const_pi)
+        do while (DABS(dy) > 1.0D-8)
           y = ynew
-          root = SQRT((dble(m)*ttc)**2+y**2)
-          g = LOG((dble(m)*ttc+root) / (2D0*dble(m)))
+          root = DSQRT((dble(m)*ttc)**2+y**2)
+          g = DLOG((dble(m)*ttc+root) / (2D0*dble(m)))
      .        - (1D0/dble(m)**2 - dble(m)*(ttc/root)**3)/24D0
           dg = y/(root*(dble(m)*ttc+root))
      .        - dble(m)*ttc**3*y/(8D0*root**5)
           do n=1,m
-            root=SQRT((ttc*(dble(n)-0.5D0))**2 + y**2)
+            root=DSQRT((ttc*(dble(n)-0.5D0))**2 + y**2)
             g = g + 1D0/(dble(n)-0.5D0) - ttc/root
             dg = dg + ttc*y/root**3
           end do
@@ -33,7 +33,6 @@
           ynew = ynew-dy
         end do
         he3_bcsgap = 2D0*const_pi*ynew
-        if (ttc.ge.1D0) he3_bcsgap = 0D0
       end
 
 ! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
