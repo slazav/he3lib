@@ -8,7 +8,7 @@ function plot_yosida_lt()
   gap=he3_trivgap(ttc,p);
   Y0  = he3_yosida(ttc,gap,0);
   Y0o = 1-he3_z3(ttc,gap);
-  Ylt = sqrt(2*pi*gap./ttc) .* exp(-gap./ttc);
+  Ylt = sqrt(2*pi*gap./ttc) .* exp(-gap./ttc) .* (1+0.375*ttc./gap);
 
 %  addpath('/rota/Analysis/NMRcalc/spinwaves/Spinwave_relaxation/Diffusion coeff/Calc_diff_coeff');
 %  for i=1:length(ttc); Y0s(i) = yosida(p, ttc(i),0); end
@@ -23,7 +23,7 @@ function plot_yosida_lt()
 %  plot(ttc, Y0s./Ylt, 'b-');
 
   xlim([0 1]);
-  ylim([0.6 1.4]);
+  ylim([0 1.4]);
   xlabel('ttc')
   ylabel('Y0/Y0lt')
   title(t);
