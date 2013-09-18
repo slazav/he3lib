@@ -127,3 +127,5 @@ double he3_tau_f_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar *
 /* ROTA */
 
 double rota_c_ns_(double *t, double *i); /* Nuclear stage heat capacity [J/K] vs T[K] and I[A] */
+double rota_fork_cal_(double *w, double *p, double *n); /* Calibration of fork N, T/Tc, vs width (Hz) and P (bar) */
+

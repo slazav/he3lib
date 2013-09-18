@@ -1,4 +1,4 @@
-all: he3lib.pdf spin_diff.pdf
+all: he3lib.pdf spin_diff.pdf qball.pdf
 
 he3lib.dvi: ptable.tex he3lib.tex
 

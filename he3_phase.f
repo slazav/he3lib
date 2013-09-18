@@ -50,12 +50,12 @@
         else if (T.gt.0.25D0.and.T.le.0.5D0) then
 !         Interpolation (see tests/pmelt_interp.m)
           He3_Pmelt =
-     .      3786.422495 * T**5
-     .     -6984.120614 * T**4
-     .     +5051.847883 * T**3
-     .     -1756.109750 * T**2
-     .      +289.300690 * T
-     .       +11.551436
+     .      3786.422495D0 * T**5
+     .     -6984.120614D0 * T**4
+     .     +5051.847883D0 * T**3
+     .     -1756.109750D0 * T**2
+     .      +289.300690D0 * T
+     .       +11.551436D0
         else if (T.gt.0.5D0.and.T.le.1.5D0) then
 !         Osborne, Abraham, Weinstock, 1951
 !         Pm = 26.8 + 13.1 T^2 [atm], T = 0.5 .. 1.5
@@ -64,10 +64,10 @@
         else if (T.gt.1.5D0.and.T.le.2D0) then
 !         Interpolation (see tests/pmelt_interp.m)
           He3_Pmelt =
-     .      -53.992350 * T**3
-     .     +286.394879 * T**2
-     .     -454.915548 * T
-     .     +277.229670
+     .      -53.992350D0 * T**3
+     .     +286.394879D0 * T**2
+     .     -454.915548D0 * T
+     .     +277.229670D0
         else if (T.gt.2D0.and.T.le.31D0) then
 !         Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955))
 !         Pm = 25.16 + 20.08201 T^1.517083  [kg/cm2] P=76-3500
@@ -165,12 +165,12 @@
         else if (T.gt.0.25D0.and.T.le.0.5D0) then
 !         Interpolation (see tests/pmelt_interp.m)
           He3_Pmelt_plts =
-     .      -117.241694 * T**5
-     .      +319.841794 * T**4
-     .      -304.391790 * T**3
-     .      +167.316047 * T**2
-     .       -49.031497 * T
-     .       +34.882895
+     .      -117.241694D0 * T**5
+     .      +319.841794D0 * T**4
+     .      -304.391790D0 * T**3
+     .      +167.316047D0 * T**2
+     .       -49.031497D0 * T
+     .       +34.882895D0
         else
           He3_Pmelt_plts = He3_Pmelt(T)
         endif

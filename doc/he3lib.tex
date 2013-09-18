@@ -418,6 +418,12 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?
 \tt rota\_c\_ns(t, i) &Nuclear stage heat capacity [J/K] vs T[K] and I[A]\newline
    $C_{ns} = 9.66 \cdot 10^{-5}\ {\rm [J/T^2]} \ (0.113\ {\rm [T/A]}\  I/T)^2$\\
 
+\tt rota\_fork\_cal(w, p, n) &Calibration of fork $n$, $T/T_c$, vs fork width $w$~[Hz] and pressure $P$~[bar]\newline
+   $\displaystyle w = a_n
+     \exp\left(-\frac{\Delta_{\rm WC+}(P, T/T_c)}{T/T_c}\right),$\newline
+   $a = \alpha_n \ p_F^4(P),$ where $\alpha_n$ is a geometrical factor\newline
+   $N=1:\qquad $ Fork K, calibration 30.4.2010, 29 bar, a = 11700\newline
+   $N=2:\qquad $ Fork E, calibration 30.4.2010, 29 bar, a = 17543\\
 \end{tabular}
 \medskip
 

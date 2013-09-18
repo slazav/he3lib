@@ -9,3 +9,22 @@
         kmag = 0.113D0  ! T/A - magnet constant
         rota_c_ns = k * (kmag * i/t)**2
       end
+
+! Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
+      function rota_fork_cal(w, p, n)
+        implicit none
+        include 'he3.fh'
+        real*8 w,p,n,a, ttc,ttc1,e
+        a=NaN
+        if (nint(n).eq.1) a = 11700 ! fork K, 30.4.2010, 29 bar
+        if (nint(n).eq.2) a = 17543 ! fork E, 30.4.2010, 29 bar
+        a = a * (he3_pf(p)/he3_pf(29))**4 ! a = pf^4 alpha
+        ttc = 0D0
+        e = 1D0
+        do while (e.gt.1D-6)
+          ttc1 = he3_trivgap(ttc, p)/dlog(a/w)
+          e = dabs(ttc-ttc1)
+          ttc = ttc1
+        enddo
+        rota_fork_cal=ttc
+      end

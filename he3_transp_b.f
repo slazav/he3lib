@@ -330,12 +330,12 @@
 
         kz=dsin(th)
         kp=dcos(th)
-        o1 = o0*(1+lambda)
+        o1 = o0*(1D0+lambda)
 
         he3_diff_int = (0D0,0D0)
 
-        Sm2 = 1D0 - kp**2/2 *(1-u**2)
-        Sp2 = u**2 + (1-u**2)*kz**2
+        Sm2 = 1D0 - kp**2/2D0 *(1D0-u**2)
+        Sp2 = u**2 + (1D0-u**2)*kz**2
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
 
@@ -394,12 +394,12 @@
         if (type.lt.10D0) then
           args = (/ttc, gap, o0, lambda, td, type/)
           he3_diff_all = dreal(math_cint2d(he3_diff_int,
-     .          0D0, 1D0, 100, 0D0, const_pi/2D0, 100, args))
+     .          0D0, 1D0, 200, 0D0, const_pi/2D0, 200, args))
      .      * Vf**2 / chi0
         else
           args = (/ttc, gap, o0, lambda, td, type-10D0/)
           he3_diff_all = dimag(math_cint2d(he3_diff_int,
-     .          0D0, 1D0, 100, 0D0, const_pi/2D0, 100, args))
+     .          0D0, 1D0, 200, 0D0, const_pi/2D0, 200, args))
      .      * Vf**2 / chi0
         endif
       end
