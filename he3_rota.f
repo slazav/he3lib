@@ -15,16 +15,19 @@
         implicit none
         include 'he3.fh'
         real*8 w,p,n,a, ttc,ttc1,e
+        integer cnt
         a=NaN
-        if (nint(n).eq.1) a = 11700 ! fork K, 30.4.2010, 29 bar
-        if (nint(n).eq.2) a = 17543 ! fork E, 30.4.2010, 29 bar
-        a = a * (he3_pf(p)/he3_pf(29))**4 ! a = pf^4 alpha
+        if (nint(n).eq.1) a = 11700D0 ! fork K, 30.4.2010, 29 bar
+        if (nint(n).eq.2) a = 17543D0 ! fork E, 30.4.2010, 29 bar
+        a = a * (he3_pf(p)/he3_pf(29D0))**4 ! a = pf^4 alpha
         ttc = 0D0
         e = 1D0
-        do while (e.gt.1D-6)
+        cnt=100
+        do while (e.gt.1D-6.and.cnt.gt.0)
           ttc1 = he3_trivgap(ttc, p)/dlog(a/w)
           e = dabs(ttc-ttc1)
           ttc = ttc1
-        enddo
+          cnt = cnt-1
+         enddo
         rota_fork_cal=ttc
       end
