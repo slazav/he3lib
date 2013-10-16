@@ -125,16 +125,13 @@
 
 ! Integrand for tau_av calculations
 ! Integration is similar to Y0 calculation in he3_gap.f
-      function he3_tau_av_int(x, args)
+      function he3_tau_av_int(x)
         implicit none
         include 'he3.fh'
-        real*8 x, args(4), ttc, gap, g0, d0, xi, Ek, C
-        real*8 he3_tau_av_int
-
-        ttc=args(1)
-        gap=args(2)
-        g0=args(3)
-        d0=args(4)
+        real*8 x, he3_tau_av_int
+        real*8 ttc, gap, g0, d0
+        common /he3_tau_av_int_cb/ ttc, gap, g0, d0
+        real*8 xi, Ek, C
 
         C=3D0 ! see tests/plot_tauav_int.m
         xi = datanh(x)*C
@@ -149,10 +146,12 @@
       function he3_tau_av(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, gap, g0, d0, Y0, tn, args(4)
-        real*8 dx, xp, xm
+        real*8 ttc, p
         real*8 he3_tau_av_int
         external he3_tau_av_int
+        real*8 ttc1, gap, g0, d0, Y0, tn
+        common /he3_tau_av_int_cb/ ttc1, gap, g0, d0
+
         if (ttc.lt.0D0) then
           he3_tau_av = NaN
           return
@@ -161,25 +160,26 @@
           he3_tau_av=he3_tau_n_av(ttc,p)
           return
         endif
+        ttc1=ttc
         gap = he3_trivgap(ttc, p)
+        g0  = he3_scatt_g0(p)
+        d0  = he3_scatt_d0(p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         tn  = he3_tau_n0(ttc, p)
-        args = (/ttc, gap, he3_scatt_g0(p), he3_scatt_d0(p)/)
         he3_tau_av = Y0 * tn
-     .   / math_dint(he3_tau_av_int, 0D0, 1D0, 100, args)
+     .   / math_dint(he3_tau_av_int, 0D0, 1D0, 100)
       end
 
 ! Integrands for he3_fpath calculation
 ! Integration is similar to Y0 calculation in he3_gap.f
-      function he3_fpath_int1(x, args)
+      function he3_fpath_int1(x)
         implicit none
         include 'he3.fh'
-        real*8 x,args(4),ttc, gap, g0, d0, xi, ek, I, C
-        real*8 he3_fpath_int1
-        ttc=args(1)
-        gap=args(2)
-        g0=args(3)
-        d0=args(4)
+        real*8 x, he3_fpath_int1
+        real*8 ttc, gap, g0, d0
+        common /he3_fpath_int1_cb/ ttc, gap, g0, d0
+        real*8 xi, ek, I, C
+
         C=1D0 ! see tests/plot_tauav_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
@@ -189,13 +189,14 @@
      .   / (1D0 + dexp(Ek/ttc)) ! Fermi function
      .   * C/(1D0-x**2)
       end
-      function he3_fpath_int2(x, args)
+      function he3_fpath_int2(x)
         implicit none
         include 'he3.fh'
-        real*8 x,args(4),ttc, gap, xi, ek, C
-        real*8 he3_fpath_int2
-        ttc=args(1)
-        gap=args(2)
+        real*8 x, he3_fpath_int2
+        real*8 ttc, gap
+        common /he3_fpath_int2_cb/ ttc, gap
+        real*8 xi, ek, C
+
         C=1D0 ! see tests/plot_tauav_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
@@ -209,22 +210,28 @@
       function he3_fpath(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, gap, tn, vf, Ife, args(4)
-        real*8 dx, xp, xm
+        real*8 ttc, p, tn, vf
         real*8 he3_fpath_int1, he3_fpath_int2
         external he3_fpath_int1, he3_fpath_int2
+        real*8 ttc1, gap1, g0, d0, ttc2, gap2
+        common /he3_fpath_int1_cb/ ttc1, gap1, g0, d0
+        common /he3_fpath_int2_cb/ ttc2, gap2
+
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
           he3_fpath=NaN
           return
         endif
-        gap = he3_trivgap(ttc, p)
+        ttc1=ttc
+        ttc2=ttc
+        gap1 = he3_trivgap(ttc, p)
+        gap2 = gap1
+        g0  = he3_scatt_g0(p)
+        d0  = he3_scatt_d0(p)
         tn  = he3_tau_n0(ttc, p)
         vf  = he3_vf(p)
-        Ife = ttc * dlog(1D0+dexp(-gap/ttc)) ! integral of fermi function
-        args = (/ttc,gap,he3_scatt_g0(p),he3_scatt_d0(p)/)
         he3_fpath = vf * tn
-     .    *dsqrt(math_dint(he3_fpath_int1, 0D0, 1D0, 1000, args)/
-     .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000, args))
+     .    *dsqrt(math_dint(he3_fpath_int1, 0D0, 1D0, 1000)/
+     .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000))
       end
 
 ! Spin diffusion perpendicular transport time, s
@@ -306,20 +313,16 @@
 !   type   1: D_perp_zz
 !          2: D_perp_xx
 
-      function he3_diff_int(x, th, args)
+      function he3_diff_int(x, th)
         implicit none
-        real*8 x,th, args(6), ttc, gap, o0, lambda, td
-        real*8 C, xi, Ek, kz, kp, phi, u, v, o1, Sp2, Sm2
-        integer type
-        complex*16 t,s
-        complex*16 he3_diff_int
+        real*8 x,th, he3_diff_int
 
-        ttc=args(1)
-        gap=args(2)
-        o0     = args(3)
-        lambda = args(4)
-        td     = args(5)
-        type   = nint(args(6))
+        real*8 ttc, gap, o0, lambda, td
+        integer itype
+        common /he3_diff_int_cb/ ttc, gap, o0, lambda, td, itype
+
+        real*8 C, xi, Ek, kz, kp, phi, u, v, o1, Sp2, Sm2
+        complex*16 t,s,res
 
         C=3.5D0*ttc ! see plot_sdiff_int.m
         xi = datanh(x)*C
@@ -332,41 +335,35 @@
         kp=dcos(th)
         o1 = o0*(1D0+lambda)
 
-        he3_diff_int = (0D0,0D0)
-
         Sm2 = 1D0 - kp**2/2D0 *(1D0-u**2)
         Sp2 = u**2 + (1D0-u**2)*kz**2
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
 
-        if (type.eq.1) then ! D_perp_xx
-          he3_diff_int = t * dcmplx(0.5D0*kp * kp**2, 0D0)
+        res=(0,0)
+        if (itype.eq.1.or.itype.eq.10) then ! D_perp_xx
+          res = t * dcmplx(0.5D0*kp * kp**2, 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
      .      * dcmplx(phi * C/(1D0-x**2), 0D0)
-          return
-        endif
-
-        if (type.eq.2) then ! D_perp_zz
-          he3_diff_int = t * dcmplx(kp *kz**2, 0D0)
+        elseif (itype.eq.2.or.itype.eq.12) then ! D_perp_zz
+          res = t * dcmplx(kp *kz**2, 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
      .      * dcmplx(phi * C/(1D0-x**2), 0D0)
-          return
-        endif
-
-        if (type.eq.3) then ! D_par_xx
-          he3_diff_int = dcmplx( td * 0.5D0*kp * kp**2
+        elseif (itype.eq.3.or.itype.eq.13) then ! D_par_xx
+          res = dcmplx( td * 0.5D0*kp * kp**2
      .      * (Sm2 + u**2 * (o1*td)**2) / (1 + Sp2*(o1*td)**2)
      .      * phi * C/(1D0-x**2), 0D0)
-          return
-        endif
-
-        if (type.eq.4) then ! D_par_zz
-          he3_diff_int = dcmplx( td * kp * kz**2
+        elseif (itype.eq.4.or.itype.eq.14) then ! D_par_zz
+          res = dcmplx( td * kp * kz**2
      .      * (Sm2 + u**2 * (o1*td)**2) / (1D0 + Sp2*(o1*td)**2)
      .      * phi * C/(1D0-x**2), 0D0)
-          return
         endif
 
+        if (itype.lt.10) then
+          he3_diff_int = dreal(res)
+        else
+          he3_diff_int = dimag(res)
+        endif
       end
 
 ! Spin diffusion coefficient D_perp, cm2/s
@@ -374,14 +371,20 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0, type
-        real*8 args(6), gap, Vf, chi0, Y0, f0a
-        real*8 o0, lambda, td
-        complex*16 he3_diff_int
+        real*8 Vf, chi0, Y0, f0a
+        real*8 he3_diff_int
         external he3_diff_int
+
+        real*8 ttc1,gap,o0, lambda, td
+        integer itype
+        common /he3_diff_int_cb/ ttc1, gap, o0, lambda, td, itype
+
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
           he3_diff_all=NaN
           return
         endif
+
+        ttc1 = ttc
         gap = he3_trivgap(ttc, p)
         Vf  = he3_vf(p)
         f0a = he3_f0a(p)
@@ -390,18 +393,11 @@
         o0      = nu0*2D0*const_pi
         lambda  = -f0a*chi0  ! Einzel-1991 p.349
         td      = he3_tau_dperp(ttc, p)
+        itype   = nint(type)
 
-        if (type.lt.10D0) then
-          args = (/ttc, gap, o0, lambda, td, type/)
-          he3_diff_all = dreal(math_cint2d(he3_diff_int,
-     .          0D0, 1D0, 200, 0D0, const_pi/2D0, 200, args))
-     .      * Vf**2 / chi0
-        else
-          args = (/ttc, gap, o0, lambda, td, type-10D0/)
-          he3_diff_all = dimag(math_cint2d(he3_diff_int,
-     .          0D0, 1D0, 200, 0D0, const_pi/2D0, 200, args))
-     .      * Vf**2 / chi0
-        endif
+        he3_diff_all = math_dint2d(he3_diff_int,
+     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
+     .    * Vf**2 / chi0
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

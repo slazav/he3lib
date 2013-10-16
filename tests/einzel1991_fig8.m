@@ -7,10 +7,10 @@ function einzel1991_fig8()
   ttc = 0.4:0.01:1;
   f=460000;
 
-  plot(ttc, he3_diff(ttc, 29, f), 'r-');
-  plot(ttc, he3_diff(ttc, 20, f), 'g-');
-  plot(ttc, he3_diff(ttc, 11, f), 'b-');
-  plot(ttc, he3_diff(ttc,  0, f), 'm-');
+  plot(ttc, he3_diff_perp_zz(ttc, 29, f), 'r-');
+  plot(ttc, he3_diff_perp_zz(ttc, 20, f), 'g-');
+  plot(ttc, he3_diff_perp_zz(ttc, 11, f), 'b-');
+  plot(ttc, he3_diff_perp_zz(ttc,  0, f), 'm-');
 
   plotdat('einzel1991_fig8c1.dat', 'k-');
   plotdat('einzel1991_fig8c2.dat', 'k-');

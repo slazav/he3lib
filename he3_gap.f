@@ -98,14 +98,13 @@
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
 ! See also tests/plot_yosida_int.m
-      function he3_yosida_int(x, args)
+      function he3_yosida_int(x)
         implicit none
         include 'he3.fh'
-        real*8 x, args(3), ttc, gap, xi, ek, n, C
-        real*8 he3_yosida_int
-        ttc=args(1)
-        gap=args(2)
-        n=args(3)
+        real*8 x, he3_yosida_int
+        real*8 ttc, gap
+        common /he3_yosida_int_cb/ ttc, gap, n
+        real*8 xi, ek, n, C
         C=2D0
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
@@ -121,9 +120,14 @@
       function he3_yosida(ttc, gap, n)
         implicit none
         include 'he3.fh'
-        real*8 ttc, gap, n, args(3)
         real*8 he3_yosida_int
         external he3_yosida_int
+        real*8 ttc, gap, n
+        real*8 ttc1, gap1, n1
+        common /he3_yosida_int_cb/ ttc1, gap1, n1
+        ttc1=ttc
+        gap1=gap
+        n1=n
 
         if (ttc.lt.0D0) then
           he3_yosida=NaN
@@ -138,8 +142,7 @@
           return
         endif
 
-        args = (/ttc, gap, n/)
-        he3_yosida = math_dint(he3_yosida_int, 0D0, 1D0, 100, args)
+        he3_yosida = math_dint(he3_yosida_int, 0D0, 1D0, 100, 0)
       end
 
 ! Eizel-1991 f.90
