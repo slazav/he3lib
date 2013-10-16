@@ -24,14 +24,19 @@ This library provides constant and functions for various $^3$He properties.
 
 \noindent Supported Languages:
 
-{\bf Fortran.}
-You can use {\tt he3.fh} include file and {\tt libhe3} library in
+{\bf Fortran-77.}
+You should use {\tt he3.fh} include file and {\tt libhe3} library for
 fortran programs. All functions and arguments are {\tt real*8}.
+Use {\tt -fno-range-check} compiler flag.
 
-{\bf C.} You can use {\tt he3.h} include file and {\tt libhe3} library
+{\bf Fortran-90.}
+Same, but you should link not only with {\tt libhe3} library but
+also with {\tt he3_const.o}.
+
+{\bf C.} You should use {\tt he3.h} include file and {\tt libhe3} library
 in C programs. Lowercase names with underscore should be used (like {\tt
 he3\_pf\_}). Type of arguments is always {\tt double*}, type of returned
-values is {\tt double}.
+value is {\tt double}.
 
 {\bf Matlab, Octave.} To compile {\tt mex} files you should run {\tt
 compile.m} script in the {\tt matlab} folder. Lowercase names should be

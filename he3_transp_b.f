@@ -321,7 +321,7 @@
         td     = args(5)
         type   = nint(args(6))
 
-        C=3D0*ttc
+        C=3.5D0*ttc ! see plot_sdiff_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
         phi = (dcosh(Ek/(2D0*ttc)))**(-2) / 2D0 / ttc
