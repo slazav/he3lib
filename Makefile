@@ -13,7 +13,7 @@ FFLAGS= -Werror -Wconversion\
   -Wno-unused-parameter -fPIC -fno-range-check
 
 LIBNAME=libhe3
-all: $(LIBNAME).a $(LIBNAME).so
+all: $(LIBNAME).a $(LIBNAME).so he3.f90h
 
 FC=gfortran
 
@@ -29,15 +29,18 @@ LIBOBJS=he3_const he3_phase he3_fermi he3_math he3_gap\
 ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
 #        dgesv dgetrs dlaswp dtrsm lsame xerbla
 
-
+# h-file for f90 is created from he3.fh
+he3.f90h: he3.fh
+	sed -e 's/!F90_ONLY!//' $< > $@
 
 # Legget equations
 LEGG_EQ_OBJS=he3b_legg_rot1d
 
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
-  $(patsubst %,libs/%.o,$(ADDOBJS))\
   $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))
+
+#  $(patsubst %,libs/%.o,$(ADDOBJS))\
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
@@ -46,6 +49,6 @@ $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
 
 clean:
-	rm -f *.a *.so *.o libs/*.o legg_eq/*.o
+	rm -f *.a *.so *.o libs/*.o legg_eq/*.o he3.f90h
 	make -C matlab clean
 	make -C doc clean

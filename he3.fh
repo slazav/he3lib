@@ -2,7 +2,7 @@
 
       ! We need this to avoid possible linker problems
       ! See http://gcc.gnu.org/onlinedocs/gcc-3.4.6/g77/Block-Data-and-Libraries.html#Block-Data-and-Libraries
-      external he3_data
+      !F90_ONLY! external he3_data
 
       real*8 he3_gyro, he3_amass, he3_mmass
       real*8 const_na, const_kb, const_r
