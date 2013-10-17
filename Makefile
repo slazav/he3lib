@@ -31,7 +31,8 @@ ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
 
 # h-file for f90 is created from he3.fh
 he3.f90h: he3.fh
-	sed -e 's/!F90_ONLY!//' $< > $@
+	echo "! This file is created automatically from $<" > $@
+	sed -e 's/!F90_ONLY!//' $< >> $@
 
 # Legget equations
 LEGG_EQ_OBJS=he3b_legg_rot1d
@@ -39,7 +40,8 @@ LEGG_EQ_OBJS=he3b_legg_rot1d
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
   $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))\
-  ../external/libpoly.a
+  ../external/libpoly.a\
+  ../external/libint.a
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+

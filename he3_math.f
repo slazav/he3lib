@@ -18,6 +18,21 @@
         enddo
       end
 
+      function math_dint_slatec(func, xmin, xmax, epsabs, epsrel)
+        implicit none
+        include 'he3.fh'
+        real*8 func,xmin,xmax,epsabs,epsrel
+        external F
+        integer limit, lenw
+        parameter (limit = 1000)
+        parameter (lenw = 4*LIMIT)
+        real*8 abserr,res,work(lenw)
+        integer ier,neval,last,iwork(limit)
+        call dqags(func,xmin,xmax,epsabs,epsrel,res,
+     .      abserr,neval,ier, limit,lenw,last,iwork,work)
+        math_dint_slatec = res
+      end
+
 ! Intergation of complex*16 function
 ! from xmin to xmax using imax points Gaussian quadrature
       function math_cint(func, xmin, xmax, nx)
