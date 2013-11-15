@@ -2,7 +2,16 @@
 #include "math.h"
 #include "../he3.h"
 
-/* FUNC and NARGIN must be defined! */
+/* This is a universal matlab interface for
+ * constants and functions of 1..5 aguments.
+ * All arguments and returned values are double.
+ * Vectors or matrices can be used as arguments,
+ * vector and matrix arguments can be mixed
+ * with constants:  res = func(1:10, 1, 2:11, 2)
+ * will return a vector with length 10
+ *
+ * FUNC and NARGIN must be defined during compilation!
+ *                               slazav, 2013 */
 void
 mexFunction(int nlhs, mxArray *plhs[],
             int nrhs, const mxArray *prhs[]){
@@ -17,8 +26,8 @@ mexFunction(int nlhs, mxArray *plhs[],
   return;
 #endif
 
+/* Functions */
 #if NARGIN > 0
-
   int m[NARGIN], n[NARGIN], s[NARGIN], i, maxm, maxn;
   double *in[NARGIN];
   double *out;
@@ -29,9 +38,9 @@ mexFunction(int nlhs, mxArray *plhs[],
   if (nrhs > 5)
     mexErrMsgTxt("functions with > 5 arguments are not supported in mexfunc.c");
 
-  maxm = nrhs? 0:1;
-  maxn = nrhs? 0:1;
 
+  /* Get input arguments, calculate maximal size */
+  maxm = maxn = 1;
   for (i=0; i<NARGIN; i++){
     if (!mxIsDouble(prhs[i]))
       mexErrMsgTxt("non-numeric argument");
@@ -41,17 +50,21 @@ mexFunction(int nlhs, mxArray *plhs[],
     if (maxn<n[i]) maxn=n[i];
     in[i] = mxGetPr(prhs[i]);
   }
+
+  /* check that aguments are either constants or matrices of the same size */
   for (i=0; i<NARGIN; i++){
     s[i] = (m[i] == 1 && n[i] == 1); /* scalar/vector */
     if (!s[i] && (m[i] != maxm && n[i] != maxn))
       mexErrMsgTxt("dimensions of arguments must agree");
   }
 
+  /* allocate space for output data */
   plhs[0] = mxCreateDoubleMatrix(maxm, maxn, mxREAL);
   if (plhs[0] == NULL)
     mexErrMsgTxt("can't allocate memory");
   out = mxGetPr(plhs[0]);
 
+  /* calculate values */
   for (i=0; i<maxm*maxn; i++){
 #if NARGIN == 1
     out[i] = FUNC(in[0]+(s[0]?0:i));
