@@ -14,7 +14,7 @@
      .    const_hbar /1.054571726D-27/, ! SGS
      .    const_pi    /3.1415926535897932D0/,
 
-     .    he3_Pcr   /78.111D-3/,
+     .    he3_Pcr   /1.16317D0/,
      .    he3_Tcr   /3.324D0/,
      .    he3_Pabn   /21.22D0/,      ! A-B-Normal crit.pt, bar
      .    he3_Tabn   /2.273D0/,      ! A-B-Normal crit.pt, mK.
