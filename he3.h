@@ -70,6 +70,7 @@ double he3_yosida_perp_(double *ttc, double *gap);
 double he3_z3_(double *ttc, double *gap);
 double he3_z5_(double *ttc, double *gap);
 double he3_z7_(double *ttc, double *gap);
+double he3_lambda_(double *ttc, double *gap);
 double he3_rho_nb_(double *ttc, double *P); /* B-phase Normal component density \rho_nb/\rho_0 */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility chi_b/chi_0  */
 

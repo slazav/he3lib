@@ -1,6 +1,7 @@
 ! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
 ! Newton iteration based on a note by EVT & RH
 ! From ROTA texture library
+! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
       function he3_bcsgap(ttc)
         implicit none
         include 'he3.fh'
@@ -58,6 +59,7 @@
       end
 
 ! Trivial strong-coupling correction to the BCS energy gap
+! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
       function he3_trivgap(ttc,p)
         implicit none
         include 'he3.fh'
@@ -167,60 +169,85 @@
      .    )/5D0
       end
 
-! From texture library. Incorrect below 0.2Tc
+! Z3,Z5,Z7, lambda
+! code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
       function he3_z3(ttc,gap)
         implicit none
         include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt = dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**1.5D0
-        end do
-        help = SQRT(mt**2 + y**2)
-        corr1 = 1D0/(help*(mt+help))
-        corr2 = mt**3/(8D0*help**5)
-        he3_z3 = y**2*(sum + corr1 - corr2)
+        real*8 ttc,gap
+        real*8 x,xs,tm,sq
+        integer i, nsplit
+        parameter (nsplit=10)
+        tm=ttc*float(nsplit)
+        x=gap/(2*const_pi)
+        xs=x**2
+        sq=sqrt(tm**2+xs)
+        he3_z3 = 1./(sq*(tm+sq)) - tm*ttc**2/( 8.*sq**5)
+        do i=1,nsplit
+          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          he3_z3 = he3_z3 + ttc/sq**3
+        enddo
+        he3_z3 = he3_z3 / (2*const_pi)**2 * gap*gap
       end
 
       function he3_z5(ttc,gap)
         implicit none
         include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt = dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2 + y**2)**2.5D0
-        end do
-        help = SQRT(mt**2+y**2)
-        corr1 = (mt+2D0*help)/(3D0*help**3*(mt+help)**2)
-        corr2 = 5D0*mt**3/(24D0*help**7)
-        he3_z5 = y**4*(sum + corr1 - corr2)
+        real*8 ttc,gap
+        real*8 x,xs,tm,sq
+        integer i, nsplit
+        parameter (nsplit=10)
+
+        tm=ttc*float(nsplit)
+        x=gap/(2*const_pi)
+        xs=x**2
+        sq=sqrt(tm**2+xs)
+        he3_z5 = (tm+2.*sq)/(3.*sq**3*(tm+sq)**2)
+     .    - 5.*tm*ttc**2/(24.*sq**7)
+        do i=1,nsplit
+          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          he3_z5 = he3_z5 + ttc/sq**5
+        enddo
+        he3_z5 = he3_z5 * xs/(2*const_pi)**2 * gap*gap
       end
 
       function he3_z7(ttc,gap)
         implicit none
         include 'he3.fh'
-        integer i,maxi
-        real*8 ttc,gap,y,help,mt,corr1,corr2,sum
-        y = gap/(2D0*const_pi)
-        sum = 0D0
-        maxi = 100
-        mt=dble(maxi)*ttc
-        do i=1,maxi
-           sum = sum + ttc/((ttc*(dble(i)-0.5D0))**2+y**2)**3.5D0
-        end do
-        help = SQRT(mt**2+y**2)
-        corr1 = (11D0*mt*mt + 9D0*mt*help + 8D0*y*y)/
-     .          (15D0*help**5*(mt+help)**3)
-        corr2 = 7D0*mt**3/(24D0*help**9)
-        he3_z7 = y**6*(sum + corr1 - corr2)
+        real*8 ttc,gap
+        real*8 x,xs,tm,sq
+        integer i, nsplit
+        parameter (nsplit=10)
+        tm=ttc*float(nsplit)
+        x=gap/(2*const_pi)
+        xs=x**2
+        sq=sqrt(tm**2+xs)
+        he3_z7 = (11.*tm**2+9.*tm*sq+8.*xs)/(15.*sq**5*(tm+sq)**3)
+     .    - 7.*tm*ttc**2/(24.*sq**9)
+        do i=1,nsplit
+          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          he3_z7 = he3_z7 + ttc/sq**7
+        enddo
+        he3_z7 = he3_z7 * xs**2/(2*const_pi)**2 * gap*gap
+      end
+
+      function he3_lambda(ttc,gap)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,gap
+        real*8 x,xs,tm,sq
+        integer i, nsplit
+        parameter (nsplit=10)
+        tm=ttc*float(nsplit)
+        x=gap/(2*const_pi)
+        xs=x**2
+        sq=sqrt(tm**2+xs)
+        he3_lambda = 1 - tm/(x+sq) -
+     .     tm*ttc**2*x*(x+2*sq)/(24*sq**3*(x+sq)**2)
+        do i=1,nsplit
+          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          he3_lambda = he3_lambda + ttc*x/(sq*(sq+x))
+        enddo
       end
 
 ! B-phase Normal component density \rho_n^B/\rho_0

@@ -209,16 +209,17 @@ source file {\tt he3\_gap.f}.
 \tt he3\_bcsgap(ttc)       & BCS gap for 3He-B in $T_c$ units, $\Delta_{\rm BCS}/ k_B T_c$\\
 \tt he3\_bcsgap\_fast(ttc) & Einzel approximation for BCS gap (0.5\% accuracy, 70 times faster)\newline
                              {\small(Einzel-1991, f.68)}\\
-\tt he3\_trivgap(ttc,P) & Trivial strong-coupling correction to the BCS gap\\
+\tt he3\_trivgap(ttc, P)   & Trivial strong-coupling correction to the BCS gap\\
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
                                \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
                                \phi_k\ d\xi_k$\\
 \tt he3\_yosida\_par(ttc, gap)  & $Y_q^\parallel(T/T_c,\Delta)$\\
 \tt he3\_yosida\_perp(ttc, gap) & $Y_q^\perp(T/T_c,\Delta)$\\
 
-\tt he3\_z3(ttc, gap) & From texture library. Incorrect at $T < 0.2 T_c$!\\
+\tt he3\_z3(ttc, gap) &\\
 \tt he3\_z5(ttc, gap) &\\
 \tt he3\_z7(ttc, gap) &\\
+\tt he3\_lambda(ttc, gap) &\\
 
 \tt he3\_rho\_nb(ttc, p)     &B-phase normal component density\newline
                              $\displaystyle \frac{\rho_B^n}{\rho_{N}} =
@@ -229,10 +230,6 @@ source file {\tt he3\_gap.f}.
                                      {3+F_0^a(2 + Y_0)}$\\
 \end{tabular}
 \medskip
-
-\noindent TODO:\\
-Look at calculation of {\tt bcsgap} and {\tt trivgap}, include experimental data and reference. Fix
-Z1..Z3.\\
 
 \begin{figure}[h]
 \includegraphics[scale=1.2]{gap1.eps}\\

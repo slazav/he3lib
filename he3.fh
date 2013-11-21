@@ -92,6 +92,7 @@
       real*8 He3_yosida_par   !
       real*8 He3_yosida_perp  !
       real*8 He3_z3, He3_z5, He3_z7
+      real*8 He3_lambda
       real*8 He3_rho_nb      ! B-phase Normal component density \rho_nb/\rho_0
       real*8 He3_chi_b       ! B-phase susceptibility chi_B/chi_0 vs T/Tc, P
 
