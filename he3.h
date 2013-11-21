@@ -111,6 +111,10 @@ double he3_diff_perp_zz_im_(double *ttc, double *p, double *nu0);  /* Spin diffu
 double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_xx, cm2/s */
 double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
 
+/* Texture */
+double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
+double he3_text_lhv_(double *ttc, double *p); /* Textural parameter lambda_{HV}*/
+
 /* Other */
 double he3_cv_n_(double *t, double *v);    /* C_v */
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */

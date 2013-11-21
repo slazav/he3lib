@@ -30,8 +30,7 @@ fortran programs. All functions and arguments are {\tt real*8}.
 Use {\tt -fno-range-check} compiler flag.
 
 {\bf Fortran-90.}
-Same, but you should link not only with {\tt libhe3} library but
-also with {\tt he3_const.o}.
+You should include he3.f90h instead.
 
 {\bf C.} You should use {\tt he3.h} include file and {\tt libhe3} library
 in C programs. Lowercase names with underscore should be used (like {\tt
@@ -368,6 +367,23 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?
 \includegraphics[scale=1.1]{transp_tau.eps}\\
 \includegraphics[scale=1.1]{transp_diff.eps}
 \end{figure}
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Textural parameters}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
+\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\
+\tt he3\_text\_lhv(ttc, p) & $\lambda_{HV} = \displaystyle
+\frac{\rho}{\Delta^2}
+\frac{1 + F_1^s / 3}{(1 + F_1^s Y_0/3)^2}
+\left( \frac{\hbar\gamma/2}{ 1 + F_0^a (2 + Y_0)/3)} \right)^2
+\left( Z_3 - \frac{9}{10} Z_5 + \frac{9}{10}\ \frac{Z_5^2}{Z_3} -
+  \frac32 Z_7 \right) $\\
+\end{tabular}
+\medskip
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -136,6 +136,10 @@
       real*8 He3_diff_par_xx     ! Spin diffusion D_par_xx
       real*8 He3_diff_par_zz     ! Spin diffusion D_par_zz
 
+! Textural parameters
+      real*8 he3_text_delta      ! textural parameter delta
+      real*8 he3_text_lhv        ! textural parameter lambda_{HV}
+
 ! Other
       real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
       real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
