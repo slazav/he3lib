@@ -106,6 +106,41 @@
 !     .    * dsqrt(0.9574D0 + 0.3682D0*dexp(-p/6.9234D0)) ! fit to experimental data
       end
 
+! Dipole coefficient in units of 1e32 1/(erg cm^3)
+! From ROTA texture library
+      function he3_gd(p)
+        implicit none
+        include 'he3.fh'
+        real*8 p
+        he3_gd = 1D32 * (0.27733D0 + p*(5.8087D-4 + 2.515D-4*p))
+      end
+
+! Dipole coefficient in units of erg/cm^3
+! See Thuneberg-2001 f.5 and f.24
+      function he3_ld(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 p,ttc
+        he3_ld = he3_gd(p) * (he3_trivgap(ttc, p)
+     .        * const_kb * 1D-3 * he3_tc(p))**2
+      end
+
+
+! See Thuneberg-2001 f.47
+      function he3_nu_b1(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p
+
+        real*8 chi
+
+        chi = he3_chi_b(ttc, p) * he3_chi_n(p)
+
+        he3_nu_b1 = he3_gyro * dsqrt(15D0 * he3_ld(ttc, p) / chi)
+     .   / 2D0 / const_pi
+      end
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Osheroff's spin wave velocity. S [cm/s] vs P [bar], T [mK]

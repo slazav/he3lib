@@ -137,12 +137,19 @@
       real*8 He3_diff_par_zz     ! Spin diffusion D_par_zz
 
 ! Textural parameters
-      real*8 he3_text_delta      ! textural parameter delta
-      real*8 he3_text_lhv        ! textural parameter lambda_{HV}
+      real*8 he3_text_a     ! textural parameter a [erg/(Gauss^2 cm^3)]
+      real*8 he3_text_delta ! textural parameter delta
+      real*8 he3_text_lhv   ! textural parameter lambda_{HV}
+      real*8 he3_text_lg2   ! textural parameter lambda_{G2}, erg/cm
+      real*8 he3_text_vd    ! Dipole velocity, cm/s
+      real*8 he3_text_ksid  ! Dipole length ksi_d, cm
 
 ! Other
       real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
-      real*8 He3_nu_b        ! B-phase Leggett frequency, Hz
+      real*8 He3_gd        ! Experimental value of Dipolar coefficient g_d, [1/(erg cm3)]
+      real*8 He3_ld        ! lambda_D = Delta^2 g_d, [erg/cm3]
+      real*8 He3_nu_b      ! B-phase Leggett frequency, Hz
+      real*8 He3_nu_b1     ! B-phase Leggett frequency calculated from g_d
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
       real*8 he3_swvel_par ! Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
       real*8 he3_swvel_per ! Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]

@@ -112,12 +112,22 @@ double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffu
 double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
 
 /* Texture */
+double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/(Gauss^2 cm^3)] */
 double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
-double he3_text_lhv_(double *ttc, double *p); /* Textural parameter lambda_{HV}*/
+double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV} */
+double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
+double he3_text_vd_(double *ttc, double *p);    /* Dipole velocity v_d, cm/s */
+double he3_text_ksid_(double *ttc, double *p);  /* Dipole length ksi_d, cm */
 
 /* Other */
 double he3_cv_n_(double *t, double *v);    /* C_v */
+
+double he3_gd_(double *P); /* Experimental value of Dipolar coefficient g_d, [1/(erg cm3)] */
+double he3_ld_(double *ttc, double *P); /* lambda_D = Delta^2 g_d, [erg/cm3] */
+
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
+double he3_nu_b1_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
+
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
 double he3_swvel_par_(double *P, double *ttc); /* Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
 double he3_swvel_per_(double *P, double *ttc); /* Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */

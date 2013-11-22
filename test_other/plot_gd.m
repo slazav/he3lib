@@ -3,11 +3,16 @@
   addpath ~/he3lib/lib/matlab
   figure; clf; hold on;
 
-  p   = 0:1:30;
+  ttc = 0:0.01:1;
+  p   = 0:1:33;
 
-  g = he3_gdk(p);     % K
-  plot(p, g, 'b.-');
+  for i=1:length(p)
+     v = he3_nu_b(ttc, p(i));
+     plot(ttc, v, 'g.-');
 
-  g1 = he3_gd_exp(p); % 1e32 1/(erg cm^3)
-  g1 = g1 .* he3_vm(p) / const_na / const_kb;
-  plot(p, g1, 'r.-');
+     v1 = he3_nu_b1(ttc, p(i));
+     plot(ttc, v1/2, 'b.-');
+  end
+  plot(ttc, v, 'r.-');
+
+

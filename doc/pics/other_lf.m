@@ -80,16 +80,16 @@ ttc=0:0.01:1;
           516 492 439 410 373 350] * 1e8;
   %%
 
-  plot(ttc, he3_nu_b(ttc,0.5).^2, 'r')
-  plot(ttc, he3_nu_b(ttc,5).^2, 'g')
-  plot(ttc, he3_nu_b(ttc,10.2).^2, 'b')
-  plot(ttc, he3_nu_b(ttc,15.5).^2, 'm')
-  plot(ttc, he3_nu_b(ttc,18.7).^2, 'g')
-  plot(ttc, he3_nu_b(ttc,21.1).^2, 'b')
-  plot(ttc, he3_nu_b(ttc,25.0).^2, 'c')
-  plot(ttc, he3_nu_b(ttc,25.4).^2, 'r')
-  plot(ttc, he3_nu_b(ttc,29.0).^2, 'g')
-  plot(ttc, he3_nu_b(ttc,32.0).^2, 'b')
+  plot(ttc, he3_nu_b1(ttc,0.5).^2, 'r')
+  plot(ttc, he3_nu_b1(ttc,5).^2, 'g')
+  plot(ttc, he3_nu_b1(ttc,10.2).^2, 'b')
+  plot(ttc, he3_nu_b1(ttc,15.5).^2, 'm')
+  plot(ttc, he3_nu_b1(ttc,18.7).^2, 'g')
+  plot(ttc, he3_nu_b1(ttc,21.1).^2, 'b')
+  plot(ttc, he3_nu_b1(ttc,25.0).^2, 'c')
+  plot(ttc, he3_nu_b1(ttc,25.4).^2, 'r')
+  plot(ttc, he3_nu_b1(ttc,29.0).^2, 'g')
+  plot(ttc, he3_nu_b1(ttc,32.0).^2, 'b')
 
   xlim([0 1]);
 %  ylim([0 1e+11]);
