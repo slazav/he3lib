@@ -74,6 +74,23 @@ double he3_lambda_(double *ttc, double *gap);
 double he3_rho_nb_(double *ttc, double *P); /* B-phase Normal component density \rho_nb/\rho_0 */
 double he3_chi_b_(double *ttc, double *P);  /* B-phase susceptibility chi_b/chi_0  */
 
+/* Dipole */
+double he3_gd_(double *P); /* Experimental value of Dipolar coefficient g_d, [1/(erg cm3)] */
+double he3_ld_(double *ttc, double *P);     /* lambda_D = Delta^2 g_d, [erg/cm3] */
+double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
+double he3_nu_b1_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
+
+/* Texture */
+double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/cm^3 1/G^2] */
+double he3_text_ldv_(double *ttc, double *p);   /* Textural parameter lambda_{DV} */
+double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV} */
+double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
+double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
+
+double he3_text_vd_(double *ttc, double *p);    /* Dipole velocity v_d, cm/s */
+double he3_text_xid_(double *ttc, double *p);  /* Dipole length xi_d, cm */
+double he3_text_xih_(double *ttc, double *p, double *h);  /* Magnetic length xi_h, cm */
+
 /* Transport in the normal phase */
 double he3_crsect_w_(double *P); /* Crossections */
 double he3_crsect_wi_(double *P);
@@ -111,22 +128,10 @@ double he3_diff_perp_zz_im_(double *ttc, double *p, double *nu0);  /* Spin diffu
 double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_xx, cm2/s */
 double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
 
-/* Texture */
-double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/(Gauss^2 cm^3)] */
-double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
-double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV} */
-double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
-double he3_text_vd_(double *ttc, double *p);    /* Dipole velocity v_d, cm/s */
-double he3_text_ksid_(double *ttc, double *p);  /* Dipole length ksi_d, cm */
 
 /* Other */
-double he3_cv_n_(double *t, double *v);    /* C_v */
-
-double he3_gd_(double *P); /* Experimental value of Dipolar coefficient g_d, [1/(erg cm3)] */
-double he3_ld_(double *ttc, double *P); /* lambda_D = Delta^2 g_d, [erg/cm3] */
-
-double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
-double he3_nu_b1_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
+double he3_xigl_(double *ttc, double *p); /* Extrapolated GL coherence length, cm*/
+double he3_vneq_(double *ttc, double *p, double *omega, double *r); /* Equilibrium vortex number */
 
 double he3_swvel_(double *P, double *ttc);     /* Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK] */
 double he3_swvel_par_(double *P, double *ttc); /* Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK] */
@@ -138,6 +143,9 @@ double he3_d_exp_(double *P, double *ttc);  /* combined normal + superfluid spin
 
 double he3_tau_r_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
 double he3_tau_f_(double *ttc);     /* Leggett-Takagi tau_r [s] vs T/Tc, 20bar */
+
+/* Normal */
+double he3_cv_n_(double *t, double *v);    /* C_v */
 
 /* ROTA */
 

@@ -1,145 +1,29 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-!     heat capacity, Cv
-!     Greywall-1983
-      function He3_cv_n(t, v)
+! Extrapolated GL coherence length, cm
+! see Thuneberg-2001, p.667
+! No strong coupling corrections are needed!
+      function he3_xigl(ttc,p)
         implicit none
         include 'he3.fh'
-        real*8 t,v,a,b,c,d
-        real*8 s1,s2,s3
-        integer i,j
-        dimension a(5,4), b(4,3), c(3,3), d(3)
-        a(1,1) = -2.9190414D0
-        a(1,2) =  5.2893401D+2
-        a(1,3) = -1.8869641D+4
-        a(1,4) =  2.6031315D+5
-        a(2,1) =  0D0
-        a(2,2) =  0D0
-        a(2,3) =  0D0
-        a(2,4) =  0D0
-        a(3,1) = -2.4752597D+3
-        a(3,2) =  1.8377260D+5
-        a(3,3) = -3.4946553D+6
-        a(3,4) =  0D0
-        a(4,1) =  3.8887481D+4
-        a(4,2) = -2.8649769D+6
-        a(4,3) =  5.2526785D+7
-        a(4,4) =  0D0
-        a(5,1) = -1.7505655D+5
-        a(5,2) =  1.2809001D+7
-        a(5,3) = -2.3037701D+8
-        a(5,4) =  0D0
-
-        b(1,1) = -6.5521193D-2
-        b(1,2) =  1.3502371D-2
-        b(1,3) =  0D0
-        b(2,1) =  4.1359033D-2
-        b(2,2) =  3.8233755D-4
-        b(2,3) = -5.3468396D-5
-        b(3,1) =  5.7976786D-3
-        b(3,2) = -6.5611532D-4
-        b(3,3) =  1.2689707D-5
-        b(4,1) = -3.8374623D-4
-        b(4,2) =  3.2072581D-5
-        b(4,3) = -5.3038906D-7
-
-        c(1,1) = -2.5482958D+1
-        c(1,2) =  1.6416936D+0
-        c(1,3) = -1.5110378D-2
-        c(2,1) =  3.7882751D+1
-        c(2,2) = -2.8769188D+0
-        c(2,3) =  3.5751181D-2
-        c(3,1) =  2.4412956D+1
-        c(3,2) = -2.4244083D+0
-        c(3,3) =  6.7775905D-2
-
-        d(1) = -7.1613436D+0
-        d(2) =  6.0525139D-1
-        d(3) = -7.1295855D-3
-
-        if (t.lt.0.1) then
-          s1=0D0
-          do i=1,5
-            do j=0,3
-              s1 = s1 + a(i,j+1) * v**(-j) * t**i
-            enddo
-          enddo
-          he3_cv_n = s1
-          return
-        endif
-
-        if (t.ge.0.1.and.t.lt.2.5) then
-          s1=0D0
-          do i=0,3
-            do j=0,2
-              s1 = s1 + b(i+1,j+1) * v**j * t**(-i)
-            enddo
-          enddo
-          s2=0D0
-          do i=1,3
-            do j=0,2
-              s2 = s2 + c(i,j+1) * v**j * t**(-i)
-            enddo
-          enddo
-          s3=0D0
-          do j=0,2
-            s3 = s3 + d(j+1) * v**j
-          enddo
-          he3_cv_n = s1 + dexp(-s3/t) * s2
-          return
-        endif
-        he3_cv_n = NaN
+        real*8 ttc,p,bcsgap
+        bcsgap = const_kb*1D-3*he3_tc(p)*he3_bcsgap(ttc)
+        he3_xigl = const_hbar * he3_vf(p)
+     .    / (dsqrt(10D0)*bcsgap)
       end
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-! B-phase Leggett freq
-      function he3_nu_b(ttc, p)
+! Equilibrium vortex number
+      function he3_vneq(ttc,p,omega,r)
         implicit none
         include 'he3.fh'
-        real*8 ttc,p,gap
-        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
-        he3_nu_b = dsqrt(3D0 / 8D0 / const_pi /
-     .                   he3_chi_b(ttc,p)/he3_chi_n(p))
-     .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 4D0
-     .    * gap * dlog(he3_tfeff(p)*const_kB/gap)
-!     .    * dsqrt(0.9574D0 + 0.3682D0*dexp(-p/6.9234D0)) ! fit to experimental data
+        real*8 ttc,p,omega,r
+        real*8 kappa,help,rv,rc
+        kappa=6.65D-4
+        rc=he3_xigl(ttc,p)
+        rv=dsqrt(kappa/(2D0*const_pi*omega))
+        help=1D0-dsqrt(kappa*LOG(rv/rc)
+     .                / (4D0*const_pi*omega*r*r))
+!      help=1.0_dp
+        he3_vneq = 2D0*const_pi*omega*r**2/kappa*help**2
       end
-
-! Dipole coefficient in units of 1e32 1/(erg cm^3)
-! From ROTA texture library
-      function he3_gd(p)
-        implicit none
-        include 'he3.fh'
-        real*8 p
-        he3_gd = 1D32 * (0.27733D0 + p*(5.8087D-4 + 2.515D-4*p))
-      end
-
-! Dipole coefficient in units of erg/cm^3
-! See Thuneberg-2001 f.5 and f.24
-      function he3_ld(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 p,ttc
-        he3_ld = he3_gd(p) * (he3_trivgap(ttc, p)
-     .        * const_kb * 1D-3 * he3_tc(p))**2
-      end
-
-
-! See Thuneberg-2001 f.47
-      function he3_nu_b1(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc,p
-
-        real*8 chi
-
-        chi = he3_chi_b(ttc, p) * he3_chi_n(p)
-
-        he3_nu_b1 = he3_gyro * dsqrt(15D0 * he3_ld(ttc, p) / chi)
-     .   / 2D0 / const_pi
-      end
-
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

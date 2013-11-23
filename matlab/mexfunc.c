@@ -1,6 +1,5 @@
 #include "mex.h"
 #include "math.h"
-#include "../he3.h"
 
 /* This is a universal matlab interface for
  * constants and functions of 1..5 aguments.
@@ -12,6 +11,35 @@
  *
  * FUNC and NARGIN must be defined during compilation!
  *                               slazav, 2013 */
+
+/* I can get function prototype from the h-file, or create
+   it here. I want to support h-file in a working condition
+   so I use it. */
+# if 1
+#include "../he3.h"
+#else
+#if NARGIN == 0
+extern double FUNC;
+#endif
+#if NARGIN == 1
+double FUNC(double *a1);
+#endif
+#if NARGIN == 2
+double FUNC(double *a1, double *a2);
+#endif
+#if NARGIN == 3
+double FUNC(double *a1, double *a2, double *a3);
+#endif
+#if NARGIN == 4
+double FUNC(double *a1, double *a2, double *a3,
+            double *a4);
+#endif
+#if NARGIN == 5
+double FUNC(double *a1, double *a2, double *a3,
+            double *a4, double *a5);
+#endif
+#endif
+
 void
 mexFunction(int nlhs, mxArray *plhs[],
             int nrhs, const mxArray *prhs[]){

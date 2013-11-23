@@ -20,7 +20,8 @@ FC=gfortran
 ###################################
 
 # he3 constants and functions (see src/)
-LIBOBJS=he3_const he3_phase he3_fermi he3_math he3_gap\
+LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
+        he3_math he3_gap he3_dipole\
         he3_transp_n he3_transp_b\
         he3_text he3_other\
         he3_rota
@@ -40,8 +41,8 @@ LEGG_EQ_OBJS=he3b_legg_rot1d
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
   $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))\
-  ../external/libpoly.a\
-  ../external/libint.a
+  ../external/poly/*.o\
+  ../external/int/*.o
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+

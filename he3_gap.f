@@ -170,14 +170,22 @@
       end
 
 ! Z3,Z5,Z7, lambda
-! code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+! Code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+! Original nsplit=10 is too small for (z3 - 0.9*z5 + 0.9*z5.^2./z3 - 1.5*z7)
+! combination in he3_text_lhv
       function he3_z3(ttc,gap)
         implicit none
         include 'he3.fh'
         real*8 ttc,gap
         real*8 x,xs,tm,sq
         integer i, nsplit
-        parameter (nsplit=10)
+        parameter (nsplit=100)
+
+        if (ttc.lt.0D0) then
+          he3_z3=NaN
+          return
+        endif
+
         tm=ttc*float(nsplit)
         x=gap/(2*const_pi)
         xs=x**2
@@ -196,7 +204,12 @@
         real*8 ttc,gap
         real*8 x,xs,tm,sq
         integer i, nsplit
-        parameter (nsplit=10)
+        parameter (nsplit=100)
+
+        if (ttc.lt.0D0) then
+          he3_z5=NaN
+          return
+        endif
 
         tm=ttc*float(nsplit)
         x=gap/(2*const_pi)
@@ -217,7 +230,13 @@
         real*8 ttc,gap
         real*8 x,xs,tm,sq
         integer i, nsplit
-        parameter (nsplit=10)
+        parameter (nsplit=100)
+
+        if (ttc.lt.0D0) then
+          he3_z7=NaN
+          return
+        endif
+
         tm=ttc*float(nsplit)
         x=gap/(2*const_pi)
         xs=x**2
@@ -237,7 +256,13 @@
         real*8 ttc,gap
         real*8 x,xs,tm,sq
         integer i, nsplit
-        parameter (nsplit=10)
+        parameter (nsplit=100)
+
+        if (ttc.lt.0D0) then
+          he3_lambda=NaN
+          return
+        endif
+
         tm=ttc*float(nsplit)
         x=gap/(2*const_pi)
         xs=x**2
