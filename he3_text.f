@@ -93,6 +93,29 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+! Surface enrgy coefficient d, erg/(cm^2 Gauss^2)
+! Came from ROTA texture library.
+! Some G-L extrapolation is used
+      function he3_text_d(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p
+
+        real*8 gap,y0,f0a,n0,xi,d0
+        gap = he3_trivgap(ttc,p)
+        y0  = he3_yosida(ttc,gap,0)
+        f0a = he3_f0a(p)
+        n0  = he3_2n0(p)/2D0
+        xi  = he3_xigl(ttc,p)
+        d0  = 2.2D0 + p*0.5D0/34.39D0
+        he3_text_d = n0*(const_hbar*he3_gyro)**2
+     .   * xi*d0*(1-y0)
+     .   / (4D0*(1D0+f0a)*(3D0+f0a*(2D0+y0)))
+      end
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 ! Magnetic length, cm
 ! see Thuneberg-2001, p.662
       function he3_text_xih(ttc, p, h)

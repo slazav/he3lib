@@ -87,6 +87,8 @@ double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV
 double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
 double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
 
+double he3_text_d_(double *ttc, double *p); /* Textural parameter d, erg/(cm^2 G^2) */
+
 double he3_text_vd_(double *ttc, double *p);    /* Dipole velocity v_d, cm/s */
 double he3_text_xid_(double *ttc, double *p);  /* Dipole length xi_d, cm */
 double he3_text_xih_(double *ttc, double *p, double *h);  /* Magnetic length xi_h, cm */
@@ -127,7 +129,6 @@ double he3_diff_perp_zz_(double *ttc, double *p, double *nu0);     /* Spin diffu
 double he3_diff_perp_zz_im_(double *ttc, double *p, double *nu0);  /* Spin diffusion Im D_perp_zz, cm2/s */
 double he3_diff_par_xx_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_xx, cm2/s */
 double he3_diff_par_zz_(double *ttc, double *p, double *nu0);      /* Spin diffusion D_par_zz, cm2/s */
-
 
 /* Other */
 double he3_xigl_(double *ttc, double *p); /* Extrapolated GL coherence length, cm*/

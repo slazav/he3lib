@@ -277,20 +277,30 @@ Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
 High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
 See more information in the source file {\tt he3\_dipole.f}.
 
+Bulk terms:
 \begin{eqnarray*}
 F_{DH} &=& -a
-  \int ({\bf n} \cdot {\bf H})^2\ d^3r\\
+  \int_V ({\bf n} \cdot {\bf H})^2\ d^3r\\
 F_{DV} &=& -\lambda_{DV}
-  \int [{\bf n} \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r
+  \int_V [{\bf n} \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r
 \qquad {\ll F_{HV} \mbox{~at~} H\approx 200 \mbox{~Oe}}\\
 F_{HV} &=& -\lambda_{HV}
-  \int [{\bf H} \cdot R \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r\\
-F_{G}  &=& \int \left[
+  \int_V [{\bf H} \cdot R \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r\\
+F_{G}  &=& \int_V \left[
   \lambda_{G1}\frac{\partial R_{\alpha i}}{\partial r_i}
               \frac{\partial R_{\alpha j}}{\partial r_j} +
   \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
               \frac{\partial R_{\alpha j}}{\partial r_i}
   \right]\ d^3r,\qquad \lambda_{G1}=(2+\delta)\lambda_{G2}\\
+\end{eqnarray*}
+
+Surface terms:
+\begin{eqnarray*}
+F_{SH} &=& -d
+  \int_S [{\bf H} \cdot R \cdot {\bf s} ]^2\ d^2r\\
+F_{SG} &=& -d
+  \int_S s_j R_{\alpha j}
+    \frac{\partial R_{\alpha i}}{\partial r_i}\ d^2r\\
 \end{eqnarray*}
 
 \medskip
@@ -319,6 +329,8 @@ F_{G}  &=& \int \left[
 
 \tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
 \frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\
+
+\tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)]\\
 \end{tabular}
 \medskip
 
