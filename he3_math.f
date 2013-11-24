@@ -83,6 +83,69 @@
         enddo
       end
 
+
+! 2D adaptive intergation of real*8 function
+! from xmin to xmax using imax points Gaussian quadrature
+      function math_dint2d_ad(func,
+     .         xmin, xmax, nx, ymin, ymax, ny)
+        implicit none
+        include 'he3.fh'
+
+        ! Coordinates and weights for Gauss7-Kronrod15 quadrature:
+        real*8 crd(15), wg(7), wk(15)
+        parameter(crd=[-0.991455371120813D0, -0.949107912342759D0,
+     .                 -0.864864423359769D0, -0.741531185599394D0,
+     .                 -0.586087235467691D0, -0.405845151377397D0,
+     .                 -0.207784955007898D0,  0.000000000000000D0,
+     .                  0.207784955007898D0,  0.405845151377397D0,
+     .                  0.586087235467691D0,  0.741531185599394D0,
+     .                  0.864864423359769D0,  0.949107912342759D0,
+     .                  0.991455371120813D0],
+     .              wg=[0.129484966168870D0, 0.279705391489277D0,
+     .                  0.381830050505119D0, 0.417959183673469D0,
+     .                  0.381830050505119D0, 0.279705391489277D0,
+     .                  0.129484966168870D0],
+     .              wk=[0.022935322010529D0, 0.063092092629979D0,
+     .                  0.104790010322250D0, 0.140653259715525D0,
+     .                  0.169004726639267D0, 0.190350578064785D0,
+     .                  0.204432940075298D0, 0.209482141084728D0,
+     .                  0.204432940075298D0, 0.190350578064785D0,
+     .                  0.169004726639267D0, 0.140653259715525D0,
+     .                  0.104790010322250D0, 0.063092092629979D0,
+     .                  0.022935322010529D0])
+
+        real*8 func
+        real*8 xmin, xmax, ymin, ymax
+        real*8 dx,dy, x0,y0, f, intk, intg
+        integer ix, iy, ixq, iyq, nx, ny
+        dx=(xmax-xmin)/dble(nx)
+        dy=(ymax-ymin)/dble(ny)
+        math_dint2d_ad = 0D0
+        intk=0
+        intg=0
+        do ix=1,nx
+          do iy=1,ny
+            x0 = xmin + dx*(dble(ix)+0.5D0)
+            y0 = ymin + dy*(dble(iy)+0.5D0)
+            do ixq=1,15
+              do iyq=1,15
+                f=func(x0 + 0.5D0*dx*crd(ixq),
+     .                 y0 + 0.5D0*dy*crd(iyq))
+                intk=intk + wk(ixq)*wk(iyq)*f
+                if (mod(ixq,2).eq.0.and.mod(iyq,2).eq.0) then
+                  intg=intg + wg(ixq/2)*wg(iyq/2)*f
+                endif
+              enddo
+            enddo
+          enddo
+        enddo
+        intk=intk*dx*dy/4D0
+        intg=intg*dx*dy/4D0
+        math_dint2d_ad = intk
+        write (*,*) intk, intg, (200D0*dabs(intk-intg))**1.5
+      end
+
+
 ! 2D intergation of complex*16 function
 ! from xmin to xmax using imax points Gaussian quadrature
       function math_cint2d(func,

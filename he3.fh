@@ -50,6 +50,7 @@
       complex*16 math_cint   ! integrate complex*16 function
       real*8     math_dint2d ! integrate real*8 function
       complex*16 math_cint2d ! integrate complex*16 function
+      real*8     math_dint2d_ad ! integrate real*8 function
 
 ! Phase diagram functions (see he3_phase.f)
       real*8 He3_Pvap       ! Vapor pressure [bar] vs T [K]
@@ -96,7 +97,7 @@
       real*8 He3_rho_nb      ! B-phase Normal component density \rho_nb/\rho_0
       real*8 He3_chi_b       ! B-phase susceptibility chi_B/chi_0 vs T/Tc, P
 
-! Transport in the normal phase
+! Transport in the normal phase (see he3_transp_n.f)
       real*8 He3_crsect_w  ! Crossections
       real*8 He3_crsect_wi !
       real*8 He3_crsect_wd !
@@ -113,7 +114,7 @@
       real*8 he3_diffn_hydr     ! Hydrodynamic spin diffusion in normal liquid, cm2/s
       real*8 he3_diffn_perp     ! Spin diffusion D_perp in normal liquid, cm2/s
 
-! Transport in the B phase
+! Transport in the B phase (see he3_transp_b.f)
 
       real*8 he3_coll_int    ! Collision integral in Einzel approximation
       real*8 he3_coll_int_lt ! Collision integral for low temp (good for < 0.7Tc)
@@ -136,13 +137,13 @@
       real*8 He3_diff_par_xx     ! Spin diffusion D_par_xx
       real*8 He3_diff_par_zz     ! Spin diffusion D_par_zz
 
-! Dipole
+! Dipole (see he3_dipole.f)
       real*8 He3_gd         ! Experimental value of Dipolar coefficient g_d, [1/(erg cm3)]
       real*8 He3_ld         ! lambda_D = Delta^2 g_d, [erg/cm3]
       real*8 He3_nu_b       ! B-phase Leggett frequency calculated from g_d, Hz
       real*8 He3_nu_b1      ! B-phase Leggett frequency (less accurate), Hz
 
-! Textural parameters
+! Textural parameters (see he3_text.f)
       real*8 he3_text_a     ! textural parameter a [erg/(Gauss^2 cm^3)]
       real*8 he3_text_ldv   ! textural parameter lambda_{DV}
       real*8 he3_text_lhv   ! textural parameter lambda_{HV}
@@ -155,7 +156,7 @@
       real*8 he3_text_xid  ! Dipole length ksi_d, cm
       real*8 he3_text_xih  ! Magnetic length ksi_h, cm
 
-! Other
+! Other (see he3_other.f)
       real*8 he3_xigl      ! Extrapolated GL coherence length, cm
       real*8 he3_vneq      ! Equilibrium vortex number
       real*8 He3_swvel     ! Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
@@ -167,9 +168,9 @@
       real*8 He3_tau_r     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
       real*8 He3_tau_f     ! Leggett-Takagi tau_r [s] vs T/Tc, 20bar
 
-! Normal
+! Normal (see he3_normal.f)
       real*8 He3_Cv_n      ! heat capacity, Cv vs T, V
 
-! ROTA
+! ROTA (see he3_rota.f)
       real*8 rota_c_ns     ! Nuclear stage heat capacity [J/K] vs T[K] and I[A]
       real*8 rota_fork_cal ! Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
