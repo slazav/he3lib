@@ -89,6 +89,7 @@ double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2
 double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
 
 double he3_text_d_(double *ttc, double *p); /* Textural parameter d, erg/(cm^2 G^2) */
+double he3_text_llh_(double *ttc, double *p, double *omega); /* Textural parameter lambda_LH */
 
 double he3_text_vd_(double *ttc, double *p);    /* Dipole velocity v_d, cm/s */
 double he3_text_xid_(double *ttc, double *p);  /* Dipole length xi_d, cm */

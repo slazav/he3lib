@@ -93,7 +93,7 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Surface enrgy coefficient d, erg/(cm^2 Gauss^2)
+! Surface energy coefficient d, erg/(cm^2 Gauss^2)
 ! Came from ROTA texture library.
 ! Some G-L extrapolation is used
       function he3_text_d(ttc,p)
@@ -113,6 +113,22 @@
      .   / (4D0*(1D0+f0a)*(3D0+f0a*(2D0+y0)))
       end
 
+! Vortex enrgy coefficient \lambda_{LH}
+! Came from ROTA texture library. (difference: 5/2a)
+! See Thuneberg-2001 f.30 and Kopu-2007 f.5
+! Some G-L extrapolation is used
+      function he3_text_llh(ttc,p, omega)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,omega
+        real*8 h2m, rc, ri
+
+        h2m = const_hbar/2D0/he3_amass
+        rc = he3_xigl(ttc,p)
+        ri = dsqrt(h2m/omega)
+        he3_text_llh = h2m * omega * (dlog(ri/rc)-0.75D0)
+     .    * he3_text_lhv(ttc,p)
+      end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

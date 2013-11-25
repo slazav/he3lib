@@ -151,6 +151,7 @@
       real*8 he3_text_delta ! textural parameter delta
 
       real*8 he3_text_d     ! textural parameter d, erg/(cm^2 G^2)
+      real*8 he3_text_llh   ! textural parameter lambda_{LH}
 
       real*8 he3_text_vd   ! Dipole velocity, cm/s
       real*8 he3_text_xid  ! Dipole length ksi_d, cm

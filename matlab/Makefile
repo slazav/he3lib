@@ -4,4 +4,5 @@ clean:
 
 
 octave:
+	rm -f *.mex
 	octave -q --eval compile
