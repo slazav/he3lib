@@ -28,7 +28,7 @@
         real*8 chi
         chi = he3_chi_b(ttc, p) * he3_chi_n(p)
         he3_nu_b1 = he3_gyro * dsqrt(15D0 * he3_ld(ttc, p) / chi)
-     .   / 2D0 / const_pi ! rad/s->Hz
+     .   / const_2pi ! rad/s->Hz
       end
 
 ! B-phase Leggett freq, Hz

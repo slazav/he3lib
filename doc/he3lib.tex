@@ -66,6 +66,7 @@ Use ``{\tt addpath /rota/programs/src/he3lib/matlab}'' in Matlab.
 \tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[sgs]\\
 \tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[sgs]\\
 \tt const\_pi      & $\pi = 3.1415926535897932$\\
+\tt const\_2pi     & $2\pi$\\
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
 \tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
 \tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\\
@@ -298,7 +299,7 @@ Surface terms:
 \begin{eqnarray*}
 F_{SH} &=& -d
   \int_S [{\bf H} \cdot R \cdot {\bf s} ]^2\ d^2r\\
-F_{SG} &=& -d
+F_{SG} &=& -\lambda_{SG}
   \int_S s_j R_{\alpha j}
     \frac{\partial R_{\alpha i}}{\partial r_i}\ d^2r\\
 \end{eqnarray*}

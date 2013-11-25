@@ -7,7 +7,7 @@
       real*8 he3_gyro, he3_amass, he3_mmass
       real*8 const_na, const_kb, const_r
       real*8 const_h, const_hbar
-      real*8 const_pi, NaN
+      real*8 const_pi, const_2pi, NaN
       real*8 he3_pcr, he3_tcr, he3_pabn, he3_tabn
       real*8 he3_pm, he3_tm, he3_pa, he3_ta
       real*8 he3_pb, he3_tb, he3_ps, he3_ts
@@ -23,6 +23,7 @@
         common /const_h/    const_h
         common /const_hbar/ const_hbar
         common /const_pi/   const_pi
+        common /const_2pi/  const_2pi
         common /he3_pcr/    he3_pcr
         common /he3_tcr/    he3_tcr
         common /he3_pabn/   he3_pabn

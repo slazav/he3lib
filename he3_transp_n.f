@@ -174,7 +174,7 @@
         f0a  = he3_f0a(p)
         vf   = he3_vf(p)
         tau  = he3_tau_nd(ttc,p)
-        oe  = -f0a/(1D0+f0a) * nu0*2D0*const_pi
+        oe  = -f0a/(1D0+f0a) * nu0*const_2pi
         he3_diffn_perp = vf**2 / 3D0 * (1D0+f0a)
      .    * tau /(1D0 + (tau * oe)**2)
       end

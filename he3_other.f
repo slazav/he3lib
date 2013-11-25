@@ -18,11 +18,11 @@
         real*8 kappa,help,rv,rc
         kappa=6.65D-4
         rc=he3_xigl(ttc,p)
-        rv=dsqrt(kappa/(2D0*const_pi*omega))
+        rv=dsqrt(kappa/(const_2pi*omega))
         help=1D0-dsqrt(kappa*LOG(rv/rc)
      .                / (4D0*const_pi*omega*r*r))
 !      help=1.0_dp
-        he3_vneq = 2D0*const_pi*omega*r**2/kappa*help**2
+        he3_vneq = const_2pi*omega*r**2/kappa*help**2
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -79,7 +79,7 @@
         real*8 TTC, P
         P=20D0
         He3_tau_f = 1D0 /
-     .    (4D0*const_pi**2 *He3_nu_b(P,TTC) * He3_tau_r(TTC))
+     .    (const_2pi**2 *He3_nu_b(P,TTC) * He3_tau_r(TTC))
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

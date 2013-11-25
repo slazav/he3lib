@@ -17,7 +17,7 @@
         end if
         m = 30
         dy = 1.0D0
-        ynew = 1.7638D0*DSQRT(1D0-ttc)/(2D0*const_pi)
+        ynew = 1.7638D0*DSQRT(1D0-ttc)/const_2pi
         do while (DABS(dy) > 1.0D-8)
           y = ynew
           root = DSQRT((dble(m)*ttc)**2+y**2)
@@ -33,7 +33,7 @@
           dy = g/dg
           ynew = ynew-dy
         end do
-        he3_bcsgap = 2D0*const_pi*ynew
+        he3_bcsgap = const_2pi*ynew
       end
 
 ! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
@@ -187,7 +187,7 @@
         endif
 
         tm=ttc*float(nsplit)
-        x=gap/(2*const_pi)
+        x=gap/const_2pi
         xs=x**2
         sq=sqrt(tm**2+xs)
         he3_z3 = 1./(sq*(tm+sq)) - tm*ttc**2/( 8.*sq**5)
@@ -195,7 +195,7 @@
           sq=sqrt((ttc*(float(i)-0.5))**2+xs)
           he3_z3 = he3_z3 + ttc/sq**3
         enddo
-        he3_z3 = he3_z3 / (2*const_pi)**2 * gap*gap
+        he3_z3 = he3_z3 / const_2pi**2 * gap*gap
       end
 
       function he3_z5(ttc,gap)
@@ -212,7 +212,7 @@
         endif
 
         tm=ttc*float(nsplit)
-        x=gap/(2*const_pi)
+        x=gap/const_2pi
         xs=x**2
         sq=sqrt(tm**2+xs)
         he3_z5 = (tm+2.*sq)/(3.*sq**3*(tm+sq)**2)
@@ -221,7 +221,7 @@
           sq=sqrt((ttc*(float(i)-0.5))**2+xs)
           he3_z5 = he3_z5 + ttc/sq**5
         enddo
-        he3_z5 = he3_z5 * xs/(2*const_pi)**2 * gap*gap
+        he3_z5 = he3_z5 * xs/const_2pi**2 * gap*gap
       end
 
       function he3_z7(ttc,gap)
@@ -238,7 +238,7 @@
         endif
 
         tm=ttc*float(nsplit)
-        x=gap/(2*const_pi)
+        x=gap/const_2pi
         xs=x**2
         sq=sqrt(tm**2+xs)
         he3_z7 = (11.*tm**2+9.*tm*sq+8.*xs)/(15.*sq**5*(tm+sq)**3)
@@ -247,7 +247,7 @@
           sq=sqrt((ttc*(float(i)-0.5))**2+xs)
           he3_z7 = he3_z7 + ttc/sq**7
         enddo
-        he3_z7 = he3_z7 * xs**2/(2*const_pi)**2 * gap*gap
+        he3_z7 = he3_z7 * xs**2/const_2pi**2 * gap*gap
       end
 
       function he3_lambda(ttc,gap)
@@ -264,7 +264,7 @@
         endif
 
         tm=ttc*float(nsplit)
-        x=gap/(2*const_pi)
+        x=gap/const_2pi
         xs=x**2
         sq=sqrt(tm**2+xs)
         he3_lambda = 1 - tm/(x+sq) -

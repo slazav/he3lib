@@ -8,6 +8,7 @@ extern double const_r_;
 extern double const_h_;
 extern double const_hbar_;
 extern double const_pi_;
+extern double const_2pi_;
 extern double he3_pcr_;
 extern double he3_tcr_;
 extern double he3_pabn_;

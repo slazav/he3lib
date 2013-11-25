@@ -21,13 +21,13 @@
         J0 = 3D0/4D0 / const_pi**0.5D0
      .       * (1D0+2D0*x)**1.5D0
      .       / (dexp(x) + a0 + a1*x + a2*x**2 + a3*x**3)
-        J1 = x**2 / (2D0*const_pi)**0.5D0
+        J1 = x**2 / const_2pi**0.5D0
      .       * (0.5D0 + x)**1.5D0
      .       / (1.3D0 + x**2) * dexp(-x)
-        J2 = x**2 / (2D0*const_pi)**0.5D0
+        J2 = x**2 / const_2pi**0.5D0
      .       / (0.5D0 + x)**0.5D0
      .       / (dexp(x)+2.3D0)
-        J3 = 3D0*x**4 / (2D0*const_pi)**0.5D0
+        J3 = 3D0*x**4 / const_2pi**0.5D0
      .       / (0.5D0 + x)**0.5D0
      .       / (0.2D0 + x**2)
      .       / (dexp(x)+1D0+0.1D0*x**2)
@@ -35,18 +35,18 @@
 !             Possible error. I(0,E) should be same as he3_coll_int_ht
         b1 = -3.2148D0
         b2 =  2.375D0
-        K0 = 9D0/8D0/(2D0*const_pi)**0.5D0
+        K0 = 9D0/8D0/const_2pi**0.5D0
      .       / (1D0 + x)**0.5D0 !!! Was: (0.5D0 + x)**0.5D0
      .       / (dexp(x) + b0 + b1*x + b2*x**2)
 !           Typo in the paper. This can be checked using Einzel-1978 f.80 high-temp
 !           limit, I = 1 + (gap/ttc)^(A + B (Ep/T)^2) and calculating A and B. - slazav
-        K1 = - 5D0/8D0/(2D0*const_pi)**0.5D0
+        K1 = - 5D0/8D0/const_2pi**0.5D0
      .       * x**2 / (1D0+x)**0.5D0
      .       * dexp(-x) / (const_pi**2 + x**2)
-        K2 = 3D0/8D0/(2D0*const_pi)**0.5D0
+        K2 = 3D0/8D0/const_2pi**0.5D0
      .       * x**2 / (1D0+x)**0.5D0
      .       * dexp(-x) / (127D0/150D0 * const_pi**2 + x**2)
-        K3 = - 15D0/8D0/(2D0*const_pi)**0.5D0
+        K3 = - 15D0/8D0/const_2pi**0.5D0
      .       * x**4 / (1D0+x)**0.5D0  !!! Was: x**4 / (1D0+x**2)**0.5D0
      .       * dexp(-x) / (const_pi**2 + x**2)**2
 !           Possible typo in the paper: Ki sould be ~exp(x)/x at low temp. - slazav
@@ -119,7 +119,7 @@
           return
         endif
         gap = he3_trivgap(ttc, p)
-        he3_tau0lt = he3_tau_n0(ttc, p) * dsqrt(2D0*const_pi) / 3D0
+        he3_tau0lt = he3_tau_n0(ttc, p) * dsqrt(const_2pi) / 3D0
      .    * (ttc/gap)**1.5D0 * dexp(gap/ttc) / he3_scatt_w0(p)
       end
 
@@ -390,7 +390,7 @@
         f0a = he3_f0a(p)
         Y0  = he3_yosida(ttc, gap, 0D0);
         chi0    = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
-        o0      = nu0*2D0*const_pi
+        o0      = nu0*const_2pi
         lambda  = -f0a*chi0  ! Einzel-1991 p.349
         td      = he3_tau_dperp(ttc, p)
         itype   = nint(type)
