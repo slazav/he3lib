@@ -54,3 +54,6 @@ clean:
 	rm -f *.a *.so *.o libs/*.o legg_eq/*.o he3.f90h
 	make -C matlab clean
 	make -C doc clean
+
+test1: test.f libhe3.a
+	$(FC) -g -fno-range-check $+ -o $@ ../external/libint.a 

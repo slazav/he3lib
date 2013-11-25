@@ -50,7 +50,6 @@
       complex*16 math_cint   ! integrate complex*16 function
       real*8     math_dint2d ! integrate real*8 function
       complex*16 math_cint2d ! integrate complex*16 function
-      real*8     math_dint2d_ad ! integrate real*8 function
 
 ! Phase diagram functions (see he3_phase.f)
       real*8 He3_Pvap       ! Vapor pressure [bar] vs T [K]

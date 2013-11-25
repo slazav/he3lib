@@ -37,33 +37,43 @@ function plot_sdiff_int()
     elseif type==4
       int = td .* kp .* kz.^2 ...
         .* (Sm2 + u.^2 .* (o1.*td).^2) ./ (1 + Sp2.*(o1.*td).^2);
+    elseif type==5
+      A=1 + kz.^2.*s.^2;
+      B=(1-kz.^2).*s.^2;
+      int = t .* 0.5.*kp .* kp.^2 ...
+        .* ((1 - kp.^2/2 .* (1-u.^2)) - i*(u.^2 + (1-u.^2) .* kz.^2).*s) ...
+        ./A .* (1 - B./A.*u.^2);
+
+%        .* ((1 - kp.^2/2 .* (1-u.^2)) - i*(u.^2 + (1-u.^2) .* kz.^2).*s) ...
+%        ./ (1 + (u.^2 + (1-u.^2) .* kz.^2).*s.^2);
     end
     int = int .* phi .* C./(1-x.^2);
   end
 
 
   p=0;
-  x=0.01:0.01:0.99;
-
-  for ttc=[0.11]
-    gap=he3_trivgap(ttc, p)
-
-    type = 1;
-    o0 = 600e1/2/pi;
+  x=0.1:0.001:0.3;
+  o0 = 600e1/2/pi;
     lambda=0.01;
-%    I = int1(x,89, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);
-%    plot(x, real(I)/real(I(1)), 'r')
-%    if type<3; plot(x, imag(I)/imag(I(1)), 'm'); end
+  ttcs=[0.13 0.12];
 
-%    I = int1(x,45, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);
-%    plot(x, real(I)/real(I(1)), 'g')
-%    if type<3; plot(x, imag(I)/imag(I(1)), 'y'); end
 
-    I = int1(x,0.1, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);
-%    plot(x, real(I)/real(max(I)), 'b')
-%    if type<3; plot(x, imag(I)/imag(max(I)), 'c'); end
-
+  type = 1;
+  th=0.1;
+  for ttc=ttcs
+    gap=he3_trivgap(ttc, p);
+    I = int1(x, th, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);
     plot(x, real(I), 'b')
+    plot(x, imag(I), 'r')
+  end
+
+
+  type = 5;
+  for ttc=ttcs
+    gap=he3_trivgap(ttc, p);
+    I = int1(x, th, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);
+    plot(x, real(I), 'c')
+    plot(x, imag(I), 'm')
 
   end
 

@@ -86,8 +86,8 @@
 
 ! 2D adaptive intergation of real*8 function
 ! from xmin to xmax using imax points Gaussian quadrature
-      function math_dint2d_ad(func,
-     .         xmin, xmax, nx, ymin, ymax, ny)
+      subroutine math_dint2d_ad(myself, func,
+     .         xmin, xmax, ymin, ymax, aerr_lim, rerr_lim, res)
         implicit none
         include 'he3.fh'
 
@@ -115,34 +115,55 @@
      .                  0.022935322010529D0])
 
         real*8 func
-        real*8 xmin, xmax, ymin, ymax
+        real*8 xmin, xmax, ymin, ymax, res
         real*8 dx,dy, x0,y0, f, intk, intg
-        integer ix, iy, ixq, iyq, nx, ny
-        dx=(xmax-xmin)/dble(nx)
-        dy=(ymax-ymin)/dble(ny)
-        math_dint2d_ad = 0D0
+        real*8 aerr,rerr, aerr_lim, rerr_lim
+        integer ixq, iyq
+        external func
+
         intk=0
         intg=0
-        do ix=1,nx
-          do iy=1,ny
-            x0 = xmin + dx*(dble(ix)+0.5D0)
-            y0 = ymin + dy*(dble(iy)+0.5D0)
-            do ixq=1,15
-              do iyq=1,15
-                f=func(x0 + 0.5D0*dx*crd(ixq),
-     .                 y0 + 0.5D0*dy*crd(iyq))
-                intk=intk + wk(ixq)*wk(iyq)*f
-                if (mod(ixq,2).eq.0.and.mod(iyq,2).eq.0) then
-                  intg=intg + wg(ixq/2)*wg(iyq/2)*f
-                endif
-              enddo
-            enddo
+        x0 = (xmin + xmax)/2D0
+        y0 = (ymin + ymax)/2D0
+        dx=(xmax-xmin)/2D0
+        dy=(ymax-ymin)/2D0
+        do ixq=1,15
+          do iyq=1,15
+            f=func(x0 + dx*crd(ixq),
+     .             y0 + dy*crd(iyq))
+            intk=intk + wk(ixq)*wk(iyq)*f
+            if (mod(ixq,2).eq.0.and.mod(iyq,2).eq.0) then
+              intg=intg + wg(ixq/2)*wg(iyq/2)*f
+            endif
           enddo
         enddo
-        intk=intk*dx*dy/4D0
-        intg=intg*dx*dy/4D0
-        math_dint2d_ad = intk
-        write (*,*) intk, intg, (200D0*dabs(intk-intg))**1.5
+        intk=intk*dx*dy
+        intg=intg*dx*dy
+        aerr=(200D0*dabs(intk-intg))**1.5
+        rerr=aerr/intk
+        if (aerr.le.aerr_lim) then
+          res = res + intk
+!        write(*,*) xmax-xmin, ymax-ymin, xmin, ymin, intk, rerr
+          return
+        endif
+        if (rerr.le.rerr_lim) then
+          res = res + intk
+!        write(*,*) xmax-xmin, ymax-ymin, xmin, ymin, intk, rerr
+          return
+        endif
+        call myself(myself, func,
+     .       xmin, x0, ymin, y0,
+     .       aerr_lim, rerr_lim, res)
+        call myself(myself, func,
+     .       x0, xmax, ymin, y0,
+     .       aerr_lim, rerr_lim, res)
+        call myself(myself, func,
+     .       xmin, x0, y0, ymax,
+     .       aerr_lim, rerr_lim, res)
+        call myself(myself, func,
+     .       x0, xmax, y0, ymax,
+     .       aerr_lim, rerr_lim, res)
+        return
       end
 
 

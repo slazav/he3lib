@@ -373,7 +373,7 @@
         real*8 ttc, p, nu0, type
         real*8 Vf, chi0, Y0, f0a
         real*8 he3_diff_int
-        external he3_diff_int
+        external he3_diff_int, math_dint2d_ad
 
         real*8 ttc1,gap,o0, lambda, td
         integer itype
@@ -395,9 +395,15 @@
         td      = he3_tau_dperp(ttc, p)
         itype   = nint(type)
 
-        he3_diff_all = math_dint2d(he3_diff_int,
-     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
-     .    * Vf**2 / chi0
+!        he3_diff_all = math_dint2d(he3_diff_int,
+!     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
+!     .    * Vf**2 / chi0
+
+        he3_diff_all=0D0
+        call math_dint2d_ad(math_dint2d_ad, he3_diff_int,
+     .    0D0, 1D0, 0D0, const_pi/2D0, 0D0, 1D-5, he3_diff_all)
+        he3_diff_all = he3_diff_all * Vf**2 / chi0
+       write(*,*) 'int>', he3_diff_all
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
