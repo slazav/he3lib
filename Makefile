@@ -41,8 +41,8 @@ LEGG_EQ_OBJS=he3b_legg_rot1d
 OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
   $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))\
-  ../external/poly/*.o\
-  ../external/int/*.o
+  external/poly/*.o\
+  external/int/*.o
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+

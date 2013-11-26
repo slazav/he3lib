@@ -1,0 +1,16 @@
+all:	main
+
+GOBJS =	btnlib.o chklib.o basics.o d1mach.o
+
+G1 =	main.o $(GOBJS)
+
+.SUFFIXES: .f .o
+
+main.o: main.f
+	fortran -c main.f
+
+.f.o:
+	fortran -c $<
+
+main:	$(G1)
+	fortran $(G1) -o main
