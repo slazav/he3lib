@@ -13,7 +13,7 @@ FFLAGS= -Werror -Wconversion\
   -Wno-unused-parameter -fPIC -fno-range-check
 
 LIBNAME=libhe3
-all: $(LIBNAME).a $(LIBNAME).so he3.f90h
+all: external $(LIBNAME).a $(LIBNAME).so he3.f90h
 
 FC=gfortran
 
