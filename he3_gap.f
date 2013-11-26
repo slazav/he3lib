@@ -186,13 +186,13 @@
           return
         endif
 
-        tm=ttc*float(nsplit)
+        tm=ttc*dfloat(nsplit)
         x=gap/const_2pi
         xs=x**2
-        sq=sqrt(tm**2+xs)
-        he3_z3 = 1./(sq*(tm+sq)) - tm*ttc**2/( 8.*sq**5)
+        sq=dsqrt(tm**2+xs)
+        he3_z3 = 1D0/(sq*(tm+sq)) - tm*ttc**2/( 8D0*sq**5)
         do i=1,nsplit
-          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          sq=dsqrt((ttc*(dfloat(i)-0.5D0))**2+xs)
           he3_z3 = he3_z3 + ttc/sq**3
         enddo
         he3_z3 = he3_z3 / const_2pi**2 * gap*gap
@@ -211,14 +211,14 @@
           return
         endif
 
-        tm=ttc*float(nsplit)
+        tm=ttc*dfloat(nsplit)
         x=gap/const_2pi
         xs=x**2
-        sq=sqrt(tm**2+xs)
-        he3_z5 = (tm+2.*sq)/(3.*sq**3*(tm+sq)**2)
-     .    - 5.*tm*ttc**2/(24.*sq**7)
+        sq=dsqrt(tm**2+xs)
+        he3_z5 = (tm+2D0*sq)/(3D0*sq**3*(tm+sq)**2)
+     .    - 5D0*tm*ttc**2/(24D0*sq**7)
         do i=1,nsplit
-          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          sq=dsqrt((ttc*(dfloat(i)-0.5D0))**2+xs)
           he3_z5 = he3_z5 + ttc/sq**5
         enddo
         he3_z5 = he3_z5 * xs/const_2pi**2 * gap*gap
@@ -237,14 +237,15 @@
           return
         endif
 
-        tm=ttc*float(nsplit)
+        tm=ttc*dfloat(nsplit)
         x=gap/const_2pi
         xs=x**2
-        sq=sqrt(tm**2+xs)
-        he3_z7 = (11.*tm**2+9.*tm*sq+8.*xs)/(15.*sq**5*(tm+sq)**3)
-     .    - 7.*tm*ttc**2/(24.*sq**9)
+        sq=dsqrt(tm**2+xs)
+        he3_z7 = (11D0*tm**2+9D0*tm*sq+8D0*xs)
+     .            / (15D0*sq**5*(tm+sq)**3)
+     .           - 7D0*tm*ttc**2/(24D0*sq**9)
         do i=1,nsplit
-          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          sq=dsqrt((ttc*(dfloat(i)-0.5D0))**2+xs)
           he3_z7 = he3_z7 + ttc/sq**7
         enddo
         he3_z7 = he3_z7 * xs**2/const_2pi**2 * gap*gap
@@ -263,14 +264,14 @@
           return
         endif
 
-        tm=ttc*float(nsplit)
+        tm=ttc*dfloat(nsplit)
         x=gap/const_2pi
         xs=x**2
-        sq=sqrt(tm**2+xs)
-        he3_lambda = 1 - tm/(x+sq) -
-     .     tm*ttc**2*x*(x+2*sq)/(24*sq**3*(x+sq)**2)
+        sq=dsqrt(tm**2+xs)
+        he3_lambda = 1D0 - tm/(x+sq) -
+     .     tm*ttc**2*x*(x+2D0*sq)/(24D0*sq**3*(x+sq)**2)
         do i=1,nsplit
-          sq=sqrt((ttc*(float(i)-0.5))**2+xs)
+          sq=dsqrt((ttc*(dfloat(i)-0.5D0))**2+xs)
           he3_lambda = he3_lambda + ttc*x/(sq*(sq+x))
         enddo
       end

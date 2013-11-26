@@ -14,12 +14,21 @@ figure; clf; hold on;
   plot(ttc, gg30, 'k-', 'linewidth', 2)
 
   plot(ttc, he3_yosida(ttc,gg00,0), 'r')
-  plot(ttc, he3_yosida(ttc,gg00,2), 'g')
+  plot(ttc, he3_yosida(ttc,gg00,2), 'color', [0 0.6 0] )
   plot(ttc, he3_yosida(ttc,gg00,4), 'b')
 
   plot(ttc, he3_yosida(ttc,gg30,0), 'r', 'linewidth', 2)
-  plot(ttc, he3_yosida(ttc,gg30,2), 'g', 'linewidth', 2)
+  plot(ttc, he3_yosida(ttc,gg30,2), 'color', [0 0.6 0], 'linewidth', 2)
   plot(ttc, he3_yosida(ttc,gg30,4), 'b', 'linewidth', 2)
+
+  plot(ttc, he3_z3(ttc,gg00), 'm', 'linewidth', 1)
+  plot(ttc, he3_z5(ttc,gg00), 'color', [0.6 0.6 0], 'linewidth', 1)
+  plot(ttc, he3_z7(ttc,gg00), 'color', [0 0.6 0.6], 'linewidth', 1)
+
+  plot(ttc, he3_z3(ttc,gg30), 'm', 'linewidth', 2)
+  plot(ttc, he3_z5(ttc,gg30), 'color', [0.6 0.6 0], 'linewidth', 2)
+  plot(ttc, he3_z7(ttc,gg30), 'color', [0 0.6 0.6], 'linewidth', 2)
+
 
   plot(ttc, he3_chi_b(ttc,0), 'k');
   plot(ttc, he3_chi_b(ttc,30), 'k', 'linewidth', 2);
@@ -30,14 +39,19 @@ figure; clf; hold on;
   legend('BCS gap', 'P=0', 'P=30', 'location', 'northeast')
 
   text(0.8, 1.5, '\Delta', 'fontsize', 8, 'color', 'k');
-  text(0.51, 0.28, 'Y_0', 'fontsize', 8, 'color', 'r');
-  text(0.68, 0.20, 'Y_2', 'fontsize', 8, 'color', 'g');
+  text(0.70, 0.35, 'Y_0', 'fontsize', 8, 'color', 'r');
+  text(0.75, 0.25, 'Y_2', 'fontsize', 8, 'color', [0 0.6 0]);
   text(0.87, 0.12, 'Y_4', 'fontsize', 8, 'color', 'b');
-  text(0.55, 0.84, '\rho^n_B/\rho_N', 'fontsize', 8, 'color', 'b');
-  text(0.23, 0.45, '\chi_B/\chi_N'   , 'fontsize', 8, 'color', 'k');
+  text(0.70, 0.92, '\rho^n_B/\rho', 'fontsize', 8, 'color', 'b');
+  text(0.10, 0.42, '\chi_B/\chi_N'   , 'fontsize', 8, 'color', 'k');
+
+  text(0.10, 1.05, 'Z_3'   , 'fontsize', 8, 'color', 'm');
+  text(0.10, 0.72, 'Z_5'   , 'fontsize', 8, 'color', [0.6 0.6 0]);
+  text(0.10, 0.58, 'Z_7'   , 'fontsize', 8, 'color', [0 0.6 0.6]);
+
   xlim([0 1]);
   ylim([0 2]);
   set(gca,'yTick', 0:0.2:2);
   grid on;
-  print gap1.eps -deps "-S640,480" -color
+  print gap1.eps -deps "-S740,580" -color
 

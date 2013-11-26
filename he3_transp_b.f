@@ -340,7 +340,7 @@
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
 
-        res=(0,0)
+        res=(0D0,0D0)
         if (itype.eq.1.or.itype.eq.10) then ! D_perp_xx
           res = t * dcmplx(0.5D0*kp * kp**2, 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
@@ -395,15 +395,15 @@
         td      = he3_tau_dperp(ttc, p)
         itype   = nint(type)
 
-!        he3_diff_all = math_dint2d(he3_diff_int,
-!     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
-!     .    * Vf**2 / chi0
+        he3_diff_all = math_dint2d(he3_diff_int,
+     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
+     .    * Vf**2 / chi0
 
-        he3_diff_all=0D0
-        call math_dint2d_ad(math_dint2d_ad, he3_diff_int,
-     .    0D0, 1D0, 0D0, const_pi/2D0, 0D0, 1D-5, he3_diff_all)
-        he3_diff_all = he3_diff_all * Vf**2 / chi0
-       write(*,*) 'int>', he3_diff_all
+!        he3_diff_all=0D0
+!        call math_dint2d_ad(math_dint2d_ad, he3_diff_int,
+!     .    0D0, 1D0, 0D0, const_pi/2D0, 0D0, 1D-5, he3_diff_all)
+!        he3_diff_all = he3_diff_all * Vf**2 / chi0
+!       write(*,*) 'int>', he3_diff_all
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

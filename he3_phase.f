@@ -17,7 +17,7 @@
      .     + 0.198608D0 * T**2
      .     - 0.0502237D0 * T**3
      .     + 0.00505486D0 * T**4
-     .     + 2.24846 * dlog(T)
+     .     + 2.24846D0 * dlog(T)
           He3_Pvap = dexp(He3_Pvap) * 1.333224D-3 ! torr -> bar
         else
           He3_Pvap = NaN

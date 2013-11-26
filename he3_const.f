@@ -5,7 +5,7 @@
         data
      .    he3_gyro   /20378.0D0/,    ! g-factor
      .    he3_amass  /5.0079D-24/,   ! He3 atom mass, g
-     .    he3_mmass  /3.016D0/,      ! He3 molar mass, g/mol
+     .    he3_mmass  /3.0158281D0/,  ! He3 molar mass, g/mol
 
      .    const_na   /6.02214129D+23/,  ! Avogadro constant, 1/mole
      .    const_kb   /1.3806488D-16/,   ! SGS

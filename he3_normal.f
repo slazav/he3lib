@@ -62,7 +62,7 @@
         d(2) =  6.0525139D-1
         d(3) = -7.1295855D-3
 
-        if (t.lt.0.1) then
+        if (t.lt.0.1D0) then
           s1=0D0
           do i=1,5
             do j=0,3
@@ -73,7 +73,7 @@
           return
         endif
 
-        if (t.ge.0.1.and.t.lt.2.5) then
+        if (t.ge.0.1D0.and.t.lt.2.5D0) then
           s1=0D0
           do i=0,3
             do j=0,2

@@ -48,12 +48,13 @@ matrices of the same size. Example:
 
 \subsection*{Location}
 \begin{itemize}
-\item[\bf GIT]  https://github.com/slazav/he3lib
-\item[\bf ROTA]
+\item[GIT]  https://github.com/slazav/he3lib
+\item[ROTA]
 /home/slazav/he3lib/lib\\
 /rota/programs/src/he3lib -- old, ``stable'' version.\\
 Use ``{\tt addpath /rota/programs/src/he3lib/matlab}'' in Matlab.
 \end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{General}
@@ -61,14 +62,14 @@ Use ``{\tt addpath /rota/programs/src/he3lib/matlab}'' in Matlab.
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 \tt const\_na      & Avogadro constant $N_A = 6.02214129 \cdot 10^{23}$~[1/mol]\\
-\tt const\_kb      & Boltsman constant $k_B = 1.3806488 \cdot 10^{-16}$~[sgs]\\
+\tt const\_kb      & Boltsman constant $k_B = 1.3806488 \cdot 10^{-16}$~[erg/K]\\
 \tt const\_r       & R-gas constant $R = 8.314472 \cdot 10^{7}$~[sgs]\\
 \tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[sgs]\\
 \tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[sgs]\\
 \tt const\_pi      & $\pi = 3.1415926535897932$\\
 \tt const\_2pi     & $2\pi$\\
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
-\tt he3\_mmass     & $^3$He molar mass, $\mu = 3.016$~[g/mol]\\
+\tt he3\_mmass     & $^3$He molar mass, $\mu = N_A m_3 = 3.0158$~[g/mol]\\
 \tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\\
 \end{tabular}
 \medskip
@@ -230,7 +231,7 @@ source file {\tt he3\_gap.f}.
 \medskip
 
 \begin{figure}[h]
-\includegraphics[scale=1.2]{gap1.eps}\\
+\includegraphics[scale=1.1]{gap1.eps}\\
 \end{figure}
 \eject
 
@@ -276,7 +277,7 @@ $$
 
 Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
 High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
-See more information in the source file {\tt he3\_dipole.f}.
+See more information in the source file {\tt he3\_text.f}.
 
 Bulk terms:
 \begin{eqnarray*}
@@ -304,6 +305,14 @@ F_{SG} &=& -\lambda_{SG}
     \frac{\partial R_{\alpha i}}{\partial r_i}\ d^2r\\
 \end{eqnarray*}
 
+Vortex term:
+\begin{eqnarray*}
+F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
+  \int_L |\omega_s| [{\bf H} \cdot R \cdot {\bf l} ]^2\ d^3r\\
+\end{eqnarray*}
+
+\hrule
+
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 
@@ -324,18 +333,19 @@ F_{SG} &=& -\lambda_{SG}
 \left( Z_3 - \frac{9}{10} Z_5 + \frac{9}{10}\ \frac{Z_5^2}{Z_3} -
   \frac32 Z_7 \right) $\\[5mm]
 
-\tt he3\_text\_g2(ttc, p) & $\lambda_{G2} = \displaystyle
+\tt he3\_text\_lg2(ttc, p) & $\lambda_{G2} = \displaystyle
 \frac{\hbar^2 \rho}{40 m^* m}
 \frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[5mm]
 
 \tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
-\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\
+\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[5mm]
+
+\tt he3\_text\_llh(ttc, p, omega) & $\lambda_{LH} = \displaystyle
+ \frac{\hbar}{2m}\Omega \lambda_{HV}
+ \left(\ln\frac{R}{r} - \frac34\right)$, [erg/(cm$^3$ G$^2$ s)] -- counterflow part only!\\[5mm]
 
 \tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)]\\
 
-\tt he3\_text\_llh(ttc, p, omega) & $\lambda_LH =
- \frac{\hbar}{2m}\Omega \lambda_{HV}
- \left(\ln(R/r) - 3/4\right)$ -- counterflow part only!\\
 \end{tabular}
 \medskip
 
@@ -351,6 +361,10 @@ F_{SG} &=& -\lambda_{SG}
 \tt he3\_text\_vd(ttc, p) & Dipolar velocity
   $v_D = \sqrt{2a/5\lambda_{HV}}$\\
 
+\tt he3\_text\_lo(ttc, p, omega) & lambda/omega
+   used in the texture library: $\displaystyle \frac{\lambda}{\Omega} =
+   \frac{5\lambda_{LH}}{2a\Omega}$, (rad/s)$^{-1}$\\
+
 \end{tabular}
 \medskip
 
@@ -360,7 +374,7 @@ F_{SG} &=& -\lambda_{SG}
 \includegraphics[scale=0.8]{text_pars.eps}\\
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[p]
 \includegraphics[scale=0.8]{text_pars2.eps}\\
 \end{figure}
 

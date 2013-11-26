@@ -1,4 +1,4 @@
-function compile(v)
+function compile()
 % Parse he3.h file and compile matlab interfaces
 % for all constants and functions.
 
@@ -19,7 +19,12 @@ function compile(v)
     s=regexp(str, ...
       ['^\s*double\s+(\w+)_\(' a1 a2 a2 a2 a2 '\)\s*;'],...
       'tokens', 'once');
-    if length(s)>1; comp(s{1}, length(s)-1); end
+
+    % for n<nmax arguments octave have less cells in the s
+    % and matlab have empty cells in the end of s
+    narg=0;
+    for i=2:length(s); if length(s{i}); narg=i-1; end; end
+    if narg>0; comp(s{1}, narg); end
 
   end
   fclose(f);

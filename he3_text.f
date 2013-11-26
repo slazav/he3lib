@@ -130,6 +130,15 @@
      .    * he3_text_lhv(ttc,p)
       end
 
+! lambda/omega value used in texture library
+      function he3_text_lo(ttc,p, omega)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,omega
+        he3_text_lo = 2.5D0
+     .   * he3_text_llh(ttc,p,omega) / he3_text_a(ttc,p) / omega
+      end
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Magnetic length, cm
