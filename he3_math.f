@@ -165,14 +165,15 @@
         real*8 xmin, xmax, ymin, ymax, aerr
         real*8 dx,dy, x0,y0, f, intk, intg
         integer ix, iy, ixq, iyq, nx, ny
+        external func
         dx=(xmax-xmin)/dble(nx)
         dy=(ymax-ymin)/dble(ny)
         intk=0D0
         intg=0D0
         do ix=1,nx
           do iy=1,ny
-            x0 = xmin + dx*(dble(ix)+0.5D0)
-            y0 = ymin + dy*(dble(iy)+0.5D0)
+            x0 = xmin + dx*(dble(ix)-0.5D0)
+            y0 = ymin + dy*(dble(iy)-0.5D0)
             do ixq=1,15
               do iyq=1,15
                 f=func(x0 + 0.5D0*dx*crd(ixq),
@@ -228,14 +229,14 @@
         intg=intg*dx*dy
         aerr=(200D0*dabs(intk-intg))**1.5D0
         rerr=aerr/intk
-        if (aerr.le.aerr_lim) then
+        if (aerr_lim.gt.0D0.and.dabs(aerr).le.aerr_lim) then
           res = res + intk
 !        write(*,*) xmax-xmin, ymax-ymin, xmin, ymin, intk, rerr
           return
         endif
-        if (rerr.le.rerr_lim) then
+        if (rerr_lim.gt.0D0.and.dabs(rerr).le.rerr_lim) then
           res = res + intk
-!        write(*,*) xmax-xmin, ymax-ymin, xmin, ymin, intk, rerr
+!        write(*,*) xmax-xmin, ymax-ymin, intk, rerr
           return
         endif
         call myself(myself, func,
