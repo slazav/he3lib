@@ -163,7 +163,7 @@
         implicit none
         real*8 ttc,gap
         include 'he3.fh'
-        he3_yosida_par = (
+        he3_yosida_perp = (
      .       4D0 * he3_yosida(ttc, gap,0D0)
      .     + 1D0 * he3_yosida(ttc, gap,2D0)
      .    )/5D0
