@@ -341,7 +341,7 @@
         s = dcmplx(o1, 0D0) * t
 
         res=(0D0,0D0)
-        if (itype.eq.1.or.itype.eq.10) then ! D_perp_xx
+        if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx
           res = t * dcmplx(0.5D0*kp * kp**2, 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
      .      * dcmplx(phi * C/(1D0-x**2), 0D0)
@@ -392,8 +392,15 @@
         chi0    = (2D0 + Y0) / (3D0 + f0a*(2D0 + Y0))
         o0      = nu0*const_2pi
         lambda  = -f0a*chi0  ! Einzel-1991 p.349
-        td      = he3_tau_dperp(ttc, p)
+        
         itype   = nint(type)
+
+        if (itype.eq.1.or.itype.eq.11.or.
+     .      itype.eq.2.or.itype.eq.12) then
+          td = he3_tau_dperp(ttc, p)
+        else
+          td = he3_tau_dpar(ttc, p)
+        endif
 
         he3_diff_all = math_dint2d(he3_diff_int,
      .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
