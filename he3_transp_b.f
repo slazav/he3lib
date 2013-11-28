@@ -313,15 +313,15 @@
 !   type   1: D_perp_zz
 !          2: D_perp_xx
 
-      function he3_diff_int(x, th)
+      function he3_diff_int(x, kz)
         implicit none
-        real*8 x,th, he3_diff_int
+        real*8 x,kz, he3_diff_int
 
         real*8 ttc, gap, o0, lambda, td
         integer itype
         common /he3_diff_int_cb/ ttc, gap, o0, lambda, td, itype
 
-        real*8 C, xi, Ek, kz, kp, phi, u, v, o1, Sp2, Sm2
+        real*8 C, xi, Ek, phi, u, v, o1, Sp2, Sm2
         complex*16 t,s,res
 
         C=3.5D0*ttc ! see plot_sdiff_int.m
@@ -331,30 +331,28 @@
         u = xi/Ek
         v = gap/Ek
 
-        kz=dsin(th)
-        kp=dcos(th)
         o1 = o0*(1D0+lambda)
 
-        Sm2 = 1D0 - kp**2/2D0 *(1D0-u**2)
+        Sm2 = 1D0 - (1-kz**2)/2D0 *(1D0-u**2)
         Sp2 = u**2 + (1D0-u**2)*kz**2
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
 
         res=(0D0,0D0)
         if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx
-          res = t * dcmplx(0.5D0*kp * kp**2, 0D0)
+          res = t * dcmplx(0.5D0 * (1-kz**2), 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
      .      * dcmplx(phi * C/(1D0-x**2), 0D0)
         elseif (itype.eq.2.or.itype.eq.12) then ! D_perp_zz
-          res = t * dcmplx(kp *kz**2, 0D0)
+          res = t * dcmplx(kz**2, 0D0)
      .      * (Sm2 - Sp2*s * (0D0,1D0)) / (1D0 + Sp2*s**2)
      .      * dcmplx(phi * C/(1D0-x**2), 0D0)
         elseif (itype.eq.3.or.itype.eq.13) then ! D_par_xx
-          res = dcmplx( td * 0.5D0*kp * kp**2
+          res = dcmplx( td * 0.5D0 * (1-kz**2)
      .      * (Sm2 + u**2 * (o1*td)**2) / (1 + Sp2*(o1*td)**2)
      .      * phi * C/(1D0-x**2), 0D0)
         elseif (itype.eq.4.or.itype.eq.14) then ! D_par_zz
-          res = dcmplx( td * kp * kz**2
+          res = dcmplx( td * kz**2
      .      * (Sm2 + u**2 * (o1*td)**2) / (1D0 + Sp2*(o1*td)**2)
      .      * phi * C/(1D0-x**2), 0D0)
         endif
@@ -403,7 +401,7 @@
         endif
 
         he3_diff_all = math_dint2d(he3_diff_int,
-     .    0D0, 1D0, 200, 0D0, const_pi/2D0, 200)
+     .    0D0, 1D0, 200, 0D0,1D0, 200)
      .    * Vf**2 / chi0
 
 !        he3_diff_all=0D0
