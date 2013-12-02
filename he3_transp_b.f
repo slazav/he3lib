@@ -364,6 +364,66 @@
         endif
       end
 
+! same, but integtated over kz
+      function he3_diff_int_i(x)
+        implicit none
+        real*8 x, he3_diff_int_i
+
+        real*8 ttc, gap, o0, lambda, td
+        integer itype
+        common /he3_diff_int_cb/ ttc, gap, o0, lambda, td, itype
+
+        real*8 C, xi, Ek, phi, uu, vv, o1
+        complex*16 i,t,s,res
+        complex*16 AA, BB, CC, DD, AC,DC,D1,T1, I1,I2
+
+        C=3.5D0*ttc ! see plot_sdiff_int.m
+        xi = datanh(x)*C
+        Ek=dsqrt(xi**2 + gap**2)
+        phi = (dcosh(Ek/(2D0*ttc)))**(-2) / 2D0 / ttc
+        uu = (xi/Ek)**2
+        vv = (gap/Ek)**2
+
+        o1 = o0*(1D0+lambda)
+
+        i = dcmplx(0D0,1D0)
+        t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
+        s = dcmplx(o1, 0D0) * t
+
+        ! if 
+        AA = (0.5D0 - i*s)*vv
+        BB = 0.5D0*(1+uu) - i*s*uu
+        CC = s**2 * vv
+        DD = 1 + s**2 * uu
+
+        AC = AA/CC
+        DC = DD/CC
+        D1 = (BB/AA-DD/CC)
+        T1 = 1D0/sqrt(DC) * tan(1/sqrt(DC))
+
+        I1 = AC + AC*D1*T1
+        I2 = AC + AC*D1*(1-DC*T1)
+
+        res=(0D0,0D0)
+        if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx
+          res = 0.5D0 * t * (I1-I2)
+     .      * dcmplx(phi * C/(1D0-x**2), 0D0)
+        elseif (itype.eq.2.or.itype.eq.12) then ! D_perp_zz
+          res = t * I2
+     .      * dcmplx(phi * C/(1D0-x**2), 0D0)
+        elseif (itype.eq.3.or.itype.eq.13) then ! D_par_xx
+          res = 0D0
+        elseif (itype.eq.4.or.itype.eq.14) then ! D_par_zz
+          res = 0D0
+        endif
+
+        if (itype.lt.10) then
+          he3_diff_int_i = dreal(res)
+        else
+          he3_diff_int_i = dimag(res)
+        endif
+      end
+
 ! Spin diffusion coefficient D_perp, cm2/s
       function he3_diff_all(ttc, p, nu0, type)
         implicit none
@@ -371,7 +431,7 @@
         real*8 ttc, p, nu0, type
         real*8 Vf, chi0, Y0, f0a
         real*8 he3_diff_int
-        external he3_diff_int, math_dint2d_ad
+        external he3_diff_int_i
 
         real*8 ttc1,gap,o0, lambda, td
         integer itype
@@ -400,8 +460,11 @@
           td = he3_tau_dpar(ttc, p)
         endif
 
-        he3_diff_all = math_dint2d(he3_diff_int,
-     .    0D0, 1D0, 200, 0D0,1D0, 200)
+!        he3_diff_all = math_dint2d(he3_diff_int,
+!     .    0D0, 1D0, 200, 0D0,1D0, 200)
+!     .    * Vf**2 / chi0
+
+        he3_diff_all = math_dint(he3_diff_int_i, 0D0, 1D0, 500)
      .    * Vf**2 / chi0
 
 !        he3_diff_all=0D0

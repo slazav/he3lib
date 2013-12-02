@@ -12,41 +12,86 @@
 \subsection*{Spin difusion}
 
 \def\tdp{\tau_D^\perp}
+\def\tdpa{\tau_D^\parallel}
 \def\ol{\omega_L}
 \def\oe{\omega_{\rm exch}}
-\def\sm{S_{kxx}^{(-)}}
-\def\sp{S_{kzz}^{(+)}}
+\def\op{\omega^\prime}
+\def\tp{{\tdp}^\prime}
+\def\t{\tdpa}
 
-Einzel, JLTP84 (1991) p.352; Bunkov et al, PRL 65
+\def\sm{{S_\perp^{(-)}}^2}
+\def\sp{{S_\parallel^{(+)}}^2}
+
+\def\kpe{{k_\perp}}
+\def\kpa{{k_\parallel}}
+
+\def\smx{{S_{xx}^{(-)}}^2}
+\def\spz{{S_{zz}^{(+)}}^2}
+
+
+Einzel, JLTP84 (1991) p.352;\\
+Bunkov et al, PRL 65 (1990), p.867\\
+Markelov, Mukharsky, PhB 178 (1992) p.202
 
 $$
-D_\perp (T, \ol) =
-  \frac{v_F^2}{3\chi}\ t
-  \ \int_{-\infty}^{\infty}
-  d\xi_k\phi_k 3
-  \ \int \frac{{\sm}^2 - is{\sp}^2}{1+s^2{\sp}^2}
-  \  k_z^2\ \frac{d\Omega_k}{4\pi}
+D^\perp_{ij}(T, \ol) =
+  \frac{v_F^2}{\chi}\ \tp
+  \  \int \frac{\smx - i(\tp\op)\spz}{1+(\tp\op)^2\sp}
+  \  k_{ij}^2\ \phi_k\ d\xi_k\frac{d\Omega_k}{4\pi}
+$$
+$$
+D^\parallel_{ij}(T, \ol) =
+  \frac{v_F^2}{\chi}\ \t
+  \  \int \frac{\smx + (\t\op)u^2 }{1+(\t\op)^2\sp}
+  \  k_{ij}^2\ \phi_k\ d\xi_k\frac{d\Omega_k}{4\pi}
 $$
 
 $$
-\sp = u - k_z^2(u-1),\quad
-\sm = k_x^2(u-1) + 1,
+\op = \ol+\oe,\quad
+\tp = \frac{\tdp}{1-i\ol\tdp}
 $$
 $$
-k_x = \cos\theta\ \cos\phi, \quad
-k_z = \sin\theta
+\spz = u^2 - k_{zz}^2(u^2-1),\quad
+\smx = k_{xx}^2(u^2-1) + 1,
 $$
 $$
 u=\frac{\xi}{\sqrt{\xi^2-\Delta^2}}, \quad
-s = t(\ol+\oe),\quad
-t = \frac{\tdp}{1-i\ol\tdp}
-$$
-
-$$
 \phi_k = \frac{1}{2T}\left(\cosh\frac{\sqrt{\xi^2-\Delta^2}}{T}\right)^{-2}
 $$
 
-Spheical integral:
+Integration over $\phi$ angle. Because of axial symmetry
+$$
+\int F(k_x^2) = \int F(k_y^2) = \int F(\kpe^2/2).
+$$
+$$
+\int F(\kpa,\kpe) \frac{d\Omega_k}{4\pi} =
+\int_0^1 F(\kpa,\kpe) d\kpa
+$$
+
+$$
+D^\perp_{ij}(T, \ol) =
+  \frac{v_F^2}{\chi}\ \tp
+  \ \int_{-\infty}^{\infty}\ \int_{0}^{1}
+  \frac{\sm - i(\tp\op)\sp}{1+(\tp\op)^2\sp}
+  \  k_{ij}^2\ \phi_k\ d\xi_k\ d\kpa
+$$
+$$
+D^\parallel_{ij}(T, \ol) =
+  \frac{v_F^2}{\chi}\ \t
+  \ \int_{-\infty}^{\infty}\ \int_{0}^{1}
+  \frac{\sm + (\t\op)u^2 }{1+(\t\op)^2\sp}
+  \  k_{ij}^2\ \phi_k\ d\xi_k\ d\kpa
+$$
+
+where
+$$
+\sp = u^2 - k_\parallel^2(u^2-1),\quad
+\sm = \frac{k_\perp^2}{2}(u^2-1) + 1,
+$$
+$$
+k_\perp = \cos\theta, \quad
+k_\parallel = \sin\theta
+$$
 
 $$
 \int F\ \frac{d\Omega_k}{4\pi} =
@@ -54,29 +99,73 @@ $$
   \ \int_0^{2\pi} F d\phi
 $$
 
-Only $\sm$ depends on $\phi$. Do integration over $\phi$:
+\eject
+Integration over $\kpa$. We need two intergals:
 
 $$
-\int_0^{2\pi} (A\cos^4\phi + B\cos^2\phi + C) d\phi =
-2\pi(\frac38 A + \frac12 B + C)
+I_1 = \int_0^1 \frac{A\kpa^2 + B}{C \kpa^2 + D}\ d\kpa = 
+\frac{A}{C} + \frac{A}{C}\left(\frac{B}{A} - \frac{D}{C}\right)
+\sqrt{\frac{C}{D}}\tan^{-1}\sqrt{\frac{C}{D}}
 $$
 
+$$
+I_2 = \int_{-1}^{1} \frac{A\kpa^2 + B}{C \kpa^2 + D}\ \kpa^2\ d\kpa =
+\frac{A}{C} + \frac{A}{C}\left(\frac{B}{A} - \frac{D}{C}\right)
+\left[ 1 - \sqrt{\frac{D}{C}}\tan^{-1}\sqrt{\frac{C}{D}} \right]
+$$
+
+Now we have:
 
 $$
-D_\perp (T, \ol) =
-  \frac{v_F^2}{2\chi}\ t
+D^\perp_{xx} =
+  \frac{v_F^2}{\chi}\ \tp
   \ \int_{-\infty}^{\infty}
-  d\xi_k\phi_k
-  \ \int_{-\pi/2}^{\pi/2}
-   \frac{3/8(u-1)^2\cos^4\theta + (u-1)\cos^2\theta + 1 - is{\sp}^2}{1+s^2{\sp}^2}
-  \  k_z^2 \cos\theta \ d\theta
+  \ \frac12 (I_1-I_2)\ \phi_k\ d\xi_k,
+\qquad
+D^\perp_{zz} =
+  \frac{v_F^2}{\chi}\ \tp
+  \ \int_{-\infty}^{\infty}
+  \ I_2\ \phi_k\ d\xi_k,
 $$
+
+$$
+A = \left(\frac12 - i(\tp\op)\right) (1-u^2), \qquad
+B = \frac12 (1+u^2) - i(\tp\op) u^2,
+$$
+$$
+C = (\tp\op)^2 (1-u^2),\qquad
+D = 1 + (\tp\op)^2 u^2.
+$$
+
+$$
+D^\parallel_{xx} =
+  \frac{v_F^2}{\chi}\ \t
+  \ \int_{-\infty}^{\infty}
+  \ \frac12 (I_1-I_2)\ \phi_k\ d\xi_k,
+\qquad
+D^\parallel_{xx} =
+  \frac{v_F^2}{\chi}\ \t
+  \ \int_{-\infty}^{\infty}
+  \ I_2\ \phi_k\ d\xi_k,
+$$
+
+$$
+A = \frac12 (1-u^2), \qquad
+B = \frac12 (1+u^2) + (\t\op) u^2,
+$$
+
+$$
+C = (\t\op)^2 (1-u^2),\qquad
+D = 1 + (\t\op)^2 u^2.
+$$
+
+\hrule\medskip
 
 $T\rightarrow T_c$ limit:
 
 $$
 u=1,\quad
-{\sp}^2 = 1
+{\sp} = 1
 $$
 
 $$
