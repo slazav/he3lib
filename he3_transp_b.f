@@ -390,19 +390,19 @@
         s = dcmplx(o1, 0D0) * t
 
         if (itype.eq.1.or.itype.eq.11.or.
-     .      itype.eq.2.or.itype.eq.12) then
+     .      itype.eq.2.or.itype.eq.12) then ! D_perp
           AA = (0.5D0 - i*s)*vv
           BB = 0.5D0*(1D0+uu) - i*s*uu
           CC = s**2 * vv
           DD = 1D0 + s**2 * uu
-        else
+        else ! D_parallel
           AA = 0.5D0*vv
           BB = 0.5D0*(1D0+uu) + (o1*td)**2 * uu
           CC = (o1*td)**2 * vv
           DD = 1D0 + (o1*td)**2 * uu
         endif
 
-        if (abs(s)<1D-3) then ! DD==1, CC==0
+        if (abs(s)<1D-3) then ! DD==1, CC==0, close to hydrodinamic
           I1 = AA/3D0+BB;
           I2 = AA/5D0+BB/3D0;
         else

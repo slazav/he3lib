@@ -8,11 +8,11 @@
 
   f=5e5;
 
-plot(ttc, he3_diff_par_zz(ttc, p, 0), 'r-');
-plot(ttc, he3_diff_hpar_zz(ttc, p),   'b--');
+plot(ttc, he3_diff_par_zz(ttc, p, 0), 'r-', 'linewidth',2);
+plot(ttc, he3_diff_hpar_zz(ttc, p),   'b-');
 
-plot(ttc, he3_diff_perp_zz(ttc, p, 0) + 0.01, 'r-');
-plot(ttc, he3_diff_hperp_zz(ttc, p) + 0.01,   'b--');
+plot(ttc, he3_diff_perp_zz(ttc, p, 0), 'm-', 'linewidth',2);
+plot(ttc, he3_diff_hperp_zz(ttc, p),   'c-');
 
   xlim([0.2 1.5])
   ylim([0 0.1])

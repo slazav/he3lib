@@ -344,7 +344,7 @@ F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
  \frac{\hbar}{2m}\Omega \lambda_{HV}
  \left(\ln\frac{R}{r} - \frac34\right)$, [erg/(cm$^3$ G$^2$ s)] -- counterflow part only!\\[5mm]
 
-\tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)]\\
+\tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)] -- GL extrapolation!\\
 
 \end{tabular}
 \medskip
@@ -398,7 +398,8 @@ Crossections and scattering factors:
 \tt he3\_scatt\_d0(P)  & Scattering factor $\delta_0 = <W_D>/<W>$ {\small(Einzel-1978, f.67)}\\
 \tt he3\_scatt\_w0(P)  & $w_0 = 1 - 3/2 \gamma_0 + \delta_0$ {\small(Einzel-1978, f.79)}\\
 \tt he3\_scatt\_l1a(P) & Scattering factor $\lambda_1^a$ used in spin diffusion
-                         transport time\newline {\small(Einzel-1978, f.74)}\\
+                         transport time. Can be neglected.
+                         \newline {\small(Einzel-1978, f.74, p.350)}.
 \end{tabular}
 \medskip
 
@@ -426,8 +427,8 @@ Crossections and scattering factors:
 \end{tabular}
 \medskip
 
-\noindent TODO: Now temperature is measured in $T_c$ units which is strange for the normal phase.
-Maybe it is better to use K of $T_F$ here.
+\noindent TODO: Temperature is measured in $T_c$ units which is strange for the normal phase.
+Maybe it is better to use K of $T_F$ units here.
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -458,7 +459,7 @@ Collision integral for Bogoliubov quasiparticles:
 Bogoliubov quasiparticles lifetime and mean free path:
 
 \medskip
-\noindent\begin{tabular}{lp{11cm}}
+\noindent\begin{tabular}{p{4cm}p{11cm}}
 \tt he3\_tau0(ttc, p)      & Lifetime at the Fermi level, s.
                            $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$\newline
                             {\small(Einzel-1991, f.74,76. Einzel-1990 f.A1)}\\
@@ -472,7 +473,7 @@ Bogoliubov quasiparticles lifetime and mean free path:
 \tt he3\_fpathv(ttc, p)    & Mean free path, cm\newline
                              {\small (Einzel JLTP32 (1978) f.84)}\\
 
-\tt he3\_tau\_dperp(ttc, p) &\\
+\tt he3\_tau\_dperp(ttc, p)\newline
 \tt he3\_tau\_dpar(ttc, p)  & Spin diff. transport time, s.
                            \ $\tau_D^{\perp,\parallel} = \bar\tau
                             /(1-\lambda_1^a Y^{\perp,\parallel})$\newline
@@ -487,7 +488,9 @@ Spin diffusion:
 \tt he3\_diff\_hperp\_zz(ttc, p)\newline
 \tt he3\_diff\_hpar\_zz(ttc, p)
 & Spin diffusion in hydrodynamic limit ($\omega_L \tau \ll 1$),
-  $D^{\perp,\parallel}_{zz}(\omega_L=0)$, cm$^2$/s\newline
+  $D^{\perp,\parallel}_{zz}(\omega_L=0)$, cm$^2$/s. According to Einzel's
+  paper (see f.105) nonhydrodynamic effects do not affect $D^\parallel$.
+  In Mukharsky paper they do.\newline
   {(\small Einzel JLTP84 (1991) f.102)}\\
 
 \tt he3\_diff\_perp\_xx(ttc, p, nu0)\newline
@@ -502,11 +505,16 @@ Markelov, Mukharsky, 1992, f.7,8)}\\
 \end{tabular}
 \medskip
 
+Problem with $D^\parallel$. According to Einzel-1991 (see f.105)
+nonhydrodynamic effects do not affect $D^\parallel$ and you should use
+he3\_diff\_hpar\_zz for any frequency.
+In Markelov-Mukharsky paper the result for $D^\parallel$ is completely
+different (it is used in he3\_diff\_par\_xx, \_zz).
+$D^\perp$ is the same in all papers.
+
+
 \noindent TODO:\\
 Exchange coupling strength is in the $F_1^a = 0$ limit. (small difference from normal phase values)\\
-{\tt he3\_diff\_par\_zz} from Markelov-Mukharsky paper does not correspond
-to Einzel's hydrodynamic approximation {\tt he3\_diff\_hpar\_zz}!\\
-{\tt he3\_diff\_par\_zz} at $T < 0.1 T_c$ probably wrong.\\
 How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 
 \begin{figure}[p]
