@@ -46,17 +46,6 @@ function plot_sdiff_int()
     elseif type==4
       int = td .* kp .* kz.^2 ...
         .* (Sm2 + u.^2 .* (o1.*td).^2) ./ (1 + Sp2.*(o1.*td).^2);
-    elseif type==5
-
-      Sm2 = 1 - (1-kz.^2)/2 .* (1-u.^2);
-      Sp2 = u.^2 + (1-u.^2) .* kz.^2;
-
-      int = t .* 0.5.*kp .* (1-kz.^2) ...
-        .* (Sm2 - i*Sp2.*sr + Sp2.*si) ./ (1 + Sp2.*s2r + i*Sp2.*s2i);
-
-      int = t .* 0.5.*kp .* (1-kz.^2) ...
-        .* (Sm2 - i*Sp2.*sr + Sp2.*si) .* (1 + Sp2.*s2r - i*Sp2.*s2i) ./ ( 1 + 2*Sp2.*s2r + Sp2.^2 * (s2r^2 + s2i^2));
-
     end
     int = int .* phi .* C./(1-x.^2);
   end
@@ -79,7 +68,7 @@ function plot_sdiff_int()
     plot(x, imag(I), 'r')
   end
 
-  type = 5;
+  type = 2;
   for ttc=ttcs
     gap=he3_trivgap(ttc, p);
     I = int1(x, th, gap, ttc, o0, lambda, he3_tau_dperp(ttc,p), type);

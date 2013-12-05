@@ -427,7 +427,7 @@ Crossections and scattering factors:
 \medskip
 
 \noindent TODO: Now temperature is measured in $T_c$ units which is strange for the normal phase.
-Maybe it is better to use K here.
+Maybe it is better to use K of $T_F$ here.
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -486,7 +486,7 @@ Spin diffusion:
 \noindent\begin{tabular}{p{6cm}p{10cm}}
 \tt he3\_diff\_hperp\_zz(ttc, p)\newline
 \tt he3\_diff\_hpar\_zz(ttc, p)
-& Spin diffusion in hydrodynamic limit ($\omega_L tau \ll 1$),
+& Spin diffusion in hydrodynamic limit ($\omega_L \tau \ll 1$),
   $D^{\perp,\parallel}_{zz}(\omega_L=0)$, cm$^2$/s\newline
   {(\small Einzel JLTP84 (1991) f.102)}\\
 
@@ -502,10 +502,12 @@ Markelov, Mukharsky, 1992, f.7,8)}\\
 \end{tabular}
 \medskip
 
-\noindent TODO: Exchange coupling strength is in the $F_1^a = 0$ limit.\\
+\noindent TODO:\\
+Exchange coupling strength is in the $F_1^a = 0$ limit. (small difference from normal phase values)\\
 {\tt he3\_diff\_par\_zz} from Markelov-Mukharsky paper does not correspond
 to Einzel's hydrodynamic approximation {\tt he3\_diff\_hpar\_zz}!\\
-How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?
+{\tt he3\_diff\_par\_zz} at $T < 0.1 T_c$ probably wrong.\\
+How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 
 \begin{figure}[p]
 \includegraphics[scale=1.1]{transp_tau.eps}\\

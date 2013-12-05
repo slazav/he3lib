@@ -376,7 +376,7 @@
         complex*16 i,t,s,res
         complex*16 AA, BB, CC, DD, AC,CD,D1,T1, I1,I2
 
-        C=3.5D0*ttc ! see plot_sdiff_int.m
+        C=3.5D0 ! see plot_sdiff_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
         phi = (dcosh(Ek/(2D0*ttc)))**(-2) / 2D0 / ttc
@@ -402,12 +402,17 @@
           DD = 1D0 + (o1*td)**2 * uu
         endif
 
-        AC = AA/CC
-        CD = CC/DD
-        D1 = BB/AA-DD/CC
-        T1 = cdsqrt(CD) * atan(cdsqrt(CD))
-        I1 = AC + AC*D1*T1
-        I2 = AC/3D0 + AC*D1*(1D0-T1/CD)
+        if (abs(s)<1D-3) then ! DD==1, CC==0
+          I1 = AA/3D0+BB;
+          I2 = AA/5D0+BB/3D0;
+        else
+          AC = AA/CC
+          CD = CC/DD
+          D1 = BB/AA-DD/CC
+          T1 = cdsqrt(CD) * atan(cdsqrt(CD))
+          I1 = AC + AC*D1*T1
+          I2 = AC/3D0 + AC*D1*(1D0-T1/CD)
+        endif
 
         res=(0D0,0D0)
         if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx

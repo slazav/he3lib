@@ -6,22 +6,18 @@
   ttc = [0.2:0.01:0.95 0.951:0.001:1 1.01:0.01 1.5];
   p=30;
 
+  plot(ttc, he3_diff_hperp_zz(ttc, p), 'g-', 'linewidth', 1);
+%  plot(ttc, he3_diff_hpar_zz(ttc, p), 'g-', 'linewidth', 2);
+
   for f=[0 1e6]
-    plot(ttc, he3_diff_perp_zz(ttc, p, f), 'r-');
-    plot(ttc, he3_diff_perp_xx(ttc, p, f), 'b-');
+    plot(ttc, he3_diff_perp_zz(ttc, p, f), 'r-', 'linewidth', 2);
+    plot(ttc, he3_diff_perp_xx(ttc, p, f), 'b-', 'linewidth', 2);
     plot(ttc, he3_diff_perp_zz_im(ttc, p, f), 'r-');
     plot(ttc, he3_diff_perp_xx_im(ttc, p, f), 'b-');
-%    plot(ttc, he3_diff_par_zz(ttc, p, f), 'g-');
+%    plot(ttc, he3_diff_par_zz(ttc, p, f), 'g-', 'linewidth', 2);
 %    plot(ttc, he3_diff_par_xx(ttc, p, f), 'm-');
   end
 
-
-%  plot(ttc, he3_sdiff_hperp_zz(ttc, p), 'r-', 'linewidth', 2);
-%  plot(ttc, he3_sdiff_perp_zz(ttc, p, f), 'b-', 'linewidth', 2);
-%  plot(ttc, he3_sdiff_perp_zz(ttc, p, 0), 'm--');
-
-%  plot(ttc, he3_diffn_hydr(ttc, p),    'r-');
-%  plot(ttc, he3_diffn_perp(ttc, p, 0), 'b--');
 
   plot([1 1], [-1 1], 'k--');
   plot([0 2], [0 0], 'k--');

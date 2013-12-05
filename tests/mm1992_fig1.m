@@ -4,20 +4,20 @@ function mm1992_fig1()
   figure; clf; hold on;
   ttc=0:0.01:1;
 
-  plot(ttc, he3_diff_perp_xx(ttc, 30, 460000), 'r-');
-  plot(ttc, he3_diff_perp_zz(ttc, 30, 460000), 'r--');
-  plot(ttc, he3_diff_perp_xx_im(ttc, 30, 460000), 'b-');
-  plot(ttc, he3_diff_perp_zz_im(ttc, 30, 460000), 'b--');
-  plot(ttc, he3_diff_par_xx(ttc, 30, 460000), 'm-');
-  plot(ttc, he3_diff_par_zz(ttc, 30, 460000), 'm--');
+  plot(ttc, he3_diff_perp_xx(ttc, 30, 460000), 'r-', 'linewidth', 2);
+  plot(ttc, he3_diff_perp_zz(ttc, 30, 460000), 'r-');
+  plot(ttc, he3_diff_perp_xx_im(ttc, 30, 460000), 'b-', 'linewidth', 2);
+  plot(ttc, he3_diff_perp_zz_im(ttc, 30, 460000), 'b-');
+  plot(ttc, he3_diff_par_xx(ttc, 30, 460000), 'm-', 'linewidth', 2);
+  plot(ttc, he3_diff_par_zz(ttc, 30, 460000), 'm-');
   plot([0 1], [0 0], 'k-');
 
-  plotdat('mm1992_fig1_imperpxx.dat', 'k-');
-  plotdat('mm1992_fig1_imperpzz.dat', 'k--');
-  plotdat('mm1992_fig1_perpxx.dat', 'k-');
-  plotdat('mm1992_fig1_perpzz.dat', 'k--');
-  plotdat('mm1992_fig1_parxx.dat', 'k-');
-  plotdat('mm1992_fig1_parzz.dat', 'k--');
+  plotdat('mm1992_fig1_imperpxx.dat', 'k-', 'linewidth', 2);
+  plotdat('mm1992_fig1_imperpzz.dat', 'k-');
+  plotdat('mm1992_fig1_perpxx.dat', 'k-', 'linewidth', 2);
+  plotdat('mm1992_fig1_perpzz.dat', 'k-');
+  plotdat('mm1992_fig1_parxx.dat', 'k-', 'linewidth', 2);
+  plotdat('mm1992_fig1_parzz.dat', 'k-');
 
   xlim([0 1.0]);
   ylim([-0.08 0.15]);
