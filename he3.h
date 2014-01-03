@@ -85,6 +85,7 @@ double he3_nu_b1_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
 double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/cm^3 1/G^2] */
 double he3_text_ldv_(double *ttc, double *p);   /* Textural parameter lambda_{DV} */
 double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV} */
+double he3_text_lg1_(double *ttc, double *p);   /* Textural parameter lambda_{G1}, erg/cm */
 double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
 double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
 

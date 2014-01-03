@@ -102,6 +102,16 @@
      .  * (1D0 + f1a/3D0)*(1D0-y0)/(1D0+f1a*(2D0+3D0*y0)/15D0)
       end
 
+! Textural parameter llmbda_{G2}, erg/cm
+! See Thuneberg-2001 f.28 and f.10
+      function he3_text_lg1(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p
+        he3_text_lg1 = he3_text_lg2(ttc,p)
+     .    * (2D0 + he3_text_delta(ttc,p))
+      end
+
 ! Textural parameter delta
       function he3_text_delta(ttc, p)
         implicit none
@@ -197,4 +207,5 @@
         he3_text_vd =
      .    dsqrt(0.4D0*he3_text_a(ttc,p)/he3_text_lhv(ttc,p))
       end
+
 
