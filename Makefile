@@ -10,7 +10,12 @@ FFLAGS= -Werror -Wconversion\
   -Wline-truncation\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
-  -Wno-unused-parameter -fPIC -fno-range-check
+  -Wno-unused-parameter -fPIC -fno-range-check -O\
+  -std=legacy
+
+# important flags:
+# -std=legacy -- to allow blas.f compilation
+# -fno-range-check -- to allow NaN values
 
 LIBNAME=libhe3
 all: external $(LIBNAME).a $(LIBNAME).so he3.f90h
@@ -42,7 +47,8 @@ OBJS=\
   $(patsubst %,%.o,$(LIBOBJS))\
   $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))\
   external/poly/*.o\
-  external/int/*.o
+  external/int/*.o\
+  external/tn/*.o
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
