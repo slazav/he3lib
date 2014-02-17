@@ -322,7 +322,7 @@
         common /he3_diff_int_cb/ ttc, gap, o0, lambda, td, itype
 
         real*8 C, xi, Ek, phi, uu, vv, o1, Sp2, Sm2
-        complex*16 i,t,s,res
+        complex*16 i,e,t,s,res, cSp2,cSm2
 
         C=3.5D0*ttc ! see plot_sdiff_int.m
         xi = datanh(x)*C
@@ -333,20 +333,24 @@
 
         o1 = o0*(1D0+lambda)
 
-        Sm2 = 1D0 - (1-kz**2)/2D0 * vv
+        Sm2 = 1D0 - (1D0-kz**2)/2D0 * vv
         Sp2 = uu + vv*kz**2
 
         i = dcmplx(0D0,1D0)
+        e = dcmplx(1D0,0D0)
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
+
+        cSm2 = dcmplx(Sm2,0D0)
+        cSp2 = dcmplx(Sp2,0D0)
 
         res=(0D0,0D0)
         if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx
           res = t * dcmplx((1D0-kz**2)/2D0, 0D0)
-     .      * (Sm2 - Sp2*s*i) / (1D0 + Sp2*s**2)
+     .      * (cSm2 - cSp2*s*i) / (e + cSp2*s**2)
         elseif (itype.eq.2.or.itype.eq.12) then ! D_perp_zz
           res = t * dcmplx(kz**2, 0D0)
-     .      * (Sm2 - Sp2*s*i) / (1D0 + Sp2*s**2)
+     .      * (cSm2 - cSp2*s*i) / (e + cSp2*s**2)
         elseif (itype.eq.3.or.itype.eq.13) then ! D_par_xx
           res = dcmplx( td * (1D0-kz**2)/2D0
      .      * (Sm2 + uu*(o1*td)**2)/(1D0 + Sp2*(o1*td)**2), 0D0)
@@ -372,57 +376,62 @@
         integer itype
         common /he3_diff_int_cb/ ttc, gap, o0, lambda, td, itype
 
-        real*8 C, xi, Ek, phi, uu, vv, o1
-        complex*16 i,t,s,res
+        real*8 C, xi, Ek, phi, o1
+        complex*16 i,e,h, t,s,res, uu, vv, ot2
         complex*16 AA, BB, CC, DD, AC,CD,D1,T1, I1,I2
 
         C=3.5D0 ! see plot_sdiff_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
         phi = (dcosh(Ek/(2D0*ttc)))**(-2) / 2D0 / ttc
-        uu = (xi/Ek)**2
-        vv = (gap/Ek)**2
+        uu = dcmplx((xi/Ek)**2, 0D0)
+        vv = dcmplx((gap/Ek)**2, 0D0)
 
         o1 = o0*(1D0+lambda)
+        ot2=dcmplx((o1*td)**2, 0D0)
 
         i = dcmplx(0D0,1D0)
+        e = dcmplx(1D0,0D0)
+        h = dcmplx(0.5D0,0D0)
         t = dcmplx(td, 0D0) / dcmplx(1D0, -o0*td)
         s = dcmplx(o1, 0D0) * t
 
         if (itype.eq.1.or.itype.eq.11.or.
      .      itype.eq.2.or.itype.eq.12) then ! D_perp
-          AA = (0.5D0 - i*s)*vv
-          BB = 0.5D0*(1D0+uu) - i*s*uu
+          AA = (h - i*s)*vv
+          BB = h*(e+uu) - i*s*uu
           CC = s**2 * vv
-          DD = 1D0 + s**2 * uu
+          DD = e + s**2 * uu
         else ! D_parallel
-          AA = 0.5D0*vv
-          BB = 0.5D0*(1D0+uu) + (o1*td)**2 * uu
-          CC = (o1*td)**2 * vv
-          DD = 1D0 + (o1*td)**2 * uu
+          AA = h*vv
+          BB = h*(e+uu) + ot2 * uu
+          CC = ot2 * vv
+          DD = e + ot2 * uu
         endif
 
         if (abs(s)<1D-3) then ! DD==1, CC==0, close to hydrodynamic
-          I1 = AA/3D0+BB;
-          I2 = AA/5D0+BB/3D0;
+          I1 = AA/(3D0,0D0) + BB
+          I2 = AA/(5D0,0D0) + BB/(3D0,0D0)
         else
           AC = AA/CC
           CD = CC/DD
-          D1 = BB/AA-DD/CC
-          T1 = cdsqrt(CD) * atan(cdsqrt(CD))
+          D1 = BB/AA - DD/CC
+          ! atan x = 1/2 i (log(1-ix)-log(1+ix))
+          T1 = cdsqrt(CD) *
+     .       h*i*(cdlog(e-i*cdsqrt(CD)) - cdlog(e+i*cdsqrt(CD)))
           I1 = AC + AC*D1*T1
-          I2 = AC/3D0 + AC*D1*(1D0-T1/CD)
+          I2 = AC/(3D0,0D0) + AC*D1*(e-T1/CD)
         endif
 
         res=(0D0,0D0)
         if (itype.eq.1.or.itype.eq.11) then ! D_perp_xx
-          res = t * (I1-I2)/2D0
+          res = t * (I1-I2)/(2D0,0D0)
         elseif (itype.eq.2.or.itype.eq.12) then ! D_perp_zz
           res = t * I2
         elseif (itype.eq.3.or.itype.eq.13) then ! D_par_xx
-          res = td * (I1-I2)/2D0
+          res = dcmplx(td,0D0) * (I1-I2)/(2D0,0D0)
         elseif (itype.eq.4.or.itype.eq.14) then ! D_par_zz
-          res = td * I2
+          res = dcmplx(td,0D0) * I2
         endif
 
         if (itype.lt.10) then

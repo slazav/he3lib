@@ -14,7 +14,7 @@
         f0a = he3_f0a(p)
         z3  = he3_z3(ttc,gap)
         z5  = he3_z5(ttc,gap)
-        y0  = 1-z3
+        y0  = 1D0-z3
 
         he3_text_a = NaN
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
@@ -39,7 +39,7 @@
         f1s = he3_f1s(p)
         z3  = he3_z3(ttc,gap)
         z5  = he3_z5(ttc,gap)
-        y0  = 1-z3
+        y0  = 1D0-z3
 
         he3_text_ldv=NaN
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
@@ -107,7 +107,7 @@
           xi  = he3_xigl(ttc,p)
           d0  = 2.2D0 + p*0.5D0/34.39D0
           he3_text_d = n0*(const_hbar*he3_gyro)**2
-     .     * xi*d0*(1-y0)
+     .     * xi*d0*(1D0-y0)
      .     / (4D0*(1D0+f0a)*(3D0+f0a*(2D0+y0)))
         elseif (ttc.eq.1D0) then
           he3_text_d = 0D0

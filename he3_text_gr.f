@@ -33,7 +33,7 @@
         gap = he3_trivgap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         f1a = he3_f1a(p)
-        he3_text_delta = f1a*(1-Y0)/(3+f1a*Y0)
+        he3_text_delta = f1a*(1D0-Y0)/(3D0+f1a*Y0)
       end
 
 ! Perpendicular spin wave velocity, cm/s
