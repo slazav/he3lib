@@ -101,7 +101,7 @@
         he3_text_d = NaN
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
           gap = he3_trivgap(ttc,p)
-          y0  = he3_yosida(ttc,gap,0)
+          y0  = he3_yosida(ttc,gap,0D0)
           f0a = he3_f0a(p)
           n0  = he3_2n0(p)/2D0
           xi  = he3_xigl(ttc,p)
