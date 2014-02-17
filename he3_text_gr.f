@@ -1,6 +1,6 @@
 !!! He3 gradient energy and spin wave velocity
 
-! Textural parameter llmbda_{G2}, erg/cm
+! Textural parameter lambda_{G2}, erg/cm
 ! See Thuneberg-2001 f.28 and f.10
       function he3_text_lg2(ttc, p)
         implicit none
@@ -15,7 +15,7 @@
      .  * (1D0 + f1a/3D0)*(1D0-y0)/(1D0+f1a*(2D0+3D0*y0)/15D0)
       end
 
-! Textural parameter llmbda_{G1}, erg/cm
+! Textural parameter lambda_{G1}, erg/cm
 ! See Thuneberg-2001 f.28 and f.10
       function he3_text_lg1(ttc, p)
         implicit none

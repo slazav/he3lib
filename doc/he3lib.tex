@@ -250,7 +250,7 @@ F_D = \lambda_D \int (R_{ii}R_{jj}+R_{ij}R_{ji})\ d^3r
 $$
 $$
 \lambda_D = \Delta^2 g_d,
-\qquad \Omega_B = \gamma \sqrt{15 \Delta^2 g_d/\chi_B}
+\qquad \Omega_B = \gamma \sqrt{15 \lambda_D/\chi_B}
 $$
 
 Note: In old papers (Leggett, ...) $g_D/5$ is used instead of $\lambda_G$.
@@ -305,7 +305,7 @@ $$
 
 \tt he3\_text\_cperp(ttc, p) & Velosity of spin waves propagating in a direction
 transverse to $\bf n$:\par
-$c_\perp = \displaystyle \gamma\sqrt{8\lambda_G/\chi} $, [cm/s]\\
+$c_\perp = \displaystyle \gamma\sqrt{8\lambda_{G2}/\chi} $, [cm/s]\\
 
 \tt he3\_text\_c(ttc, p) & Bending stiffness coefficient
 $c = \displaystyle 65/8\ \lambda_G $, [erg/cm]\\
@@ -361,6 +361,8 @@ F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
 \left[\frac{\hbar \gamma / 2}{1 + F_0^a (2+Y_0)/3}\right]^2
 \left(5-3\frac{Z_3}{Z_5}\right)$, [erg/cm$^3$ G$^{-2}$] \\[5mm]
 
+\tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)] -- GL extrapolation!\\
+
 \tt he3\_text\_ldv(ttc, p) & $\lambda_{DV} = \displaystyle
 5 g_d
 \left( \frac{m^* v_F}{1 + F_1^s Y_0/3} \right)^2
@@ -377,10 +379,15 @@ F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
  \frac{\hbar}{2m}\Omega \lambda_{HV}
  \left(\ln\frac{R}{r} - \frac34\right)$, [erg/(cm$^3$ G$^2$ s)] -- counterflow part only!\\[5mm]
 
-\tt he3\_text\_d(ttc, p) & $d$, [erg/(cm$^2$ G$^2$)] -- GL extrapolation!\\
+\tt he3\_text\_lo(ttc, p, omega) & lambda/omega
+   used in the texture library: $\displaystyle \frac{\lambda}{\Omega} =
+   \frac{5\lambda_{LH}}{2a\Omega}$, (rad/s)$^{-1}$\\
+
 
 \end{tabular}
 \medskip
+
+\hrule
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
@@ -388,15 +395,13 @@ F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
 \tt he3\_text\_xih(ttc, p, h) & Magnetic length
   $\xi_H = \sqrt{65\lambda_{G2}/(8 a H^2)}$\\
 
-\tt he3\_text\_xid(ttc, p) & Dipolar length
-  $\xi_D = \sqrt{\lambda_{G2}/\lambda_D}$\\
+\tt he3\_text\_xid(ttc, p) & Dipolar length (according to Hakonen-1989)
+  $\xi_D = \sqrt{13\lambda_{G2}/12\lambda_D}$.\par
+  Note: in Thuneberg's paper $\xi_D = \sqrt{\lambda_{G2}/\lambda_D}$ is used.\\
 
-\tt he3\_text\_vd(ttc, p) & Dipolar velocity
+\tt he3\_text\_vd(ttc, p) & Dipolar velocity (according to Thuneberg-2001)
   $v_D = \sqrt{2a/5\lambda_{HV}}$\\
 
-\tt he3\_text\_lo(ttc, p, omega) & lambda/omega
-   used in the texture library: $\displaystyle \frac{\lambda}{\Omega} =
-   \frac{5\lambda_{LH}}{2a\Omega}$, (rad/s)$^{-1}$\\
 
 \end{tabular}
 \medskip
