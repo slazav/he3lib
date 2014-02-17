@@ -211,7 +211,9 @@ source file {\tt he3\_gap.f}.
 \tt he3\_trivgap(ttc, P)   & Trivial strong-coupling correction to the BCS gap\\
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
                                \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
-                               \phi_k\ d\xi_k$\\
+                               \phi_k\ d\xi_k$\par
+                               Note: type of n parameter in fortran should be real*8 (this was done
+                               for standard function handling). If n is integer, result is unpredictable!\\
 \tt he3\_yosida\_par(ttc, gap)  & $Y_q^\parallel(T/T_c,\Delta)$\\
 \tt he3\_yosida\_perp(ttc, gap) & $Y_q^\perp(T/T_c,\Delta)$\\
 
@@ -231,7 +233,7 @@ source file {\tt he3\_gap.f}.
 \medskip
 
 \begin{figure}[h]
-\includegraphics[scale=1.1]{gap1.eps}\\
+\includegraphics[scale=1]{gap1.eps}\\
 \end{figure}
 \eject
 
