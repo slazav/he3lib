@@ -81,13 +81,17 @@ double he3_ld_(double *ttc, double *P);     /* lambda_D = Delta^2 g_d, [erg/cm3]
 double he3_nu_b_(double *ttc, double *P);   /* B-phase Leggett frequency, Hz */
 double he3_nu_b1_(double *ttc, double *P);  /* B-phase Leggett frequency, Hz */
 
+/* Gradient */
+double he3_text_lg1_(double *ttc, double *p);   /* Textural parameter lambda_{G1}, erg/cm */
+double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
+double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
+double he3_text_cperp_(double *ttc, double *p); /* perpendicular spin wave velocity, cm/s */
+double he3_text_c_(double *ttc, double *p); /* bending stiffness coefficient c, erg/cm */
+
 /* Texture */
 double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/cm^3 1/G^2] */
 double he3_text_ldv_(double *ttc, double *p);   /* Textural parameter lambda_{DV} */
 double he3_text_lhv_(double *ttc, double *p);   /* Textural parameter lambda_{HV} */
-double he3_text_lg1_(double *ttc, double *p);   /* Textural parameter lambda_{G1}, erg/cm */
-double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
-double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
 
 double he3_text_d_(double *ttc, double *p); /* Textural parameter d, erg/(cm^2 G^2) */
 double he3_text_llh_(double *ttc, double *p, double *omega); /* Textural parameter lambda_LH */

@@ -17,19 +17,17 @@
   title('\lambda_{HV}, erg/cm^3 1/(G cm/s)^2 vs T/T_c');
 
   subplot(3,2,4); hold on;
-  plot_tpdep(@he3_text_lg2);
-  title('\lambda_{G2}, erg/cm vs T/T_c');
-  ylim([0 3e-11])
+  plot_tpdep(@he3_text_d);
+  title('d, erg/cm^2 1/G^2 vs T/T_c');
 
   subplot(3,2,5); hold on;
-  plot_tpdep(@he3_text_delta);
-  title('\delta vs T/T_c');
-  ylim([-0.35 0])
-
   f = @(ttc,p) (he3_text_llh(ttc,p,1));
-  subplot(3,2,6); hold on;
   plot_tpdep(f);
   title('\lambda_{LH} at \Omega=1 rad/s vs T/T_c');
 
+  subplot(3,2,6); hold on;
+  f = @(ttc,p) he3_text_lo(ttc,p,1);
+  plot_tpdep(f);
+  title('\lambda/\Omega vs T/T_c');
 
   print text_pars.eps -deps -color "-S1200,1600"

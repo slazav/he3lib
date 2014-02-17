@@ -253,6 +253,8 @@ $$
 \qquad \Omega_B = \gamma \sqrt{15 \Delta^2 g_d/\chi_B}
 $$
 
+Note: In old papers (Leggett, ...) $g_D/5$ is used instead of $\lambda_G$.
+
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 \tt he3\_gd(p) & $g_d$,~[1/(erg cm$^3$)]\\
@@ -273,7 +275,51 @@ $$
 
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Textural parameters}
+\subsection*{Gradient energy and spin wave velocity}
+
+Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
+High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
+See more information in the source file {\tt he3\_text\_gr.f}.
+
+$$
+F_{G}  = \int_V \left[
+  \lambda_{G1}\frac{\partial R_{\alpha i}}{\partial r_i}
+              \frac{\partial R_{\alpha j}}{\partial r_j} +
+  \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
+              \frac{\partial R_{\alpha j}}{\partial r_i}
+  \right]\ d^3r,\qquad \lambda_{G1}=(2+\delta)\lambda_{G2}
+$$
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+
+\tt he3\_text\_lg2(ttc, p) & $\lambda_{G2} = \displaystyle
+\frac{\hbar^2 \rho}{40 m^* m}
+\frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[5mm]
+
+\tt he3\_text\_lg1(ttc, p) & $\lambda_{G1} = \displaystyle
+(2+\delta) \lambda_{G2}$, [erg/cm]\\[5mm]
+
+\tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
+\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[5mm]
+
+\tt he3\_text\_cperp(ttc, p) & Velosity of spin waves propagating in a direction
+transverse to $\bf n$:\par
+$c_\perp = \displaystyle \gamma\sqrt{8\lambda_G/\chi} $, [cm/s]\\
+
+\tt he3\_text\_c(ttc, p) & Bending stiffness coefficient
+$c = \displaystyle 65/8\ \lambda_G $, [erg/cm]\\
+
+\end{tabular}
+\medskip
+
+\begin{figure}[h]
+\includegraphics[scale=0.8]{text_gr.eps}\\
+\end{figure}
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Other textural parameters}
 
 Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
 High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
@@ -288,12 +334,6 @@ F_{DV} &=& -\lambda_{DV}
 \qquad {\ll F_{HV} \mbox{~at~} H\approx 200 \mbox{~Oe}}\\
 F_{HV} &=& -\lambda_{HV}
   \int_V [{\bf H} \cdot R \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r\\
-F_{G}  &=& \int_V \left[
-  \lambda_{G1}\frac{\partial R_{\alpha i}}{\partial r_i}
-              \frac{\partial R_{\alpha j}}{\partial r_j} +
-  \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
-              \frac{\partial R_{\alpha j}}{\partial r_i}
-  \right]\ d^3r,\qquad \lambda_{G1}=(2+\delta)\lambda_{G2}\\
 \end{eqnarray*}
 
 Surface terms:
@@ -332,16 +372,6 @@ F_{LH} &=& \frac{\lambda_{LH}}{2\Omega}
 \left( \frac{\hbar\gamma/2}{ 1 + F_0^a (2 + Y_0)/3)} \right)^2
 \left( Z_3 - \frac{9}{10} Z_5 + \frac{9}{10}\ \frac{Z_5^2}{Z_3} -
   \frac32 Z_7 \right) $\\[5mm]
-
-\tt he3\_text\_lg2(ttc, p) & $\lambda_{G2} = \displaystyle
-\frac{\hbar^2 \rho}{40 m^* m}
-\frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[5mm]
-
-\tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
-\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[5mm]
-
-\tt he3\_text\_lg1(ttc, p) & $\lambda_{G1} = \displaystyle
-(2+\delta) \lambda_{G2}$, [erg/cm]\\[5mm]
 
 \tt he3\_text\_llh(ttc, p, omega) & $\lambda_{LH} = \displaystyle
  \frac{\hbar}{2m}\Omega \lambda_{HV}

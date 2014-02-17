@@ -288,7 +288,7 @@
         he3_rho_nb = (3D0+f1s)*Y0/(3D0+f1s*Y0)
       end
 
-! He3-B suseptibility chi_b / chi_0
+! He3-B susceptibility chi_b / chi_0
 ! see VW book ch.10 p.449; ch2 p.90
 ! see Wheatley-75 f 3.7
 ! There is also additional term to 3*chi0

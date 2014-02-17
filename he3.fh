@@ -106,13 +106,17 @@
       real*8 He3_nu_b       ! B-phase Leggett frequency calculated from g_d, Hz
       real*8 He3_nu_b1      ! B-phase Leggett frequency (less accurate), Hz
 
-! Textural parameters (see he3_text.f)
-      real*8 he3_text_a     ! textural parameter a [erg/(Gauss^2 cm^3)]
-      real*8 he3_text_ldv   ! textural parameter lambda_{DV}
-      real*8 he3_text_lhv   ! textural parameter lambda_{HV}
+! Gradient (see he3_text_gr.f)
       real*8 he3_text_lg1   ! textural parameter lambda_{G1}, erg/cm
       real*8 he3_text_lg2   ! textural parameter lambda_{G2}, erg/cm
       real*8 he3_text_delta ! textural parameter delta
+      real*8 he3_text_cperp ! perpendicular spin wave velocity, cm/s
+      real*8 he3_text_c     ! bending stiffness coefficient c, erg/cm
+
+! Other textural parameters (see he3_text.f)
+      real*8 he3_text_a     ! textural parameter a [erg/(Gauss^2 cm^3)]
+      real*8 he3_text_ldv   ! textural parameter lambda_{DV}
+      real*8 he3_text_lhv   ! textural parameter lambda_{HV}
 
       real*8 he3_text_d     ! textural parameter d, erg/(cm^2 G^2)
       real*8 he3_text_llh   ! textural parameter lambda_{LH}

@@ -121,7 +121,7 @@ C       .89 accounts fo Grewall scale.
 
 ! SPIN DIFFUSION COEFF, SUPERFLUID D [cm**2/sec] vs P [bar], T[mk]
 ! Our data. Was measured at pressures .6,11,14.8,20,29 bar
-! at T .45-.67,  .45-.8  .45-.81  .45-.94  .45-.67 Tc respectivly.
+! at T .45-.67,  .45-.8  .45-.81  .45-.94  .45-.67 Tc respectively.
 ! Least squares 2-D fitting. From fil:: MUHLR1
 ! D/C= vs. T= & P=
 ! Polinoms of the orders : 4,  4

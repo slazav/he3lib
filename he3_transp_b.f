@@ -49,7 +49,7 @@
         K3 = - 15D0/8D0/const_2pi**0.5D0
      .       * x**4 / (1D0+x)**0.5D0  !!! Was: x**4 / (1D0+x**2)**0.5D0
      .       * dexp(-x) / (const_pi**2 + x**2)**2
-!           Possible typo in the paper: Ki sould be ~exp(x)/x at low temp. - slazav
+!           Possible typo in the paper: Ki should be ~exp(x)/x at low temp. - slazav
         I0 = J0 + K0 * (xi/ttc)**2
         I1 = J1 + K1 * (xi/ttc)**2
         I2 = J2 + K2 * (xi/ttc)**2
@@ -87,7 +87,7 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Quasiparticle lifetime at fermi level
+! Quasiparticle lifetime at Fermi level
 ! Einzel JLTP84 (1991) p.344
       function he3_tau0(ttc, p)
         implicit none
@@ -363,7 +363,7 @@
         he3_diff_int = he3_diff_int * phi * C/(1D0-x**2)
       end
 
-! same, but integtated over kz
+! same, but integrated over kz
       function he3_diff_int_i(x)
         implicit none
         real*8 x, he3_diff_int_i
@@ -402,7 +402,7 @@
           DD = 1D0 + (o1*td)**2 * uu
         endif
 
-        if (abs(s)<1D-3) then ! DD==1, CC==0, close to hydrodinamic
+        if (abs(s)<1D-3) then ! DD==1, CC==0, close to hydrodynamic
           I1 = AA/3D0+BB;
           I2 = AA/5D0+BB/3D0;
         else

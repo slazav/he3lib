@@ -1,4 +1,4 @@
-!!! He3 textural parameters
+!!! He3 other textural parameters
 
 ! Textural parameter a, erg/cm^3 1/G^2
 ! See Thuneberg-2001 f.25 and f.6
@@ -87,42 +87,6 @@
         if (he3_text_lhv.lt.0D0) he3_text_lhv=0D0
       end
 
-! Textural parameter llmbda_{G2}, erg/cm
-! See Thuneberg-2001 f.28 and f.10
-      function he3_text_lg2(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc,p, gap, y0,f1a
-
-        gap = he3_trivgap(ttc, p)
-        y0  = he3_yosida(ttc, gap, 0)
-        f1a = he3_f1a(p)
-        he3_text_lg2 = const_hbar**2 * he3_rho(p)
-     .  / (40D0*he3_meff(p) * he3_amass)
-     .  * (1D0 + f1a/3D0)*(1D0-y0)/(1D0+f1a*(2D0+3D0*y0)/15D0)
-      end
-
-! Textural parameter llmbda_{G2}, erg/cm
-! See Thuneberg-2001 f.28 and f.10
-      function he3_text_lg1(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc,p
-        he3_text_lg1 = he3_text_lg2(ttc,p)
-     .    * (2D0 + he3_text_delta(ttc,p))
-      end
-
-! Textural parameter delta
-      function he3_text_delta(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc, p, gap, Y0, f1a
-        gap = he3_trivgap(ttc, p)
-        Y0  = he3_yosida(ttc, gap, 0D0)
-        f1a = he3_f1a(p)
-        he3_text_delta = f1a*(1-Y0)/(3+f1a*Y0)
-      end
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Surface energy coefficient d, erg/(cm^2 Gauss^2)
@@ -150,7 +114,7 @@
         endif
       end
 
-! Vortex enrgy coefficient \lambda_{LH}
+! Vortex energy coefficient \lambda_{LH}
 ! Came from ROTA texture library. (difference: 5/2a)
 ! See Thuneberg-2001 f.30 and Kopu-2007 f.5
 ! Some G-L extrapolation is used

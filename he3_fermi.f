@@ -44,7 +44,7 @@
         endif
       end
 
-!     First sound velosity c1 (exp data), m/s, from Wheatley-75
+!     First sound velocity c1 (exp data), m/s, from Wheatley-75
       function He3_c1(P)
         implicit none
         include 'he3.fh'
@@ -148,7 +148,7 @@
      .             he3_2n0(P)/he3_pf(P)
       end
 
-! Suseptibility [sgs] vs P [bar], T [mK]
+! Susceptibility [sgs] vs P [bar], T [mK]
 ! Einzel-1991 f.10
       function He3_chi_n(P)
         implicit none
@@ -222,7 +222,7 @@
      .          * const_hbar**2 * const_na/const_kb
       end
 
-!     effective fermi temperature, K
+!     effective Fermi temperature, K
       function He3_tfeff(P)
         implicit none
         include 'he3.fh'

@@ -1,6 +1,6 @@
 
 
-! Intergation of a real*8 function
+! Integration of a real*8 function
 ! from xmin to xmax using imax points
 ! Gauss-2pt quadrature
       function math_dint(func, xmin, xmax, nx)
@@ -20,7 +20,7 @@
         enddo
       end
 
-! Intergation of complex*16 function
+! Integration of complex*16 function
 ! from xmin to xmax using imax points
 ! Gauss-2pt quadrature
       function math_cint(func, xmin, xmax, nx)
@@ -42,7 +42,7 @@
         enddo
       end
 
-! 2D intergation of real*8 function
+! 2D integration of real*8 function
 ! from xmin to xmax using imax points
 ! Gauss-2pt quadrature
       function math_dint2d(func,
@@ -72,7 +72,7 @@
         enddo
       end
 
-! 2D intergation of complex*16 function
+! 2D integration of complex*16 function
 ! from xmin to xmax using imax points
 ! Gauss-2pt quadrature
       function math_cint2d(func,
@@ -105,7 +105,7 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!! Adaptive intergation of a real*8 function
+!! Adaptive integration of a real*8 function
 !! using slatec library
 !      function math_dint_slatec(func, xmin, xmax, epsabs, epsrel)
 !        implicit none
@@ -152,7 +152,7 @@
       end
 
 
-! 2D intergation of real*8 function from xmin to xmax using imax points
+! 2D integration of real*8 function from xmin to xmax using imax points
 ! Gauss-7pt+Kronrad-15pt quadrature with error estimation
       function math_dint2d_gk(func,
      .         xmin, xmax, nx, ymin, ymax, ny, aerr)
@@ -192,7 +192,7 @@
         math_dint2d_gk = intk
       end
 
-! 2D adaptive intergation of real*8 function
+! 2D adaptive integration of real*8 function
 ! Gauss-7pt+Kronrad-15pt quadrature
       subroutine math_dint2d_gka(myself, func,
      .         xmin, xmax, ymin, ymax, aerr_lim, rerr_lim, res)
