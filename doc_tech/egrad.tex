@@ -1,0 +1,131 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{euscript}
+\usepackage{graphicx}
+\graphicspath{{pics/}}
+\usepackage{color}
+\usepackage{epsfig}
+
+\begin{document}
+
+\subsection*{Gradient energy}
+
+\hrule
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 K_1 (\nabla_j d_{\mu k})(\nabla_j d^*_{\mu k})\\
+&+& \frac12 K_2 (\nabla_j d_{\mu k})(\nabla_k d^*_{\mu j})\\
+&+& \frac12 K_3 (\nabla_j d_{\mu j})(\nabla_k d^*_{\mu k})
+\qquad{\rm\small (VW 7.17)}\\
+\end{eqnarray*}
+
+B-phase, no distorsion of order parameter ("London limit"),
+{\it bending energy}:
+
+$$
+d_{\mu j}=\Delta R_{\mu j} e^{i\phi},\qquad
+R_{\mu j} R_{\mu k} = \delta_{jk}
+$$
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2 K_1
+ (\nabla_j R_{\mu k})(\nabla_j R_{\mu k})\\
+&+& \frac12 \Delta^2 K_2
+ (\nabla_j R_{\mu k})(\nabla_k R_{\mu j})\\
+&+& \frac12 \Delta^2 K_3
+ (\nabla_j R_{\mu j})(\nabla_k R_{\mu k})\\
+&+& \frac12 \Delta^2 (3K_1+K_2+K_3)
+ (\nabla_j \phi)(\nabla_j \phi)\\
+\end{eqnarray*}
+
+Terms with $K_2$ and $K_3$:
+$$
+(\nabla_j R_{\mu k})(\nabla_k R_{\mu j}) - (\nabla_j R_{\mu j})(\nabla_k R_{\mu k}) =
+\nabla_k(R_{\mu j} \nabla_j R_{\mu k} - R_{\mu k} \nabla_j R_{\mu j}) =
+2\nabla_k(R_{\mu j} \nabla_j R_{\mu k})
+$$
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12\Delta^2 K_1 (\nabla_j R_{\mu k})(\nabla_j R_{\mu k})\\
+&+& \frac12\Delta^2 (K_2+K_3) (\nabla_j R_{\mu j})(\nabla_k R_{\mu k})\\
+&+& \Delta^2 K_2 \nabla_k(R_{\mu j} \nabla_j R_{\mu k}),\qquad
+\rightarrow \mbox{surface term}\\
+&+& \frac12 \Delta^2 (3K_1+K_2+K_3)
+ (\nabla_j \phi)(\nabla_j \phi)\\
+\end{eqnarray*}
+
+Relation between $K_{1,2,3}$ and Thuneberg's $\lambda_{G1,G2}$
+$$
+\lambda_{G1} = \frac12\Delta^2 K_1,\qquad
+\lambda_{G2} = \frac12\Delta^2 (K_2+K_3),\qquad
+\lambda_{SG}^b = \Delta^2 K_2
+$$
+
+Without Fermi-liquid corrections (VW 7.23m):
+
+$$
+K_1=K_2=K_3 = \frac{1}{5\Delta^2} \left(\frac{h}{2m}\right)^2 (1-Y_0)\rho
+$$
+
+\eject
+\hrule
+\medskip
+
+Small rotation $\theta^s_\mu$ (VW 8.157-160):
+
+$$
+R_{\alpha\i} = (\delta_{\alpha\beta} - e_{\alpha\beta \gamma}\theta^s_\gamma)
+R^0_{\beta i}
+$$
+
+$$
+F_\nabla =
+(2K_1+K_2+K_3) (\nabla_i\theta^s_\mu) (\nabla_i\theta^s_\mu)
+-K_2 R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta_\alpha)(\nabla_j\theta_\beta)
+-K_3 R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta_\beta) (\nabla_j\theta_\alpha)
+$$
+
+$$
+K=2K_1+K_2+K_3,\qquad K'=K_2+K_3
+$$
+
+\hrule
+\medskip
+
+Small rotation $\theta^{so}_\mu$ (VW 7.25):
+
+$$
+R_{\alpha\i} = (\delta_{ij} + e_{ijk}\theta^{so}_j) R^0_{\alpha k}
+$$
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2 (2 K_1 + K_2 + K_3)
+\nabla_j\theta^{so}_k \nabla_j\theta^{so}_k\\
+&-& \frac12 \Delta^2 K_2
+\nabla_j\theta^{so}_j \nabla_k\theta^{so}_k\\
+&-& \frac12 \Delta^2 K_3
+\nabla_j\theta^{so}_k \nabla_k\theta^{so}_j\\
+\end{eqnarray*}
+$$
+2 K_1 + K_2 + K_3 = \frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 a,
+\qquad
+K_2 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 c,
+\qquad
+K_3 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 b
+$$
+
+$$
+a=-(4+\delta)c,\qquad
+b= (1+\delta)c,\qquad
+c=-\frac{\rho_s}{10}
+\frac{3+F_1^a}{3+F_1^s}
+\frac{1}{1+F_1^a(5-3\rho_s/\rho)/15}
+,\qquad
+\delta = \frac{F_1^a \rho_s/\rho}{3+F_1^s(1-\rho_s/\rho)}
+$$
+
+\end{document}
