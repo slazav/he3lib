@@ -281,7 +281,8 @@ Note: In old papers (Leggett, ...) $g_D/5$ is used instead of $\lambda_G$.
 
 Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
 High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
-See more information in the source file {\tt he3\_text\_gr.f}.
+See more information in the source file {\tt he3\_text\_gr.f} and in
+{\tt doc\_tech/egrad.pdf}.
 
 $$
 F_{G}  = \int_V \left[
@@ -289,28 +290,30 @@ F_{G}  = \int_V \left[
               \frac{\partial R_{\alpha j}}{\partial r_j} +
   \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
               \frac{\partial R_{\alpha j}}{\partial r_i}
-  \right]\ d^3r,\qquad \lambda_{G1}=(2+\delta)\lambda_{G2}
+  \right]\ d^3r
++ 2\lambda_{G2} \int_S s_k R_{\mu k} \frac{\partial R_{\mu j}}{\partial r_j}\ d^2r
 $$
+
+($s_k$ is directed inside the volume)
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 
 \tt he3\_text\_lg2(ttc, p) & $\lambda_{G2} = \displaystyle
 \frac{\hbar^2 \rho}{40 m^* m}
-\frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[5mm]
+\frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[2mm]
 
 \tt he3\_text\_lg1(ttc, p) & $\lambda_{G1} = \displaystyle
-(2+\delta) \lambda_{G2}$, [erg/cm]\\[5mm]
+(2+\delta) \lambda_{G2}$, [erg/cm]\\[2mm]
 
 \tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
-\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[5mm]
+\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[2mm]
 
-\tt he3\_text\_cperp(ttc, p) & Velosity of spin waves propagating in a direction
-transverse to $\bf n$:\par
-$c_\perp = \displaystyle \gamma\sqrt{8\lambda_{G2}/\chi} $, [cm/s]\\
+\tt he3\_text\_cperp(ttc, p) & Fomin's perpendicular spin wave velocity.\par
+$c_\perp = \displaystyle \gamma\sqrt{(6+\delta)\lambda_{G2}/\chi} $, [cm/s]\\
 
-\tt he3\_text\_c(ttc, p) & Bending stiffness coefficient
-$c = \displaystyle 65/8\ \lambda_G $, [erg/cm]\\
+\tt he3\_text\_cpar(ttc, p) & Fomin's parallel spin wave velocity.\par
+$c_\parallel = \displaystyle \gamma\sqrt{(8+2\delta)\lambda_{G2}/\chi} $, [cm/s]\\
 
 \end{tabular}
 \medskip

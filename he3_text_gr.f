@@ -37,25 +37,42 @@
       end
 
 ! Perpendicular spin wave velocity, cm/s
-! See Hakonen-1989 f.28
+! See doc_tech/egrad.pdf
       function he3_text_cperp(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p, lg2, chi
+        real*8 ttc, p, lg2, chi, d
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
           lg2 = he3_text_lg2(ttc, p)
+          d   = he3_text_delta(ttc, p)
           chi = he3_chi_b(ttc, p) * he3_chi_n(p)
-          he3_text_cperp = he3_gyro * sqrt(8D0*lg2/chi)
+          he3_text_cperp = he3_gyro * sqrt((6D0+d)*lg2/chi)
         elseif (ttc.eq.1D0) then
           he3_text_cperp = 0D0
         endif
       end
 
-! Bending stiffness coefficient c, erg/cm
-! See Hakonen-1989 f.28
-      function he3_text_c(ttc, p)
+! Parallel spin wave velocity, cm/s
+! See doc_tech/egrad.pdf
+      function he3_text_cpar(ttc, p)
         implicit none
         include 'he3.fh'
-        real*8 ttc, p
-        he3_text_c = 65D0/8D0 * he3_text_lg2(ttc, p)
+        real*8 ttc, p, lg2, chi, d
+        if (ttc.ge.0D0.and.ttc.lt.1D0) then
+          lg2 = he3_text_lg2(ttc, p)
+          d   = he3_text_delta(ttc, p)
+          chi = he3_chi_b(ttc, p) * he3_chi_n(p)
+          he3_text_cpar = he3_gyro * sqrt((8D0+2D0*d)*lg2/chi)
+        elseif (ttc.eq.1D0) then
+          he3_text_cpar = 0D0
+        endif
       end
+
+!! Bending stiffness coefficient c, erg/cm -- not used!
+!! See Hakonen-1989 f.28
+!      function he3_text_c(ttc, p)
+!        implicit none
+!        include 'he3.fh'
+!        real*8 ttc, p
+!        he3_text_c = 65D0/8D0 * he3_text_lg2(ttc, p)
+!      end
