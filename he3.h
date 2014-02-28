@@ -117,12 +117,9 @@ double he3_diffn_hydr_(double *ttc, double *p);   /* Hydrodynamic spin diffusion
 double he3_diffn_perp_(double *ttc, double *p, double *nu0);  /* Spin diffusion D_perp in normal liquid, cm2/s */
 
 /* Transport in the B phase */
-double he3_coll_int_(double *xi, double *ttc, double *gap,
-            double *g0, double *d0); /* Collision integral approximation ttc=0..1*/
-double he3_coll_int_lt_(double *xi, double *ttc, double *gap,
-            double *g0, double *d0); /* Collision integral for low temp (good for < 0.7Tc) */
-double he3_coll_int_ht_(double *xi, double *ttc, double *gap,
-            double *g0, double *d0); /* Collision integral for high temp */
+double he3_coll_int_(double *xi, double *ttc, double *gap, double *g0, double *d0); /* Collision integral approximation ttc=0..1*/
+double he3_coll_int_lt_(double *xi, double *ttc, double *gap, double *g0, double *d0); /* Collision integral for low temp (good for < 0.7Tc) */
+double he3_coll_int_ht_(double *xi, double *ttc, double *gap, double *g0, double *d0); /* Collision integral for high temp */
 double he3_tau0_(double *ttc, double *p);      /* Bogoliubov quasiparticle lifetime at the Fermi level, s */
 double he3_tau0lt_(double *ttc, double *p);    /* he3_tau0_ at T->0 */
 double he3_tau_av_(double *ttc, double *p);    /* Thermal average quasiparticle lifetime, s */
