@@ -59,8 +59,8 @@ F_\nabla
 
 Relation between $K_{1,2,3}$ and Thuneberg's $\lambda_{G1,G2}$
 $$
-\lambda_{G1} = \frac12\Delta^2 K_1,\qquad
-\lambda_{G2} = \frac12\Delta^2 (K_2+K_3),\qquad
+\lambda_{G1} = \frac12\Delta^2 (K_2+K_3),\qquad
+\lambda_{G2} = \frac12\Delta^2 K_1,\qquad
 \lambda_{SG}^b = \Delta^2 K_2
 $$
 
@@ -71,45 +71,48 @@ K_1=K_2=K_3 = \frac{1}{5\Delta^2} \left(\frac{h}{2m}\right)^2 (1-Y_0)\rho
 $$
 
 \eject
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hrule
 \medskip
 
-Small rotation $\theta^s_\mu$ (VW 8.157-160):
+Small rotation $\theta^{so}_j$ (VW 7.25):
 
 $$
-R_{\alpha\i} = (\delta_{\alpha\beta} - e_{\alpha\beta \gamma}\theta^s_\gamma)
-R^0_{\beta i}
-$$
-
-$$
-F_\nabla =
-(2K_1+K_2+K_3) (\nabla_i\theta^s_\mu) (\nabla_i\theta^s_\mu)
--K_2 R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta_\alpha)(\nabla_j\theta_\beta)
--K_3 R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta_\beta) (\nabla_j\theta_\alpha)
-$$
-
-$$
-K=2K_1+K_2+K_3,\qquad K'=K_2+K_3
-$$
-
-\hrule
-\medskip
-
-Small rotation $\theta^{so}_\mu$ (VW 7.25):
-
-$$
-R_{\alpha\i} = (\delta_{ij} + e_{ijk}\theta^{so}_j) R^0_{\alpha k}
+R_{\alpha\j} = R_{jk}(\theta^{so}) R^0_{\alpha k} =
+(\delta_{jk} - e_{jkn}\theta^{so}_n) R^0_{\alpha k}
 $$
 
 \begin{eqnarray*}
 F_\nabla
-&=& \frac12 \Delta^2 (2 K_1 + K_2 + K_3)
+&=& \frac12 \Delta^2\ (2 K_1 + K_2 + K_3)
 \nabla_j\theta^{so}_k \nabla_j\theta^{so}_k\\
-&-& \frac12 \Delta^2 K_2
+&-& \frac12 \Delta^2\ K_2
 \nabla_j\theta^{so}_j \nabla_k\theta^{so}_k\\
-&-& \frac12 \Delta^2 K_3
+&-& \frac12 \Delta^2\ K_3
 \nabla_j\theta^{so}_k \nabla_k\theta^{so}_j\\
 \end{eqnarray*}
+
+math:
+$$
+\nabla_j \theta_k \nabla_k \theta_j = (\nabla \cdot \theta)^2 +
+\nabla_k(\theta_j \nabla_j\theta_k - \theta_k \nabla_j\theta_j)
+$$
+$$
+ \nabla_j \theta_k \nabla_j \theta_k = [\nabla \times \theta]^2 + \nabla_j \theta_k \nabla_k \theta_j
+$$
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2\ (2 K_1 + K_2 + K_3)
+[\nabla \times \theta^{so}]^2\\
+&+& \frac12 \Delta^2\  2K_1
+(\nabla \cdot \theta^{so})^2\\
+&+& \frac12 \Delta^2\ (2 K_1+K_2)
+\nabla_k(\theta^{so}_j \nabla_j\theta^{so}_k - \theta^{so}_k \nabla_j\theta^{so}_j)\\
+\end{eqnarray*}
+
+Weak couplng:
 $$
 2 K_1 + K_2 + K_3 = \frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 a,
 \qquad
@@ -117,15 +120,117 @@ K_2 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 c,
 \qquad
 K_3 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 b
 $$
-
 $$
 a=-(4+\delta)c,\qquad
 b= (1+\delta)c,\qquad
 c=-\frac{\rho_s}{10}
-\frac{3+F_1^a}{3+F_1^s}
-\frac{1}{1+F_1^a(5-3\rho_s/\rho)/15}
+\ \frac{3+F_1^a}{3+F_1^s}
+\ \frac{1}{1+F_1^a(5-3\rho_s/\rho)/15}
 ,\qquad
 \delta = \frac{F_1^a \rho_s/\rho}{3+F_1^s(1-\rho_s/\rho)}
 $$
+
+$$
+K_2+K_3 = (2+\delta)K_2,\qquad
+K_1=K_2,\qquad
+$$
+$$
+\lambda_{G1} = \frac{\Delta^2}{2}(K_2+K3) = -\left(\frac{\hbar}{2m}\right)^2 (2+\delta) c,\qquad
+\lambda_{G2} = \frac{\Delta^2}{2}K_1 = -\left(\frac{\hbar}{2m}\right)^2 c,\qquad
+\lambda_{SG}^B = 2\lambda_{G2}
+$$
+
+$$
+F_\nabla = \lambda_{G2} \left[
+   (4+\delta) [\nabla \times \theta^{so}]^2
+  + 2 (\nabla \cdot \theta^{so})^2
+  + 3 \nabla_k(\theta^{so}_j \nabla_j\theta^{so}_k - \theta^{so}_k \nabla_j\theta^{so}_j)
+\right]
+$$
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\medskip
+
+Small rotation $\theta^s_\alpha$ (VW 8.157-160):
+
+$$
+R_{\alpha i} = R_{\alpha\beta}(\theta^s) R^0_{\beta i} =
+(\delta_{\alpha\beta} - e_{\alpha\beta \gamma}\theta^s_\gamma) R^0_{\beta i},
+\qquad
+\nabla_j R_{\alpha i} = 
+- e_{\alpha\beta \gamma}\nabla_j \theta^s_\gamma R^0_{\beta i}.
+$$
+
+Fomin's notation $\omega_{\gamma j} = \nabla_j \theta^s_\gamma$.
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2\ (2 K_1 + K_2 + K_3)
+(\nabla_i\theta^s_\alpha) (\nabla_i\theta^s_\alpha)\\
+&-& \frac12 \Delta^2\  K_2
+\ R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta^s_\alpha)(\nabla_j\theta^s_\beta)\\
+&-& \frac12 \Delta^2\ K_3
+\ R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta^s_\beta) (\nabla_j\theta^s_\alpha)\\
+\end{eqnarray*}
+
+math:
+$$
+\nabla_i(\theta_\alpha \nabla_j\theta_\beta - \theta_\beta \nabla_j\theta_\alpha) =
+(\nabla_i\theta_\alpha)(\nabla_j\theta_\beta) -(\nabla_i\theta_\beta) (\nabla_j\theta_\alpha)
++ \theta_\alpha \nabla_i\nabla_j\theta_\beta - \theta_\beta \nabla_i\nabla_j\theta_\alpha
+$$
+
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2\ (2 K_1 + K_2 + K_3)
+(\nabla_i\theta^s_\alpha) (\nabla_i\theta^s_\alpha)\\
+&-& \frac12 \Delta^2\ (K_2+K_3)
+R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta^s_\alpha)(\nabla_j\theta^s_\beta)\\
+&+& \frac12 \Delta^2\ K_3
+\ R^0_{\alpha i}R^0_{\beta j}
+\ \nabla_i(\theta^s_\alpha \nabla_j\theta^s_\beta - \theta^s_\beta \nabla_j\theta^s_\alpha)\\
+\end{eqnarray*}
+$$
+K=2K_1+K_2+K_3,\qquad K'=K_2+K_3
+$$
+
+Fomin's spin wave velocities (see Fomin-1980 f.51):
+
+$$
+\frac12\Delta^2 K  = \frac{\chi}{2\gamma^2} c_\parallel^2,\qquad
+\frac12\Delta^2 K' = 2\ \frac{\chi}{2\gamma^2} (c_\parallel^2 - c_\perp^2).
+$$
+
+$$
+c_\parallel^2 = \frac{\gamma^2 \Delta^2}{\chi} K,\qquad
+c_\perp^2 = \frac{\gamma^2 \Delta^2}{\chi} (K-K'/2)
+$$
+
+in terms of $\lambda_{G2}$ and $\delta$ in weak coupling approximation:
+
+$$
+c_\parallel^2 = \frac{2\gamma^2}{\chi} (4+\delta)\lambda_{G2},\qquad
+c_\perp^2     = \frac{2\gamma^2}{\chi} (3+\delta/2)\lambda_{G2}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\medskip
+
+Shrodinger equations for magnons (VW 8.179).
+
+$$
+-(\bar K - \bar K'/2)\xi_D^2 \Delta\Psi - (1- \frac12 \sin^2\beta_N) \Psi = E \Psi.
+$$
+
+$$
+\xi_D^2 (\bar K- \bar K'/2) = \Delta^2 \gamma^2/\chi \Omega_B^2 (K-K'/2)
+=\Omega_B^2 c_\perp^2
+$$
+
+
+
 
 \end{document}

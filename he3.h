@@ -86,7 +86,7 @@ double he3_text_lg1_(double *ttc, double *p);   /* Textural parameter lambda_{G1
 double he3_text_lg2_(double *ttc, double *p);   /* Textural parameter lambda_{G2}, erg/cm */
 double he3_text_delta_(double *ttc, double *p); /* Textural parameter delta */
 double he3_text_cperp_(double *ttc, double *p); /* perpendicular spin wave velocity, cm/s */
-double he3_text_c_(double *ttc, double *p); /* bending stiffness coefficient c, erg/cm */
+double he3_text_cpar_(double *ttc, double *p);  /* parallel spin wave velocity, cm/s */
 
 /* Texture */
 double he3_text_a_(double *ttc, double *p);     /* Textural parameter a [erg/cm^3 1/G^2] */

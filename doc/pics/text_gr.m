@@ -18,12 +18,14 @@
 
   subplot(2,2,3); hold on;
   plot_tpdep(@he3_text_cperp);
+%  plot_tpdep(@he3_text_cpar);
   title('c_\perp, cm/c vs T/T_c');
 %  ylim([-0.35 0])
 
   subplot(2,2,4); hold on;
-  plot_tpdep(@he3_text_c);
-  title('c vs T/T_c');
-  ylim([0 2.5e-10])
+  f = @(p,ttc) (he3_text_cperp(p,ttc)./he3_text_cpar(p,ttc));
+  plot_tpdep(f);
+  title('c_\perp/c_\parallel vs T/T_c');
+%  ylim([0 2.5e-10])
 
   print text_gr.eps -deps -color "-S1200,1000"

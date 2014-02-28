@@ -111,7 +111,7 @@
       real*8 he3_text_lg2   ! textural parameter lambda_{G2}, erg/cm
       real*8 he3_text_delta ! textural parameter delta
       real*8 he3_text_cperp ! perpendicular spin wave velocity, cm/s
-      real*8 he3_text_c     ! bending stiffness coefficient c, erg/cm
+      real*8 he3_text_cpar  ! perpendicular spin wave velocity, cm/s
 
 ! Other textural parameters (see he3_text.f)
       real*8 he3_text_a     ! textural parameter a [erg/(Gauss^2 cm^3)]
