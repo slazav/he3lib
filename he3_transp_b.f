@@ -146,6 +146,7 @@
       function he3_tau_av(ttc, p)
         implicit none
         include 'he3.fh'
+        include 'he3_math.fh'
         real*8 ttc, p
         real*8 he3_tau_av_int
         external he3_tau_av_int
@@ -210,6 +211,7 @@
       function he3_fpath(ttc, p)
         implicit none
         include 'he3.fh'
+        include 'he3_math.fh'
         real*8 ttc, p, tn, vf
         real*8 he3_fpath_int1, he3_fpath_int2
         external he3_fpath_int1, he3_fpath_int2
@@ -446,10 +448,12 @@
       function he3_diff_all(ttc, p, nu0, type)
         implicit none
         include 'he3.fh'
+        include 'he3_math.fh'
         real*8 ttc, p, nu0, type
         real*8 Vf, chi0, Y0, f0a
         real*8 he3_diff_int_i, he3_diff_int
         external he3_diff_int_i, he3_diff_int
+        real*8 he3_diff_all
 
         real*8 ttc1,gap,o0, lambda, td
         integer itype
@@ -498,6 +502,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
+        real*8 he3_diff_all
         if (ttc.ge.1D0) then
           he3_diff_perp_xx = he3_diffn_perp(ttc,p,nu0)
         else
@@ -510,6 +515,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
+        real*8 he3_diff_all
         if (ttc.ge.1D0) then
           he3_diff_perp_xx_im = NaN
         else
@@ -522,6 +528,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
+        real*8 he3_diff_all
         if (ttc.ge.1D0) then
           he3_diff_perp_zz = he3_diffn_perp(ttc,p, nu0)
         else
@@ -533,6 +540,7 @@
       function he3_diff_perp_zz_im(ttc, p, nu0)
         implicit none
         include 'he3.fh'
+        real*8 he3_diff_all
         real*8 ttc, p, nu0
         if (ttc.ge.1D0) then
           he3_diff_perp_zz_im = NaN
@@ -546,6 +554,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
+        real*8 he3_diff_all
         if (ttc.ge.1D0) then
           he3_diff_par_xx = he3_diffn_hydr(ttc,p)
         else
@@ -558,6 +567,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
+        real*8 he3_diff_all
         if (ttc.ge.1D0) then
           he3_diff_par_zz = he3_diffn_hydr(ttc,p)
         else

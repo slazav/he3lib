@@ -20,8 +20,8 @@
      .    he3_Pabn   /21.22D0/,      ! A-B-Normal crit.pt, bar
      .    he3_Tabn   /2.273D0/,      ! A-B-Normal crit.pt, mK.
 
-     .    he3_Pm     /29.3113D0/,    ! Melting curve minimum, bar (PLTS2000)
-     .    he3_Tm     /0.31524D0/,    ! Melting curve minimum, K (PLTS2000)
+     .    he3_Pm     /29.3113D0/,    ! Melting curve minimum, bar
+     .    he3_Tm     /0.31524D0/,    ! Melting curve minimum, K
 
      .    he3_Pa     /34.3380D0/,    ! A-N-Solid crit.pt, bar (Greywall-86)
      .    he3_Ta     /2.491D0/,      ! A-N-Solid crit.pt, mK  (Greywall-86)

@@ -5,7 +5,7 @@
 ! Gauss-2pt quadrature
       function math_dint(func, xmin, xmax, nx)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
         real*8 func, xmin, xmax
         real*8 dx, xp, xm
         integer i, nx
@@ -25,7 +25,7 @@
 ! Gauss-2pt quadrature
       function math_cint(func, xmin, xmax, nx)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
         complex*16 func
         real*8 xmin, xmax
         real*8 dx, xp, xm
@@ -48,7 +48,7 @@
       function math_dint2d(func,
      .         xmin, xmax, nx, ymin, ymax, ny)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
         real*8 func
         real*8 xmin, xmax, ymin, ymax
         real*8 s1, s2, dx, xp, xm, dy, yp, ym
@@ -78,7 +78,7 @@
       function math_cint2d(func,
      .         xmin, xmax, nx, ymin, ymax, ny)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
         complex*16 func
         real*8 xmin, xmax, ymin, ymax
         real*8 s1, s2, dx, xp, xm, dy, yp, ym
@@ -109,7 +109,7 @@
 !! using slatec library
 !      function math_dint_slatec(func, xmin, xmax, epsabs, epsrel)
 !        implicit none
-!        include 'he3.fh'
+!        include 'he3_math.fh'
 !        real*8 func,xmin,xmax,epsabs,epsrel
 !        external F
 !        integer limit, lenw
@@ -157,7 +157,7 @@
       function math_dint2d_gk(func,
      .         xmin, xmax, nx, ymin, ymax, ny, aerr)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
 
         common /math_intgk/ crd,wg,wk
         real*8 crd(15), wg(7), wk(15)
@@ -197,7 +197,7 @@
       subroutine math_dint2d_gka(myself, func,
      .         xmin, xmax, ymin, ymax, aerr_lim, rerr_lim, res)
         implicit none
-        include 'he3.fh'
+        include 'he3_math.fh'
 
         common /math_intgk/ crd,wg,wk
         real*8 crd(15), wg(7), wk(15)

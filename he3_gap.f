@@ -122,6 +122,7 @@
       function he3_yosida(ttc, gap, n)
         implicit none
         include 'he3.fh'
+        include 'he3_math.fh'
         real*8 he3_yosida_int
         external he3_yosida_int
         real*8 ttc, gap, n

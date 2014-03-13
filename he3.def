@@ -1,0 +1,158 @@
+## This file contains function prototypes for he3lib.
+## It is used in many places:
+## - creation of C include file he3.h (it is used in matlab/octave compilation)
+## - creation of F and F90 include file he3.fh he3.f90h
+## - command line program -- TODO
+
+# Constants (see he3_const.f)
+he3_gyro      # g-factor
+he3_amass     # He3 atom mass, g
+he3_mmass     # He3 molar mass, g/mol
+const_na      # Avogadro constant Na, 1/mole
+const_kb      # Boltzmann constant k, SGS
+const_r       # R-gas constant, kb*na, SGS
+const_h       # Planck constant h, SGS
+const_hbar    # Planck constant hbar, SGS
+const_pi      # pi
+const_2pi     # 2pi
+# phase diagram
+he3_pcr       # Liquid He3 critical point pressure, bar
+he3_tcr       # Liquid He3 critical point temperature, K
+he3_pabn      # A-B-Normal crit.pt, bar
+he3_tabn      # A-B-Normal crit.pt, mK
+he3_pm        # Melting curve minimum
+he3_tm        # Melting curve minimum
+he3_pa        # A-N-Solid crit.pt, bar (Greywall-86)
+he3_ta        # A-N-Solid crit.pt, mK  (Greywall-86)
+he3_pb        # A-B-Solid crit.pt, bar (Greywall-86)
+he3_tb        # A-B-Solid crit.pt, mK  (Greywall-86)
+he3_ps        # AFM transition in solid He3, bar (Greywall-86)
+he3_ts        # AFM transition in solid He3, mK  (Greywall-86)
+# phase diagram -- PLTS
+he3_pa_plts   # A-N-Solid crit.pt, bar (PLTS2000)
+he3_ta_plts   # A-N-Solid crit.pt, mK  (PLTS2000)
+he3_pb_plts   # A-B-Solid crit.pt, bar (PLTS2000)
+he3_tb_plts   # A-B-Solid crit.pt, mK  (PLTS2000)
+he3_ps_plts   # AFM transition in solid He3, bar (PLTS2000)
+he3_ts_plts   # AFM transition in solid He3, mK  (PLTS2000)
+
+# Phase diagram functions (see he3_phase.f)
+he3_pvap(T)        # Vapor pressure [bar] vs T [K]
+he3_pmelt(T)       # Melting pressure [bars] vs T [K] (Greywall86)
+he3_tc(P)          # T_c [mK] vs P [bar] (Greywall86)
+he3_tab(P)         # T_ab [mK] vs P [bar] (Greywall86)
+he3_pmelt_plts(T)  # PLTS2000 melting pressure [bars] vs T [K]
+he3_gr2plts(T)     # Greywall86 -> PLTS2000 temperature conversion
+he3_plts2gr(T)     # PLTS2000 -> Greywall86 temperature conversion
+
+# Fermi-liquid functions (see he3_fermi.f)
+he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]
+he3_gammaf(P) # R-Gas constant GAMMA=C/RT [1/(Kmol)] vs P [bar]
+he3_c1(P)     # First sound velosity [cm/s] vs P [bar]
+he3_tmag(P)   # Magnetic temperature [K] vs P [bar]
+he3_rho(P)    # Density [g/cm^3] vs P [bar]
+he3_2n0(P)    # 2N0 vs P [bar]
+he3_mm(P)     # Effective mass / atom mass vs P [bar]
+he3_meff(P)   # Effective mass [g] vs P [bar]
+he3_pf(P)     # Fermi momentum [sgs] vs P [bar]
+he3_vf(P)     # Fermi velocity [cm/s] vs P [bar]
+he3_chi_n(P)  # Normal liquid susceptibility vs P [bar]
+he3_f0a(P)    # F0a vs P [bar] (Z0/4)
+he3_f0s(P)    # F0s vs P [bar]
+he3_f1a(P)    # F1a vs P [bar]
+he3_f1s(P)    # F1s vs P [bar]
+he3_a(P)      # average atomic spacing, angstr.
+he3_gdk(P)    # average dipolar coupling energy, K
+he3_tfeff(P)  # effective fermi temperature, K
+
+# BCS gap + strong coupling correction (see he3_gap.f)
+he3_bcsgap(ttc)           # BCS energy gap
+he3_bcsgap_fast(ttc)      # BCS energy gap approximation
+he3_trivgap(ttc, p)       # Trivial strong-coupling correction to the BCS gap
+he3_yosida(ttc, gap, n)   # Yosida functions
+he3_yosida_par(ttc, gap)
+he3_yosida_perp(ttc, gap)
+he3_z3(ttc, gap)
+he3_z5(ttc, gap)
+he3_z7(ttc, gap)
+he3_lambda(ttc, gap)
+he3_rho_nb(ttc, P)        # B-phase Normal component density \rho_nb/\rho_0
+he3_chi_b(ttc, P)         # B-phase susceptibility chi_b/chi_0
+
+# Dipole energy and Leggett frequency (see he3_dipole.f)
+he3_gd(P)          # Experimental value of Dipolar coefficient g_d, [1/(erg cm3)]
+he3_ld(ttc, P)     # lambda_D = Delta^2 g_d, [erg/cm3]
+he3_nu_b(ttc, P)   # B-phase Leggett frequency, Hz
+he3_nu_b1(ttc, P)  # B-phase Leggett frequency, Hz
+
+# Gradient energy and spin wave velocities (see he3_text_gr.f)
+he3_text_lg1(ttc, p)   # Textural parameter lambda_{G1}, erg/cm
+he3_text_lg2(ttc, p)   # Textural parameter lambda_{G2}, erg/cm
+he3_text_delta(ttc, p) # Textural parameter delta
+he3_text_cperp(ttc, p) # perpendicular spin wave velocity, cm/s
+he3_text_cpar(ttc, p)  # parallel spin wave velocity, cm/s
+
+# Other textural parameters (see he3_text.f)
+he3_text_a(ttc, p)     # Textural parameter a [erg/cm^3 1/G^2]
+he3_text_ldv(ttc, p)   # Textural parameter lambda_{DV}
+he3_text_lhv(ttc, p)   # Textural parameter lambda_{HV}
+he3_text_d(ttc, p)          # Textural parameter d, erg/(cm^2 G^2)
+he3_text_llh(ttc, p, omega) # Textural parameter lambda_LH
+he3_text_lo(ttc, p, omega)  # lambda/omega
+he3_text_vd(ttc, p)      # Dipole velocity v_d, cm/s
+he3_text_xid(ttc, p)     # Dipole length xi_d, cm
+he3_text_xih(ttc, p, h)  # Magnetic length xi_h, cm
+
+# Transport in the normal phase (see he3_transp_n.f)
+he3_crsect_w(P)  # Crossections
+he3_crsect_wi(P) #
+he3_crsect_wd(P) #
+he3_crsect_wl(P) #
+he3_scatt_l1a(P) # Scattering parameters
+he3_scatt_g0(P)  #
+he3_scatt_d0(P)  #
+he3_scatt_w0(P)  # w0 = 1 - 2/3 g0 + d0
+he3_tau_n0(ttc, P)    # Normal state quasiparticle lifetime at the Fermi level, s
+he3_tau_n_av(ttc, P)  # Thermal average quasiparticle lifetime, s
+he3_tau_nd(ttc, P)    # Spin diffusion transport time for a normal Fermi-liquid, s
+he3_diffn_hydr(ttc, p)       # Hydrodynamic spin diffusion in normal liquid, cm2/s
+he3_diffn_perp(ttc, p, nu0)  # Spin diffusion D_perp in normal liquid, cm2/s
+
+# Transport in the B phase (see he3_transp_b.f)
+he3_coll_int(xi, ttc, gap, g0, d0)    # Collision integral approximation ttc=0..1
+he3_coll_int_lt(xi, ttc, gap, g0, d0) # Collision integral for low temp (good for < 0.7Tc)
+he3_coll_int_ht(xi, ttc, gap, g0, d0) # Collision integral for high temp
+he3_tau0(ttc, p)      # Bogoliubov quasiparticle lifetime at the Fermi level, s
+he3_tau0lt(ttc, p)    # he3_tau0 at T->0
+he3_tau_av(ttc, p)    # Thermal average quasiparticle lifetime, s
+he3_fpath(ttc, p)     # Mean free path of Bogoliubov quasiparticles
+he3_tau_dperp(ttc, p) # Spin diffusion perp transport time, s
+he3_tau_dpar(ttc, p)  # Spin diffusion parallel transport time, s
+he3_diff_hperp_zz(ttc, p)    # Hydrodynamic spin diffusion D_perp_zz, cm2/s
+he3_diff_hpar_zz(ttc, p)     # Hydrodynamic spin diffusion D_par_zz, cm2/s
+he3_diff_perp_xx(ttc, p, nu0)     # Spin diffusion Re D_perp_xx, cm2/s
+he3_diff_perp_xx_im(ttc, p, nu0)  # Spin diffusion Im D_perp_xx, cm2/s
+he3_diff_perp_zz(ttc, p, nu0)     # Spin diffusion Re D_perp_zz, cm2/s
+he3_diff_perp_zz_im(ttc, p, nu0)  # Spin diffusion Im D_perp_zz, cm2/s
+he3_diff_par_xx(ttc, p, nu0)      # Spin diffusion D_par_xx, cm2/s
+he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
+
+# Other (see he3_other.f)
+he3_xigl(ttc, p)           # Extrapolated GL coherence length, cm
+he3_vneq(ttc, p, omega, r) # Equilibrium vortex number
+he3_swvel(P, ttc)     # Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
+he3_swvel_par(P, ttc) # Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
+he3_swvel_per(P, ttc) # Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
+he3_ds_exp(P, ttc) # spin diffusion coeff. in superfluid He3 (measured)
+he3_dn_exp(P, ttc) # spin diffusion in normal He3
+he3_d_exp(P, ttc)  # combined normal + superfluid spin diffusion
+he3_tau_r(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+he3_tau_f(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+
+# Normal (see he3_normal.f)
+he3_cv_n(t, v)     # heat capacity, Cv vs T,V
+
+# ROTA-specific (see he3_rota.f)
+rota_c_ns(t, i)        # Nuclear stage heat capacity [J/K] vs T[K] and I[A]
+rota_fork_cal(w, p, n) # Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
+
