@@ -29,12 +29,12 @@
 
   text(1.17,0.025, 'D^\perp (0Hz)','fontweight','bold');
   text(1.10,0.008, 'D^\perp (1MHz)','fontweight','bold');
-  text(0.45,0.067, 'D^\perp_{zz} (0Hz)','fontweight','bold');
-  text(0.33,0.051, 'Re D^\perp_{zz} (1MHz)','fontweight','bold');
-  text(0.74,0.066, 'D^\perp_{xx} (0Hz)','fontweight','bold');
-  text(0.48,0.015, 'Re D^\perp_{xx} (1MHz)','fontweight','bold');
-  text(0.46,-0.011, 'Im D^\perp_{zz} (0Hz)','fontweight','bold');
-  text(0.73,-0.035, 'Im D^\perp_{xx} (1MHz)','fontweight','bold');
+  text(0.45,0.067, 'D^\perp_{xx} (0Hz)','fontweight','bold');
+  text(0.33,0.051, 'Re D^\perp_{xx} (1MHz)','fontweight','bold');
+  text(0.74,0.066, 'D^\perp_{zz} (0Hz)','fontweight','bold');
+  text(0.48,0.015, 'Re D^\perp_{zz} (1MHz)','fontweight','bold');
+  text(0.46,-0.011, 'Im D^\perp_{xx} (0Hz)','fontweight','bold');
+  text(0.73,-0.035, 'Im D^\perp_{zz} (1MHz)','fontweight','bold');
 
   % improved Samuli's code
   %addpath ~/he3lib/diff

@@ -212,6 +212,11 @@ source file {\tt he3\_gap.f}.
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
                                \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
                                \phi_k\ d\xi_k$\par
+                               Low temperature limit:
+                               $\displaystyle Y_n(T,\Delta) =
+                               2\Gamma\left(\frac{n+1}{2}\right)
+                               \left(\frac{T}{\Delta}\right)^{\frac{n-1}{2}}
+                               \exp\left(-\frac{\Delta}{T}\right)$\par
                                Note: type of n parameter in fortran should be real*8 (this was done
                                for standard function handling). If n is integer, result is unpredictable!\\
 \tt he3\_yosida\_par(ttc, gap)  & $Y_q^\parallel(T/T_c,\Delta)$\\
@@ -222,10 +227,10 @@ source file {\tt he3\_gap.f}.
 \tt he3\_z7(ttc, gap) &\\
 \tt he3\_lambda(ttc, gap) &\\
 
-\tt he3\_rho\_nb(ttc, p)     &B-phase normal component density\newline
+\tt he3\_rho\_nb(ttc, p)     &B-phase normal component density:
                              $\displaystyle \frac{\rho_B^n}{\rho_{N}} =
-                               \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$\\
-\tt he3\_chi\_b(ttc, p)      &B-phase susceptibility\newline
+                               \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$\\[3mm]
+\tt he3\_chi\_b(ttc, p)      &B-phase susceptibility:
                              $\displaystyle \frac{\chi_B}{\chi_N} =
                                \frac{(1+F_0^a)(2 + Y_0)}
                                      {3+F_0^a(2 + Y_0)}$\\
@@ -479,7 +484,7 @@ Maybe it is better to use K of $T_F$ units here.
 
 Values for {\tt he3\_tau0, he3\_tau\_av, he3\_diff\_*} are extended to
 $T>T_c$ region using normal phase functions. See more information in the
-source file {\tt he3\_transp\_b.f}.
+source file {\tt he3\_transp\_b.f} and in {\tt doc\_tech/spin\_diff.pdf}.
 
 \medskip
 
@@ -488,7 +493,7 @@ Collision integral for Bogoliubov quasiparticles:
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 \tt he3\_coll\_int(xi, ttc, gap, g0, d0) &
-   Full temperatur range approximation\newline
+   Full temperature range approximation\newline
    {\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)}\\
 \tt he3\_coll\_int\_lt(xi, ttc, gap, g0, d0) &
    Collision integral for low temp (good for $< 0.7 T_c$)\newline
@@ -563,6 +568,11 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 \begin{figure}[p]
 \includegraphics[scale=1.1]{transp_tau.eps}\\
 \includegraphics[scale=1.1]{transp_diff.eps}
+\end{figure}
+
+\begin{figure}[p]
+\includegraphics[scale=0.75]{sdiff_per.eps}\\
+\includegraphics[scale=0.75]{sdiff_par.eps}
 \end{figure}
 
 \eject

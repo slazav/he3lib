@@ -71,7 +71,7 @@ $$
 $$
 
 $$
-\int F(\kpa) k_{xx}\ \frac{d\Omega_k}{4\pi} =
+\int F(\kpa) k_{xx}^2\ \frac{d\Omega_k}{4\pi} =
 \int_0^1 F(\kpa)\ \frac{1-\kpa^2}{2}\ d\kpa
 $$
 
@@ -152,7 +152,7 @@ D^\parallel_{xx} =
   \ \int_{-\infty}^{\infty}
   \ \frac12 (I_1-I_2)\ \phi_k\ d\xi_k,
 \qquad
-D^\parallel_{xx} =
+D^\parallel_{zz} =
   \frac{v_F^2}{\chi}\ \t
   \ \int_{-\infty}^{\infty}
   \ I_2\ \phi_k\ d\xi_k,
@@ -168,7 +168,7 @@ C = (\t\op)^2 (1-u^2),\qquad
 D = 1 + (\t\op)^2 u^2.
 $$
 
-Formulas for $I_1$ and $I_2$ are bad for calculation in the $\t\op \to
+Formulas for $I_1$ and $I_2$ are bad for calculation in the $\tau_D\op \to
 0$ limit. In this case $C \approx 0$ and $D \approx 1$ and
 
 $$
@@ -176,6 +176,15 @@ I_1 = \frac{A}{3}+B,\qquad
 I_2 = \frac{A}{5}+\frac{B}{3}
 $$
 
+Integral over $\xi_k$ is calculated in the same manner as Yosida
+functions. Good substitution to avoid both infinite integration and
+singularity at $T \rightarrow 0, \xi \rightarrow 0$ is
+
+$$
+x = \tanh \frac{2\xi}{7}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hrule\medskip
 
 Einzel formula for $D^\parallel$ is different from Markelov-Mukharsy. He
@@ -200,7 +209,7 @@ $$
  = \frac{v_F^2}{\chi}\ \t\ \frac{1}{15}(4Y_2+Y_0)
 $$
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hrule\medskip
 
 $T\rightarrow T_c$ limit:
@@ -229,6 +238,74 @@ $$
 This is the same result as in the hydrodynamic approximation,
 and the same as normal Legget-Rice effect (Einzel-1991 f.102 and f.22)
 
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule\medskip
+
+$D^\perp$ in the limit of high frequencies and low temperatures
+$\omega'\tau \gg 1,  \Delta \gg T$:
+
+$$
+D_{xx}^\perp =
+\frac{v_F^2}{\omega_L \chi'}
+\frac{\pi\lambda(2+\lambda)^3}{8(1+\lambda)^5}
+\left(
+Y_0
++ \frac12 (\lambda^2+2\lambda+4) Y_2
++ \frac38 [8+\lambda(2+\lambda)(4+2\lambda+\lambda^2)] Y_4
+\right)
+$$
+
+$$
+D_{zz}^\perp =
+\frac{v_F^2}{\omega_L \chi'}
+\frac{\pi(2+\lambda)^2}{4(1+\lambda)^5}
+\left(
+Y_0
+- \frac12 (\lambda^2+2\lambda-2) Y_2
+- \frac18 [-8+\lambda(2+\lambda)(8+2\lambda+\lambda^2)] Y_4
+\right)
+$$
+
+$$
+\chi' = \frac{2+Y_0}{3+F_0^a(2+Y_0)} \approx \frac{2}{3+2F_0^a},\qquad
+\lambda = -F_0^a \chi'
+$$
+
+
+Yosida functions at the low temperature limit:
+$$
+Y_n(T,\Delta) =
+2\Gamma\left(\frac{n+1}{2}\right)
+\left(\frac{T}{\Delta}\right)^{\frac{n-1}{2}}
+\exp\left(-\frac{\Delta}{T}\right)
+$$
+
+At $P=4.1$~bar ($F^0_a = -0.7284$):
+
+$$
+D_{xx}^\perp =
+\frac{v_F^2}{\omega_L}
+\left[
+0.65895
++2.2335 \left(\frac{T}{\Delta}\right)
++19.897 \left(\frac{T}{\Delta}\right)^2
+\right]
+\sqrt{\frac{\Delta}{T}}
+\exp\left(-\frac{\Delta}{T}\right)
+$$
+
+$$
+D_{zz}^\perp =
+\frac{v_F^2}{\omega_L}
+\left[
+ 0.47422
+-0.18473 \left(\frac{T}{\Delta}\right)
+-11.714  \left(\frac{T}{\Delta}\right)^2
+\right]
+\sqrt{\frac{\Delta}{T}}
+\exp\left(-\frac{\Delta}{T}\right)
+$$
 
 
 \end{document}
