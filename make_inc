@@ -27,6 +27,8 @@ print OUT_F77 $fnan;
 print OUT_F90 $fnan;
 
 my $fcblk="! Common blocks for all constants\n";
+my $tab_c="";
+my $tab_f="";
 foreach (<DEF>){
   ## hidden comments
   next if /^##/;
@@ -46,28 +48,44 @@ foreach (<DEF>){
     next;
   }
   ## constants
-  if (/^\s*([^\s\(\)]+)(\s*)(#(.*))?$/){
+  if (/^\s*([^\s\(\)]+)(\s*)(#\s*(.*))?$/){
     my ($name, $sp, $comm) = ($1, $2, $4);
-    my $ccomm = defined($comm)? "$sp/*$comm */": "";
-    my $fcomm = defined($comm)? "$sp!$comm": "";
+    # C
+    my $ccomm = defined($comm)? "$sp/* $comm */": "";
     print OUT_C   "extern double ${name}_;$ccomm\n";
+    # F
+    my $fcomm = defined($comm)? "$sp! $comm": "";
     my $ffunc = "      real*8 $name$fcomm\n";
     $fcblk  .= sprintf("        common %15s $name\n", "/$name/");
     print OUT_F77 $ffunc;
     print OUT_F90 $ffunc;
+    # TAB
+    my $tcomm = defined($comm)? "$comm": "";
+    $tcomm =~ s/\"/\\\"/g;
+    $tab_c .= sprintf "{%-22s %-22s 0, \"\", %s},\n",
+      "\"$name\",", "&${name}_,", "\"$tcomm\"";
     next;
   }
   ## functions
-  if (/^\s*([^\s\(\)]+)\(([^)]+)\)(\s*)(#(.*))?$/){
+  if (/^\s*([^\s\(\)]+)\(([^)]+)\)(\s*)(#\s*(.*))?$/){
     my ($name, $args, $sp, $comm) = ($1, $2, $3, $5);
+    # C
     my @args = split(/\s*,\s*/, $args);
-    $args = 'double *' . join(', double *', @args);
-    my $ccomm = defined($comm)? "$sp/*$comm */": "";
-    my $fcomm = defined($comm)? "$sp!$comm": "";
-    print OUT_C "double ${name}_($args);$ccomm\n";
+    my $cargs = 'double *' . join(', double *', @args);
+    my $ccomm = defined($comm)? "$sp/* $comm */": "";
+    print OUT_C "double ${name}_($cargs);$ccomm\n";
+    # F
+    my $fcomm = defined($comm)? "$sp! $comm": "";
     my $ffunc = "      real*8 $name$fcomm\n";
     print OUT_F77 $ffunc;
     print OUT_F90 $ffunc;
+    # TAB
+    my $tcomm = defined($comm)? "$comm": "";
+    $tcomm =~ s/\"/\\\"/g;
+    my $targs = $args;
+    $targs =~ s/[\s,]+/ /g;
+    $tab_f .= sprintf "{%-22s %-22s %d, %-20s %s},\n", 
+      "\"$name\",", "&${name}_,", $#args+1, "\"$targs\",", "\"$tcomm\"";
     next;
   }
 }
@@ -76,7 +94,27 @@ foreach (<DEF>){
 print OUT_F77 $fcblk;
 print OUT_F90 $fcblk;
 
+close DEF;
+close OUT_C;
+close OUT_F77;
+close OUT_F90;
 
-
-
-
+# write TAB file for a command line interface
+open(OUT_TAB, '> he3tab.h') or die 'Can not open he3tab.h: $!';
+print OUT_TAB qq|/* $head */
+#include <stdio.h>
+#include <stdlib.h>
+#include "he3.h"
+struct tab_t {
+  const char * name;
+  const void * func;
+  const int    narg;
+  const char * args;
+  const char * comm;
+};
+struct tab_t const_tab[] = {
+${tab_c}{NULL,NULL,0,NULL}};
+struct tab_t func_tab[] = {
+${tab_f}{NULL,NULL,0,NULL}};
+|;
+close OUT_TAB;

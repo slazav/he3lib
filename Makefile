@@ -18,7 +18,7 @@ FFLAGS= -Werror -Wconversion\
 # -fno-range-check -- to allow NaN values
 
 LIBNAME=libhe3
-all: external he3.f90h he3.fh he3.h $(LIBNAME).a $(LIBNAME).so
+all: external he3.f90h he3.fh he3.h $(LIBNAME).a $(LIBNAME).so he3
 
 FC=gfortran
 
@@ -35,7 +35,7 @@ ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
 #        dgesv dgetrs dlaswp dtrsm lsame xerbla
 
 # h-file for f90 is created from he3.fh
-he3.f90h he3.fh he3.h: he3.def make_inc
+he3.f90h he3.fh he3.h he3tab.h: he3.def make_inc
 	./make_inc
 
 # Legget equations
@@ -53,6 +53,11 @@ $(LIBNAME).a: $(OBJS)
 
 $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
+
+he3.o: he3.c he3tab.h
+	$(CC) -c he3.c -o he3.o
+he3: he3.o libhe3.a
+	$(FC) $+ -o $@
 
 clean:
 	rm -f *.a *.so *.o libs/*.o legg_eq/*.o he3.f90h he3.fh he3.h
