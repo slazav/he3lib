@@ -1,6 +1,6 @@
 #!/usr/bin/octave -qf
 
-  addpath ~/he3lib/lib/matlab
+  addpath ../../matlab
 
   figure; clf; hold on;
   ttc = [0.2:0.01:0.95 0.951:0.001:1 1.01:0.01 1.5];
@@ -45,5 +45,6 @@
 %  plot(s2.ttc, s2.s2d/dn, 'm-');
 
 %   'Superfluid D_{perp} 10 kHz',...
+  title('Spin diffusion at P=30 bar')
 
   print transp_diff.eps -deps -color "-S800,600"
