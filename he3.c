@@ -51,7 +51,7 @@ call_func(struct tab_t * F, char *argv[]){
   /* parse arguments */
   for (j=0; j<F->narg; j++){
     int n1 = parse_range(argv[j], &A1[j], &A2[j], &dA[j]);
-    if (N!=1 && n1!=N) error("different parameter dementions");
+    if (N!=1 && n1!=1 && n1!=N) error("wrong table size");
     if (n1!=1) N=n1;
     A[j] = atof(argv[j]);
   }
