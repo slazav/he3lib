@@ -1,0 +1,83 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{euscript}
+\usepackage{graphicx}
+\graphicspath{{pics/}}
+\usepackage{color}
+\usepackage{epsfig}
+
+\begin{document}
+
+
+\def\en{\varepsilon_n}
+\def\sumii{\sum_{n=-\infty}^{\infty}}
+\def\intii{\int_{-\infty}^{\infty}}
+
+\subsection*{}
+
+Fermi distribution:
+$$
+\nu_k^0(E_k) = \frac1{\exp(E_k/k_BT) + 1}
+$$
+
+Derivative:
+$$
+\varphi_k
+= -\frac{\partial \nu_k^0}{\partial E_k}
+= \frac1{4k_BT \cosh^2(E_k/2k_BT)}
+$$
+
+Quasiparticle energy:
+$$
+E_k = \sqrt{\xi_k^2+\Delta_k\Delta_k^\dagger}
+$$
+
+Matsubaa energies:
+$$
+\en=\pi T (2n-1)
+$$
+
+\subsection*{Weak coupling gap equation}
+
+via Matsubara energies (E.V.Thuneberg, JLTP122, 2001, f.51):
+$$
+\ln\frac{T}{T_c} + \pi T \sumii
+\left[ \frac1{|\en|} - \frac1{\sqrt{\en^2 + \Delta^2}}
+\right]=0,
+\qquad \en=\pi T (2n-1).
+$$
+
+Interpolate value (Einzel-1991, f.68):
+$$
+\Delta(T) = \delta_{sc} k_B T_c
+\tanh\left\{\frac{\pi}{\delta_{sc}}\sqrt{
+\frac23\ \frac{\Delta C}{C_N}\ \frac{x}{1-x}\ (1 + c_1 x + c_2 x^2)
+}\right\},\quad x=1-T/T_c,
+$$
+where $\delta_sc$ and $\Delta C/C_N$ are zero temperature gap and specific heat discontinuity
+(weak coupling values are 1.764 and 1.426). $c_1=0.1916$, $c_2=0.2065$
+
+
+\subsection*{Yosida functions}
+
+$$
+Y_n(T) = \intii \left|\frac{\xi_k}{E_k}\right|\varphi_k\ d\xi_k
+$$
+
+\subsection*{Z functions}
+
+$$
+Z_j(T) = \pi k_B T \Delta^{j-1} \sumii(\en^2 + \Delta^2)^{-j/2}.
+$$
+
+$$
+Z_3(T) = 1-Y_0(T)
+$$
+
+$$
+\lambda(T) = \pi k_B T \sumii
+\frac{\Delta}{\sqrt{\en^2 + \Delta^2}(\sqrt{\en^2 + \Delta^2} + \Delta)}
+$$
+
+\end{document}

@@ -3,6 +3,7 @@
 \usepackage{amssymb}
 \usepackage{euscript}
 \usepackage{graphicx}
+\usepackage{mathtools}
 \graphicspath{{pics/}}
 \usepackage{color}
 \usepackage{epsfig}
@@ -79,7 +80,7 @@ $$
 Small rotation $\theta^{so}_j$ (VW 7.25):
 
 $$
-R_{\alpha\j} = R_{jk}(\theta^{so}) R^0_{\alpha k} =
+R_{\alpha j} = R_{jk}(\theta^{so}) R^0_{\alpha k} =
 (\delta_{jk} - e_{jkn}\theta^{so}_n) R^0_{\alpha k}
 $$
 
@@ -215,21 +216,61 @@ c_\parallel^2 = \frac{2\gamma^2}{\chi} (4+\delta)\lambda_{G2},\qquad
 c_\perp^2     = \frac{2\gamma^2}{\chi} (3+\delta/2)\lambda_{G2}
 $$
 
+
+\eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hrule
 \medskip
 
-Shrodinger equations for magnons (VW 8.179).
+Spin motion (see VW8.4.6, Theodorakis and Fetter 1983).
+
+Consider a uniform equilibrium state with order parameter rotation matrix $R_{ai}$
+and small non-uniform rotation in spin space $\theta^s_a$.
+
+Gradient (bending) energy without surface term (see above):
+$$
+F_\nabla = \frac12 \Delta^2\ [
+K (\nabla_i\theta^s_\alpha) (\nabla_i\theta^s_\alpha)
+- K'\ R^0_{\alpha i}R^0_{\beta j}(\nabla_i\theta^s_\alpha)(\nabla_j\theta^s_\beta)]
+$$
+where $K=2K_1+K_2+K_3$ and $K'=K_2+K_3$.
+
+Change in dipolar energy:
+$$
+\Delta F_D = \frac12 \frac{\chi}{\gamma^2}\Omega_B^2 (n_a \theta_a)^2
+$$
+
+Hamiltonian:
+$$
+\mathcal{H} = \frac{\gamma^2}{2\chi} |S|^2 - \gamma H \cdot S + F_\nabla +  F_D
+$$
+
+Force from gradient energy:
+$$
+T_a = \frac{\partial F_\nabla}{\partial\theta_a^s}
+= \nabla_i \frac{\partial F_\nabla}{\partial(\nabla_i\theta_a^s)}
+$$
+
+Hamilton equations for canonically conjugated variables $\bf S$ and
+${\bf \theta}^s$:
+
+\begin{eqnarray*}
+\dot S_a
+&=& \gamma [S\times H]_a\\
+&-& K\Delta^2\ \nabla_i\nabla_i \theta_a^s
+ + K'\Delta^2\ R^0_{ai}\nabla_i R^0_{bj}\nabla_j\theta_b^s\\
+&+& \frac{\chi}{\gamma^2}\Omega_B^2 (n\cdot\theta^s) n_a\\
+\dot \theta_a^s &=& -\gamma \left(H_a-\frac{\gamma}{\chi} S_a\right)\\
+\end{eqnarray*}
+
+Leggett configuration:
 
 $$
--(\bar K - \bar K'/2)\xi_D^2 \Delta\Psi - (1- \frac12 \sin^2\beta_N) \Psi = E \Psi.
+R_{ai} =
+\delta_{a3}\delta_{i3}
++ \cos\theta_L\ (\delta_{1a}\delta_{1i}-\delta_{2a}\delta_{2i})
+- \sin\theta_L\ (\delta_{1a}\delta_{2i}-\delta_{2a}\delta_{1i})
 $$
-
-$$
-\xi_D^2 (\bar K- \bar K'/2) = \Delta^2 \gamma^2/\chi \Omega_B^2 (K-K'/2)
-=\Omega_B^2 c_\perp^2
-$$
-
 
 
 
