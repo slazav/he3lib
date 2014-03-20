@@ -10,7 +10,7 @@
 
 \begin{document}
 
-\subsection*{Gradient energy}
+\subsection*{Gradient energy and spinwaves}
 
 \hrule
 
@@ -22,7 +22,7 @@ F_\nabla
 \qquad{\rm\small (VW 7.17)}\\
 \end{eqnarray*}
 
-B-phase, no distorsion of order parameter ("London limit"),
+B-phase, no distortion of order parameter ("London limit"),
 {\it bending energy}:
 
 $$
@@ -77,7 +77,7 @@ $$
 \hrule
 \medskip
 
-Small rotation $\theta^{so}_j$ (VW 7.25):
+Small spin-orbit rotation $\theta^{so}_j$ (VW 7.25):
 
 $$
 R_{\alpha j} = R_{jk}(\theta^{so}) R^0_{\alpha k} =
@@ -113,7 +113,7 @@ F_\nabla
 \nabla_k(\theta^{so}_j \nabla_j\theta^{so}_k - \theta^{so}_k \nabla_j\theta^{so}_j)\\
 \end{eqnarray*}
 
-Weak couplng:
+Weak coupling:
 $$
 2 K_1 + K_2 + K_3 = \frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 a,
 \qquad
@@ -154,7 +154,7 @@ $$
 \hrule
 \medskip
 
-Small rotation $\theta^s_\alpha$ (VW 8.157-160):
+Small spin rotation $\theta^s_\alpha$ (VW 8.157-160):
 
 $$
 R_{\alpha i} = R_{\alpha\beta}(\theta^s) R^0_{\beta i} =
@@ -217,6 +217,7 @@ c_\perp^2     = \frac{2\gamma^2}{\chi} (3+\delta/2)\lambda_{G2}
 $$
 
 
+
 \eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hrule
@@ -224,8 +225,8 @@ $$
 
 Spin motion (see VW8.4.6, Theodorakis and Fetter 1983).
 
-Consider a uniform equilibrium state with order parameter rotation matrix $R_{ai}$
-and small non-uniform rotation in spin space $\theta^s_a$.
+Uniform equilibrium state with order parameter rotation matrix $R_{ai}$ plus
+small non-uniform rotation in spin space $\theta^s_a$.
 
 Gradient (bending) energy without surface term (see above):
 $$
@@ -245,33 +246,191 @@ $$
 \mathcal{H} = \frac{\gamma^2}{2\chi} |S|^2 - \gamma H \cdot S + F_\nabla +  F_D
 $$
 
-Force from gradient energy:
+Canonically conjugated variables are $\bf S$ and ${\bf \theta}^s$. Force
+caused by gradient energy:
 $$
-T_a = \frac{\partial F_\nabla}{\partial\theta_a^s}
-= \nabla_i \frac{\partial F_\nabla}{\partial(\nabla_i\theta_a^s)}
+T_a = -\frac{\partial F_\nabla}{\partial\theta_a^s}
+= -\nabla_i \frac{\partial F_\nabla}{\partial(\nabla_i\theta_a^s)}
 $$
 
-Hamilton equations for canonically conjugated variables $\bf S$ and
-${\bf \theta}^s$:
-
+Hamilton equations (check signs!):
 \begin{eqnarray*}
 \dot S_a
-&=& \gamma [S\times H]_a\\
-&-& K\Delta^2\ \nabla_i\nabla_i \theta_a^s
- + K'\Delta^2\ R^0_{ai}\nabla_i R^0_{bj}\nabla_j\theta_b^s\\
-&+& \frac{\chi}{\gamma^2}\Omega_B^2 (n\cdot\theta^s) n_a\\
+&=& \gamma [S\times H]_a
+ + \Delta^2[K\ \nabla_j\nabla_j \theta_a^s
+ - K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k\theta_b^s]
+- \frac{\chi}{\gamma^2}\Omega_B^2 (n\cdot\theta^s) n_a\\
 \dot \theta_a^s &=& -\gamma \left(H_a-\frac{\gamma}{\chi} S_a\right)\\
 \end{eqnarray*}
 
-Leggett configuration:
+Get $\theta^s$ from the second equation and put it into the first one
+(field $H$ is constant and uniform):
+$$
+\ddot S_a
+= \gamma [S\times H]_a
++ \Delta^2\frac{\gamma^2}{\chi}
+  [K\ \nabla_j\nabla_j S_a
+ - K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k  S_b]
+- \Omega_B^2 n_a n_b ( S_b -\frac{\chi}{\gamma}H_b)
+$$
+
+Harmonic solution, $S = \chi H/\gamma + s \exp(i\omega t)$:
+$$
+\left[
+\frac{\gamma^2\Delta^2}{\chi}
+  (-K\ \delta_{ab} \nabla_j\nabla_j
+ + K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k)
++ {\Omega_B^2} n_a n_b
+\right] s_b =
+\omega (\omega \delta_{ab} + i e_{abk} \gamma H_k ) s_b
+$$
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\medskip
+
+Legget's spin wave velocities.
+
+Zero magnetic field $H=0$, flat wave $s\rightarrow s\exp(i k\cdot r)$ with
+wave vector $k$.
+Let's introduce rotated wave vector $\bar k_a = R_{aj} k_j$. (Note that
+$|\bar k|^2 = |k|^2$).
 
 $$
-R_{ai} =
-\delta_{a3}\delta_{i3}
-+ \cos\theta_L\ (\delta_{1a}\delta_{1i}-\delta_{2a}\delta_{2i})
-- \sin\theta_L\ (\delta_{1a}\delta_{2i}-\delta_{2a}\delta_{1i})
+\frac{\gamma^2\Delta^2}{\chi}
+  [K\ |\bar k|^2 s - K'\ (\bar k \cdot s)\bar k]
++ \Omega_B^2 (n\cdot s)n
+= \omega^2 s
 $$
 
+For $\Omega_B^2 \ll \omega^2$ or $s \perp n$:
+\begin{eqnarray*}
+s \perp \bar k:
+&&
+\omega^2
+= \frac{\gamma^2\Delta^2}{\chi} K\ |\bar k|^2
+= c_\perp^2 |\bar k|^2
+\\
+s \parallel \bar k:
+&&
+\omega^2
+= \frac{\gamma^2\Delta^2}{\chi}(K - K')|\bar k|^2
+= c_\parallel^2 |\bar k|^2
+\end{eqnarray*}
 
+$$
+c_\perp^2 = \frac{\gamma^2\Delta^2}{\chi} (2K_1+K_2+K_3)
+= 2\frac{\gamma^2}{\chi} (4+\delta)\lambda_{G2},
+\qquad
+c_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi} 2K_1
+= \frac{\gamma^2}{\chi} 4\lambda_{G2}
+$$
+
+$ c_\perp^2/c_\parallel^2 \approx 2$.
+Compare with Leggett-1975 XII.B
+
+\bigskip
+\hrule
+\medskip
+
+Spherical coordinates:
+$$
+e_{\pm1} = \frac{1}{\sqrt2} (x\pm iy),\qquad
+e_0 = z,\qquad
+A_q = (e_q)_i A_i,\qquad
+e_+ = e_-^*
+$$
+
+For $H \parallel z$:
+$$
+[A \times H]_{\pm} = \frac{1}{\sqrt2}([A\times H]_x \pm i[A\times H]_y) =
+\frac{1}{\sqrt2}(A_y H \mp i A_x H) = \mp i A_{\pm} H,\quad [A \times H]_0=0
+$$
+$$
+[A \times H]_q = -q i A_{\pm} H,\qquad
+A_q B^*_{q} = A_i B_i
+$$
+
+For a vector $A$ with polar and azimuthal angles $\alpha$ and $\beta$:
+$$
+A_0 = \cos\beta,\qquad
+A_\pm = \sin\beta\exp(\pm i\alpha)
+$$
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\medskip
+
+Shr\"odinger equation for magnons.
+
+Equation for spin components in spherical coordinates with
+($H$ is directed along $z$):
+$$
+\left[
+\frac{\gamma^2\Delta^2}{\chi}
+  [-K\ \delta_{pq} \nabla_j\nabla_j
+ + K'\ R^0_{pj}\nabla_j R^{0*}_{qk}\nabla_k]
++ \Omega_B^2 n_p n_q^*
+\right] s_q =
+\omega(\omega-q\gamma H) s_p
+$$
+
+Theodorakis and Fetter 1983: non-diagonal coupling is small
+(as $\Omega_B^2/\omega^2$):
+$$
+\left[
+\frac{\gamma^2\Delta^2}{\chi}
+  [-K\ \nabla_j\nabla_j
+ + K'\ R^0_{qj}\nabla_j R^{0*}_{qk}\nabla_k]
++ \Omega_B^2 |n_q|^2
+\right] s_q =
+\omega(\omega-q\gamma H) s_q
+$$
+
+For transverse modes ($q=+1$):
+$$
+R^0_{qj} R^{0*}_{qk}
+= (e_{+})_a R^0_{aj} (e_{+}^*)_b R^{0}_{bk}
+= \frac12 (R_{1j}R_{1k}+R_{2j}R_{2k})
+= \frac{\delta_{jk}}{2}  - \frac12 R_{3j}R_{3k};
+\qquad
+|n_{+}|^2 = \frac12 \sin^2\beta_N
+$$
+
+$$
+\left[ -
+\frac{\gamma^2\Delta^2}{\chi}
+  \left[(K-K'/2)\ \nabla^2
+  + K'/2\ R_{3j}R_{3k} \nabla_j\nabla_k
+  \right]
++ \frac{\Omega_B^2}{2} \sin^2\beta_N
+\right] s_{+} =
+\omega(\omega-\gamma H) s_{+}
+$$
+
+In Leggett configuration $R_3j = \delta_{3j}$:
+$$
+\left[
+- {c_\perp^2}\ (\nabla_x^2+\nabla_y^2)
+- {c_\parallel^2}\ \nabla_3^2
++ \frac{\Omega_B^2}{2} \sin^2\beta_N
+\right] s_{+} =
+\omega(\omega-\gamma H) s_{+}
+$$
+
+Where $c_\parallel$ and $c_\perp$ are Fomin's spin wave velocities.
+
+If $\omega-\gamma H \ll \gamma H$ then
+
+$$
+\left[
+- \frac{c_\perp^2}{\gamma H}\ (\nabla_x^2+\nabla_y^2)
+- \frac{c_\parallel^2}{\gamma H}\ \nabla_3^2
++ \frac{\Omega_B^2}{2\gamma H} \sin^2\beta_N + \gamma H
+\right] s_{+} =
+\omega\ s_{+}
+$$
 
 \end{document}
