@@ -250,7 +250,7 @@ Canonically conjugated variables are $\bf S$ and ${\bf \theta}^s$. Force
 caused by gradient energy:
 $$
 T_a = -\frac{\partial F_\nabla}{\partial\theta_a^s}
-= -\nabla_i \frac{\partial F_\nabla}{\partial(\nabla_i\theta_a^s)}
+= -\nabla_j \frac{\partial F_\nabla}{\partial(\nabla_j\theta_a^s)}
 $$
 
 Hamilton equations (check signs!):
@@ -258,7 +258,7 @@ Hamilton equations (check signs!):
 \dot S_a
 &=& \gamma [S\times H]_a
  + \Delta^2[K\ \nabla_j\nabla_j \theta_a^s
- - K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k\theta_b^s]
+ - K'\ \nabla_j R^0_{aj} R^0_{bk} \nabla_k\theta_b^s]
 - \frac{\chi}{\gamma^2}\Omega_B^2 (n\cdot\theta^s) n_a\\
 \dot \theta_a^s &=& -\gamma \left(H_a-\frac{\gamma}{\chi} S_a\right)\\
 \end{eqnarray*}
@@ -270,7 +270,7 @@ $$
 = \gamma [S\times H]_a
 + \Delta^2\frac{\gamma^2}{\chi}
   [K\ \nabla_j\nabla_j S_a
- - K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k  S_b]
+ - K'\ \nabla_j R^0_{aj}R^0_{bk}\nabla_k  S_b]
 - \Omega_B^2 n_a n_b ( S_b -\frac{\chi}{\gamma}H_b)
 $$
 
@@ -279,7 +279,7 @@ $$
 \left[
 \frac{\gamma^2\Delta^2}{\chi}
   (-K\ \delta_{ab} \nabla_j\nabla_j
- + K'\ R^0_{aj}\nabla_j R^0_{bk}\nabla_k)
+ + K'\ \nabla_j R^0_{aj}R^0_{bk}\nabla_k)
 + {\Omega_B^2} n_a n_b
 \right] s_b =
 \omega (\omega \delta_{ab} + i e_{abk} \gamma H_k ) s_b
@@ -355,7 +355,7 @@ $$
 For a vector $A$ with polar and azimuthal angles $\alpha$ and $\beta$:
 $$
 A_0 = \cos\beta,\qquad
-A_\pm = \sin\beta\exp(\pm i\alpha)
+A_\pm = -=frac{1}{\sqrt2}\sin\beta\exp(\pm i\alpha)
 $$
 
 \eject
@@ -371,7 +371,7 @@ $$
 \left[
 \frac{\gamma^2\Delta^2}{\chi}
   [-K\ \delta_{pq} \nabla_j\nabla_j
- + K'\ R^0_{pj}\nabla_j R^{0*}_{qk}\nabla_k]
+ + K'\ \nabla_j R^0_{pj}R^{0*}_{qk}\nabla_k]
 + \Omega_B^2 n_p n_q^*
 \right] s_q =
 \omega(\omega-q\gamma H) s_p
@@ -383,7 +383,7 @@ $$
 \left[
 \frac{\gamma^2\Delta^2}{\chi}
   [-K\ \nabla_j\nabla_j
- + K'\ R^0_{qj}\nabla_j R^{0*}_{qk}\nabla_k]
+ + K'\ \nabla_j R^0_{qj}R^{0*}_{qk}\nabla_k]
 + \Omega_B^2 |n_q|^2
 \right] s_q =
 \omega(\omega-q\gamma H) s_q
@@ -410,7 +410,7 @@ $$
 \omega(\omega-\gamma H) s_{+}
 $$
 
-In Leggett configuration $R_3j = \delta_{3j}$:
+If $\beta_N$ is small $R_3j \approx \delta_{3j}$:
 $$
 \left[
 - {c_\perp^2}\ (\nabla_x^2+\nabla_y^2)
@@ -432,5 +432,117 @@ $$
 \right] s_{+} =
 \omega\ s_{+}
 $$
+
+For Longitudnal mode $q=0$:
+
+$$
+\left[ -
+\frac{\gamma^2\Delta^2}{\chi}
+  \left[K\ \nabla^2
+  - K'\ R_{3j}R_{3k} \nabla_j\nabla_k
+  \right]
++ \Omega_B^2\cos^2\beta_N
+\right] s_0 =
+\omega^2 s_0
+$$
+
+If $\beta_N$ is small $R_3j \approx \delta_{3j}$, $\cos^2\beta_N\approx 1$:
+$$
+\left[
+- {c_\perp^2}\ (\nabla_x^2+\nabla_y^2)
+- {c_\parallel^2}\ \nabla_z^2
++ \Omega_B^2 \right] s_0 =
+\omega^2 s_0
+$$
+
+Where $c_\parallel$ and $c_\perp$ are Legget's spin wave velocities.
+
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\medskip
+
+Gradient energy in non-uniform texture.
+
+Let's apply small rotation of spin space to non-uniform texture $R^0$:
+$$
+R_{\mu k} = R_{\mu\nu}(\theta^s) R^0_{\nu k} =
+(\delta_{\mu\nu} - e_{\mu\nu\gamma}\theta^s_\gamma) R^0_{\nu k},
+$$
+$$
+\nabla_j R_{\mu k} =
+(\delta_{\mu\nu} - e_{\mu\nu\gamma}\theta^s_\gamma)(\nabla_j R^0_{\nu k})
+- e_{\mu\nu \gamma} R^0_{\nu k} (\nabla_j \theta^s_\gamma)
+$$
+
+Total gradient energy:
+\begin{eqnarray*}
+F_\nabla
+&=& \frac12 \Delta^2 K_1
+ (\nabla_j R_{\mu k})(\nabla_j R_{\mu k})\\
+&+& \frac12 \Delta^2 K_2
+ (\nabla_j R_{\mu k})(\nabla_k R_{\mu j})\\
+&+& \frac12 \Delta^2 K_3
+ (\nabla_j R_{\mu j})(\nabla_k R_{\mu k})\\
+\end{eqnarray*}
+
+Force:
+\begin{eqnarray*}
+T_a
+&=& - \frac{\partial F_\nabla}{\partial\theta^s_a}
+- \nabla_m \frac{\partial F_\nabla}{\partial(\nabla_m\theta^s_a)} = \\
+&-& \Delta^2 K_1 \left\{
+  (\nabla_j R_{\mu k})
+  \frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k})
++ \nabla_m \left[
+  (\nabla_j R_{\mu k})
+  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k})\right]
+\right\}
+\\
+&-& \Delta^2 K_2 \left\{
+  (\nabla_k R_{\mu j})
+  \frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k})
++ \nabla_m \left[
+  (\nabla_k R_{\mu j})
+  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k})\right]
+\right\}
+\\
+&-& \Delta^2 K_3 \left\{
+  (\nabla_j R_{\mu j})
+  \frac{\partial}{\partial\theta^s_a} (\nabla_k R_{\mu k})
++ \nabla_m \left[
+  (\nabla_j R_{\mu j})
+  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_k R_{\mu k})\right]
+\right\}
+\\
+\end{eqnarray*}
+
+$$
+\frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k}) =
+- e_{\mu\beta a} (\nabla_j R^0_{\beta k})
+\qquad
+\frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k}) =
+- \delta_{mj} e_{\mu\beta a} R^0_{\beta k}
+$$
+
+\begin{eqnarray*}
+T_a
+&=& \Delta^2 K_1 \left\{
+  2e_{\mu\beta a} (\nabla_j R_{\mu k}) (\nabla_j R^0_{\beta k})
++ e_{\mu\beta a} (\nabla_j \nabla_j R_{\mu k}) R^0_{\beta k}
+\right\}
+\\
+&+& \Delta^2 K_2 \left\{
+  2e_{\mu\beta a} (\nabla_k R_{\mu j}) (\nabla_j R^0_{\beta k})
++ e_{\mu\beta a} (\nabla_j \nabla_k R_{\mu j}) R^0_{\beta k}
+\right\}
+\\
+&+& \Delta^2 K_3 \left\{
+  2e_{\mu\beta a} (\nabla_j R_{\mu j}) (\nabla_k R^0_{\beta k})
++ e_{\mu\beta a} (\nabla_j \nabla_k R_{\mu j}) R^0_{\beta k}
+\right\}
+\end{eqnarray*}
+
+(not finished)
 
 \end{document}
