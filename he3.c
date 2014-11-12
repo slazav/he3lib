@@ -12,7 +12,7 @@ error(const char * err){
   exit(1);
 }
 
-/* Parse range setting in form <v1>:<v2>:<step>
+/* Parse range setting in form <v1>:<step>:<v2>
    Return number of steps. */
 int
 parse_range(const char * str,
@@ -29,7 +29,15 @@ parse_range(const char * str,
   else { *v2=*v1; *st=0; return 1;}
 
   tok = strtok(NULL, del);
-  *st = tok? atof(tok):(*v2-*v1)/(20-1);
+  if (tok){ /* we have step! */
+    *st = *v2;
+    *v2 = atof(tok);
+  }
+  else {
+    *st=(*v2-*v1)/(20-1);
+  }
+
+  if (*v2==*v1){ *st=0; return 1;}
 
   if (*v1<*v2) *st = fabs(*st);
   else *st = -fabs(*st);

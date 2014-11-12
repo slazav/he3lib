@@ -17,36 +17,31 @@ FFLAGS= -Werror -Wconversion\
 # -std=legacy -- to allow blas.f compilation
 # -fno-range-check -- to allow NaN values
 
-LIBNAME=libhe3
-all: external he3.f90h he3.fh he3.h $(LIBNAME).a $(LIBNAME).so he3
+all: build_headers\
+     build_library\
+     build_cmdline
+
+#     build_doc
+#     build_octave
 
 FC=gfortran
 
 ###################################
+
+# header files for C/F77/F90 are created from he3.def
+build_headers: he3.f90h he3.fh he3.h he3tab.h
+he3.f90h he3.fh he3.h he3tab.h: he3.def make_inc
+	./make_inc
+
+LIBNAME=libhe3
+build_library: $(LIBNAME).a $(LIBNAME).so
 
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
         he3_math he3_gap he3_dipole he3_text_gr he3_text\
         he3_transp_n he3_transp_b he3_other\
         he3_rota
-
-# additional fitting functions used in libhe3
-ADDOBJS=E02AEE E02CBE M01AGE P01AAE X02AAE X04AAE
-#        dgesv dgetrs dlaswp dtrsm lsame xerbla
-
-# h-file for f90 is created from he3.fh
-he3.f90h he3.fh he3.h he3tab.h: he3.def make_inc
-	./make_inc
-
-# Legget equations
-LEGG_EQ_OBJS=he3b_legg_rot1d
-
-OBJS=\
-  $(patsubst %,%.o,$(LIBOBJS))\
-  $(patsubst %,legg_eq/%.o,$(LEGG_EQ_OBJS))\
-  external/poly/*.o\
-  external/int/*.o\
-  external/tn/*.o
+OBJS= $(patsubst %,%.o,$(LIBOBJS))
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
@@ -54,15 +49,23 @@ $(LIBNAME).a: $(OBJS)
 $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
 
+# cmdline program
+build_cmdline: he3
 he3.o: he3.c he3tab.h
 	$(CC) -c he3.c -o he3.o
 he3: he3.o libhe3.a
 	$(FC) $+ -o $@
 
+###################################
+build_octave: build_library
+	make -C matlab octave
+
+build_doc: build_octave
+	make -C doc
+	make -C doc_tex
+
+###################################
 clean:
-	rm -f *.a *.so *.o libs/*.o legg_eq/*.o he3.f90h he3.fh he3.h
+	rm -f *.a *.so *.o libs/*.o he3.f90h he3.fh he3.h he3
 	make -C matlab clean
 	make -C doc clean
-
-test1: test.f libhe3.a
-	$(FC) -g -fno-range-check $+ -o $@ ../external/libint.a 

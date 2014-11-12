@@ -21,30 +21,52 @@
 \subsection*{Usage}
 
 This library provides constant and functions for various $^3$He properties.
+Supported Languages:
 
-\noindent Supported Languages:
-
-{\bf Fortran-77.}
+\begin{itemize}
+\item{Fortran-77.}
 You should use {\tt he3.fh} include file and {\tt libhe3} library for
 fortran programs. All functions and arguments are {\tt real*8}.
 Use {\tt -fno-range-check} compiler flag to allow {\tt NaN} values.
 
-{\bf Fortran-90.}
+\item{Fortran-90.}
 You should include he3.f90h instead.
 
-{\bf C.} You should use {\tt he3.h} include file and {\tt libhe3} library
+\item{\bf C.} You should use {\tt he3.h} include file and {\tt libhe3} library
 in C programs. Lowercase names with underscore should be used (like {\tt
 he3\_pf\_}). Type of arguments is always {\tt double*}, type of returned
 value is {\tt double}.
 
-{\bf Matlab, Octave.} To compile {\tt mex} files you should run {\tt
-compile.m} script in the {\tt matlab} folder. Lowercase names should be
-used. In function arguments you can mix numbers with arrays or
-matrices of the same size. Example:
+\item{\bf Matlab, Octave.} {\tt mex} files are located in the {\tt matlab}
+folder. Lowercase names should be used. In function arguments you can
+mix numbers with arrays or matrices of the same size. Example:
 \begin{verbatim}
   ttc=0:0.1:1; p=10;
-  I = he3_coll_int(0, ttc, he3_trivgap(ttc,p), he3_scatt_g0(p), he3_scatt_d0(p));
+  I = he3_nu_b(p, ttc);
 \end{verbatim}
+To bild {\tt mex} files you can use {\tt make octave}, {\tt make matlab}
+or {\tt make matlab64} in the {\tt matlab} folder. Fixed rpath is used
+for the library. For building this documentation octave files are needed.
+
+
+\item{\bf Command line.} You can use all the functions via a command line interface.
+To get a list of all functions run the program {\tt he3} without arguments:
+\begin{verbatim}
+> he3
+\end{verbatim}
+To get information about specific function run the program with the
+function name as an argument:
+\begin{verbatim}
+> he3 he3_nu_b
+\end{verbatim}
+You can use matlab-style vectors (value1:step:value2) to get a table
+of values (if step is missing then 20 points will be printed):
+\begin{verbatim}
+> he3 he3_nu_b 0.1:0.1:1 0
+\end{verbatim}
+will give you Leggett frequency vs temperature at zero pressure.
+
+\end{itemize}
 
 \subsection*{Location}
 \begin{itemize}
@@ -584,14 +606,6 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 \noindent\begin{tabular}{lp{11cm}}
 \tt he3\_xigl(ttc, p) & Extrapolated GL coherence length, cm\\
 \tt he3\_vneq(ttc, p, omega, r) & Equilibrium vortex number\\
-
-\tt he3\_swvel(p, t) & Osheroff's spin wave velocity $s$,~cm/s
-                      vs $P$ [bar], $T$~[mK]. Value 1100 cm/s for
-                      melting pressure is recalculated assuming $s\sim v_F$.\\
-\tt he3\_swvel\_par(p,t) & Parallel Fomin spin wave velocity,\newline
-                          $c_\parallel = \sqrt{2}\ s$,~cm/s vs $P$ [bar], $T$ [mK].\\
-\tt he3\_swvel\_per(p,t) & Perp. Fomin spin wave velocity,\newline
-                          $c_\perp = \sqrt{3/2}\ s$,~cm/s vs $P$ [bar], $T$ [mK].\\
 
 \end{tabular}
 \medskip

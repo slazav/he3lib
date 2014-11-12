@@ -10,9 +10,10 @@
  * will return a vector with length 10
  *
  * FUNC and NARGIN must be defined during compilation!
+ *
  *                               slazav, 2013 */
 
-/* I can get function prototype from the h-file, or create
+/* I can either get function prototype from the h-file or create
    it here. I want to support h-file in a working condition
    so I use it. */
 # if 1

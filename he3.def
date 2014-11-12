@@ -2,7 +2,7 @@
 ## It is used in many places:
 ## - creation of C include file he3.h (it is used in matlab/octave compilation)
 ## - creation of F and F90 include file he3.fh he3.f90h
-## - command line program -- TODO
+## - command line program
 
 # Constants (see he3_const.f)
 he3_gyro      # g-factor
@@ -154,12 +154,6 @@ he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
 # Other (see he3_other.f)
 he3_xigl(ttc, p)           # Extrapolated GL coherence length, cm
 he3_vneq(ttc, p, omega, r) # Equilibrium vortex number
-he3_swvel(P, ttc)     # Osheroff's spin wave vel. [cm/s] vs P [bar], T [mK]
-he3_swvel_par(P, ttc) # Perp Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
-he3_swvel_per(P, ttc) # Parallel Fomin spin wave vel. [cm/c] vs P [bar], T [mK]
-he3_ds_exp(P, ttc) # spin diffusion coeff. in superfluid He3 (measured)
-he3_dn_exp(P, ttc) # spin diffusion in normal He3
-he3_d_exp(P, ttc)  # combined normal + superfluid spin diffusion
 he3_tau_r(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
 he3_tau_f(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
 
