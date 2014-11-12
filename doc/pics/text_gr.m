@@ -20,10 +20,12 @@
   plot_tpdep(@he3_text_cperp);
 %  plot_tpdep(@he3_text_cpar);
   title('c_\perp, cm/c vs T/T_c');
+%  f=@(ttc,p)(1100*sqrt(1.5)./he3_vf(34.3).*he3_vf(p).*sqrt(1-ttc) );
+%  plot_tpdep(f);
 %  ylim([-0.35 0])
 
   subplot(2,2,4); hold on;
-  f = @(p,ttc) (he3_text_cperp(p,ttc)./he3_text_cpar(p,ttc));
+  f = @(ttc,p) (he3_text_cperp(ttc,p)./he3_text_cpar(ttc,p));
   plot_tpdep(f);
   title('c_\perp/c_\parallel vs T/T_c');
 %  ylim([0 2.5e-10])

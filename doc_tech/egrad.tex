@@ -462,87 +462,66 @@ Where $c_\parallel$ and $c_\perp$ are Legget's spin wave velocities.
 \hrule
 \medskip
 
-Gradient energy in non-uniform texture.
+Spin motion in non-uniform texture.
 
 Let's apply small rotation of spin space to non-uniform texture $R^0$:
 $$
 R_{\mu k} = R_{\mu\nu}(\theta^s) R^0_{\nu k} =
 (\delta_{\mu\nu} - e_{\mu\nu\gamma}\theta^s_\gamma) R^0_{\nu k},
 $$
+
+Gradient energy:
+$$
+F_\nabla = \frac12 \Delta^2 ( K_1 F_{jkjk} + K_2 F_{jkkj} + K_3 F_{jjkk});
+\qquad
+F_{jkj'k'} = (\nabla_j R_{\mu k})(\nabla_{j'} R_{\mu k'})
+$$
+
+Force:
+$$
+T_a = - \frac{\partial F_\nabla}{\partial\theta^s_a}
+- \nabla_m \frac{\partial F_\nabla}{\partial(\nabla_m\theta^s_a)} =
+\Delta^2 ( K_1 T_{ajkjk} + K_2 T_{ajkkj} + K_3 T_{ajjkk})
+$$
+$$
+T_{ajkj'k'} =
+- (\nabla_j R_{\mu k})
+  \frac{\partial}{\partial\theta^s_a} (\nabla_{j'} R_{\mu k'})
+- \nabla_m \left[
+  (\nabla_j R_{\mu k})
+  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_{j'} R_{\mu k'})\right]
+$$
+
+(This formula is true at least for all our combinations $jkjk$, $jkkj$, $jjkk$.)
+
+For the chosen matrix $R$:
 $$
 \nabla_j R_{\mu k} =
 (\delta_{\mu\nu} - e_{\mu\nu\gamma}\theta^s_\gamma)(\nabla_j R^0_{\nu k})
 - e_{\mu\nu \gamma} R^0_{\nu k} (\nabla_j \theta^s_\gamma)
 $$
-
-Total gradient energy:
-\begin{eqnarray*}
-F_\nabla
-&=& \frac12 \Delta^2 K_1
- (\nabla_j R_{\mu k})(\nabla_j R_{\mu k})\\
-&+& \frac12 \Delta^2 K_2
- (\nabla_j R_{\mu k})(\nabla_k R_{\mu j})\\
-&+& \frac12 \Delta^2 K_3
- (\nabla_j R_{\mu j})(\nabla_k R_{\mu k})\\
-\end{eqnarray*}
-
-Force:
-\begin{eqnarray*}
-T_a
-&=& - \frac{\partial F_\nabla}{\partial\theta^s_a}
-- \nabla_m \frac{\partial F_\nabla}{\partial(\nabla_m\theta^s_a)} = \\
-&-& \Delta^2 K_1 \left\{
-  (\nabla_j R_{\mu k})
-  \frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k})
-+ \nabla_m \left[
-  (\nabla_j R_{\mu k})
-  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k})\right]
-\right\}
-\\
-&-& \Delta^2 K_2 \left\{
-  (\nabla_k R_{\mu j})
-  \frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k})
-+ \nabla_m \left[
-  (\nabla_k R_{\mu j})
-  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k})\right]
-\right\}
-\\
-&-& \Delta^2 K_3 \left\{
-  (\nabla_j R_{\mu j})
-  \frac{\partial}{\partial\theta^s_a} (\nabla_k R_{\mu k})
-+ \nabla_m \left[
-  (\nabla_j R_{\mu j})
-  \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_k R_{\mu k})\right]
-\right\}
-\\
-\end{eqnarray*}
-
 $$
 \frac{\partial}{\partial\theta^s_a} (\nabla_j R_{\mu k}) =
-- e_{\mu\beta a} (\nabla_j R^0_{\beta k})
+- e_{\mu\nu a} (\nabla_j R^0_{\nu k})
 \qquad
 \frac{\partial}{\partial(\nabla_m\theta^s_a)} (\nabla_j R_{\mu k}) =
-- \delta_{mj} e_{\mu\beta a} R^0_{\beta k}
+- \delta_{mj} e_{\mu\nu a} R^0_{\nu k}
 $$
 
+Force components:
+$$
+T_{ajkj'k'} =
+2 (\nabla_j e_{\mu\nu a} R_{\mu k}) (\nabla_{j'} R^0_{\nu k'})
++  ( \nabla_{j'} \nabla_j e_{\mu\nu a} R_{\mu k}) R^0_{\nu k'}
+$$
+
+
 \begin{eqnarray*}
-T_a
-&=& \Delta^2 K_1 \left\{
-  2e_{\mu\beta a} (\nabla_j R_{\mu k}) (\nabla_j R^0_{\beta k})
-+ e_{\mu\beta a} (\nabla_j \nabla_j R_{\mu k}) R^0_{\beta k}
-\right\}
-\\
-&+& \Delta^2 K_2 \left\{
-  2e_{\mu\beta a} (\nabla_k R_{\mu j}) (\nabla_j R^0_{\beta k})
-+ e_{\mu\beta a} (\nabla_j \nabla_k R_{\mu j}) R^0_{\beta k}
-\right\}
-\\
-&+& \Delta^2 K_3 \left\{
-  2e_{\mu\beta a} (\nabla_j R_{\mu j}) (\nabla_k R^0_{\beta k})
-+ e_{\mu\beta a} (\nabla_j \nabla_k R_{\mu j}) R^0_{\beta k}
-\right\}
+T_{ajkj'k'}
+&=& 2 e_{\mu\nu a} (\nabla_j R_{\mu\beta}(\theta^s)) R^0_{\beta k} (\nabla_{j'} R^0_{\nu k'})\\
+&+& 2 e_{\mu\nu a} R_{\mu\beta}(\theta^s) (\nabla_j R^0_{\beta k}) (\nabla_{j'} R^0_{\nu k'})\\
+&+&  ( \nabla_{j'} \nabla_j e_{\mu\nu a} R_{\mu\beta}(\theta^s) R^0_{\beta k}) R^0_{\nu k'}\\
 \end{eqnarray*}
 
-(not finished)
 
 \end{document}

@@ -1,4 +1,4 @@
-all: spin_diff.pdf egrad.pdf
+all: spin_diff.pdf egrad.pdf r.pdf
 
 %.pdf: %.ps
 	ps2pdf $<
