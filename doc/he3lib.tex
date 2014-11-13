@@ -306,41 +306,79 @@ Note: In old papers (Leggett, ...) $g_D/5$ is used instead of $\lambda_G$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Gradient energy and spin wave velocity}
 
-Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
-High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
-See more information in the source file {\tt he3\_text\_gr.f} and in
-{\tt doc\_tech/egrad.pdf}.
+Gradient energy coefficients and derived values, including spin wave
+velocities. See more information in the source file {\tt he3\_grad.f}.
 
 $$
-F_{G}  = \int_V \left[
-  \lambda_{G1}\frac{\partial R_{\alpha i}}{\partial r_i}
-              \frac{\partial R_{\alpha j}}{\partial r_j} +
-  \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
-              \frac{\partial R_{\alpha j}}{\partial r_i}
-  \right]\ d^3r
-+ 2\lambda_{G2} \int_S s_k R_{\mu k} \frac{\partial R_{\mu j}}{\partial r_j}\ d^2r
+F_\nabla = \frac12 \Delta^2 \left[
+  K_1 (\nabla_j R_{ak})(\nabla_j R_{ak})
++ K_2 (\nabla_j R_{ak})(\nabla_k R_{aj})
++ K_3 (\nabla_j R_{aj})(\nabla_k R_{ak}) \right]
 $$
 
-($s_k$ is directed inside the volume)
+%Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
+%High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are set to 0.
+%See more information in the source file {\tt he3\_grad.f} and in
+%{\tt doc\_tech/egrad.pdf}.
+%$$
+%F_\nabla  = \int_V \left[
+%  \lambda_{G1}\frac{\partial R_{\alpha i}}{\partial r_i}
+%              \frac{\partial R_{\alpha j}}{\partial r_j} +
+%  \lambda_{G2}\frac{\partial R_{\alpha j}}{\partial r_i}
+%              \frac{\partial R_{\alpha j}}{\partial r_i}
+%  \right]\ d^3r
+%+ 2\lambda_{G2} \int_S s_k R_{\mu k} \frac{\partial R_{\mu j}}{\partial r_j}\ d^2r
+%$$
+%($s_k$ is directed inside the volume)
 
 \medskip
-\noindent\begin{tabular}{lp{11cm}}
+\noindent\begin{tabular}{p{4cm}p{11cm}}
 
-\tt he3\_text\_lg2(ttc, p) & $\lambda_{G2} = \displaystyle
-\frac{\hbar^2 \rho}{40 m^* m}
-\frac{(1 + F_1^a/3)(1-Y_0)}{1+F_1^a (2+3Y_0)/15} $, [erg/cm]\\[2mm]
+\tt he3\_grad\_K0(ttc, p)  & $K_1=K_2=K_3$ without fermi-liquid corrections, see VW7.23m\\
 
-\tt he3\_text\_lg1(ttc, p) & $\lambda_{G1} = \displaystyle
-(2+\delta) \lambda_{G2}$, [erg/cm]\\[2mm]
+\tt he3\_grad\_c(ttc, p)\par
+\tt he3\_grad\_delta(ttc, p) & $c$ and $\delta$ paramters calculated with fermi-liquid
+                            corrections (Cross-1975), see VW7.25. These values are
+                            used to calculate all other things:\par
+$\displaystyle
+c=-\frac{\rho_s}{10}
+\ \frac{3+F_1^a}{3+F_1^s}
+\ \frac{1}{1+F_1^a(5-3\rho_s/\rho)/15}
+,\qquad
+\delta = \frac{F_1^a \rho_s/\rho}{3+F_1^s(1-\rho_s/\rho)}
+$\\[3mm]
+\tt he3\_grad\_K12(ttc, p)\par
+\tt he3\_grad\_K3(ttc, p)  &
+  $\displaystyle K_1 = K_2 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 c,\qquad
+                 K_3 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 (1+\delta)c $\\
 
-\tt he3\_text\_delta(ttc, p) & $\delta = \displaystyle
-\frac{F_1^a (1-Y_0)}{3 + F_1^a Y_0} $\\[2mm]
+\tt he3\_grad\_K(ttc, p)\par
+\tt he3\_grad\_Kp(ttc, p)  & $K  = 2K_1 + K_2 + K_3,\qquad K' = K_2 + K_3$\\
 
-\tt he3\_text\_cperp(ttc, p) & Fomin's perpendicular spin wave velocity.\par
-$c_\perp = \displaystyle \gamma\sqrt{(6+\delta)\lambda_{G2}/\chi} $, [cm/s]\\
+\tt he3\_grad\_lg1(ttc, p)\par
+\tt he3\_grad\_lg2(ttc, p)\par
+\tt he3\_grad\_lsgb(ttc, p) & Thunebergs $\lambda_{G1}$, $\lambda_{G2}$ and $\lambda_{SG}^b$:\par
+$
+\displaystyle
+\lambda_{G1} = \frac12\Delta^2 (K_2+K_3),\qquad
+\lambda_{G2} = \frac12\Delta^2 K_1,\qquad
+\lambda_{SG}^b = \Delta^2 K_2
+$\\
 
-\tt he3\_text\_cpar(ttc, p) & Fomin's parallel spin wave velocity.\par
-$c_\parallel = \displaystyle \gamma\sqrt{(8+2\delta)\lambda_{G2}/\chi} $, [cm/s]\\
+\tt he3\_cpar(ttc, p)\par
+\tt he3\_cperp(ttc, p)    & velocity of transverse spin waves parallel
+                            and perpendicular to the~$l$ direction [cm/s]:\par
+$\displaystyle
+c_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\qquad
+c_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B}(K-K'/2),\qquad
+c_\parallel^2/c_\perp^2\approx 4/3$\\
+
+\tt he3\_clpar(ttc, p)\par
+\tt he3\_clperp(ttc, p)   & same for longitudinal waves [cm/s]:\par
+$\displaystyle
+C_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B}(K-K'),\qquad
+C_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\qquad
+C_\parallel^2/C_\perp^2\approx 1/2$\\
 
 \end{tabular}
 \medskip

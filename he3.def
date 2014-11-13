@@ -85,26 +85,21 @@ he3_ld(ttc, P)     # lambda_D = Delta^2 g_d, [erg/cm3]
 he3_nu_b(ttc, P)   # B-phase Leggett frequency, Hz
 he3_nu_b1(ttc, P)  # B-phase Leggett frequency, Hz
 
-# Gradient energy and spin wave velocities (see he3_text_gr.f)
-he3_gr_c(ttc,p)   # gradient energy c parameter, see VW 7.25
-he3_gr_d(ttc,p)   # gradient energy delta parameter, see VW 7.25
-he3_gr_k0(ttc,p)  # K1=K2=K3 in a simple approximation, see VW 7.23m
-he3_gr_k12(ttc,p) # K1=K2 with Fermi-liquid corrections
-he3_gr_k3(ttc,p)  # K3 with Fermi-liquid corrections
-he3_gr_k(ttc,p)   # K=2K1+K2+K3
-he3_gr_kp(ttc,p)  # K'=K2+K3
-he3_gr_lg1(ttc,p) # Thuneberg's lambda_G1 = Delta^2/2 (K2+K3)
-he3_gr_lg2(ttc,p) # Thuneberg's lambda_G2 = Delta^2/2 2K1
-he3_gr_cpar(ttc,p)   # Fomin's spin wave velocity c_par
-he3_gr_cperp(ttc,p)  # Fomin's spin wave velocity c_perp
-he3_gr_clpar(ttc,p)  # Leggett's spin wave velocity c_par
-he3_gr_clperp(ttc,p) # Leggett's spin wave velocity c_perp
-
-he3_text_lg1(ttc, p)   # Textural parameter lambda_{G1}, erg/cm
-he3_text_lg2(ttc, p)   # Textural parameter lambda_{G2}, erg/cm
-he3_text_delta(ttc, p) # Textural parameter delta
-he3_text_cperp(ttc, p) # perpendicular spin wave velocity, cm/s
-he3_text_cpar(ttc, p)  # parallel spin wave velocity, cm/s
+# Gradient energy and spin wave velocities (see he3_grad.f)
+he3_grad_c(ttc,p)       # gradient energy c parameter, see VW 7.25
+he3_grad_delta(ttc,p)   # gradient energy delta parameter, see VW 7.25
+he3_grad_k0(ttc,p)  # K1=K2=K3 in a simple approximation, see VW 7.23m
+he3_grad_k12(ttc,p) # K1=K2 with Fermi-liquid corrections
+he3_grad_k3(ttc,p)  # K3 with Fermi-liquid corrections
+he3_grad_k(ttc,p)   # K=2K1+K2+K3
+he3_grad_kp(ttc,p)  # K'=K2+K3
+he3_grad_lg1(ttc,p) # Thuneberg's lambda_G1 = Delta^2/2 (K2+K3)
+he3_grad_lg2(ttc,p) # Thuneberg's lambda_G2 = Delta^2/2 K1
+he3_grad_lsgb(ttc,p) # Thuneberg's lambda_SG^b = Delta^2 K2
+he3_cpar(ttc,p)   # Fomin's spin wave velocity c_par
+he3_cperp(ttc,p)  # Fomin's spin wave velocity c_perp
+he3_clpar(ttc,p)  # Leggett's spin wave velocity c_par
+he3_clperp(ttc,p) # Leggett's spin wave velocity c_perp
 
 # Other textural parameters (see he3_text.f)
 he3_text_a(ttc, p)     # Textural parameter a [erg/cm^3 1/G^2]

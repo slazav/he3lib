@@ -150,7 +150,7 @@
         real*8 ttc,p,h
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
           he3_text_xih =
-     .      dsqrt(65D0*he3_text_lg2(ttc, p)
+     .      dsqrt(65D0*he3_grad_lg2(ttc, p)
      .            /8D0/he3_text_a(ttc, p)/h**2)
         elseif (ttc.eq.1D0) then
             he3_text_xih = 0D0
@@ -164,7 +164,7 @@
         include 'he3.fh'
         real*8 ttc,p
         he3_text_xid =
-     .    dsqrt(13D0/12D0 * he3_text_lg2(ttc, p)/he3_ld(ttc, p))
+     .    dsqrt(13D0/12D0 * he3_grad_lg2(ttc, p)/he3_ld(ttc, p))
       end
 
 ! Dipole velocity vd in cm/s

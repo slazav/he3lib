@@ -38,7 +38,7 @@ build_library: $(LIBNAME).a $(LIBNAME).so
 
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
-        he3_math he3_gap he3_dipole he3_text_gr he3_text\
+        he3_math he3_gap he3_dipole he3_grad he3_text\
         he3_transp_n he3_transp_b he3_other\
         he3_rota
 OBJS= $(patsubst %,%.o,$(LIBOBJS))
@@ -67,5 +67,5 @@ build_doc: build_octave
 ###################################
 clean:
 	rm -f *.a *.so *.o libs/*.o he3.f90h he3.fh he3.h he3
-	make -C matlab clean
-	make -C doc clean
+#	make -C matlab clean
+#	make -C doc clean
