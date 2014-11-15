@@ -1,0 +1,6 @@
+#!/bin/sh
+
+../he3 he3_nu_b 0.1:0.1:1.0 10
+
+echo '# He3 atom mass:'
+../he3 he3_amass
