@@ -231,6 +231,11 @@ source file {\tt he3\_gap.f}.
 \tt he3\_bcsgap\_fast(ttc) & Einzel approximation for BCS gap (0.5\% accuracy, 70 times faster)\newline
                              {\small(Einzel-1991, f.68)}\\
 \tt he3\_trivgap(ttc, P)   & Trivial strong-coupling correction to the BCS gap\\
+\tt he3\_todogap(ttc, P)   & Gap based on Todoschenko's measurements:
+                             linear interpolation in density between BCS value at zero bar and
+                             measured value 1.99 at melting pressure + temperature behaviour 
+                             as in {\tt he3\_trivgap}\\
+
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
                                \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
                                \phi_k\ d\xi_k$\par

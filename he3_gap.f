@@ -96,6 +96,23 @@
         he3_trivgap = he3_bcsgap(ttc)*corr
       end
 
+! delta(0)/Tc for 3He versus pressure, bar
+! linear interpolation in density between BCS value at zero bar
+! and Todoschenko's value 1.99 at melting pressure
+      function he3_todogap(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap0, gap1
+        real*8 r,r0,r1
+        gap0 = he3_bcsgap(0D0)
+        gap1 = 1.99
+        r0 = 1D0/he3_vm(0D0)
+        r1 = 1D0/he3_vm(34.338D0)
+        r  = 1D0/he3_vm(p)
+        he3_todogap = (gap0 + (r-r0)*(gap1-gap0)/(r1-r0)) *
+     .                 he3_trivgap(ttc,p)/he3_trivgap(0D0,p)
+      end
+
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
