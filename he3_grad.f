@@ -5,7 +5,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, Y0, gape
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         gape = gap*const_kb*1D-3*he3_tc(p)
         he3_grad_K0 = 1D0/(5D0*gape**2)
@@ -18,7 +18,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc,p, gap, y0,f1a,f1s
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         y0  = he3_yosida(ttc, gap, 0D0)
         f1a = he3_f1a(p)
         f1s = he3_f1s(p)
@@ -32,7 +32,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, Y0, f1a
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         f1a = he3_f1a(p)
         he3_grad_delta = f1a*(1D0-Y0)/(3D0+f1a*Y0)
@@ -43,7 +43,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
-        gap = he3_trivgap(ttc, p)*const_kb*1D-3*he3_tc(p)
+        gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
         he3_grad_K12 = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * he3_grad_c(ttc, p)
@@ -54,7 +54,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
-        gap = he3_trivgap(ttc, p)*const_kb*1D-3*he3_tc(p)
+        gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
         he3_grad_K3 = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (1D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
@@ -65,7 +65,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
-        gap = he3_trivgap(ttc, p)*const_kb*1D-3*he3_tc(p)
+        gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
         he3_grad_K = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (4D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
@@ -76,7 +76,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
-        gap = he3_trivgap(ttc, p)*const_kb*1D-3*he3_tc(p)
+        gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
         he3_grad_Kp = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (2D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)

@@ -113,6 +113,18 @@
      .                 he3_trivgap(ttc,p)/he3_trivgap(0D0,p)
       end
 
+! wrapper function which should be used everywhere in the lib
+      function he3_gap(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        !! select one of gap functions
+        !he3_gap = he3_bscgap(ttc)
+        !he3_gap = he3_bcsgap_fast(ttc)
+        he3_gap = he3_trivgap(ttc,p)
+        !he3_gap = he3_todogap(ttc,p)
+      end
+
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
@@ -301,7 +313,7 @@
         real*8 ttc,p,gap,f1s,Y0
         include 'he3.fh'
         f1s = He3_f1s(p)
-        gap = he3_trivgap(ttc,p)
+        gap = he3_gap(ttc,p)
         Y0  = He3_yosida(ttc, gap, 0D0)
         he3_rho_nb = (3D0+f1s)*Y0/(3D0+f1s*Y0)
       end
@@ -316,7 +328,7 @@
         include 'he3.fh'
         real*8 ttc,p,gap,f0a,Y0
         f0a = He3_f0a(p)
-        gap = he3_trivgap(ttc,p)
+        gap = he3_gap(ttc,p)
         Y0  = He3_yosida(ttc, gap, 0D0)
         He3_chi_b =
      .    (1D0 + f0a) * (2D0+Y0) /

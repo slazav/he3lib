@@ -24,7 +24,7 @@
         e = 1D0
         cnt=100
         do while (e.gt.1D-6.and.cnt.gt.0)
-          ttc1 = he3_trivgap(ttc, p)/dlog(a/w)
+          ttc1 = he3_gap(ttc, p)/dlog(a/w)
           e = dabs(ttc-ttc1)
           ttc = ttc1
           cnt = cnt-1

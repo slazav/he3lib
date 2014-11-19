@@ -15,7 +15,7 @@
         implicit none
         include 'he3.fh'
         real*8 p,ttc
-        he3_ld = he3_gd(p) * (he3_trivgap(ttc, p)
+        he3_ld = he3_gd(p) * (he3_gap(ttc, p)
      .        * const_kb * 1D-3 * he3_tc(p))**2
       end
 
@@ -37,7 +37,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc,p,gap
-        gap  = he3_trivgap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
+        gap  = he3_gap(ttc,p) * const_kb * he3_tc(p)/1D3 ! mk->K
         he3_nu_b1 = dsqrt(3D0 / 8D0 / const_pi /
      .                   he3_chi_b(ttc,p)/he3_chi_n(p))
      .    * he3_gyro**2 * const_hbar * he3_2n0(p) / 2D0

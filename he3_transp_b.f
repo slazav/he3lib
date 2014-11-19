@@ -103,7 +103,7 @@
         endif
         g0  = he3_scatt_g0(p)
         d0  = he3_scatt_d0(p)
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         tn  = he3_tau_n0(ttc, p)
         he3_tau0 = tn / he3_coll_int(0D0, ttc, gap, g0, d0);
       end
@@ -118,7 +118,7 @@
           he3_tau0 = NaN
           return
         endif
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         he3_tau0lt = he3_tau_n0(ttc, p) * dsqrt(const_2pi) / 3D0
      .    * (ttc/gap)**1.5D0 * dexp(gap/ttc) / he3_scatt_w0(p)
       end
@@ -162,7 +162,7 @@
           return
         endif
         ttc1=ttc
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         g0  = he3_scatt_g0(p)
         d0  = he3_scatt_d0(p)
         Y0  = he3_yosida(ttc, gap, 0D0)
@@ -225,7 +225,7 @@
         endif
         ttc1=ttc
         ttc2=ttc
-        gap1 = he3_trivgap(ttc, p)
+        gap1 = he3_gap(ttc, p)
         gap2 = gap1
         g0  = he3_scatt_g0(p)
         d0  = he3_scatt_d0(p)
@@ -243,7 +243,7 @@
         include 'he3.fh'
         real*8 ttc, p, l1a, gap, Y0, Yp
         l1a = he3_scatt_l1a(p)
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         Yp  = he3_yosida_perp(ttc, gap)
         he3_tau_dperp = he3_tau_av(ttc,p)
@@ -257,7 +257,7 @@
         include 'he3.fh'
         real*8 ttc, p, l1a, gap, Y0, Yp
         l1a = he3_scatt_l1a(p)
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         Yp  = he3_yosida(ttc, gap, 2D0)
         he3_tau_dpar = he3_tau_av(ttc,p)
@@ -271,7 +271,7 @@
         include 'he3.fh'
         real*8 ttc, p
         real*8 gap, tau, f0a, Y0, chi0, vf
-        gap  = he3_trivgap(ttc, p)
+        gap  = he3_gap(ttc, p)
         tau  = he3_tau_dperp(ttc,p)
         vf   = he3_vf(p)
         f0a  = he3_f0a(p)
@@ -288,7 +288,7 @@
         include 'he3.fh'
         real*8 ttc, p
         real*8 gap, tau, f0a, Y0, chi0, vf
-        gap  = he3_trivgap(ttc, p)
+        gap  = he3_gap(ttc, p)
         tau  = he3_tau_dpar(ttc,p)
         vf   = he3_vf(p)
         f0a  = he3_f0a(p)
@@ -465,7 +465,7 @@
         endif
 
         ttc1 = ttc
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Vf  = he3_vf(p)
         f0a = he3_f0a(p)
         Y0  = he3_yosida(ttc, gap, 0D0);

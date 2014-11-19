@@ -10,7 +10,7 @@
 
 
         gd  = he3_gd(p)
-        gap = he3_trivgap(ttc,p)
+        gap = he3_gap(ttc,p)
         f0a = he3_f0a(p)
         z3  = he3_z3(ttc,gap)
         z5  = he3_z5(ttc,gap)
@@ -35,7 +35,7 @@
         real*8 ttc,p
         real*8 gd,gap,f1s,z3,z5,y0
         gd  = he3_gd(p)
-        gap = he3_trivgap(ttc,p)
+        gap = he3_gap(ttc,p)
         f1s = he3_f1s(p)
         z3  = he3_z3(ttc,gap)
         z5  = he3_z5(ttc,gap)
@@ -59,7 +59,7 @@
         include 'he3.fh'
         real*8 ttc,p
         real*8 gap, y0, f1s,f0a, z3,z5,z7, gape
-        gap = he3_trivgap(ttc, p)
+        gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc,gap, 0D0)
         f1s = he3_f1s(p)
         f0a = he3_f0a(p)
@@ -100,7 +100,7 @@
 
         he3_text_d = NaN
         if (ttc.ge.0D0.and.ttc.lt.1D0) then
-          gap = he3_trivgap(ttc,p)
+          gap = he3_gap(ttc,p)
           y0  = he3_yosida(ttc,gap,0D0)
           f0a = he3_f0a(p)
           n0  = he3_2n0(p)/2D0
