@@ -105,7 +105,7 @@
         real*8 ttc, p, gap0, gap1
         real*8 r,r0,r1
         gap0 = he3_bcsgap(0D0)
-        gap1 = 1.99
+        gap1 = 1.99D0
         r0 = 1D0/he3_vm(0D0)
         r1 = 1D0/he3_vm(34.338D0)
         r  = 1D0/he3_vm(p)

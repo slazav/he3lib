@@ -45,10 +45,11 @@
         implicit none
         include 'he3.fh'
         real*8 n
-        integer f(8)
+        integer ni, f(8)
+        ni = int(n);
         f = (/553, 588, 623, 674, 710, 742, 789, 833/)
-        if (n.ge.1.and.n.le.8) then
-          rota_nmra_f = dble(f(int(n)))
+        if (ni.ge.1.and.ni.le.8) then
+          rota_nmra_f = dble(f(ni))
         else
           rota_nmra_f = 0D0
         endif

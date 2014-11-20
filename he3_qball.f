@@ -6,7 +6,7 @@
         include 'he3.fh'
         real*8 p
         qball_nu_b = (214.5D0 + 3.730D0*p
-     .             - 646D0/(p+7.17D0))*1000
+     .             - 646D0/(p+7.17D0))*1D3
       end
 
 ! cpar [cm/s] (measured)
