@@ -17,24 +17,26 @@ FFLAGS= -Werror -Wconversion\
 # -std=legacy -- to allow blas.f compilation
 # -fno-range-check -- to allow NaN values
 
-all: build_headers\
-     build_library\
-     build_cmdline
+all: headers\
+     library\
+     cmdline
+#    doc
+#    octave
+#    matlab
 
-#     build_doc
-#     build_octave
+.PHONY: octave matlab matlab64 headers library cmdline doc
 
 FC=gfortran
 
 ###################################
 
 # header files for C/F77/F90 are created from he3.def
-build_headers: he3.f90h he3.fh he3.h he3tab.h
+headers: he3.f90h he3.fh he3.h he3tab.h
 he3.f90h he3.fh he3.h he3tab.h: he3.def make_inc
 	./make_inc
 
 LIBNAME=libhe3
-build_library: $(LIBNAME).a $(LIBNAME).so
+library: $(LIBNAME).a $(LIBNAME).so
 
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
@@ -50,17 +52,23 @@ $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
 
 # cmdline program
-build_cmdline: he3
+cmdline: he3
 he3.o: he3.c he3tab.h
 	$(CC) -c he3.c -o he3.o
 he3: he3.o libhe3.a
 	$(FC) $+ -o $@
 
 ###################################
-build_octave: build_library
+octave: library
 	make -C matlab octave
 
-build_doc: build_octave
+matlab: library
+	make -C matlab matlab
+
+matlab64: library
+	make -C matlab matlab64
+
+doc: octave
 	make -C doc
 	make -C doc_tex
 
