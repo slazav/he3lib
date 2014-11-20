@@ -684,10 +684,27 @@ TODO: $V_m$
 \tt rota\_rcell     & cell radius\\
 \tt rota\_nmra      & field/current in nmrA solenoid [G/A]\\
 \tt rota\_nmrb      & field/current in nmrB solenoid [G/A]\\
+\tt rota\_nmra\_q(f0) & Q value of the nmrA spectrometer vs frequency\\
+\tt rota\_nmra\_f(n)  & frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)\\
 \tt rota\_hmina\_r  & effective radius of the HminA coil [cm]\\
 \tt rota\_hmina     & field/current in the center of HminA coil [G/A]\\
 \tt rota\_hmina\_mr & quadratic radial term of the HminA field, [G/A/cm$^2$]\\
-\tt rota\_hmina0    & effectve HminA minimum coil current caused by NMR field distortion, divided by NMR freq [G/Hz]\\
+\tt rota\_hmina\_i0 & effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]\\
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Q-balls in the zero temperature limit}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt qball\_nu\_b(P) & Leggett frequency (measurements, same as he3\_nu\_b(0,p) ) [Hz]\\
+\tt qball\_cpar(P)  & cpar (measured), [cm/s]\\
+\tt qball\_cper(P)  & cper (measured), [cm/s]\\
+\tt qball\_dbetan(P, nu0)  & Derivative of the textural angle beta\_N in the center of the cell (rota-specific, measured), [rad/cm]\\
+\tt qball\_fz(P,nu0,Imin)  & 1/2 of distance between visible axial levels (rota-specific, measured), [Hz]\\
+\tt qball\_fr(P,nu0,Imin)  & 1/2 of distance between visible radial levels (rota-specific, measured), [Hz]\\
+\tt qball\_az(P,nu0,Imin)  & z size of the magnon condensate (rota-specific, measured), [cm]\\
+\tt qball\_ar(P,nu0,Imin)  & r size of the magnon condensate (rota-specific, measured), [cm]\\
 \end{tabular}
 
 

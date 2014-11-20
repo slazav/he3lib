@@ -31,3 +31,25 @@
          enddo
         rota_fork_cal=ttc
       end
+
+! Q value of the nmrA spectrometer vs frequency (measured)
+      function rota_nmra_q(f0)
+        implicit none
+        include 'he3.fh'
+        real*8 f0
+        rota_nmra_q = 31.796D-6*f0 + 110.03979D0
+      end
+
+! frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)
+      function rota_nmra_f(n)
+        implicit none
+        include 'he3.fh'
+        real*8 n
+        integer f(8)
+        f = (/553, 588, 623, 674, 710, 742, 789, 833/)
+        if (n.ge.1.and.n.le.8) then
+          rota_nmra_f = dble(f(int(n)))
+        else
+          rota_nmra_f = 0D0
+        endif
+      end
