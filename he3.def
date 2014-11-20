@@ -161,3 +161,11 @@ he3_cv_n(T, V)     # heat capacity, Cv vs T,V
 rota_c_ns(T, I)        # Nuclear stage heat capacity [J/K] vs T[K] and I[A]
 rota_fork_cal(w, p, n) # Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
 
+# rota-specific constants (see he3_const,f)
+rota_rcell    # cell radius
+rota_nmra     # field/current in nmrA solenoid [G/A]
+rota_nmrb     # field/current in nmrB solenoid [G/A]
+rota_hmina_r  # effective radius of the HminA coil [cm]
+rota_hmina    # field/current in the center of HminA coil [G/A]
+rota_hmina_mr # quadratic radial term of the HminA field, [G/A/cm^2]
+rota_hmina0   # effectve HminA minimum coil current caused by NMR field distortion, divided by NMR freq [G/Hz]

@@ -35,6 +35,14 @@
      .    he3_Pb_plts  /34.3609D0/,    ! A-B-Solid crit.pt, bar (PLTS2000)
      .    he3_Tb_plts  /1.896D0/,      ! A-B-Solid crit.pt, mK  (PLTS2000)
      .    he3_Ps_plts  /34.3934D0/,    ! AFM transition in solid He3, bar (PLTS2000)
-     .    he3_Ts_plts  /0.902D0/       ! AFM transition in solid He3, mK  (PLTS2000)
+     .    he3_Ts_plts  /0.902D0/,      ! AFM transition in solid He3, mK  (PLTS2000)
+
+     .    rota_rcell    /0.2925D0/,       ! cell radius (2011-2014)
+     .    rota_nmra     /96.69139692D0/,  ! field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)
+     .    rota_nmrb     /136.6058277D0/,  ! field/current in nmrB solenoid [G/A] (normal phase measurements 2014-10-29, 2014-11-03: f0=1176586.91Hz I0=1907.345mA)
+     .    rota_hmina_r  /1.032D0/,        ! effective radius of the HminA coil [cm]
+     .    rota_hmina    /2.239D0/,        ! field/current in the center of HminA coil [G/A]
+     .    rota_hmina_mr /1.652D0/,        ! quadratic radial term of the HminA field, [G/A/cm^2]
+     .    rota_hmina0   /9.03D-8/         ! effectve HminA minimum coil current caused by NMR field distortion, divided by NMR freq [G/Hz]
 
       end
