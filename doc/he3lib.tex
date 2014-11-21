@@ -645,6 +645,7 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Other}
+See more information in the source file {\tt he3\_other.f}.
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
@@ -656,6 +657,7 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Normal liquid beyond zero temperature limit}
+See more information in the source file {\tt he3\_normal.f}.
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
@@ -667,7 +669,8 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 TODO: $V_m$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{ROTA specific functions and constants}
+\subsection*{ROTA-specific functions and constants}
+See more information in the source files {\tt he3\_rota.f} and {\tt he3\_const.f}
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
@@ -685,33 +688,42 @@ TODO: $V_m$
 \tt rota\_nmra      & field/current in nmrA solenoid [G/A]\\
 \tt rota\_nmrb      & field/current in nmrB solenoid [G/A]\\
 \tt rota\_nmra\_q(f0) & Q value of the nmrA spectrometer vs frequency\\
-\tt rota\_nmra\_f(n)  & frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)\\
+\tt rota\_nmra\_f(n)  & frequencies of nmrA spectrometer,kHz for n=1..8\\
 \tt rota\_hmina\_r  & effective radius of the HminA coil [cm]\\
 \tt rota\_hmina     & field/current in the center of HminA coil [G/A]\\
 \tt rota\_hmina\_mr & quadratic radial term of the HminA field, [G/A/cm$^2$]\\
 \tt rota\_hmina\_i0 & effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]\\
-\tt rota\_rrda      & radiation damping constant for the nmrA spectrometer\\
+\tt rota\_rrda      & radiation damping constant $R_{RD}$ for the nmrA spectrometer\\
 \end{tabular}
 
+\eject
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Q-balls in the zero temperature limit}
+See more information in the source file {\tt he3\_qball.f}
 
 \medskip
-\noindent\begin{tabular}{lp{11cm}}
+\noindent\begin{tabular}{p{4cm}p{11cm}}
 \tt qball\_nu\_b(P) & Leggett frequency (measurements, same as he3\_nu\_b(0,p) ) [Hz]\\
-\tt qball\_cpar(P)  & cpar (measured), [cm/s]\\
-\tt qball\_cper(P)  & cper (measured), [cm/s]\\
-\tt qball\_dbetan(P, f0)  & Derivative of the textural angle beta\_N in the center of the cell (rota-specific, measured), [rad/cm]\\
-\tt qball\_fz0(P,f0,Imin)  & 1/2 of distance between visible axial levels (rota-specific, measured), [Hz]\\
-\tt qball\_fr0(P,f0,Imin)  & 1/2 of distance between visible radial levels (rota-specific, measured), [Hz]\\
-\tt qball\_az0(P,f0,Imin)  & z size of the magnon condensate (rota-specific, measured), [cm]\\
-\tt qball\_ar0(P,f0,Imin)  & r size of the magnon condensate (rota-specific, measured), [cm]\\
-\tt qball\_trd(P,f0,fr,fz) & $\tau_{RD}$ for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]\\
-\tt qball\_trd0(P,f0,imin) & $\tau_{RD}$ for the magnon condensate (no rotation, rota-specific, measured) [s]\\
-
+\tt qball\_cpar(P)  & $c_\parallel$, [cm/s] (measured)\\
+\tt qball\_cper(P)  & $c_\perp$, [cm/s] (measured)\\
+\tt qball\_trd(P,f0,fr,fz) & $\tau_{RD}$ for the magnon condensate with given radial and axial frequencies (rota-specific) [s]\\
 \end{tabular}
 
+A model of the zero-temperature, zero-rotation condensate, based on spectra measurements (rota-specific):
+
 \medskip
+\noindent\begin{tabular}{p{4cm}p{11cm}}
+\tt qball\_dbetan(P, f0)  & Derivative of the textural angle $\beta_N$ in the center of the cell, [rad/cm].\\
+\tt qball\_fz0(P,f0,Imin)\par
+\tt qball\_fr0(P,f0,Imin)  & $1/2$ of the distance between visible axial and radial levels, [Hz]\\
+\tt qball\_az0(P,f0,Imin)\par
+\tt qball\_ar0(P,f0,Imin)  & Axial and radial sizes of the magnon condensate, [cm]\\
+\tt qball\_trd0(P,f0,Imin) & $\tau_{RD}$ for the magnon condensate, [s]\\
+\end{tabular}
+
+\begin{figure}[h]
+\includegraphics[scale=1.1]{qball.eps}\\
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

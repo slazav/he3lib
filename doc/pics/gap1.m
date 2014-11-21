@@ -53,5 +53,5 @@ figure; clf; hold on;
   ylim([0 2]);
   set(gca,'yTick', 0:0.2:2);
   grid on;
-  print gap1.eps -deps "-S740,580" -color
+  print gap1.eps -deps "-S740,450" -color
 
