@@ -43,7 +43,7 @@
      .    rota_hmina_r  /1.032D0/,        ! effective radius of the HminA coil [cm]
      .    rota_hmina    /2.239D0/,        ! field/current in the center of HminA coil [G/A]
      .    rota_hmina_mr /1.652D0/,        ! quadratic radial term of the HminA field, [G/A/cm^2]
-     .    rota_hmina_i0 /9.03D-8/,        ! effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]
+     .    rota_hmina_i0 /9.304D-8/,       ! effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]
      .    rota_rrda     /1.0410D-4/       ! radiation damping constant for the nmrA spectrometer
 
       end
