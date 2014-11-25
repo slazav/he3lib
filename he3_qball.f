@@ -14,7 +14,7 @@
         implicit none
         include 'he3.fh'
         real*8 p
-        qball_cpar = (40400D0/(p+21.0D0)+565D0)
+        qball_cpar = (37395D0/(19.968D0+P) + 612.3D0)
      .         * sqrt(1.652D0/rota_hmina_mr)
       end
 
@@ -23,7 +23,7 @@
         implicit none
         include 'he3.fh'
         real*8 p
-        qball_cper = (36320D0/(p+21.6D0)+488D0)
+        qball_cper = (33473D0/(20.452D0+P) + 532.6D0)
      .         * sqrt(1.652D0/rota_hmina_mr)
       end
 
