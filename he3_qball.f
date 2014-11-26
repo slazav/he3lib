@@ -27,6 +27,25 @@
      .         * sqrt(1.652D0/rota_hmina_mr)
       end
 
+! lambda_g1 (measured)
+      function qball_lg1(p)
+        implicit none
+        include 'he3.fh'
+        real*8 p, chi
+        chi = he3_chi_b(0D0, p)*he3_chi_n(p)
+        qball_lg1 = chi/(he3_gyro**2) *
+     .     (qball_cpar(p)**2 - qball_cper**2);
+      end
+! lambda_g2 (measured)
+      function qball_lg2(p)
+        implicit none
+        include 'he3.fh'
+        real*8 p, chi
+        chi = he3_chi_b(0D0, p)*he3_chi_n(p)
+        qball_lg2 = chi/(he3_gyro**2) *
+     .     (2*qball_cper(p)**2 - qball_cpar**2);
+      end
+
 ! Derivative of the textural angle beta_N in the center
 !  of the cell (rota-specific, measured), [rad/cm]
       function qball_dbetan(p, f0)
@@ -110,3 +129,30 @@
         fz = qball_fz0(P, f0, imin)
         qball_trd0 = qball_trd(P, f0,  fr, fz)
       end
+
+!  measured textural parameter a
+      function qball_text_a(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        qball_text_a = (1.199D-3*P**2+2.2768D-2*P+1.0704D0)*1D-13
+      end
+
+!  measured textural parameter d
+      function qball_text_d(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        qball_text_d = (-5.716D-4*P**2+5.1950D-2*P+0.35568D0)*1D-13
+      end
+
+!  measured textural parameter lambda_SG
+      function qball_text_lsg(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        qball_text_lsg =
+     .    -1.2282D-3*P**3+5.7727e-02*P**2+1.9117D-1*P+9.546578D0
+      end
+
+

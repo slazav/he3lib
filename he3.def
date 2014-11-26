@@ -177,6 +177,8 @@ rota_rrda     # radiation damping constant for the nmrA spectrometer
 qball_nu_b(P)  # Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )
 qball_cpar(P)  # cpar [cm/s] (measured)
 qball_cper(P)  # cper [cm/s] (measured)
+qball_lg1(P)   # lambda_g1 (measured)
+qball_lg2(P)   # lambda_g2 (measured)
 qball_dbetan(P, f0)  # Derivative of the textural angle beta_N in the center of the cell (no rotation, rota-specific, measured), [rad/cm]
 qball_fz0(P,f0,Imin) # 1/2 of distance between visible axial levels (no rotation, rota-specific, measured), [Hz]
 qball_fr0(P,f0,Imin) # 1/2 of distance between visible radial levels (no rotation, rota-specific, measured), [Hz]
@@ -184,5 +186,6 @@ qball_az0(P,f0,Imin) # z size of the magnon condensate (no rotation, rota-specif
 qball_ar0(P,f0,Imin) # r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
 qball_trd(P,f0,fr,fz) # tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
 qball_trd0(P,f0,imin) # tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
-
-
+qball_text_a(P)      #  measured textural parameter a [erg/cm^3 1/G^2]
+qball_text_d(P)      #  measured textural parameter d [erg/(cm^2 G^2)]
+qball_text_lsg(P)    #  measured textural parameter lambda_SG
