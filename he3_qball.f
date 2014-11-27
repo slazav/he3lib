@@ -43,7 +43,7 @@
         real*8 p, chi
         chi = he3_chi_b(0D0, p)*he3_chi_n(p)
         qball_lg2 = chi/(he3_gyro**2) *
-     .     (2*qball_cper(p)**2 - qball_cpar(p)**2)/4D0
+     .     (2D0*qball_cper(p)**2 - qball_cpar(p)**2)/4D0
       end
 
 ! Derivative of the textural angle beta_N in the center
@@ -135,7 +135,7 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        qball_text_a = (1.199D-3*P**2+2.2768D-2*P+1.0704D0)*1D-13
+        qball_text_a = (1.199095D-3*P**2+2.276849D-2*P+1.0704D0)*1D-13
       end
 
 !  measured textural parameter d
@@ -152,7 +152,7 @@
         include 'he3.fh'
         real*8 P
         qball_text_lsg =
-     .    -1.2282D-3*P**3+5.7727e-02*P**2+1.9117D-1*P+9.546578D0
+     .    -1.2282D-3*P**3+5.7727D-2*P**2+1.9117D-1*P+9.546578D0
       end
 
 
