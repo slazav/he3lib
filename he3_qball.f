@@ -34,7 +34,7 @@
         real*8 p, chi
         chi = he3_chi_b(0D0, p)*he3_chi_n(p)
         qball_lg1 = chi/(he3_gyro**2) *
-     .     (qball_cpar(p)**2 - qball_cper**2);
+     .     (qball_cpar(p)**2 - qball_cper(p)**2)
       end
 ! lambda_g2 (measured)
       function qball_lg2(p)
@@ -43,7 +43,7 @@
         real*8 p, chi
         chi = he3_chi_b(0D0, p)*he3_chi_n(p)
         qball_lg2 = chi/(he3_gyro**2) *
-     .     (2*qball_cper(p)**2 - qball_cpar**2);
+     .     (2*qball_cper(p)**2 - qball_cpar(p)**2)/4D0
       end
 
 ! Derivative of the textural angle beta_N in the center
