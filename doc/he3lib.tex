@@ -239,7 +239,7 @@ source file {\tt he3\_gap.f}.
 
 \tt he3\_yosida(ttc, gap, n) & Yosida functions $\displaystyle Y_n(T/T_c,\Delta) =
                                \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
-                               \phi_k\ d\xi_k$\par
+                               \ \frac{1}{2T/T_c}\ \mbox{ch}^{-2}\left(\frac{E_k}{2T/T_c}\right)\ d\xi_k$\par
                                Low temperature limit:
                                $\displaystyle Y_n(T,\Delta) =
                                2\Gamma\left(\frac{n+1}{2}\right)
@@ -258,10 +258,13 @@ source file {\tt he3\_gap.f}.
 \tt he3\_rho\_nb(ttc, p)     &B-phase normal component density:
                              $\displaystyle \frac{\rho_B^n}{\rho_{N}} =
                                \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$\\[3mm]
-\tt he3\_chi\_b(ttc, p)      &B-phase susceptibility:
+\tt he3\_chi\_b(ttc, p)      &B-phase susceptibility (ratio of he3\_chi\_n):
                              $\displaystyle \frac{\chi_B}{\chi_N} =
                                \frac{(1+F_0^a)(2 + Y_0)}
                                      {3+F_0^a(2 + Y_0)}$\\
+\tt he3\_chi\_bp(ttc, P)     &B-phase Cooper pair susceptibility (ratio of he3\_chi\_b):
+                             $\displaystyle \frac{\chi^p_B}{\chi_B} =
+                               \frac{2 (1-Y_2)}{(2 + Y_0)}$\\
 \end{tabular}
 \medskip
 

@@ -335,4 +335,17 @@
      .    (3D0 + f0a * (2D0+Y0))
       end
 
+! He3-B Cooper pair susceptibility ratio chi_bp / chi_b
+! see Leggett-Takagi 1975, f.12
+      function He3_chi_bp(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,gap,Y0,Y2
+        gap = he3_gap(ttc,p)
+        Y0  = He3_yosida(ttc, gap, 0D0)
+        Y2  = He3_yosida(ttc, gap, 2D0)
+        He3_chi_bp =
+     .    2D0*(1D0 - Y2) / (2D0+Y0)
+      end
+
 
