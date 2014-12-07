@@ -79,15 +79,16 @@ Use ``{\tt addpath /rota/programs/src/he3lib/matlab}'' in Matlab.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{General}
+\subsection*{Constants}
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
 \tt const\_na      & Avogadro constant $N_A = 6.02214129 \cdot 10^{23}$~[1/mol]\\
 \tt const\_kb      & Boltsman constant $k_B = 1.3806488 \cdot 10^{-16}$~[erg/K]\\
 \tt const\_r       & R-gas constant $R = 8.314472 \cdot 10^{7}$~[sgs]\\
-\tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[sgs]\\
-\tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[sgs]\\
+\tt const\_h       & Plank constant $h = 6.62606957 \cdot 10^{27}$~[g cm$^2$/s]\\
+\tt const\_hbar    & $\hbar = h/2\pi = 1.054571726 \cdot 10^{27}$~[g cm$^2$/s]\\
+\tt const\_mu0     & Vacuum permeability $mu0 = 1.2566370614$ [G*cm/A]\\
 \tt const\_pi      & $\pi = 3.1415926535897932$\\
 \tt const\_2pi     & $2\pi$\\
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
@@ -693,10 +694,12 @@ See more information in the source files {\tt he3\_rota.f} and {\tt he3\_const.f
 \tt rota\_nmra\_q(f0) & Q value of the nmrA spectrometer vs frequency\\
 \tt rota\_nmra\_f(n)  & frequencies of nmrA spectrometer,kHz for n=1..8\\
 \tt rota\_hmina\_r  & effective radius of the HminA coil [cm]\\
+\tt rota\_hmina\_n  & number of turns of the HminA coil, 4\\
 \tt rota\_hmina     & field/current in the center of HminA coil [G/A]\\
 \tt rota\_hmina\_mr & quadratic radial term of the HminA field, [G/A/cm$^2$]\\
-\tt rota\_hmina\_i0 & effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]\\
+\tt rota\_hmina\_i0 & effectve HminA coil current caused by 1A NMR current\\
 \tt rota\_rrda      & radiation damping constant $R_{RD}$ for the nmrA spectrometer\\
+\tt rota\_Bza(I,Imin,r,z) & Bz field profile of A spectrometer\\
 \end{tabular}
 
 \eject
@@ -706,7 +709,7 @@ See more information in the source file {\tt he3\_qball.f}
 
 \medskip
 \noindent\begin{tabular}{p{4cm}p{11cm}}
-\tt qball\_nu\_b(P) & Leggett frequency (measurements, same as he3\_nu\_b(0,p) ) [Hz]\\
+\tt qball\_nu\_b(P) & Leggett frequency [Hz]\\
 \tt qball\_cpar(P)\par
 \tt qball\_cper(P)  & Measured $c_\parallel$, $c_\perp$, [cm/s]\\
 \tt qball\_lg1(P)\par

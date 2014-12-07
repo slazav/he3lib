@@ -1,12 +1,12 @@
 !!! Q-balls in the zero temperature limit
 
-! Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )
+! Leggett frequency [Hz] (measurements)
       function qball_nu_b(p)
         implicit none
         include 'he3.fh'
         real*8 p
-        qball_nu_b = (214.5D0 + 3.730D0*p
-     .             - 646D0/(p+7.17D0))*1D3
+        qball_nu_b = (298.23D0 + 2.141D0*p
+     .         - 2605.6D0/(p+13.188D0))*1D3
       end
 
 ! cpar [cm/s] (measured)
@@ -135,7 +135,9 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        qball_text_a = (1.199095D-3*P**2+2.276849D-2*P+1.0704D0)*1D-13
+        qball_text_a = 1D-13 * (
+     .      3.311903D-5*P**3 - 1.068137D-3*P**2
+     .    + 7.016393D-2*P + 7.520277D-1)
       end
 
 !  measured textural parameter d
@@ -143,7 +145,9 @@
         implicit none
         include 'he3.fh'
         real*8 P
-        qball_text_d = (-5.716D-4*P**2+5.1950D-2*P+0.35568D0)*1D-13
+        qball_text_d = 1D-13*(
+     .    - 4.073765D-5*P**3 + 6.582041D-4*P**2
+     .    + 3.420925D-2*P + 7.718901D-1)
       end
 
 !  measured textural parameter lambda_SG
@@ -152,7 +156,6 @@
         include 'he3.fh'
         real*8 P
         qball_text_lsg =
-     .    -1.2282D-3*P**3+5.7727D-2*P**2+1.9117D-1*P+9.546578D0
+     .    - 1.816717D-3*P**3 +7.940837D-2*P**2
+     .    + 1.190917D-2*P + 1.153995D+1
       end
-
-

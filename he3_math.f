@@ -253,3 +253,106 @@
      .       aerr_lim, rerr_lim, res)
         return
       end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! complete elliptic integral E(x), from IMSL library
+      function math_ele(x)
+        implicit none
+        real*8 x, A(10),B(10), suma, sumb, e, eta, math_ele
+        integer i
+
+        data A /0.1494662175718132D-03, 0.2468503330460722D-02,
+     .          0.8638442173604073D-02, 0.1077063503986645D-01,
+     .          0.7820404060959553D-02, 0.7595093422559432D-02,
+     .          0.115695957452954D-01,  0.2183181167613048D-01,
+     .          0.5680519456755915D-01, 0.4431471805608895D00/
+        data B /0.3185919565550157D-04, 0.9898332846225384D-03,
+     .          0.6432146586438302D-02, 0.1680402334636338D-01,
+     .          0.2614501470031388D-01, 0.3347894366576162D-01,
+     .          0.4271789054738309D-01, 0.5859366125553149D-01,
+     .          0.9374999972120313D-01, 0.2499999999999017D00/
+        if (x.lt.0D0.or.x.gt.1D0) then
+          math_ele = 0D0/0D0 !NaN
+          return
+        endif
+        e = 1D-12 ! precision
+        eta = 1D0 - x
+        if (eta .GE. e) then
+           suma = 0D0
+           sumb = 0D0
+           do I=1,10
+             suma = (suma+A(I))*eta
+             sumb = (sumb+B(I))*eta
+           enddo
+           math_ele = suma - dlog(eta)*sumb
+           math_ele = math_ele + 1D0 + e
+        else
+           math_ele = 1D0
+        endif
+      end
+! complete elliptic integral K(x), from IMSL library
+      function math_elk(x)
+        implicit none
+        real*8 x, A(11),B(11), suma, sumb, e, eta, math_elk
+        integer i
+        data A /0.1393087857006646D-03, 0.2296634898396958D-02,
+     .          0.8003003980649985D-02, 0.9848929322176892D-02,
+     .          0.6847909282624505D-02, 0.6179627446053317D-02,
+     .          0.8789801874555064D-02, 0.1493801353268716D-01,
+     .          0.3088514627130518D-01, 0.9657359028085625D-01,
+     .          0.138629436111989D01/
+        data B /0.2970028096655561D-04, 0.9215546349632497D-03,
+     .          0.5973904299155429D-02, 0.155309416319772D-01,
+     .          0.2393191332311079D-01, 0.3012484901289892D-01,
+     .          0.373777397586236D-01, 0.4882804190686239D-01,
+     .          0.7031249973903835D-01, 0.124999999999908D00, 0.5D00/
+        if (x.lt.0D0.or.x.gt.1D0) then
+          math_elk = 0D0/0D0 !NaN
+          return
+        endif
+        e = 1D-12 ! precision
+        eta = 1D0 - x
+        if (eta .GE. e) then
+          suma = A(1)
+          sumb = B(1)
+          do I=2,11
+            suma = suma*eta + A(I)
+            sumb = sumb*eta + B(I)
+          enddo
+          math_elk = suma - dlog(eta)*sumb
+        else
+          math_elk = A(11) - dlog(eta)*B(11)
+        endif
+      end
+
+! magnetic field Bz of a current loop
+      function loop_bz(Rl, r, z)
+        implicit none
+        include 'he3.fh'
+        real*8 Rl,r,z
+        real*8 k,ele,elk,pre
+
+        k = 4D0*Rl*r/((Rl+r)**2+z**2)
+        ele = math_ele(k)
+        elk = math_elk(k)
+
+        pre = const_mu0/(2D0*const_pi)/dsqrt((Rl+r)**2+z**2)
+        loop_bz = pre *
+     .    (ele*(Rl**2-r**2-z**2)/((Rl-r)**2+z**2) + elk)
+      end
+
+! magnetic field Bz of a current loop
+      function loop_br(Rl, r, z)
+        implicit none
+        include 'he3.fh'
+        real*8 Rl,r,z
+        real*8 k,ele,elk,pre
+
+        k = 4D0*Rl*r/((Rl+r)**2+z**2)
+        ele = math_ele(k)
+        elk = math_elk(k)
+
+        pre = const_mu0/(2D0*const_pi)/dsqrt((Rl+r)**2+z**2)
+        loop_br = pre * z/r *
+     .    (ele*(Rl**2+r**2+z**2)/((Rl-r)**2+z**2) - elk)
+      end

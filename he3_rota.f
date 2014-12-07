@@ -54,3 +54,24 @@
           rota_nmra_f = 0D0
         endif
       end
+
+! Bz field profile of the A spectrometer
+      function rota_bza(I, Imin, r, z)
+        implicit none
+        include 'he3.fh'
+        real*8 I,Imin,r,z
+        real*8 Bmin, Imin0
+
+        ! Field of the pinch coil at 1A
+        Bmin = rota_hmina_n *(loop_bz(rota_hmina_r, r, z)
+     .                      - loop_bz(rota_hmina_r, 0D0, 0D0))
+     .       + rota_hmina
+
+        ! Effective pinch coil current due to distortion of the
+        ! NMR field by the pinch coil
+        Imin0 = I*rota_hmina_i0
+
+        rota_bza =
+     .     I*rota_nmra       ! field of the NMR solenoid
+     .   - (Imin+Imin0)*Bmin ! field of the pinch coil
+      end

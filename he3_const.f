@@ -8,10 +8,11 @@
      .    he3_mmass  /3.0158281D0/,  ! He3 molar mass, g/mol
 
      .    const_na   /6.02214129D+23/,  ! Avogadro constant, 1/mole
-     .    const_kb   /1.3806488D-16/,   ! SGS
+     .    const_kb   /1.3806488D-16/,   ! Boltzmann constant, erg/K
      .    const_r    /8.314472D+7/,     ! R-gas constant, kb*na, SGS
-     .    const_h    /6.62606957D-27/,  ! SGS
-     .    const_hbar /1.054571726D-27/, ! SGS
+     .    const_h    /6.62606957D-27/,  ! Planck constant, g*cm2/s
+     .    const_hbar /1.054571726D-27/, ! reduced Planck constant, g*cm2/s
+     .    const_mu0  /1.2566370614D0/,  ! vacuum permeability G*cm/A
      .    const_pi    /3.1415926535897932D0/,
      .    const_2pi   /6.2831853071795864D0/,
 
@@ -41,9 +42,10 @@
      .    rota_nmra     /96.69139692D0/,  ! field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)
      .    rota_nmrb     /136.6058277D0/,  ! field/current in nmrB solenoid [G/A] (normal phase measurements 2014-10-29, 2014-11-03: f0=1176586.91Hz I0=1907.345mA)
      .    rota_hmina_r  /1.032D0/,        ! effective radius of the HminA coil [cm]
+     .    rota_hmina_n  /4D0/,            ! number of turns of the HminA coil
      .    rota_hmina    /2.239D0/,        ! field/current in the center of HminA coil [G/A]
      .    rota_hmina_mr /1.652D0/,        ! quadratic radial term of the HminA field, [G/A/cm^2]
-     .    rota_hmina_i0 /9.304D-8/,       ! effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]
+     .    rota_hmina_i0 /-0.02918D0/,     ! effectve HminA coil current caused by 1A NMR current
      .    rota_rrda     /1.0410D-4/       ! radiation damping constant for the nmrA spectrometer
 
       end

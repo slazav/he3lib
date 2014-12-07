@@ -9,10 +9,11 @@ he3_gyro      # g-factor
 he3_amass     # He3 "atom" mass, g
 he3_mmass     # He3 molar mass, g/mol
 const_na      # Avogadro constant Na, 1/mole
-const_kb      # Boltzmann constant k, SGS
+const_kb      # Boltzmann constant k, erg/K
 const_r       # R-gas constant, kb*na, SGS
-const_h       # Planck constant h, SGS
-const_hbar    # Planck constant hbar, SGS
+const_h       # Planck constant, g*cm2/s
+const_hbar    # reduced Planck constant, g*cm2/s
+const_mu0     # vacuum permeability G*cm/A
 const_pi      # pi
 const_2pi     # 2pi
 # phase diagram
@@ -169,10 +170,12 @@ rota_rcell    # cell radius
 rota_nmra     # field/current in nmrA solenoid [G/A]
 rota_nmrb     # field/current in nmrB solenoid [G/A]
 rota_hmina_r  # effective radius of the HminA coil [cm]
+rota_hmina_n  # number of turns of the HminA coil
 rota_hmina    # field/current in the center of HminA coil [G/A]
 rota_hmina_mr # quadratic radial term of the HminA field, [G/A/cm^2]
-rota_hmina_i0 # effectve HminA coil current caused by NMR field distortion, divided by NMR freq [G/Hz]
+rota_hmina_i0 # effectve HminA coil current caused by 1A current in  the NMR solenoid
 rota_rrda     # radiation damping constant for the nmrA spectrometer
+rota_bza(I,Imin,r,z) # Bz field profile of A spectrometer
 
 # Q-balls in the zero temperature limit
 qball_nu_b(P)  # Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )
@@ -187,6 +190,11 @@ qball_az0(P,f0,Imin) # z size of the magnon condensate (no rotation, rota-specif
 qball_ar0(P,f0,Imin) # r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
 qball_trd(P,f0,fr,fz) # tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
 qball_trd0(P,f0,imin) # tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
-qball_text_a(P)      #  measured textural parameter a [erg/cm^3 1/G^2]
-qball_text_d(P)      #  measured textural parameter d [erg/(cm^2 G^2)]
-qball_text_lsg(P)    #  measured textural parameter lambda_SG
+qball_text_a(P)       # measured textural parameter a [erg/cm^3 1/G^2]
+qball_text_d(P)       # measured textural parameter d [erg/(cm^2 G^2)]
+qball_text_lsg(P)     # measured textural parameter lambda_SG
+
+math_ele(x)           # complete elliptic integral E(x)
+math_elk(x)           # complete elliptic integral K(x)
+loop_bz(rloop,r,z)    # magnetic field Bz of a current loop
+loop_br(rloop,r,z)    # magnetic field Br of a current loop
