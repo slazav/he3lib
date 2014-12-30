@@ -1,5 +1,6 @@
 #include "mex.h"
 #include "math.h"
+#include <string.h>
 
 /* This is a universal matlab interface for
  * constants and functions of 1..5 aguments.
@@ -41,6 +42,13 @@ double FUNC(double *a1, double *a2, double *a3,
 #endif
 #endif
 
+#include "../he3tab.h" /* for help messages */
+/* stringification of the function name, see
+  https://gcc.gnu.org/onlinedocs/cpp/Stringification.html*/
+#define str1(x) str2(x)
+#define str2(x) #x
+#define sFUNC str1(FUNC)
+
 void
 mexFunction(int nlhs, mxArray *plhs[],
             int nrhs, const mxArray *prhs[]){
@@ -61,8 +69,20 @@ mexFunction(int nlhs, mxArray *plhs[],
   double *in[NARGIN];
   double *out;
 
-  if (nrhs != NARGIN)
+  if (nrhs != NARGIN){
+    /* look for the command in a function list */
+    for (i=0; func_tab[i].name!=NULL ; i++){
+      if ( strlen(func_tab[i].name) == strlen(sFUNC)-1 &&
+           strncmp(func_tab[i].name, sFUNC, strlen(sFUNC)-1)==0) break;
+    }
+    struct tab_t *F = &func_tab[i];
+    if (F->name){
+      mexPrintf("# Function: %s: %s\n", F->name, F->comm);
+      mexPrintf("# Usage: %s %s\n", F->name, F->args, F->comm);
+    }
     mexErrMsgTxt("wrong number of arguments");
+  }
+
 
   if (nrhs > 5)
     mexErrMsgTxt("functions with > 5 arguments are not supported in mexfunc.c");
