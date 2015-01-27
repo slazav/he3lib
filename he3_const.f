@@ -43,9 +43,11 @@
      .    rota_nmrb     /136.6058277D0/,  ! field/current in nmrB solenoid [G/A] (normal phase measurements 2014-10-29, 2014-11-03: f0=1176586.91Hz I0=1907.345mA)
      .    rota_hmina_r  /1.032D0/,        ! effective radius of the HminA coil [cm]
      .    rota_hmina_n  /4D0/,            ! number of turns of the HminA coil
-     .    rota_hmina    /2.2305D0/,        ! field/current in the center of HminA coil [G/A]
+     .    rota_hmina    /2.2305D0/,       ! field/current in the center of HminA coil [G/A]
      .    rota_hmina_mr /1.652D0/,        ! quadratic radial term of the HminA field, [G/A/cm^2]
-     .    rota_hmina_i0 /-0.02918D0/,     ! effectve HminA coil current caused by 1A NMR current
-     .    rota_rrda     /1.0410D-4/       ! radiation damping constant for the nmrA spectrometer
+     .    rota_hmina_i0i /-0.02918D0/,    ! effectve HminA coil current divided by NMR current
+     .    rota_hmina_i0f /-9.3050D-08/,   ! effectve HminA coil current divided by NMR frequency
+                                          ! rota_hmina_i0i = rota_hmina_i0f * he3_gyro/2/pi * rota_nmra
+     .    rota_rrda     /1.01D-4/         ! radiation damping constant for the nmrA spectrometer
 
       end

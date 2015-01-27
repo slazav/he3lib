@@ -173,9 +173,11 @@ rota_hmina_r  # effective radius of the HminA coil [cm]
 rota_hmina_n  # number of turns of the HminA coil
 rota_hmina    # field/current in the center of HminA coil [G/A]
 rota_hmina_mr # quadratic radial term of the HminA field, [G/A/cm^2]
-rota_hmina_i0 # effectve HminA coil current caused by 1A current in  the NMR solenoid
+rota_hmina_i0i #effectve HminA coil current divided by NMR current
+rota_hmina_i0f #effectve HminA coil current divided by NMR frequncy
 rota_rrda     # radiation damping constant for the nmrA spectrometer
-rota_bza(I,Imin,r,z) # Bz field profile of A spectrometer
+rota_bza(I,Imin,r,z)    # Bz field profile of A spectrometer
+rota_nspeca(f0, I,Imin) # normal phase spectrum
 
 # Q-balls in the zero temperature limit
 qball_nu_b(P)  # Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )

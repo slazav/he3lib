@@ -69,7 +69,7 @@
 
         ! Effective pinch coil current due to distortion of the
         ! NMR field by the pinch coil
-        Imin0 = I*rota_hmina_i0
+        Imin0 = I*rota_hmina_i0i
 
         rota_bza =
      .     I*rota_nmra       ! field of the NMR solenoid
