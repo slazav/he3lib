@@ -1,6 +1,6 @@
 function mm1992_fig1()
 % Markelov, Mukharsky, PhB178 1992 fig1.
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   ttc=0:0.01:1;
 

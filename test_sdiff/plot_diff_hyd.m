@@ -1,6 +1,6 @@
 #!/usr/bin/octave -qf
   % Compare \omega=0 case with hydrodinamic formula
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
 
   figure; clf; hold on;
   ttc = [0.2:0.01:0.95 0.951:0.001:1 1.01:0.01 1.5];

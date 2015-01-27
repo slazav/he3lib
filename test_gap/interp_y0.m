@@ -1,7 +1,7 @@
 function interp_y0()
   t='interpolation of Y0 function'
 
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
 
   pp = fminunc(@minfunc, [0.39822 1])

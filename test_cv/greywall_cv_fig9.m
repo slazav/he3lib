@@ -1,6 +1,6 @@
 function greywall_cv_fig9()
 % Greywall PRB2 1983 fig9.
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   t=0.16:0.01:2.5;
 

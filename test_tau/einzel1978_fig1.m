@@ -1,6 +1,6 @@
 function einzel1978_fig1()
   % Einzel JLTP32 (1978) p.35 fig.1
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   ttc = 0.00:0.01:1;
   p=0;

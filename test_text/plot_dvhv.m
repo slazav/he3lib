@@ -1,5 +1,5 @@
 #!/usr/bin/octave -qf
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
 
   figure; clf; hold on;
 

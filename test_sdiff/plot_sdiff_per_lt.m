@@ -1,6 +1,6 @@
 function plot_sdiff_per_lt()
 
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
 
   figure; clf; hold on;
 

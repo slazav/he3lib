@@ -1,7 +1,7 @@
 function einzel1991_fig6()
   % Einzel JLTP84 (1991) p.351 fig.6
   % Hydrodynamic spin diffusion
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
 
   figure; clf; hold on;
   ttc = 0:0.001:1;

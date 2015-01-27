@@ -1,7 +1,7 @@
 function einzel1991_fig5()
 % Einzel JLTP84 (1991) p.343 fig.5
   t='The generalized Yosida functions Y_n(T)';
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   ttc = 0.01:0.01:1;
   p=1;

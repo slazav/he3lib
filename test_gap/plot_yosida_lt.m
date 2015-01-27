@@ -1,6 +1,6 @@
 function plot_yosida_lt()
   t='Check low temperature behaviour of Y0';
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   ttc = 0.01:0.005:1;
   p=1;

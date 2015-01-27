@@ -1,5 +1,5 @@
 function plot_yosida_lt()
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   ttc = 0.01:0.01:1;
   p=1;

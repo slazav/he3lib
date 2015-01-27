@@ -1,6 +1,6 @@
 function greywall_cv_fig14()
 % Greywall PRB2 1983 fig14.
-  addpath ~/he3lib/lib/matlab
+  addpath ../matlab
   figure; clf; hold on;
   t=(0:0.01:50)/1000;
 
