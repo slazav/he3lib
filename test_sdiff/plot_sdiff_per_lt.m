@@ -8,7 +8,7 @@ function plot_sdiff_per_lt()
   f=[1];
   freqs=[f*0.1 f f*10 f*1e2 f*1e3 f*1e4 f*1e5 f*1e6];
   freqs=1e6;
-  ttcr=0.9:0.1:20;
+  ttcr=5:0.1:10;
   ttc=1./ttcr;
 
   vf=he3_vf(p);
@@ -29,7 +29,7 @@ function plot_sdiff_per_lt()
   kzz = pi/4 * (2+l)^2/(1+l)^5;
   k0zz = kzz * 1
   k2zz = -kzz * 1/2 * (l^2+2*l-2)
-  k4zz = -kzz * 3/8 * (-8+l*(2+l)*(8+2*l+l^2))
+  k4zz = -kzz * 1/8 * (-8+l*(2+l)*(8+2*l+l^2))
 
   kk0xx=k0xx*2*gamma((0+1)/2)*2^(-0.5) / chi
   kk2xx=k2xx*2*gamma((2+1)/2)*2^(0.5)  / chi
