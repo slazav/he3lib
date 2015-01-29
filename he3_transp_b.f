@@ -370,6 +370,7 @@
       end
 
 ! same, but integrated over kz
+! see plot_sdiff_int1.m
       function he3_diff_int_i(x)
         implicit none
         real*8 x, he3_diff_int_i
@@ -382,7 +383,7 @@
         complex*16 i,e,h, t,s,res, uu, vv, ot2
         complex*16 AA, BB, CC, DD, AC,CD,D1,T1, I1,I2
 
-        C=3.5D0 ! see plot_sdiff_int.m
+        C=4.0D0 ! see plot_sdiff_int.m
         xi = datanh(x)*C
         Ek=dsqrt(xi**2 + gap**2)
         phi = (dcosh(Ek/(2D0*ttc)))**(-2) / 2D0 / ttc
@@ -411,9 +412,11 @@
           DD = e + ot2 * uu
         endif
 
-        if (abs(s)<1D-3) then ! DD==1, CC==0, close to hydrodynamic
-          I1 = AA/(3D0,0D0) + BB
-          I2 = AA/(5D0,0D0) + BB/(3D0,0D0)
+        if (abs(CC)<1D-4) then ! close to hydrodynamic OR x close to 1
+          I1 = (AA/(3D0,0D0) + BB
+     .       - AA*CC/DD/(5D0,0D0) - BB*CC/DD/(3D0,0D0))/DD
+          I2 = (AA/(5D0,0D0) + BB/(3D0,0D0)
+     .       - AA*CC/DD/(7D0,0D0) - BB*CC/DD/(5D0,0D0))/DD
         else
           AC = AA/CC
           CD = CC/DD
@@ -482,10 +485,12 @@
           td = he3_tau_dpar(ttc, p)
         endif
 
+!       slow 2D integration
 !        he3_diff_all = math_dint2d(he3_diff_int,
 !     .    0D0, 1D0, 200, 0D0,1D0, 200)
 !     .    * Vf**2 / chi0
 
+!       fast 1D integration (kz is integrated analytically)
         he3_diff_all = math_dint(he3_diff_int_i, 0D0, 1D0, 500)
      .    * Vf**2 / chi0
 
