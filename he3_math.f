@@ -151,6 +151,83 @@
      .        0.022935322010529D0/
       end
 
+! 1D integration of real*8 function from xmin to xmax using imax points
+! Gauss-7pt+Kronrad-15pt quadrature with error estimation
+      function math_dint_gk(func,
+     .         xmin, xmax, nx, aerr)
+        implicit none
+        include 'he3_math.fh'
+
+        common /math_intgk/ crd,wg,wk
+        real*8 crd(15), wg(7), wk(15)
+        real*8 func
+        real*8 xmin, xmax, aerr
+        real*8 dx, x0, f, intk, intg
+        integer ix, ixq, nx
+        external func
+        dx=(xmax-xmin)/dble(nx)
+        intk=0D0
+        intg=0D0
+        do ix=1,nx
+          x0 = xmin + dx*(dble(ix)-0.5D0)
+          do ixq=1,15
+            f=func(x0 + 0.5D0*dx*crd(ixq))
+            intk=intk + wk(ixq)*f
+            if (mod(ixq,2).eq.0) then
+              intg=intg + wg(ixq/2)*f
+            endif
+          enddo
+        enddo
+        intk=intk*dx/2D0
+        intg=intg*dx/2D0
+        aerr=(200D0*dabs(intk-intg))**1.5D0
+        math_dint_gk = intk
+      end
+
+! 1D adaptive integration of real*8 function
+! Gauss-7pt+Kronrad-15pt quadrature
+      subroutine math_dint_gka(myself, func,
+     .         xmin, xmax, rerr_lim, res)
+        implicit none
+        include 'he3_math.fh'
+
+        common /math_intgk/ crd,wg,wk
+        real*8 crd(15), wg(7), wk(15)
+
+        real*8 func
+        real*8 xmin, xmax, res
+        real*8 dx,x0, f, intk, intg
+        real*8 aerr,rerr, aerr_lim, rerr_lim
+        integer ixq
+        external func
+
+        intk=0D0
+        intg=0D0
+        x0 = (xmin + xmax)/2D0
+        dx=(xmax-xmin)/2D0
+        do ixq=1,15
+          f=func(x0 + dx*crd(ixq))
+          intk=intk + wk(ixq)*f
+          if (mod(ixq,2).eq.0) then
+            intg=intg + wg(ixq/2)*f
+          endif
+        enddo
+        intk=intk*dx
+        intg=intg*dx
+        aerr=(200D0*dabs(intk-intg))**1.5D0
+        rerr=aerr/intk
+        if (rerr_lim.gt.0D0.and.dabs(rerr).le.rerr_lim) then
+          res = res + intk
+!        write(*,*) xmax-xmin, ymax-ymin, intk, rerr
+          return
+        endif
+        call myself(myself, func,
+     .       xmin, x0, rerr_lim, res)
+        call myself(myself, func,
+     .       x0, xmax, rerr_lim, res)
+        return
+      end
+
 
 ! 2D integration of real*8 function from xmin to xmax using imax points
 ! Gauss-7pt+Kronrad-15pt quadrature with error estimation

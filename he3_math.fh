@@ -5,5 +5,6 @@
       complex*16 math_cint2d ! integrate complex*16 function
 
 !     real*8     math_dint_slatec  ! integrate real*8 function using slatec lib
+      real*8     math_dint_gk      ! integrate real*8 function using Gauss-7pk+Kronrod-13pt
       real*8     math_dint2d_gk    ! integrate real*8 function using Gauss-7pk+Kronrod-13pt
 !     subroutine  math_dint2d_gka  ! adaptive integration
