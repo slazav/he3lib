@@ -455,8 +455,9 @@
         real*8 ttc, p, nu0, type
         real*8 Vf, chi0, Y0, f0a
         real*8 he3_diff_int_i, he3_diff_int
-        external he3_diff_int_i, he3_diff_int
+        external he3_diff_int_i, he3_diff_int, math_dint_gka
         real*8 he3_diff_all
+        real*8 aerr
 
         real*8 ttc1,gap,o0, lambda, td
         integer itype
@@ -491,8 +492,12 @@
 !     .    * Vf**2 / chi0
 
 !       fast 1D integration (kz is integrated analytically)
-        he3_diff_all = math_dint(he3_diff_int_i, 0D0, 1D0, 500)
-     .    * Vf**2 / chi0
+!        he3_diff_all = math_dint(he3_diff_int_i, 0D0, 1D0, 500)
+!     .    * Vf**2 / chi0
+        he3_diff_all =0D0
+        call math_dint_gka(math_dint_gka, he3_diff_int_i,
+     .       0D0, 1D0, 1D-20, he3_diff_all)
+        he3_diff_all=he3_diff_all * Vf**2 / chi0
 
 !        he3_diff_all=0D0
 !        call math_dint2d_ad(math_dint2d_ad, he3_diff_int,
