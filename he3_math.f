@@ -105,25 +105,6 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!! Adaptive integration of a real*8 function
-!! using slatec library
-!      function math_dint_slatec(func, xmin, xmax, epsabs, epsrel)
-!        implicit none
-!        include 'he3_math.fh'
-!        real*8 func,xmin,xmax,epsabs,epsrel
-!        external F
-!        integer limit, lenw
-!        parameter (limit = 1000)
-!        parameter (lenw = 4*LIMIT)
-!        real*8 abserr,res,work(lenw)
-!        integer ier,neval,last,iwork(limit)
-!        call dqags(func,xmin,xmax,epsabs,epsrel,res,
-!     .      abserr,neval,ier, limit,lenw,last,iwork,work)
-!        math_dint_slatec = res
-!      end
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 ! Coordinates and weights for Gauss-7pt+Kronrod-15pt quadrature:
       block data math_intgk_block
         common /math_intgk/ crd,wg,wk
@@ -186,8 +167,41 @@
 
 ! 1D adaptive integration of real*8 function
 ! Gauss-7pt+Kronrad-15pt quadrature
-      subroutine math_dint_gka(myself, func,
-     .         xmin, xmax, rerr_lim, res)
+! one of aerr_lim and rerr_lim should be positive
+      function math_dint_gka(func,
+     .    xmin, xmax, aerr_lim, rerr_lim)
+        ! wrapper for the recoursive adaptive integration
+        implicit none
+        include 'he3_math.fh'
+        real*8 xmin, xmax, res
+        real*8 aerr_lim, rerr_lim, aerr,rerr
+        real*8 func
+        external func, math_dint_gka_int
+
+        ! calculate first approximation of the integral
+        math_dint_gka = math_dint_gk(func, xmin, xmax, 10, aerr)
+        rerr=dabs(aerr/math_dint_gka)
+
+        ! finish if this accuracy is enough
+        if (aerr.lt.aerr_lim) return
+        if (rerr.lt.rerr_lim) return
+
+        ! calculate desired absolute error limit
+        ! (we want recoursion with only absolute limit because
+        !  of zero regions in our functions)
+        aerr = aerr_lim
+        rerr = dabs(rerr_lim*math_dint_gka)
+        if (rerr.gt.aerr) aerr = rerr
+
+        ! run recoursion
+        math_dint_gka=0D0
+        call math_dint_gka_int(math_dint_gka_int, func,
+     .    xmin, xmax, aerr, math_dint_gka, 0)
+      end
+
+!     internal subroutine for the integration
+      subroutine math_dint_gka_int(myself, func,
+     .         xmin, xmax, aerr_lim, res, depth)
         implicit none
         include 'he3_math.fh'
 
@@ -197,13 +211,16 @@
         real*8 func
         real*8 xmin, xmax, res
         real*8 dx,x0, f, intk, intg
-        real*8 aerr,rerr, aerr_lim, rerr_lim
-        integer ixq
+        real*8 aerr,rerr, aerr_lim
+        real*8 NaN
+        integer ixq, depth
         external func
 
         intk=0D0
         intg=0D0
+        NaN=0D0/0D0
         x0 = (xmin + xmax)/2D0
+        if (x0.eq.xmin.or.x0.eq.xmax) return ! not enough accuracy dx<<x
         dx=(xmax-xmin)/2D0
         do ixq=1,15
           f=func(x0 + dx*crd(ixq))
@@ -215,16 +232,21 @@
         intk=intk*dx
         intg=intg*dx
         aerr=(200D0*dabs(intk-intg))**1.5D0
-        rerr=aerr/intk
-        if (rerr_lim.gt.0D0.and.dabs(rerr).le.rerr_lim) then
+        ! write(*,*) '>', xmax-xmin, intk, aerr, aerr_lim
+
+        if (aerr_lim.le.0D0.or.aerr.le.aerr_lim) then
           res = res + intk
-!        write(*,*) xmax-xmin, ymax-ymin, intk, rerr
+          return
+        endif
+        if (depth.ge.50) then
+          write(*,*) 'math_dint_gka warning: ',
+     .               'max depth is reached: ', depth
           return
         endif
         call myself(myself, func,
-     .       xmin, x0, rerr_lim, res)
+     .       xmin, x0, aerr_lim/2D0, res, depth+1)
         call myself(myself, func,
-     .       x0, xmax, rerr_lim, res)
+     .       x0, xmax, aerr_lim/2D0, res, depth+1)
         return
       end
 

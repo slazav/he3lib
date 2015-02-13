@@ -84,6 +84,6 @@ function plot_sdiff_int1()
 
   end
 
-  print -deps -color plot_sdiff_int.eps
+  print -deps -color plot_sdiff_int1.eps
 
 end

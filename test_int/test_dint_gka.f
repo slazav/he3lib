@@ -1,16 +1,15 @@
       program test_dint
         implicit none
         real*8 func, k, s0,s1
-        external func, math_dint_gka
+        external func
         integer i
         common /func_par/ k
         include "../he3_math.fh"
         do i=1,1000
           k = dble(i)/10D0
           s0 = 2D0 * datan(k)/k
-          s1 = 0D0
-          call math_dint_gka(math_dint_gka, func,
-     .         -1D0, 1D0, 1D-20, s1)
+          s1 = math_dint_gka(func,
+     .         -1D0, 1D0, 1D-20, 1D-20)
           write (*,*) k, (s0-s1)/s0
         enddo
       end

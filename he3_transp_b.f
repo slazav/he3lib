@@ -457,14 +457,18 @@
         real*8 he3_diff_int_i, he3_diff_int
         external he3_diff_int_i, he3_diff_int, math_dint_gka
         real*8 he3_diff_all
-        real*8 aerr
+        real*8 rerr,aerr
 
         real*8 ttc1,gap,o0, lambda, td
         integer itype
         common /he3_diff_int_cb/ ttc1, gap, o0, lambda, td, itype
 
-        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+        if (ttc.lt.0D0.or.ttc.gt.1D0.or.isnan(ttc)) then
           he3_diff_all=NaN
+          return
+        endif
+        if (ttc.lt.1D-2) then ! less then 1D-70
+          he3_diff_all=0D0
           return
         endif
 
@@ -494,10 +498,11 @@
 !       fast 1D integration (kz is integrated analytically)
 !        he3_diff_all = math_dint(he3_diff_int_i, 0D0, 1D0, 500)
 !     .    * Vf**2 / chi0
-        he3_diff_all =0D0
-        call math_dint_gka(math_dint_gka, he3_diff_int_i,
-     .       0D0, 1D0, 1D-20, he3_diff_all)
-        he3_diff_all=he3_diff_all * Vf**2 / chi0
+        rerr=1D-8
+        aerr=1D-40
+        he3_diff_all = math_dint_gka(
+     .                 he3_diff_int_i, 0D0, 1D0, 0D0, rerr)
+     .                 * Vf**2 / chi0
 
 !        he3_diff_all=0D0
 !        call math_dint2d_ad(math_dint2d_ad, he3_diff_int,
