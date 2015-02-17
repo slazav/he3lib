@@ -354,6 +354,85 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! calculate int( f1 \delta(f2) )
+! See:
+! Discretization of Dirac delta functions in level set methods
+! Journal of Computational Physics, Volume 207, Issue 1, 20 July 2005, Pages 28-51
+! Bjo:rn Engquist, Anna-Karin Tornberg, Richard Tsai
+
+      function math_dint2d_delta(func1, func2,
+     .         xmin, xmax, nx, ymin, ymax, ny)
+        implicit none
+        include 'he3_math.fh'
+        integer nx,ny,ix,iy
+        real*8  xmin, xmax, ymin, ymax
+        real*8  dx,dy, x0,y0, f1,f2,f2x,f2y,e,de
+        real*8  func1, func2
+        external func1, func2
+
+        dx=(xmax-xmin)/dble(nx)
+        dy=(ymax-ymin)/dble(ny)
+        math_dint2d_delta=0D0
+        do ix=1,nx
+          do iy=1,ny
+            x0 = xmin + dx*(dble(ix)-0.5D0)
+            y0 = ymin + dy*(dble(iy)-0.5D0)
+            f1  = func1(x0,y0)
+            f2  = func2(x0,y0)
+            f2x = (func2(x0+dx/2D0,y0)-func2(x0-dx/2D0,y0))/dx
+            f2y = (func2(x0,y0+dy/2D0)-func2(x0,y0-dy/2D0))/dy
+            ! in the case of f with |nabla|_2 = 1 (distance)
+            ! e0=dx=dy is good. For large gradient of f we want smaller e0
+            ! e0 -> e0/|nabla|_2
+            ! e =  |nabla|_1/|nabla|_2 * e0
+            e   = (abs(f2x)+abs(f2y)) * (dx+dy)/2D0
+            de = (1-abs(f2/e))/e ! hat approximation of delta
+            if (de.gt.0D0) then
+              math_dint2d_delta = math_dint2d_delta
+     .                          + f1*de*dx*dy
+            endif
+          enddo
+        enddo
+      end
+
+      function math_dint3d_delta(func1, func2,
+     .         xmin, xmax, nx, ymin, ymax, ny, zmin, zmax, nz)
+        implicit none
+        include 'he3_math.fh'
+        integer nx,ny,nz,ix,iy,iz
+        real*8  xmin, xmax, ymin, ymax, zmin, zmax
+        real*8  dx,dy,dz, x0,y0,z0, f1,f2,f2x,f2y,f2z,e,de
+        real*8  func1, func2
+        external func1, func2
+
+        dx=(xmax-xmin)/dble(nx)
+        dy=(ymax-ymin)/dble(ny)
+        dz=(zmax-zmin)/dble(nz)
+        math_dint3d_delta=0D0
+        do ix=1,nx
+          do iy=1,ny
+            do iz=1,nz
+              x0 = xmin + dx*(dble(ix)-0.5D0)
+              y0 = ymin + dy*(dble(iy)-0.5D0)
+              z0 = zmin + dz*(dble(iz)-0.5D0)
+              f1  = func1(x0,y0,z0)
+              f2  = func2(x0,y0,z0)
+              f2x = (func2(x0+dx/2D0,y0,z0)-func2(x0-dx/2D0,y0,z0))/dx
+              f2y = (func2(x0,y0+dy/2D0,z0)-func2(x0,y0-dy/2D0,z0))/dy
+              f2z = (func2(x0,y0,z0+dz/2D0)-func2(x0,y0,z0-dz/2D0))/dz
+              e   = (abs(f2x)+abs(f2y)+abs(f2z)) * (dx+dy+dz)/3D0
+              de = (1-abs(f2/e))/e ! hat approximation of delta
+              if (de.gt.0D0) then
+                math_dint3d_delta = math_dint3d_delta
+     .                            + f1*de*dx*dy*dz
+              endif
+            enddo
+          enddo
+        enddo
+      end
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! complete elliptic integral E(x), from IMSL library
       function math_ele(x)
         implicit none
