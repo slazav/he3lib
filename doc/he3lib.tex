@@ -739,6 +739,41 @@ A model of the zero-temperature, zero-rotation condensate, based on spectra meas
 \includegraphics[scale=1.1]{qball.eps}\\
 \end{figure}
 
+\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Math}
+See more information in the source file {\tt he3\_math.f}
+
+\medskip
+\noindent\begin{tabular}{p{4cm}p{11cm}}
+math\_ele(x)\par
+math\_elk(y)             & Complete elliptic integrals E(x) and K(x)\\
+loop\_bz(rloop,r,z)\par
+loop\_br(rloop,r,z)      & Magnetic field of a current loop, Bz, Br\\
+\end{tabular}
+
+\medskip
+These function have only fortran interface. 
+Use {\tt he3\_math.fh} include file. Examples are in {\tt test\_int} folder.
+
+\medskip
+\noindent\begin{tabular}{rp{11cm}}
+real*8     & math\_dint(func, xmin, xmax, nx)\par   -- simple integration of real*8 function (Gauss 2pt)\\
+complex*16 & math\_cint(func, xmin, xmax, nx)\par   -- integration of complex*16 function\\
+real*8     & math\_dint2d(func, xmin, xmax, nx, ymin, ymax, ny)\par -- integration of 2D real*8 function\\
+complex*16 & math\_cint2d(func, xmin, xmax, nx, ymin, ymax, ny)\par -- integration of 2D complex*16 function\\
+\end{tabular}
+
+\medskip
+\noindent\begin{tabular}{rp{11cm}}
+real*8    & math\_dint\_gk(func, xmin, xmax, nx, aerr)\par
+            -- integrate real*8 function using Gauss-7pk+Kronrod-13pt\\
+real*8    & math\_dint\_gka(func, xmin, xmax, aerr\_lim, rerr\_lim)\par
+            -- adaptive integration\\
+real*8    & math\_dint2d\_gk(func, xmin, xmax, nx, ymin, ymax, ny, aerr)\par
+            -- integrate 2D real*8 function using Gauss-7pk+Kronrod-13pt\\
+\end{tabular}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
