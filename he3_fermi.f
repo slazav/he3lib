@@ -187,19 +187,22 @@
         endif
       end
 
-      function He3_F1a(P) ! Greywall-83
+      function He3_F1a(P)
         implicit none
         include 'he3.fh'
         real*8 P
         if (P.ge.0D0.and.P.le.34.40D0) then
-          He3_F1a =
-     .      +1.489333D-08 * P**6
-     .      -1.661179D-06 * P**5
-     .      +7.056909D-05 * P**4
-     .      -1.430616D-03 * P**3
-     .      +1.476252D-02 * P**2
-     .      -9.170753D-02 * P**1
-     .      -5.506076D-01
+!          ! Greywall-83
+!          He3_F1a =
+!     .      +1.489333D-08 * P**6
+!     .      -1.661179D-06 * P**5
+!     .      +7.056909D-05 * P**4
+!     .      -1.430616D-03 * P**3
+!     .      +1.476252D-02 * P**2
+!     .      -9.170753D-02 * P**1
+!     .      -5.506076D-01
+          ! our data
+          He3_F1a = -0.598D0 -0.00214D0*P
         else
           He3_F1a = NaN
         endif
