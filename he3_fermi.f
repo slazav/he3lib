@@ -28,6 +28,7 @@
       end
 
 !     C_p/RT (exp data), 1/(mol K), Greywall-86
+!     see also Alvesalo PRL44 1076 (1980) - they have different values!
       function He3_gammaf(P)
         implicit none
         include 'he3.fh'
@@ -44,53 +45,7 @@
         endif
       end
 
-!     First sound velocity c1 (exp data), m/s, from Wheatley-75
-      function He3_c1(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        if (P.ge.0D0.and.P.le.34.40D0) then
-          He3_c1 =
-     .     -4.604822D-07*P**6
-     .     +5.472623D-05*P**5
-     .     -2.635920D-03*P**4
-     .     +6.846620D-02*P**3
-     .     -1.130160D+00*P**2
-     .     +1.764852D+01*P
-     .     +1.829327D+02
-          He3_c1 = He3_c1 * 1D2 ! m/s -> cm/s
-        else
-          He3_c1 = NaN
-        endif
-      end
-
-!     Magnetic temperature T* (exp data), K, from Wheatley-75
-      function He3_tmag(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        if (P.ge.0D0.and.P.le.34.40D0) then
-          He3_tmag =
-     .     +2.119835D-09*P**6
-     .     -2.382702D-07*P**5
-     .     +1.043133D-05*P**4
-     .     -2.283417D-04*P**3
-     .     +2.794162D-03*P**2
-     .     -2.427311D-02*P
-     .     +3.588074D-01
-        else
-          He3_tmag = NaN
-        endif
-      end
-
-!!!!!!!
-!  Engel, Ihas, Phys. Rev. Lett. 55, 955958 (1985)
-!  Hamot, Lee, ... Halperin, JLTP 99 p651 (1995)
-
-
-
 !!!!!!!    derived values
-
 !     density, g/cm^3
       function He3_rho(P)
         implicit none
@@ -139,7 +94,7 @@
       end
 
 ! Effective mass [g] vs P [bar].
-      function He3_Meff(P)
+      function He3_meff(P)
         implicit none
         include 'he3.fh'
         real*8 P
@@ -148,64 +103,11 @@
      .             he3_2n0(P)/he3_pf(P)
       end
 
-! Susceptibility [sgs] vs P [bar], T [mK]
-! Einzel-1991 f.10
-      function He3_chi_n(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        He3_chi_n = he3_2n0(P)*(he3_gyro*const_hbar/2D0)**2
-     .    / (1D0 + he3_f0a(P))
-      end
-
-      function He3_F0s(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        He3_F0s = 3D0*he3_amass*he3_meff(P)
-     .             *he3_c1(P)**2 / he3_pf(P)**2 - 1D0
-      end
-
       function He3_F1s(P)
         implicit none
         include 'he3.fh'
         real*8 P
         He3_F1s = 3D0*(he3_mm(P)-1D0)
-      end
-
-      ! see also Halperin, JLTP 89 (1982)
-      ! same as Z0/4
-      function He3_F0a(P) ! Greywall-83
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        if (P.ge.0D0.and.P.le.34.40D0) then
-        he3_f0a = 
-     .   3D0*const_kb*he3_tmag(P)*he3_meff(P)/he3_pf(P)**2 - 1D0
-        else
-          He3_F0a = NaN
-        endif
-      end
-
-      function He3_F1a(P)
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        if (P.ge.0D0.and.P.le.34.40D0) then
-!          ! Greywall-83
-!          He3_F1a =
-!     .      +1.489333D-08 * P**6
-!     .      -1.661179D-06 * P**5
-!     .      +7.056909D-05 * P**4
-!     .      -1.430616D-03 * P**3
-!     .      +1.476252D-02 * P**2
-!     .      -9.170753D-02 * P**1
-!     .      -5.506076D-01
-          ! our data
-          He3_F1a = -0.598D0 -0.00214D0*P
-        else
-          He3_F1a = NaN
-        endif
       end
 
 !     average atomic spacing, angstr.
@@ -233,6 +135,139 @@
         He3_tfeff = const_pi**2/2D0 / he3_gammaf(P)
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!  First sound velocity c1 (exp data), m/s, from Wheatley-75
+      function He3_c1(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        if (P.ge.0D0.and.P.le.34.40D0) then
+          He3_c1 =
+     .     -4.604822D-07*P**6
+     .     +5.472623D-05*P**5
+     .     -2.635920D-03*P**4
+     .     +6.846620D-02*P**3
+     .     -1.130160D+00*P**2
+     .     +1.764852D+01*P
+     .     +1.829327D+02
+          He3_c1 = He3_c1 * 1D2 ! m/s -> cm/s
+        else
+          He3_c1 = NaN
+        endif
+      end
 
+      function He3_F0s(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        He3_F0s = 3D0*he3_amass*he3_meff(P)
+     .             *he3_c1(P)**2 / he3_pf(P)**2 - 1D0
+      end
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!  F0A (same as Z0/4)
+! Wheatley-75
+! Ramm, JLTP 2 539 (1970)
+! + Hensley, JLTP89 501 (1992), JLTP90 149 (1993)
+!
+      function He3_F0a(P) ! Greywall-83
+        implicit none
+        include 'he3.fh'
+        real*8 P, tmag
+        if (P.ge.0D0.and.P.le.34.40D0) then
+!!!        Magnetic temperature T* (exp data), K, from Wheatley-75
+!          tmag =
+!     .     +2.119835D-09*P**6
+!     .     -2.382702D-07*P**5
+!     .     +1.043133D-05*P**4
+!     .     -2.283417D-04*P**3
+!     .     +2.794162D-03*P**2
+!     .     -2.427311D-02*P
+!     .     +3.588074D-01
+!        he3_f0a = 
+!     .   3D0*const_kb*tmag(P)*he3_meff(P)/he3_pf(P)**2 - 1D0
+!!!       Hensley JLTP90 149 (1993)
+        he3_f0a =
+     .    +1.0891D-09*P**6
+     .    -1.3033D-07*P**5
+     .    +6.0659D-06*P**4
+     .    -1.3904D-04*P**3
+     .    +1.6950D-03*P**2
+     .    -1.2308D-02*P   
+     .    -6.9863D-01
+        else
+          He3_F0a = NaN
+        endif
+      end
+
+! Susceptibility [sgs] vs P [bar], T [mK]
+! Einzel-1991 f.10
+      function He3_chi_n(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        He3_chi_n = he3_2n0(P)*(he3_gyro*const_hbar/2D0)**2
+     .    / (1D0 + he3_f0a(P))
+      end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!! Other fermi-liquid parameters
+
+!!!!!!! F1A
+! Corruccini PRL27 650 (1971) -- Leggett-Rice effect in 3He-N, not accurate
+! Osheroff PhB90 20 (1977) -- Spin-wave velocity in 3He-B, not accurate
+! Greywall-1983 -- high temperature Cv
+! Zavjalov-2015 -- Spin-wave velocity in 3He-B
+! theory, spin waves: Dorfle PRB23 3267 (1981) + F3s
+! theory, spin waves: Cross JLTP 21 525 (1975)
+      function He3_F1a(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        if (P.ge.0D0.and.P.le.34.40D0) then
+! ! Greywall-83
+!          He3_F1a =
+!     .      +1.489333D-08 * P**6
+!     .      -1.661179D-06 * P**5
+!     .      +7.056909D-05 * P**4
+!     .      -1.430616D-03 * P**3
+!     .      +1.476252D-02 * P**2
+!     .      -9.170753D-02 * P**1
+!     .      -5.506076D-01
+!  our data
+          He3_F1a = -0.598D0 -0.00214D0*P
+        else
+          He3_F1a = NaN
+        endif
+      end
+
+!!!!!!! F2A
+! Halperin???
+      function He3_F2a(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        if (P.ge.0D0.and.P.le.34.40D0) then
+          He3_F2a = 0D0
+        else
+          He3_F2a = NaN
+        endif
+      end
+
+!!!!!!! F2S
+!  Engel, Ihas, Phys. Rev. Lett. 55, 955958 (1985)
+!  Hamot, Lee, ... Halperin, JLTP 99 p651 (1995)
+!  Mastumoto et al. JLTP 102 p227 (1996)
+      function He3_F2s(P)
+        implicit none
+        include 'he3.fh'
+        real*8 P
+        if (P.ge.0D0.and.P.le.34.40D0) then
+          He3_F2s = 0D0
+        else
+          He3_F2s = NaN
+        endif
+      end
 
 

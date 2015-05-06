@@ -92,7 +92,7 @@ Use ``{\tt addpath /rota/programs/src/he3lib/matlab}'' in Matlab.
 \tt const\_pi      & $\pi = 3.1415926535897932$\\
 \tt const\_2pi     & $2\pi$\\
 \tt he3\_amass     & $^3$He atom mass, $m_3 = 5.0079 \cdot 10^{-24}$~[g]\\
-\tt he3\_mmass     & $^3$He molar mass, $\mu = N_A m_3 = 3.0158$~[g/mol]\\
+\tt he3\_mmass     & $^3$He molar mass, $\mu_3 = N_A m_3 = 3.0158$~[g/mol]\\
 \tt he3\_gyro      & $^3$He gyromagnetic ratio $\gamma = 20378$~[(G s)$^{-1}$],\\
 \end{tabular}
 \medskip
@@ -158,29 +158,24 @@ PLTS-2000 temperature scale:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Fermi-liquid parameters}
 
-Fermi-liquid parameters according to {Wheatley-75} table. Values are
-calculated using experimental data for molar volume, speed of sound,
-magnetic temperature $T^\star$, collected by {Wheatley-75} and heat
-capacity ($\gamma_f=C/RT$) measured by {Graywall-86}. Argument is
-pressure, [bar] in the range 0 -- 34.4. See more information in the
-source file {\tt he3\_fermi.f}.
+Argument is pressure, [bar] in the range 0 -- 34.4. See more information
+in the source file {\tt he3\_fermi.f}.
 
 \medskip
-Measured values:
+{\bf Molar volume and heat capacity in normal $^3$He:}
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
-\tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol]\\
-\tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s]\\
-\tt he3\_gammaf(P) & R-gas constant $\gamma_f = C/RT$,~[1/(K mol)]\\
-\tt he3\_tmag(P)   & Magnetic temperature $T^\star$,~[K]\newline\\
+\tt he3\_vm(P)     & Molar volume $v_m$,~[cm$^3$/mol], Graywall-86 (from Wheatley-75)\\
+\tt he3\_gammaf(P) & R-gas constant $\gamma_f = C_V/RT$,~[1/(K mol)], Greywall-86\\
 \end{tabular}
+\medskip
 
-Derived values:
+{\bf Derived values, $F_1^s$ parameter:}
 
 \medskip
 \noindent\begin{tabular}{lp{11cm}}
-\tt he3\_rho(P)    & Density $\rho = \mu/v_m$,~[g/cm$^3$]\\
+\tt he3\_rho(P)    & Density $\rho = \mu_3/v_m$,~[g/cm$^3$]\\
 \tt he3\_2n0(P)    & $\displaystyle 2N(0) = \frac{\gamma_f}{v_m}
                      \ \frac{3 N_A}{k_B \pi^2}$,~[1/(erg cm$^3$)]\\[3mm]
 \tt he3\_pf(P)     & $\displaystyle p_F = h \left(\frac{3}{8\pi}
@@ -189,13 +184,7 @@ Derived values:
                      \ \frac{2N(0)}{p_F}$,~[g]\\[3mm]
 \tt he3\_mm(P)     &$m^\star/m_3$\\
 \tt he3\_vf(P)     &$\displaystyle v_F = p_F/m^\star$,~[cm/s]\\
-\tt he3\_chi\_n(P) &$\displaystyle \chi_{N} =
-                     2N(0) \frac{(\gamma\hbar)^2}{4(1 + F_0^a)}$.\\[3mm]
-\tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
 \tt he3\_f1s(P)    &$\displaystyle F_1^s = 3(m^\star/m_3 - 1)$\\
-\tt he3\_f0a(P)    &$\displaystyle F_0^a = Z_0/4 = 3 k_B T^\star m^\star / p_F^2 - 1$\\
-\tt he3\_f1a(P)    &$\displaystyle F_1^a$\\
-
 \tt he3\_a(P)      &Average atomic spacing,
                     $\displaystyle a=(v_m/N_A)^{1/3}$,~\AA\\
 \tt he3\_gdk(P)    &Average dipolar coupling enegy,
@@ -205,11 +194,35 @@ Derived values:
 \end{tabular}
 \medskip
 
-\noindent TODO:\\
-Recalculate $F_0^a$ $F_1^a$ from experimantal data (Now there are some extra
-not-consistent data)!
-(see Ramm-1970, Halperin-92 ...). Add $F_2^a$ (zero or from Halperin-95).
-Check $g_d$.
+{\bf Sound velocity in normal $^3$He and $F_0^s$ parameter:}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_c1(P)     & First sound velocity, $c_1$,~[cm/s], measured, Wheatley-75\\
+\tt he3\_f0s(P)    &$\displaystyle F_0^s = 3\ m^\star m_3\ c_1^2 / p_F^2 - 1$\\
+\end{tabular}
+\medskip
+
+{\bf Magnetic susceptibility in normal $^3$He and $F_0^a$ parameter:}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_f0a(P)    &$F_0^a, Z_0/4$, from magnetic susceptibility measurements, Hensley-1993\\
+\tt he3\_chi\_n(P) &$\displaystyle \chi_{N} =
+                     \frac{ 2N(0)(\gamma\hbar)^2}{4(1 + F_0^a)}$.\\[3mm]
+\end{tabular}
+\medskip
+
+{\bf Other fermi-liquid parameters:}
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+\tt he3\_f1a(P)    &$F_1^a$, calculated from
+                    spin-wave velocities in $^3$He-B, Zavjalov-2015\\
+\tt he3\_f2a(P)    &$F_2^a$, currently is 0\\
+\tt he3\_f2s(P)    &$F_2^s$, currently is 0\\
+\end{tabular}
+\medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \eject

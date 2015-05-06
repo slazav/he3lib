@@ -49,22 +49,26 @@ he3_plts2gr(T)     # PLTS2000 -> Greywall86 temperature conversion
 # Fermi-liquid functions (see he3_fermi.f)
 he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]
 he3_gammaf(P) # R-Gas constant GAMMA=C/RT [1/(Kmol)] vs P [bar]
-he3_c1(P)     # First sound velosity [cm/s] vs P [bar]
-he3_tmag(P)   # Magnetic temperature [K] vs P [bar]
 he3_rho(P)    # Density [g/cm^3] vs P [bar]
 he3_2n0(P)    # 2N0 vs P [bar]
 he3_mm(P)     # Effective mass / atom mass vs P [bar]
 he3_meff(P)   # Effective mass [g] vs P [bar]
 he3_pf(P)     # Fermi momentum [sgs] vs P [bar]
 he3_vf(P)     # Fermi velocity [cm/s] vs P [bar]
-he3_chi_n(P)  # Normal liquid susceptibility vs P [bar]
-he3_f0a(P)    # F0a vs P [bar] (Z0/4)
-he3_f0s(P)    # F0s vs P [bar]
-he3_f1a(P)    # F1a vs P [bar]
 he3_f1s(P)    # F1s vs P [bar]
 he3_a(P)      # average atomic spacing, angstr.
 he3_gdk(P)    # average dipolar coupling energy, K
 he3_tfeff(P)  # effective fermi temperature, K
+
+he3_c1(P)     # First sound velosity [cm/s] vs P [bar]
+he3_f0s(P)    # F0s vs P [bar]
+
+he3_chi_n(P)  # Normal liquid susceptibility vs P [bar]
+he3_f0a(P)    # F0a vs P [bar] (Z0/4)
+
+he3_f1a(P)    # F1a vs P [bar]
+he3_f2a(P)    # F2a vs P [bar]
+he3_f2s(P)    # F2s vs P [bar]
 
 # BCS gap + strong coupling correction (see he3_gap.f)
 he3_bcsgap(ttc)           # BCS energy gap
