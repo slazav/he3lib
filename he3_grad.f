@@ -184,3 +184,35 @@
       end
 
 
+! test functions for F1a+F3a gradient energy parameters
+! Dorfle, PRB23 3267 (1981)
+! K1 = K2 = rho_s/40m* Rl
+!      K3 = rho_s/40m* (4Rt-3Rl)
+      function he3_dorfle_rl(ttc, p, f1a, f3a)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, f1a, f3a
+        real*8 gap, Y0, f1, f3
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        !! temperature-dependent landau-parameters
+        f1 = f1a * (1D0-Y0) / (1D0 + f1a*Y0/3D0)
+        f3 = f3a * (1D0-Y0) / (1D0 + f3a*Y0/7D0)
+        he3_dorfle_rl = 
+     .   (1D0 + f1/3D0)*(1D0 + f3/7D0)/
+     .      (1D0 + 2D0/15D0*f1 + 3D0/35D0*f3)
+      end
+      function he3_dorfle_rt(ttc, p, f1a, f3a)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, f1a, f3a
+        real*8 gap, Y0, f1, f3
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        !! temperature-dependent landau-parameters
+        f1 = f1a * (1D0-Y0) / (1D0 + f1a*Y0/3D0)
+        f3 = f3a * (1D0-Y0) / (1D0 + f3a*Y0/7D0)
+        he3_dorfle_rt =
+     .   (1D0 + f1/3D0)*(1D0 + f1/12D0 + 3D0/28D0*f3)/
+     .     (1 + 2D0/15D0*f1 + 3D0/35D0*f3)
+      end

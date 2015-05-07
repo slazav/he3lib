@@ -109,6 +109,16 @@ he3_cperp(ttc,p)  # Fomin's spin wave velocity c_perp
 he3_clpar(ttc,p)  # Leggett's spin wave velocity c_par
 he3_clperp(ttc,p) # Leggett's spin wave velocity c_perp
 
+! test functions for F1a+F3a gradient energy parameters
+! Dorfle, PRB23 3267 (1981)
+! K1 = K2 = rho_s/40m* Rl
+!      K3 = rho_s/40m* (4Rt-3Rl)
+
+he3_dorfle_rl(ttc, p, f1a, f3a) # Dorfle Rl
+he3_dorfle_rt(ttc, p, f1a, f3a) # Dorfle Rt
+
+
+
 # Other textural parameters (see he3_text.f)
 he3_text_a(ttc, p)     # Textural parameter a [erg/cm^3 1/G^2]
 he3_text_ldv(ttc, p)   # Textural parameter lambda_{DV}
