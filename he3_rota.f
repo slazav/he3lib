@@ -75,3 +75,78 @@
      .     I*rota_nmra       ! field of the NMR solenoid
      .   - (Imin+Imin0)*Bmin ! field of the pinch coil
       end
+
+      function rota_bza_xyz(I, Imin, x,y,z)
+      end
+
+! normal phase spectrum
+      function rota_nspeca(f0, I, Imin)
+        implicit none
+        include 'he3.fh'
+        real*8 f0,I,Imin
+
+        ! we need a grid with an isotropic spacing,
+        ! x=-R..R, y=0..R, z=0..2R
+        integer N, nx,ny,nz, ix,iy,iz
+        parameter (N=20, nx=2*N-1, ny=N, nz=3*N-1)
+        real*8 dx, Hres, F(nx,ny,nz), Fx, Fy, Fz, Fg
+        real*8 x(nx), y(ny), z(nz), r
+        real*8 e, dd, g, r1
+        real*8 nmra_r, nmra_d
+        data nmra_r /0.4D0/, nmra_d /0.66D0/
+
+        dx = rota_rcell/dble(N-1)
+        Hres = const_2pi*f0/he3_gyro ! resonance field
+
+        ! fill arrays
+        do ix=1,nx
+          x(ix) = rota_rcell * (2D0*dble(ix-1)/dble(nx-1) - 1D0)
+          do iy=1,ny
+            y(iy) = rota_rcell * dble(iy-1)/dble(ny-1)
+            r = dsqrt(x(ix)**2 + y(iy)**2)
+            do iz=1,nz
+              z(iz) = rota_rcell * 3D0*dble(iz-1)/dble(nz-1)
+              F(ix,iy,iz) = rota_bza(I,Imin, r,z(iz))
+     .                       + x(ix)*0.2D0 - Hres
+            enddo
+          enddo
+        enddo
+
+        ! calculate integral
+        rota_nspeca=0D0
+        do ix=1,nx
+          do iy=1,ny
+            do iz=1,nz
+              if (ix.lt.nx) then
+                Fx = (F(ix+1,iy,iz) - F(ix,iy,iz))/dx
+              else
+                Fx = (F(ix,iy,iz) - F(ix-1,iy,iz))/dx
+              endif
+              if (iy.lt.ny) then
+                Fy = (F(ix,iy+1,iz) - F(ix,iy,iz))/dx
+              else
+                Fy = (F(ix,iy,iz) - F(ix,iy-1,iz))/dx
+              endif
+              if (iz.lt.nz) then
+                Fz = (F(ix,iy,iz+1) - F(ix,iy,iz))/dx
+              else
+                Fz = (F(ix,iy,iz) - F(ix,iy,iz-1))/dx
+              endif
+              Fg = dsqrt(Fx**2 + Fy**2 + Fz**2)
+              e=dx*(dabs(Fx)+dabs(Fy)+dabs(Fz))/Fg
+              dd = (1D0-dabs(F(ix,iy,iz)/e))/e
+              if (dd.lt.0D0) dd=0D0
+              if (x(ix)**2+y(iy)**2.le.rota_rcell) then
+                ! sensitivity of the NRM pick-up coil
+                r1 = dsqrt(y(iy)**2 + z(iz)**2)
+                g = loop_bz(nmra_r, r1, x(ix)-nmra_d)
+     .             +loop_bz(nmra_r, r1, x(ix)+nmra_d)
+              else
+                g = 0D0
+              endif
+              rota_nspeca = rota_nspeca + g*dd*dx**3
+            enddo
+          enddo
+        enddo
+
+      end
