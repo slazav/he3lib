@@ -173,6 +173,13 @@ he3_tau_f(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
 # Normal (see he3_normal.f)
 he3_cv_n(T, V)     # heat capacity, Cv vs T,V
 
+# Polar phase (see he3_polar.f)
+he3p_chi_par(ttc,p) # suscetibility parallel to d vector (chi_par/chi_0)
+he3p_xid_perp(ttc,p)
+he3p_xid_par(ttc,p)
+he3p_xih_perp(ttc,p)
+he3p_xih_par(ttc,p)
+
 # ROTA-specific (see he3_rota.f)
 rota_c_ns(T, I)        # Nuclear stage heat capacity [J/K] vs T[K] and I[A]
 rota_fork_cal(w, p, n) # Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
