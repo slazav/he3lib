@@ -1,8 +1,10 @@
 #!/usr/bin/octave -qf
 
-addpath ../../matlab
+  addpath ../../matlab
+  graphics_toolkit("gnuplot")
 
-figure; clf; hold on;
+  figure; clf; hold on;
+  subplot(1,2,1); hold on;
 
   ttc=[0.001:0.001:1.1];
 
@@ -12,6 +14,15 @@ figure; clf; hold on;
   plot(ttc, he3_bcsgap(ttc), 'k--')
   plot(ttc, gg00, 'k-')
   plot(ttc, gg30, 'k-', 'linewidth', 2)
+
+  xlim([0 1]);
+  ylim([0 2]);
+  set(gca, 'yTick', 0:0.2:2);
+  legend('BCS gap', 'P=0', 'P=30', 'location', 'southwest')
+
+  grid on;
+
+  subplot(1,2,2); hold on;
 
   plot(ttc, he3_yosida(ttc,gg00,0), 'r')
   plot(ttc, he3_yosida(ttc,gg00,2), 'color', [0 0.6 0] )
@@ -36,7 +47,6 @@ figure; clf; hold on;
   plot(ttc, he3_rho_nb(ttc,0), 'b');
   plot(ttc, he3_rho_nb(ttc,30), 'b', 'linewidth', 2);
 
-  legend('BCS gap', 'P=0', 'P=30', 'location', 'northeast')
 
   text(0.8, 1.5, '\Delta', 'fontsize', 8, 'color', 'k');
   text(0.70, 0.35, 'Y_0', 'fontsize', 8, 'color', 'r');
@@ -50,8 +60,8 @@ figure; clf; hold on;
   text(0.10, 0.58, 'Z_7'   , 'fontsize', 8, 'color', [0 0.6 0.6]);
 
   xlim([0 1]);
-  ylim([0 2]);
-  set(gca,'yTick', 0:0.2:2);
+  ylim([0 1]);
+  set(gca, 'yTick', 0:0.1:1);
   grid on;
-  print gap1.eps -deps "-S740,450" -color
+  print gap1.eps -deps "-S500,180" -color
 

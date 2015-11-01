@@ -1,10 +1,10 @@
 #!/usr/bin/octave -qf
 
   % collect and fit all experimental data
-
   addpath ../../matlab
-
+  graphics_toolkit("gnuplot")
   figure; clf; hold on;
+
   subplot(1,2,1); hold on;
     P=[0 10 20 30];
     f0=500:10:900;
@@ -44,6 +44,6 @@
     text(600,0.055,'a_z^0')
     text(550,0.030,'a_r^0')
 
-  print qball.eps -deps "-S950,400" -color
+  print qball.eps -deps "-S500,250" -color
 
 

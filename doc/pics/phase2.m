@@ -1,8 +1,9 @@
 #!/usr/bin/octave -qf
 
   addpath ../../matlab
-
+  graphics_toolkit("gnuplot")
   figure; clf; hold on;
+
   temp=10.^(-3:0.1:1.5);
   press=10.^(-6:0.1:4);
   loglog(temp, he3_pmelt(temp), 'b-');
@@ -33,5 +34,5 @@
   xlabel('temperature, K');
   ylabel('pressure, bar');
 
-  print phase2.eps -deps "-S640,480" -color
+  print phase2.eps -depsc "-S320,240"
 

@@ -191,7 +191,7 @@ rota_hmina_i0i #effectve HminA coil current divided by NMR current
 rota_hmina_i0f #effectve HminA coil current divided by NMR frequncy
 rota_rrda     # radiation damping constant for the nmrA spectrometer
 rota_bza(I,Imin,r,z)    # Bz field profile of A spectrometer
-#rota_nspeca(f0, I,Imin) # normal phase spectrum
+rota_nspeca(f0, I,Imin) # normal phase spectrum
 
 # Q-balls in the zero temperature limit
 qball_nu_b(P)  # Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )

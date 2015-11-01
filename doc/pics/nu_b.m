@@ -3,6 +3,7 @@
   % collect and fit all experimental data
 
   addpath ../../matlab
+  graphics_toolkit("gnuplot")
 
 function do_fit(p, ttc, nub, c)
   xx=0.001:0.001:1;
@@ -57,6 +58,6 @@ end
   do_fit(8.2, ttc082, nub082, 'bd');
   do_fit(15.6, ttc156, nub156, 'gd');
 
-  print nu_b.eps -deps "-S800,600" -color
+  print nu_b.eps -deps "-S400,300" -color
 
 

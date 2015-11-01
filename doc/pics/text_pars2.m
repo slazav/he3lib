@@ -1,6 +1,6 @@
 #!/usr/bin/octave -qf
   addpath ../../matlab
-
+  graphics_toolkit("gnuplot")
   figure; clf; hold on;
 
 
@@ -18,4 +18,4 @@
   title('v_d, cm/s vs T/T_c');
   ylim([0 0.08])
 
-  print text_pars2.eps -deps -color "-S1200,1000"
+  print text_pars2.eps -deps -color "-S500,400"

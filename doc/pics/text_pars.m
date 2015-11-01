@@ -1,6 +1,6 @@
 #!/usr/bin/octave -qf
   addpath ../../matlab
-
+  graphics_toolkit("gnuplot")
   figure; clf; hold on;
 
   subplot(3,2,1); hold on;
@@ -30,4 +30,4 @@
   plot_tpdep(f);
   title('\lambda/\Omega vs T/T_c');
 
-  print text_pars.eps -deps -color "-S1200,1600"
+  print text_pars.eps -deps -color "-S500,600"
