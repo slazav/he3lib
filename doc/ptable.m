@@ -13,6 +13,7 @@ function p1(f, x, t, fmt)
 end
 
 addpath ../matlab
+graphics_toolkit("gnuplot")
 
 f=fopen('ptable.tex','w');
 press=[0:3:33];
@@ -33,7 +34,6 @@ fprintf(f, '\\hline');
 p1(f, he3_vm(press),       '$v_m$, cm$^3$/mol',      '5.2f');
 p1(f, he3_c1(press)/100,   '$c_1$, m/s',             '5.1f');
 p1(f, he3_gammaf(press),   '$\\gamma_f$, 1/(K mol)', '5.3f');
-p1(f, he3_tmag(press)*1e3, '$T^\\star$, mK',         '5.1f');
 
 fprintf(f, '\\hline\n');
 

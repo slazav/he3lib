@@ -1,5 +1,9 @@
 #!/usr/bin/octave -qf
 
+  addpath ../../matlab
+  graphics_toolkit("gnuplot")
+  figure; hold on;
+
 function int = integrand(x,sgap,TTc,n)
     ksi = atanh(x)*TTc*2;
     Ek=sqrt(ksi.^2+sgap.^2);
@@ -7,9 +11,6 @@ function int = integrand(x,sgap,TTc,n)
     int=(ksi/Ek).^n .* phi * 2*TTc .* cosh(ksi/2/TTc).^2;
 end
 
-figure;
-hold on;
-addpath ../../matlab
 ttc=[0.01 0.05 0.2 0.4 0.6 0.8 0.9 0.95 0.99];
 
 x=0:0.001:0.999;

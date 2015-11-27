@@ -3,6 +3,7 @@
   % collect and fit all experimental data
 
   addpath ../../matlab
+  graphics_toolkit("gnuplot")
 
 function [press, y] = do_fit(press, ttc, nub, c)
   nubt = ft1(ttc, press);
