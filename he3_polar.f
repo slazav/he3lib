@@ -19,14 +19,14 @@
         include 'he3.fh'
         real*8 ttc,p,K
         K = he3_grad_k12(ttc,p)
-        he3p_xid_perp = 2D0*dsqrt(he3_gd(p)/K)
+        he3p_xid_perp = dsqrt(K/he3_gd(p))/2D0
       end
       function he3p_xid_par(ttc, p)
         implicit none
         include 'he3.fh'
         real*8 ttc,p,K
         K = 2D0*he3_grad_k12(ttc,p) + he3_grad_k3(ttc,p)
-        he3p_xid_par = 2D0*dsqrt(he3_gd(p)/K)
+        he3p_xid_par = dsqrt(K/he3_gd(p))/2D0
       end
 
 ! magnetic length perpendicular and parallel to the l vector
@@ -38,7 +38,7 @@
         gap = he3_gap(ttc,p)*const_kb*1D-3*he3_tc(p)
         dchi = he3_chi_n(p) * (1D0-he3p_chi_par(ttc,p))
         K = he3_grad_k12(ttc,p)
-        he3p_xih_perp = (h/gap) * dsqrt(dchi/K)
+        he3p_xih_perp = (gap/h) * dsqrt(K/dchi)
       end
       function he3p_xih_par(ttc, p, h)
         implicit none
@@ -47,5 +47,5 @@
         gap = he3_gap(ttc,p)*const_kb*1D-3*he3_tc(p)
         dchi = he3_chi_n(p) * (1D0-he3p_chi_par(ttc,p))
         K = 2D0*he3_grad_k12(ttc,p)+he3_grad_k3(ttc,p)
-        he3p_xih_par = (h/gap) * dsqrt(dchi/K)
+        he3p_xih_par = (gap/h) * dsqrt(K/dchi)
       end
