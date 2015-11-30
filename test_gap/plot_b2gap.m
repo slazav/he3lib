@@ -81,7 +81,6 @@ function res = calc(w0,f0a,p,ttc);
       A(i)=pp(2);
       B(i)=pp(3);
     elseif (vt==1) % calculate spin polarization from known susceptibility
-       we(i)= 2.2*w0(i);
       func=@(pp) zerofunc2(ttc, gap, f0a, w0(i), we(i), pp(1),pp(2));
       pp = fminsearch(func, [A(i), B(i)]);
       A(i)=pp(1);
@@ -95,6 +94,7 @@ function res = calc(w0,f0a,p,ttc);
   res.B=B;
 end
 
+%% integrands for dF/dgap1^2, dF/dgap2^2, dF/we
 function int = integrand(x,ct,gap0,gap1,gap2,TTc,we, n)
   %c = 2;  % important power factor
   %xi = atanh(x) * c;
@@ -112,20 +112,18 @@ function int = integrand(x,ct,gap0,gap1,gap2,TTc,we, n)
 
   if n==1;
     int  = -(Ap.*(we/2-Ez) + Am.*(we/2+Ez));
-    int0 = 0;
   elseif n==2;
-    int  = (Ap+Am).*(1-ct.^2);
-    int0 = 2*AB.*(1-ct.^2);
+    int  = (Ap+Am-2*AB).*(1-ct.^2);
   elseif n==3;
-    int  = (Ap.*(1-we./(2*Ez)) + Am.*(1+we./(2*Ez))).*ct.^2;
-    int0  = 2*AB.*ct.^2;
+    int  = (Ap.*(1-we./(2*Ez)) + Am.*(1+we./(2*Ez))-2*AB).*ct.^2;
   end
 
-  int = - (int-int0) ./ x.^2 * 2;
+  int = - int ./ x.^2 * 2;
   int(find(isnan(int)))=0;
 end
 
-%% gap in tc units, w0,we in gap units!
+%% functions for minimization
+%% gap in tc units, w0,we,A,B in gap units!
 function v = zerofunc(ttc, gap, f0a, w0, we, A,B)
   we=we*gap; w0=w0*gap;
   gap1 = gap*(1+A);
@@ -140,7 +138,6 @@ function v = zerofunc(ttc, gap, f0a, w0, we, A,B)
   v = v1^2 + v2^2 + v3^2;
 end
 
-%% gap, w0,we in tc units!
 function v = zerofunc2(ttc, gap, f0a, w0, we, A,B)
   we=we*gap; w0=w0*gap;
   gap1 = gap*(1+A);
@@ -149,7 +146,6 @@ function v = zerofunc2(ttc, gap, f0a, w0, we, A,B)
   f3 = @(x,y) integrand(x,y, gap,gap1,gap2,ttc,we,3);
   v2 = quad2d(f2,0,1,0,1);
   v3 = quad2d(f3,0,1,0,1);
-  %  fprintf('%f %f %f %f -- %f %f %f\n', w0, A, B, we, v1,v2,v3)
   v=v2^2+v3^2;
 end
 
