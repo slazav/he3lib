@@ -164,6 +164,11 @@ he3_diff_perp_zz_im(ttc, p, nu0)  # Spin diffusion Im D_perp_zz, cm2/s
 he3_diff_par_xx(ttc, p, nu0)      # Spin diffusion D_par_xx, cm2/s
 he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
 
+# B2 phase
+he3_b2gap1(ttc, p, H)             # gap distortion
+he3_b2gap2(ttc, p, H)             # gap distortion
+he3_b2heff(ttc, p, H)             # effective field
+
 # Other (see he3_other.f)
 he3_xigl(ttc, p)           # Extrapolated GL coherence length, cm
 he3_vneq(ttc, p, omega, r) # Equilibrium vortex number

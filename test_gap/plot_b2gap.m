@@ -1,4 +1,4 @@
-function plot_b2gap1()
+function plot_b2gap()
 % This is calculation of B-phase gap distortion and spin polarization,
 % based on Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 %
@@ -13,7 +13,7 @@ function plot_b2gap1()
   clf; hold on;
   p=0.523;     % tc=1mK, as in the paper
   f0a = he3_f0a(p);
-  f0a = -0.75; % as in the paper
+%  f0a = -0.75; % as in the paper
 
   ttc=0.1;
   gap=he3_gap(ttc,p);
@@ -23,11 +23,13 @@ function plot_b2gap1()
   zz = 0.2;
   w0 = 0.1;
 
-%  x=0.001:0.001:0.999;
-%  ct=0:0.001:1;
-%  [xx,yy]=meshgrid(x,ct);
-%  int = integrand(xx,yy, gap,gap*1.01,gap*0.99,ttc, 0.05, 1);
-%  surface(xx,yy,int,'EdgeColor','none');
+  if (0) % plot integrand
+    x=0.001:0.001:0.999;
+    ct=0:0.001:1;
+    [xx,yy]=meshgrid(x,ct);
+    int = integrand(xx,yy, gap,gap*1.01,gap*0.99,ttc, 0.05, 1);
+    surface(xx,yy,int,'EdgeColor','none');
+  end
 
 %  xx=0:0.01:3;
 %  w0=0.1; A=0.0052; B=-0.0110;
@@ -46,42 +48,53 @@ function plot_b2gap1()
 %  plot(xxh, mag,'b-');
 %  plot(xxh, mag1,'r-');
 
+%[-3.9719724033812423E-003   5.9352532479673293E-004  -5.9707415216917956E-004]*1e4
+%g=1.771207107;
+%h=0.1674786250374/g;
+%calc(h,-0.69863,0,0.1)
+%%zerofunc(0.1, g, -0.69863, h, 2*h, 0,0)*1e4
+%%return
+
+%  res=calc(w0,f0a,p,ttc);
+%  plot(res.w0,res.A, 'r-')
+%  plot(res.w0,res.B, 'b-')
 
   w0=0.0:0.01:0.4;
-  figure(2);
-  clf; hold on;
-
-  res=calc(w0,f0a,p,ttc);
-  plot(res.w0,res.A, 'r-')
-  plot(res.w0,res.B, 'b-')
-
-  % table for Fischer's thesis for comparison
-  f_h  = 0.05:0.01:0.33;
-  f_D1 = [13 20 26 34 43 52 63 75 88 102 118 ...
-          134 152 171 191 213 237 262 288 314 ...
-          345 377 412 450 490 534 584 640 705]*1e-4 + 1;
-  f_D2 = [997 996 995 993 991 989 987 985 982 ...
-          979 976 972 968 964 959 954 949 943 ...
-          936 930 922 914 905 894 883 870 855 837 814]*1e-3;
-  plot(f_h,f_D1-1, 'ro')
-  plot(f_h,f_D2-1, 'bo')
-end
-
-function res = calc(w0,f0a,p,ttc);
- he3_gyro=2.037800e+04;
-  gap=he3_gap(ttc,p);
   tc = he3_tc(p)*1e-3*const_kb; % erg units
-  w0G = w0*gap*tc/he3_gyro/const_hbar; % G
-  for i=1:length(w0)
-    % initial values:
-    we(i)=(1-4*f0a*he3_chi_b(ttc,p))*w0(i);
-    A(i)=0.1; B(i)=-0.1;
-    [we(i) A(i) B(i)] = find_min(w0(i),f0a,p,ttc);
+  H = w0*gap*tc/he3_gyro/const_hbar; % G
+
+  if (1)
+    gap=he3_gap(ttc,p);
+    for i=1:length(w0)
+      [we(i) A(i) B(i)] = find_min(w0(i),f0a,p,ttc);
+    end
+    plot(w0,A, 'r-')
+    plot(w0,B, 'b-')
   end
-  res.w0=w0;
-  res.w0G=w0G;
-  res.A=A;
-  res.B=B;
+
+  % plot table from Fischer's thesis for comparison
+  if (1)
+    f_h  = 0.05:0.01:0.33;
+    f_D1 = [13 20 26 34 43 52 63 75 88 102 118 ...
+            134 152 171 191 213 237 262 288 314 ...
+            345 377 412 450 490 534 584 640 705]*1e-4 + 1;
+    f_D2 = [997 996 995 993 991 989 987 985 982 ...
+            979 976 972 968 964 959 954 949 943 ...
+            936 930 922 914 905 894 883 870 855 837 814]*1e-3;
+    plot(f_h,f_D1-1, 'ro')
+    plot(f_h,f_D2-1, 'bo')
+  end
+
+  % test the library function
+  if (1)
+    g1 = he3_b2gap1(ttc,p,H)/gap-1
+    g2 = he3_b2gap2(ttc,p,H)/gap-1
+    plot(w0,g1, 'k-')
+    plot(w0,g2, 'k-')
+    ii=find(isinf(g1));
+    g1(ii)
+    H(ii)
+  end
 end
 
 function [we A B] = find_min(w0,f0a,p,ttc);
@@ -95,11 +108,10 @@ function [we A B] = find_min(w0,f0a,p,ttc);
     dx = sl*f1;
     x  = x+dx;
     f2 = ff(x);
-
-    if sum(f2.^2)<1e-12; break; end
+    if sum(abs(f2))<1e-12; break; end
     if abs(x(2))>1 || abs(x(3))>1 || sl<0;
       x=[NaN NaN NaN]; break; end
-    sl = dx/(f1-f2);
+    sl = mean(dx/(f1-f2));
     f1=f2;
   end
   fprintf('> %f %f %f %d %f\n', x, i, sl);
@@ -125,14 +137,14 @@ function int = integrand(x,ct,gap0,gap1,gap2,TTc,we, n)
   AB = -1/4*tanh(EB/(2*TTc))./EB;
 
   if n==1;
-    int  = (Ap.*(we/2-Ez) + Am.*(we/2+Ez))/2;
+    int  = (Ap.*(we/2-Ez) + Am.*(we/2+Ez));
   elseif n==2;
     int  = (Ap+Am-2*AB).*(1-ct.^2);
   elseif n==3;
     int  = (Ap.*(1-we./(2*Ez)) + Am.*(1+we./(2*Ez))-2*AB).*ct.^2;
   end
 
-  int = - int ./ x.^2 * 2;
+  int = - int ./ x.^2;
   int(find(isnan(int)))=0;
 end
 
@@ -160,7 +172,7 @@ end
 % Integration. I have no quad2 function in octave.
 % Integrand is good, no need to use any smart integration here.
 function v=quad2d(f, x1,x2,y1,y2)
-  n=30;
+  n=100; % should be >100 to get reasonable accuracy
   dx=(x2-x1)/(n-1);
   dy=(y2-y1)/(n-1);
   [xx,yy] = meshgrid(x1:dx:x2,y1:dy:y2);
