@@ -150,6 +150,19 @@
         real*8 F1a,F2a,F3a, F1b,F2b,F3b, sl1,sl2,sl3, dA,dB,dwe
         integer i
 
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          gap1=1D0/0D0
+          gap2=1D0/0D0
+          He=1D0/0D0
+          return
+        endif
+        if (ttc.eq.1D0) then
+          gap1=0
+          gap2=0
+          He=H/(1D0+he3_f0a(p))
+          return
+        endif
+
         gap = he3_gap(ttc,p)
         f0a = he3_f0a(p)
         ! f0a = -0.75D0 ! for tests: this value was used in the original paper
