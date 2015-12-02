@@ -117,8 +117,6 @@ he3_clperp(ttc,p) # Leggett's spin wave velocity c_perp
 he3_dorfle_rl(ttc, p, f1a, f3a) # Dorfle Rl
 he3_dorfle_rt(ttc, p, f1a, f3a) # Dorfle Rt
 
-
-
 # Other textural parameters (see he3_text.f)
 he3_text_a(ttc, p)     # Textural parameter a [erg/cm^3 1/G^2]
 he3_text_ldv(ttc, p)   # Textural parameter lambda_{DV}
@@ -165,6 +163,7 @@ he3_diff_par_xx(ttc, p, nu0)      # Spin diffusion D_par_xx, cm2/s
 he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
 
 # B2 phase
+he3_b2hcr(ttc,T)                  # magnetic field of AB transition
 he3_b2gap1(ttc, p, H)             # gap distortion
 he3_b2gap2(ttc, p, H)             # gap distortion
 he3_b2heff(ttc, p, H)             # effective field
