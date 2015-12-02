@@ -28,17 +28,29 @@ function compile()
 
   end
   fclose(f);
-
-  % note: old octave does not support ver('Octave') call
-  %  v=length(ver('Octave')); % Matlab or Octave
 end
 
 function comp(name, narg)
   fprintf('>> compiling %s (%d args)\n', name, narg);
   if iscell(name); name=name{1}; end
-  mex( ['-DFUNC=' name '_'], ['-DNARGIN=' num2str(narg)],...
-       '-output', name, '-lhe3',...
-       ['-L' pwd ], ['LDFLAGS="$LDFLAGS -Wl,-rpath=' pwd '"'],...
-       'mexfunc.c');
+
+  if strcmp(version, '3.6.4')
+    % old matlab + octave
+    mex(['-DFUNC=' name '_ -DNARGIN=' num2str(narg)],...
+         '-o', name, '-lhe3',...
+        ['-L' pwd ], ['-Wl,--rpath=' pwd ],...
+        'mexfunc.c');
+    return
+  end
+  if strcmp(version, '8.3.0.532 (R2014a)')
+    % new matlab
+    mex(['-DFUNC=' name '_'], ['-DNARGIN=' num2str(narg)],...
+        '-output', name, '-lhe3',...
+        ['-L' pwd ], ['LDFLAGS="$LDFLAGS -Wl,-rpath=' pwd '"'],...
+        'mexfunc.c');
+    return
+  end
 end
+
+
 
