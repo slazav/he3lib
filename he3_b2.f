@@ -225,3 +225,97 @@
         call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
         he3_b2heff = He
       end
+
+
+! Integrand for Normal fluid density (similar to Yosida function calculation)
+! see test_b2/plot_b2rhon.m
+      function he3_b2rho_int(x,y)
+        implicit none
+        real*8 x,y, he3_b2rho_int
+        real*8 ttc, gap1,gap2
+        common /he3_b2rho_cb/ ttc, gap1, gap2, n
+        real*8 xi,dxi,phi, ek, n, C
+        C=2D0
+        xi = datanh(x)*C
+        dxi = 1D0/(1D0-x**2)*C;
+        ek=dsqrt(xi**2 + gap1**2*(1-y**2) + gap2**2*y**2)
+        phi=-1D0/(dcosh(ek/(2D0*ttc))**2 *4D0*ttc);
+        if (n.eq.0) then
+          he3_b2rho_int = - 2D0*phi*y**2*dxi
+        else 
+          he3_b2rho_int = - phi*(1D0-y**2)*dxi
+        endif
+      end
+
+! Normal fluid density vs T/Tc, p, H
+      function he3_b2rho_npar(ttc, p, H)
+        implicit none
+        include 'he3.fh'
+        include 'he3_math.fh'
+        real*8 he3_b2rho_int
+        external he3_b2rho_int
+        real*8 ttc, p, H
+        real*8 ttc1, gap1, gap2, n
+        common /he3_b2rho_cb/ ttc1, gap1, gap2, n
+        real*8 f1s, He, r
+        ttc1=ttc
+        n=0
+
+        if (ttc.lt.0D0) then
+          he3_b2rho_npar=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_b2rho_npar=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_b2rho_npar=1D0
+          return
+        endif
+
+        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
+        r = 3D0*math_dint2d(he3_b2rho_int, 0D0, 1D0, 200, 0D0, 1D0, 200)
+
+        ! fermi-liquid correction
+        f1s = he3_f1s(p);
+        r = r*(3D0+f1s)/(3D0+f1s*r);
+        he3_b2rho_npar = r
+      end
+
+! Normal fluid density vs T/Tc, p, H
+      function he3_b2rho_nper(ttc, p, H)
+        implicit none
+        include 'he3.fh'
+        include 'he3_math.fh'
+        real*8 he3_b2rho_int
+        external he3_b2rho_int
+        real*8 ttc, p, H
+        real*8 ttc1, gap1, gap2, n
+        common /he3_b2rho_cb/ ttc1, gap1, gap2, n
+        real*8 f1s, He, r
+        ttc1=ttc
+        n=1
+
+        if (ttc.lt.0D0) then
+          he3_b2rho_nper=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_b2rho_nper=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_b2rho_nper=1D0
+          return
+        endif
+
+        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
+        r = 3D0*math_dint2d(he3_b2rho_int, 0D0, 1D0, 200, 0D0, 1D0, 200)
+
+        ! fermi-liquid correction
+        f1s = he3_f1s(p);
+        r = r*(3D0+f1s)/(3D0+f1s*r);
+        he3_b2rho_nper = r
+      end
+

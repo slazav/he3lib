@@ -17,7 +17,7 @@ function plot_b2gap()
     surface(xx,yy,int,'EdgeColor','none');
   end
 
-  if (1)
+  if (0)
       ttc=0.01:0.03:1;
       for i=1:length(ttc);
         H = he3_b2hcr(ttc(i),p);
@@ -34,8 +34,45 @@ function plot_b2gap()
   end
 
   % test the library function
-  if (1)
+  if (0)
+      ttc=0.01:0.03:1;
+      H = he3_b2hcr(ttc,p);
+      rpar0 = he3_b2rho_npar(ttc,p,0);
+      rper0 = he3_b2rho_nper(ttc,p,0);
+      rpar = he3_b2rho_npar(ttc,p,H);
+      rper = he3_b2rho_nper(ttc,p,H);
+
+      plot(ttc, rpar, 'r.-')
+      plot(ttc, rper, 'b.-')
+      plot(ttc, rpar0, 'm.-')
+      plot(ttc, rper0, 'c.-')
+      gap=he3_gap(ttc,p);
+      plot(ttc, he3_rho_nb(ttc,gap), 'k.-')
+      title('Normal fluid density at the A-B boundary, P = ', num2str(p));
+      xlabel('T/Tc')
+      ylabel('\rho/\rho_n')
+      legend('\rho_{par}', '\rho_{perp}', '\rho_n')
   end
+
+  % test the library function -2
+  if (1)
+      ttc=0.07:0.03:1;
+      H = he3_b2hcr(ttc,p);
+      rpar0 = he3_b2rho_npar(ttc,p,0);
+      rper0 = he3_b2rho_nper(ttc,p,0);
+      rpar = he3_b2rho_npar(ttc,p,H);
+      rper = he3_b2rho_nper(ttc,p,H);
+
+      plot(ttc, rpar./rpar0, 'r.-')
+      plot(ttc, rper./rper0, 'b.-')
+      plot([0 1], [1 1], 'k')
+      ylim([0 3])
+      title(['Normal fluid density at the A-B boundary, P = ', num2str(p)]);
+      xlabel('T/Tc')
+      ylabel('\rho/\rho(H=0)')
+      legend('\rho_{par}', '\rho_{perp}', '\rho_n')
+  end
+
 end
 
 
