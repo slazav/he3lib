@@ -29,8 +29,7 @@ function plot_b2gap()
 
       plot(ttc, rpar0, 'm.-')
       plot(ttc, rper0, 'c.-')
-      gap=he3_gap(ttc,p);
-      plot(ttc, he3_rho_nb(ttc,gap), 'k.-')
+      plot(ttc, he3_rho_nb(ttc,p), 'k.-')
   end
 
   % test the library function
@@ -46,9 +45,8 @@ function plot_b2gap()
       plot(ttc, rper, 'b.-')
       plot(ttc, rpar0, 'm.-')
       plot(ttc, rper0, 'c.-')
-      gap=he3_gap(ttc,p);
-      plot(ttc, he3_rho_nb(ttc,gap), 'k.-')
-      title('Normal fluid density at the A-B boundary, P = ', num2str(p));
+      plot(ttc, he3_rho_nb(ttc,p), 'k.-')
+      title(['Normal fluid density at the A-B boundary, P = ', num2str(p)]);
       xlabel('T/Tc')
       ylabel('\rho/\rho_n')
       legend('\rho_{par}', '\rho_{perp}', '\rho_n')
