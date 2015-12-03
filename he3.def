@@ -167,8 +167,10 @@ he3_b2hcr(ttc,T)                  # magnetic field of AB transition
 he3_b2gap1(ttc, p, H)             # gap distortion
 he3_b2gap2(ttc, p, H)             # gap distortion
 he3_b2heff(ttc, p, H)             # effective field
-he3_b2rho_npar(ttc, p, H)         # normal fluid density
-he3_b2rho_nper(ttc, p, H)         # normal fluid density
+he3_b2rho_npar(ttc, p, H)         # B2-phase normal fluid density
+he3_b2rho_nper(ttc, p, H)         # B2-phase normal fluid density
+he3_b2rhoab_npar(ttc, p)          # B2-phase normal fluid density at the A-B bounbary
+he3_b2rhoab_nper(ttc, p)          # B2-phase normal fluid density at the A-B bounbary
 
 # Other (see he3_other.f)
 he3_xigl(ttc, p)           # Extrapolated GL coherence length, cm

@@ -302,3 +302,22 @@
         real*8 ttc, p, H
         he3_b2rho_nper = he3_b2rho_n_wr(ttc, p, H,1)
       end
+
+! B-phase normal fluid density at the A-B boundary vs T/Tc, p
+      function he3_b2rhoab_npar(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 he3_b2rho_n_wr
+        real*8 ttc, p, H
+        H = he3_b2hcr(ttc,p)
+        he3_b2rhoab_npar = he3_b2rho_n_wr(ttc, p, H,0)
+      end
+      function he3_b2rhoab_nper(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 he3_b2rho_n_wr
+        real*8 ttc, p, H
+        H = he3_b2hcr(ttc,p)
+        he3_b2rhoab_nper = he3_b2rho_n_wr(ttc, p, H,1)
+      end
+
