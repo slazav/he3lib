@@ -1,3 +1,4 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! B phase in a strong magnetic field (B2 phase).
 
 !! B_ab [mk] vs P, ttc
@@ -67,6 +68,7 @@
         he3_b2hcr = dsqrt(1D0 - X2**2) * Bc
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Calculation of B-phase gap distortion and spin polarization.
 ! Based on Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 
@@ -226,7 +228,7 @@
         he3_b2heff = He
       end
 
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Integrand for Normal fluid density (similar to Yosida function calculation)
 ! see test_b2/plot_b2rhon.m
       function he3_b2rho_int(x,y)
@@ -234,7 +236,8 @@
         real*8 x,y, he3_b2rho_int
         real*8 ttc, gap1,gap2
         common /he3_b2rho_cb/ ttc, gap1, gap2, n
-        real*8 xi,dxi,phi, ek, n, C
+        real*8 xi,dxi,phi, ek,  C
+        integer n
         C=2D0
         xi = datanh(x)*C
         dxi = 1D0/(1D0-x**2)*C;
@@ -247,75 +250,55 @@
         endif
       end
 
+! Normal fluid density vs T/Tc, p, H. Wrapper for both components (n=1,2)
+      function he3_b2rho_n_wr(ttc, p, H, n)
+        implicit none
+        include 'he3.fh'
+        include 'he3_math.fh'
+        real*8 he3_b2rho_int, he3_b2rho_n_wr
+        external he3_b2rho_int
+        real*8 ttc, p, H
+        real*8 ttc1, gap1, gap2
+        integer n,n1
+        common /he3_b2rho_cb/ ttc1, gap1, gap2, n1
+        real*8 f1s, He, r
+        ttc1=ttc
+        n1=n
+
+        if (ttc.lt.0D0) then
+          he3_b2rho_n_wr=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_b2rho_n_wr=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_b2rho_n_wr=1D0
+          return
+        endif
+
+        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
+        r = 3D0*math_dint2d(he3_b2rho_int, 0D0, 1D0, 200, 0D0, 1D0, 200)
+
+        ! fermi-liquid correction
+        f1s = he3_f1s(p);
+        r = r*(3D0+f1s)/(3D0+f1s*r);
+        he3_b2rho_n_wr = r
+      end
+
 ! Normal fluid density vs T/Tc, p, H
       function he3_b2rho_npar(ttc, p, H)
         implicit none
         include 'he3.fh'
-        include 'he3_math.fh'
-        real*8 he3_b2rho_int
-        external he3_b2rho_int
+        real*8 he3_b2rho_n_wr
         real*8 ttc, p, H
-        real*8 ttc1, gap1, gap2, n
-        common /he3_b2rho_cb/ ttc1, gap1, gap2, n
-        real*8 f1s, He, r
-        ttc1=ttc
-        n=0
-
-        if (ttc.lt.0D0) then
-          he3_b2rho_npar=NaN
-          return
-        endif
-        if (ttc.eq.0D0) then
-          he3_b2rho_npar=0D0
-          return
-        endif
-        if (ttc.gt.1D0) then
-          he3_b2rho_npar=1D0
-          return
-        endif
-
-        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
-        r = 3D0*math_dint2d(he3_b2rho_int, 0D0, 1D0, 200, 0D0, 1D0, 200)
-
-        ! fermi-liquid correction
-        f1s = he3_f1s(p);
-        r = r*(3D0+f1s)/(3D0+f1s*r);
-        he3_b2rho_npar = r
+        he3_b2rho_npar = he3_b2rho_n_wr(ttc, p, H,0)
       end
-
-! Normal fluid density vs T/Tc, p, H
       function he3_b2rho_nper(ttc, p, H)
         implicit none
         include 'he3.fh'
-        include 'he3_math.fh'
-        real*8 he3_b2rho_int
-        external he3_b2rho_int
+        real*8 he3_b2rho_n_wr
         real*8 ttc, p, H
-        real*8 ttc1, gap1, gap2, n
-        common /he3_b2rho_cb/ ttc1, gap1, gap2, n
-        real*8 f1s, He, r
-        ttc1=ttc
-        n=1
-
-        if (ttc.lt.0D0) then
-          he3_b2rho_nper=NaN
-          return
-        endif
-        if (ttc.eq.0D0) then
-          he3_b2rho_nper=0D0
-          return
-        endif
-        if (ttc.gt.1D0) then
-          he3_b2rho_nper=1D0
-          return
-        endif
-
-        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
-        r = 3D0*math_dint2d(he3_b2rho_int, 0D0, 1D0, 200, 0D0, 1D0, 200)
-
-        ! fermi-liquid correction
-        f1s = he3_f1s(p);
-        r = r*(3D0+f1s)/(3D0+f1s*r);
-        he3_b2rho_nper = r
+        he3_b2rho_nper = he3_b2rho_n_wr(ttc, p, H,1)
       end
-
