@@ -657,6 +657,27 @@ How does {\tt he3\_diff\_perp\_??\_im} extends to normal phase?\\
 \eject
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{B$_2$-phase}
+
+Data for magnetic field of the A-B transition came from Inseob Hahn PhD thesis
+(see also ).
+An approximation problem was fixed near $P=21.2$~bar.
+Gap distortion and spin polarization is calculated according
+with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
+See more information in the source file {\tt he3\_b2.f}.
+
+\medskip
+\noindent\begin{tabular}{lp{11cm}}
+he3\_b2hcr(ttc,T)                  & magnetic field of AB transition\\
+he3\_b2gap1(ttc, p, H)             & $\Delta_\parallel/\Delta_0$\\
+he3\_b2gap2(ttc, p, H)             & $\Delta_\perp/\Delta_0$\\
+he3\_b2heff(ttc, p, H)             & effective field\\
+he3\_b2rho\_npar(ttc, p, H)        & normal fluid density\\
+he3\_b2rho\_nper(ttc, p, H)        & normal fluid density\\
+\end{tabular}
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Other}
 See more information in the source file {\tt he3\_other.f}.
 
