@@ -129,7 +129,7 @@ main(int argc, char *argv[]){
       /* check number of arguments */
       if (argc-2!=F->narg){
         printf("# %s\n", F->comm);
-        printf("Usage: %s %s\n", F->name, F->args, F->comm);
+        printf("Usage: %s %s %s\n", F->name, F->args, F->comm);
         exit(1);
       }
       call_func(F, argv+2);

@@ -1,0 +1,9 @@
+#!/bin/sh -eu
+
+rm -f data/*
+sed -nre 's|.*"data/([^"]*)".*|\1|p' $1 |
+while read fname; do
+  cmd="$(printf "$fname" | sed 's|&| |g')"
+  echo "$cmd -> $fname"
+  ../he3 $cmd > data/$fname
+done
