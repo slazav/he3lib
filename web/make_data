@@ -1,7 +1,9 @@
 #!/bin/sh -eu
 
 rm -f data/*
-sed -nre 's|.*"data/([^"]*)".*|\1|p' $1 |
+mkdir -p data
+
+sed -nre 's|.*"data/([^"]*)".*|\1|p' index.htm |
 while read fname; do
   cmd="$(printf "$fname" | sed 's|&| |g')"
   echo "$cmd -> $fname"

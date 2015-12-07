@@ -29,14 +29,14 @@ path {
 
 <table border=1 cellspacing=0 bgcolor="#F0F0F0"><tr><td>
 <h3>Examples (click on list items to update the plot)</h3>
-<ul>
-<li><a onclick='plot("f0a")'>Fermi liquid parameter f0a vs pressure</a>
-<li><div onclick='plot("f0s")'>Fermi liquid parameter f0s vs pressure</div>
-<li><div onclick='plot("pf")'>Fermi momentum p_F vs pressure</div>
-<li><div onclick='plot("c_par")'>c_par</div>
-<li><div onclick='plot("c_perp")'>c_perp</div>
-<li><div onclick='plot("c_zt")'>c_par and c_perp vs pressure at zero temperature</div>
-</ul>
+<form>
+<br><input type=radio name=gr1 onclick='plot("f0a")' checked>Fermi liquid parameter f0a vs pressure
+<br><input type=radio name=gr1 onclick='plot("f0s")'>Fermi liquid parameter f0s vs pressure
+<br><input type=radio name=gr1 onclick='plot("pf")'>Fermi momentum p_F vs pressure
+<br><input type=radio name=gr1 onclick='plot("c_par")'>c_par
+<br><input type=radio name=gr1 onclick='plot("c_perp")'>c_perp
+<br><input type=radio name=gr1 onclick='plot("c_zt")'>c_par and c_perp vs pressure at zero temperature
+</form>
 <script>
   opts={ xlabel:"P, bar", ylabel:"p_F, 1e-20 cm/s"}
   p = make_plot(opts);
