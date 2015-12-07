@@ -44,7 +44,7 @@ parse_range(const char * str,
 
   if (*st==0) error("zero step");
 
-  return (int)ceil(abs((*v2-*v1)/(*st)))+1;
+  return (int)ceil(fabs((*v2-*v1)/(*st)))+1;
 }
 
 void
