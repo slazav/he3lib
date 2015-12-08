@@ -31,6 +31,11 @@
      .    coeff_f5 /0.041870D0, 5.417531D0, -10.044312D0,
      .              7.639438D0, -2.379517D0, -0.537422D0/
 
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          He3_b2hcr = 1D0/0D0
+          return
+        endif
+
         Pa = 34.338
         pp = P/Pa
 
@@ -66,6 +71,35 @@
         X2 = (f1*ttc**2 + f2*ttc**4 + f3*ttc**6 + f4*ttc**8)
      .    / (1+f5*ttc**2)
         he3_b2hcr = dsqrt(1D0 - X2**2) * Bc
+      end
+
+! inverse function: find Tab/Tc with known p, H
+      function He3_b2tab(P,H)
+        implicit none
+        include 'he3.fh'
+        real*8 P,H
+        real*8 t1,t2,H1,H2, t
+        integer i
+
+        t1 = he3_tab(P)/he3_tc(P)
+        t2 = 0.5D0
+        H1 = 0D0
+        H2 = he3_b2hcr(t2,P)
+        He3_b2tab = t1
+        if (H.le.0D0) return
+
+        do i=1,100
+          He3_b2tab = t2 + (H2**2-H**2)/(H2**2-H1**2)*(t1-t2)
+          if (He3_b2tab.lt.0D0.or.He3_b2tab.gt.1D0) then
+            He3_b2tab=1D0/0D0;
+            return
+          endif
+          t1=t2
+          H1=H2
+          t2=He3_b2tab
+          H2=he3_b2hcr(t2,P)
+          if (dabs(H-H2).lt.1D-10) return
+        enddo
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
