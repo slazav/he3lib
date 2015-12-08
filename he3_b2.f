@@ -262,6 +262,17 @@
         he3_b2heff = He
       end
 
+      function he3_b2mag(ttc,p,H)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p,H
+        real*8 gap1,gap2,He
+        real*8 chi_n0
+        call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
+        chi_n0 = he3_2n0(p)*(he3_gyro*const_hbar/2)**2
+        he3_b2mag = (H-He)*chi_n0/he3_f0a(p)
+      end
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Integrand for Normal fluid density (similar to Yosida function calculation)
 ! see test_b2/plot_b2rhon.m
@@ -354,4 +365,13 @@
         H = he3_b2hcr(ttc,p)
         he3_b2rhoab_nper = he3_b2rho_n_wr(ttc, p, H,1)
       end
+! magnetization at the A-B boundary
+      function he3_b2magab(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, H
+        H = he3_b2hcr(ttc,p)
+        he3_b2magab = he3_b2mag(ttc, p, H)
+      end
+
 
