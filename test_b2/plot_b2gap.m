@@ -13,7 +13,7 @@ function plot_b2gap()
   clf; hold on;
   p=0.523;     % tc=1mK, as in the paper
   f0a = he3_f0a(p);
-%  f0a = -0.75; % as in the paper
+  f0a = -0.75; % as in the paper
 
   ttc=0.1;
   gap=he3_gap(ttc,p);

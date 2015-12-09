@@ -1,4 +1,4 @@
-function plot_b2gap()
+function plot_gap_ab()
 % gap distortion at the AB boundary
 
   figure(1); clf; hold on;

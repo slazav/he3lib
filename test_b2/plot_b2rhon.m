@@ -1,4 +1,4 @@
-function plot_b2gap()
+function plot_b2rhon()
 % This is calculation of B-phase normal fluid density
 
   figure(1);

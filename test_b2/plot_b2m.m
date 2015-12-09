@@ -1,4 +1,4 @@
-function plot_b2gap()
+function plot_b2m()
 % b2 phase magnetization and susceptibility
 
   figure(1); clf; hold on;
