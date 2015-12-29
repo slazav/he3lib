@@ -43,10 +43,9 @@
         c2t = cper2t + (cpar2t-cper2t)*kl**2
         c2l = cper2l + (cpar2l-cper2l)*kl**2
 
-
         ! Acoustic magnon
         w1 = - wL/2D0 + sqrt((wL/2D0)**2
-     .          + kv**2*c2t + 0.5D0*(1D0-nz**2))
+     .          + kv**2*c2t + 0.5D0*wB2*(1D0-nz**2))
 
         ! Optical magnon
         w2 = + wL/2D0 + sqrt((wL/2D0)**2
