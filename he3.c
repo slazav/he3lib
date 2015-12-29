@@ -83,6 +83,9 @@ call_func(struct tab_t * F, char *argv[]){
       case 3: printf("%e\n", ff(&A[0],&A[1],&A[2])); break;
       case 4: printf("%e\n", ff(&A[0],&A[1],&A[2],&A[3])); break;
       case 5: printf("%e\n", ff(&A[0],&A[1],&A[2],&A[3],&A[4])); break;
+      case 6: printf("%e\n", ff(&A[0],&A[1],&A[2],&A[3],&A[4],&A[5])); break;
+      case 7: printf("%e\n", ff(&A[0],&A[1],&A[2],&A[3],&A[4],&A[5],&A[6])); break;
+      case 8: printf("%e\n", ff(&A[0],&A[1],&A[2],&A[3],&A[4],&A[5],&A[6],&A[7])); break;
       default:
         error("Error: unsupported function prototype\n");
     }

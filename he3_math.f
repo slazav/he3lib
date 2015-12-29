@@ -534,3 +534,122 @@
         loop_br = pre * z/r *
      .    (ele*(Rl**2+r**2+z**2)/((Rl-r)**2+z**2) - elk)
       end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! solve a cubic equation A3 x^3 + A2 x^2 + A1*x + A0 = 0
+!
+! Calculation of Densities from Cubic Equations of State: Revisited
+! Ulrich K. Deiters*, Ricardo Macias-Salina
+! Ind. Eng. Chem. Res., 2014, 53 (6), pp 2529�2536
+
+      subroutine solve_cubic(A3,A2,A1,A0, x1,x2,x3)
+        implicit none
+        real*8 A3,A2,A1,A0, x1,x2,x3
+        real*8 lm, b0,b1,b2, t, xi,yi, y,yp,ypp,dx, c0,c1, D
+
+        if (A3.eq.0D0) then
+          call solve_quadr(A2,A1,A0, x1,x2)
+          x3=1D0/0D0 ! NaN
+          return
+        endif
+
+        ! normalize and scaling
+        b0 = A0/A3
+        b1 = A1/A3
+        b2 = A2/A3
+
+        lm = dabs(b0)**(1D0/3D0)
+        if (lm.lt.sqrt(dabs(b1))) lm=sqrt(dabs(b1))
+        if (lm.lt.dabs(b2))       lm=dabs(b2)
+        b0 = b0/lm**3
+        b1 = b1/lm**2
+        b2 = b2/lm
+
+        if (b0.eq.0D0) then
+          x1 = 0D0
+          call solve_quadr(1D0,b2,b1, x2,x3)
+          if (x1.gt.x2) then ! swap x1 and x2
+            t=x2
+            x2=x1
+            x1=t
+          endif
+          if (x2.gt.x3) then ! swap x2 and x3
+            t=x3
+            x3=x2
+            x2=t
+          endif
+          goto 30
+        endif
+
+        ! inflection point
+        xi = -b2/3D0
+        yi = xi**3 + b2*xi**2 + b1*xi + b0
+        if (yi.eq.0D0) then
+          x2 = xi
+          c1 = x2+b2
+          c0 = c1*x2 + b1
+          call solve_quadr(1D0,c1,c0, x1,x3)
+          goto 30
+        endif
+
+        D = b2**2 - 3D0*b1
+        if (D.eq.0D0) then
+          x1 = xi - yi**(1D0/3D0)
+          x2 = 1D0/0D0 ! NaN
+          x3 = 1D0/0D0 ! NaN
+          goto 30
+        endif
+
+        x1 = xi
+        if (D.gt.0D0) x1 = xi - yi/abs(yi) *2D0/3D0*dsqrt(D)
+
+
+        ! LOOP
+20      y  = x1**3 + b2*x1**2 + b1*x1 + b0
+        yp = 3D0*x1**2 + 2D0*b2*x1 + b1
+        ypp = 6D0*x1 + 2D0*b2
+        dx = y*yp/(yp**2-0.5D0*y*ypp)
+        x1 = x1 - dx
+        if (dabs(dx/x1).gt.1D-10) goto 20
+
+        if (D.gt.0D0) then
+          c1 = x1 + b2
+          c0 = c1*x1 + b1
+          call solve_quadr(1D0,c1,c0, x2,x3)
+          if (x1.gt.x2) then ! swap x1 and x2
+            t=x2
+            x2=x1
+            x1=t
+          endif
+          if (x2.gt.x3) then ! swap x2 and x3
+            t=x3
+            x3=x2
+            x2=t
+          endif
+          goto 30
+        endif
+        x2 = 1D0/0D0 ! NaN
+        x3 = 1D0/0D0 ! NaN
+
+30      x1=x1*lm
+        x2=x2*lm
+        x3=x3*lm
+
+        return
+      end
+  
+! solve quadratic equation A2 x^2 + A1*x + A0 = 0
+      subroutine solve_quadr(A2,A1,A0, x1,x2)
+        implicit none
+        real*8 A2,A1,A0, x1,x2
+        real*8 D
+        D = A1**2 - 4D0*A2*A0
+        if (D.lt.0D0) then
+          x1 = 1D0/0D0 ! NaN
+          x2 = 1D0/0D0 ! NaN
+          return
+        endif
+        x1 = (-A1-dsqrt(D))/(2D0*A2)
+        x2 = (-A1+dsqrt(D))/(2D0*A2)
+        return
+      end

@@ -13,11 +13,11 @@ function compile()
     if length(s)>0; comp(s{1}, 0); end
 
     % functions: double name_(double *arg1, ...);
-    % 1..5 double* aguments
+    % 1..8 double* aguments
     a1='(\s*double\s+\*\w+\s*)';
     a2='(,\s*double\s+\*\w+\s*)?';
     s=regexp(str, ...
-      ['^\s*double\s+(\w+)_\(' a1 a2 a2 a2 a2 '\)\s*;'],...
+      ['^\s*double\s+(\w+)_\(' a1 a2 a2 a2 a2 a2 a2 a2 '\)\s*;'],...
       'tokens', 'once');
 
     % for n<nmax arguments octave have less cells in the s

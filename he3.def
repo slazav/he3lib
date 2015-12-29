@@ -232,3 +232,11 @@ math_ele(x)           # complete elliptic integral E(x)
 math_elk(x)           # complete elliptic integral K(x)
 loop_bz(rloop,r,z)    # magnetic field Bz of a current loop
 loop_br(rloop,r,z)    # magnetic field Br of a current loop
+
+he3b_spec1s(ttc,P,H, kv, ak,bk, an,bn) # acoustic magnon spectrum, simple formula
+he3b_spec2s(ttc,P,H, kv, ak,bk, an,bn) # optical magnon spectrum, simple formula
+he3b_spec3s(ttc,P,H, kv, ak,bk, an,bn) # longitudinal magnon spectrum, simple formula
+
+he3b_spec1(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, lowest mode
+he3b_spec2(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, middle mode
+he3b_spec3(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, highest mode

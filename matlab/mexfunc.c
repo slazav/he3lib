@@ -40,6 +40,20 @@ double FUNC(double *a1, double *a2, double *a3,
 double FUNC(double *a1, double *a2, double *a3,
             double *a4, double *a5);
 #endif
+#if NARGIN == 6
+double FUNC(double *a1, double *a2, double *a3,
+            double *a4, double *a5, double *a6);
+#endif
+#if NARGIN == 7
+double FUNC(double *a1, double *a2, double *a3,
+            double *a4, double *a5, double *a6,
+            double *a7);
+#endif
+#if NARGIN == 8
+double FUNC(double *a1, double *a2, double *a3,
+            double *a4, double *a5, double *a6,
+            double *a7, double *a8);
+#endif
 #endif
 
 #include "../he3tab.h" /* for help messages */
@@ -84,8 +98,8 @@ mexFunction(int nlhs, mxArray *plhs[],
   }
 
 
-  if (nrhs > 5)
-    mexErrMsgTxt("functions with > 5 arguments are not supported in mexfunc.c");
+  if (nrhs > 8)
+    mexErrMsgTxt("functions with > 8 arguments are not supported in mexfunc.c");
 
 
   /* Get input arguments, calculate maximal size */
@@ -133,6 +147,23 @@ mexFunction(int nlhs, mxArray *plhs[],
     out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
                   in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
                   in[4]+(s[4]?0:i));
+#endif
+#if NARGIN == 6
+    out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i));
+#endif
+#if NARGIN == 7
+    out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                  in[6]+(s[6]?0:i));
+#endif
+#if NARGIN == 8
+    out[i] = FUNC(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                  in[6]+(s[6]?0:i), in[7]+(s[7]?0:i));
 #endif
   }
   return;
