@@ -3,20 +3,20 @@ function test_spec()
 
   ttc=0.1;
   P=0;
-  km = 2000;
+  km = 5000;
 
-  f0 = 300e3;
   fB = he3_nu_b(ttc,P);
+  f0 = fB*2;
 
-  H = 2*pi*f0/he3_gyro;
-
-
-  kv=linspace(0,km, 1000);
   ak=0;
-  bk=pi/2;
+  bk=10/180*pi;
 
   an=0/180*pi;
-  bn=10/180*pi;
+  bn=0/180*pi;
+
+
+  H = 2*pi*f0/he3_gyro;
+  kv=linspace(0,km, 1000);
 
   k=1/(2*pi*1e6);
   plot(kv, he3b_spec1(ttc,P,H, kv, ak,bk, an,bn)*k, 'r-', 'linewidth', 2)
