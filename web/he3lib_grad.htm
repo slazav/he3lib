@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>B-phase gradient energy and spin wave velocities</h2>
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_grad.f">
+<tt>he3_grad.f</tt></a>.
+
+$$
+F_\nabla = \frac12 \Delta^2 \left[
+  K_1 (\nabla_j R_{ak})(\nabla_j R_{ak})
++ K_2 (\nabla_j R_{ak})(\nabla_k R_{aj})
++ K_3 (\nabla_j R_{aj})(\nabla_k R_{ak}) \right]
+$$
+
+<p>
+<script>
+  plot_defs.xlabel="P, bar";
+  make_mplot([
+    {title: 'Examples: select a plot...'},
+
+    { title: '- Transverse spin waves, c_perp',
+      ylabel: "c_perp, cm/s", xlabel: "T/Tc", ymax:2300,
+      data: [
+        { url: "data/he3_cperp&0:0.01:1&0",  ycol:2},
+        { url: "data/he3_cperp&0:0.01:1&10", ycol:2},
+        { url: "data/he3_cperp&0:0.01:1&20", ycol:2},
+        { url: "data/he3_cperp&0:0.01:1&30", ycol:2},
+        { text: " 0 bar", x: 0.01, y: 2210, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 1650, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 1400, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 1210, color: "blue"},
+      ]
+    },
+
+    { title: '- Transverse spin waves, c_par',
+      ylabel: "c_par, cm/s", xlabel: "T/Tc", ymax:2600,
+      data: [
+        { url: "data/he3_cpar&0:0.01:1&0",  ycol:2},
+        { url: "data/he3_cpar&0:0.01:1&10", ycol:2},
+        { url: "data/he3_cpar&0:0.01:1&20", ycol:2},
+        { url: "data/he3_cpar&0:0.01:1&30", ycol:2},
+        { text: " 0 bar", x: 0.01, y: 2510, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 1900, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 1590, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 1390, color: "blue"},
+      ]
+    },
+
+    { title: '- Longitudinal spin waves, c_perp',
+      ylabel: "c_perp, cm/s", xlabel: "T/Tc", ymax:2600,
+      data: [
+        { url: "data/he3_clperp&0:0.01:1&0",  ycol:2},
+        { url: "data/he3_clperp&0:0.01:1&10", ycol:2},
+        { url: "data/he3_clperp&0:0.01:1&20", ycol:2},
+        { url: "data/he3_clperp&0:0.01:1&30", ycol:2},
+        { text: " 0 bar", x: 0.01, y: 2510, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 1890, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 1590, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 1390, color: "blue"},
+      ]
+    },
+
+    { title: '- Longitudinal spin waves, c_par',
+      ylabel: "c_par, cm/s", xlabel: "T/Tc", ymax:1900,
+      data: [
+        { url: "data/he3_clpar&0:0.01:1&0",  ycol:2},
+        { url: "data/he3_clpar&0:0.01:1&10", ycol:2},
+        { url: "data/he3_clpar&0:0.01:1&20", ycol:2},
+        { url: "data/he3_clpar&0:0.01:1&30", ycol:2},
+        { text: " 0 bar", x: 0.01, y: 1830, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 1380, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 1160, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 1000, color: "blue"},
+      ]
+    },
+
+    { title: '- Transverse spin waves in the zero temperature limit', ylabel: "c, cm/s",
+      data: [
+        { url: "data/he3_cpar&0&0:34", xcol:1, ycol:2},
+        { url: "data/he3_cperp&0&0:34", xcol:1, ycol:2},
+        { text: "c_par",  x: 11, y: 1850, color: "blue"},
+        { text: "c_perp", x: 5.5, y: 1620, color: "blue"},
+      ]
+    },
+
+    { title: '- Longitudinal spin waves in the zero temperature limit', ylabel: "c, cm/s",
+      data: [
+        { url: "data/he3_clpar&0&0:34", xcol:1, ycol:2},
+        { url: "data/he3_clperp&0&0:34", xcol:1, ycol:2},
+        { text: "c_perp",  x: 11, y: 1850, color: "blue"},
+        { text: "c_par",   x: 5.5, y: 1550, color: "blue"},
+      ]
+    },
+
+
+  ]);
+</script>
+
+
+<table>
+
+<tr><td><tt>he3_grad_K0(ttc,p)</tt></td>
+    <td>$K_1=K_2=K_3$ without fermi-liquid corrections, see VW7.23m</td>
+    </tr>
+<tr><td><tt>he3_grad_c(ttc,p)</tt>
+    <br><tt>he3_grad_delta(ttc,p)</tt></td>
+    <td>$c$ and $\delta$ paramters calculated with fermi-liquid
+        corrections (Cross-1975), see VW7.25. These values are
+        used to calculate all other things:
+    <br>$c=-\frac{\rho_s}{10}\ \frac{3+F_1^a}{3+F_1^s}
+         \ \frac{1}{1+F_1^a(5-3\rho_s/\rho)/15},\qquad
+         \delta = \frac{F_1^a \rho_s/\rho}{3+F_1^s(1-\rho_s/\rho)}$</td>
+    </tr>
+<tr><td><tt>he3_grad_K12(ttc, p)</tt>
+    <br><tt>he3_grad_K3(ttc, p)</tt></td>
+    <td>$K_1 = K_2 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 c,\qquad
+         K_3 = -\frac{2}{\Delta^2}\left(\frac{\hbar}{2m}\right)^2 (1+\delta)c $</td>
+    </tr>
+<tr><td><tt>he3_grad_K(ttc, p)</tt>
+    <br><tt>he3_grad_Kp(ttc, p)</tt></td>
+    <td>$K = 2K_1 + K_2 + K_3,\qquad K' = K_2 + K_3$</td>
+    </tr>
+<tr><td><tt>he3_grad_lg1(ttc, p)</tt>
+    <br><tt>he3_grad_lg2(ttc, p)</tt>
+    <br><tt>he3_grad_lsgb(ttc, p)</tt></td>
+    <td>Thuneberg's $\lambda_{G1}$, $\lambda_{G2}$ and $\lambda_{SG}^b$:
+    <br>$\lambda_{G1} = \frac12\Delta^2 (K_2+K_3),\qquad
+         \lambda_{G2} = \frac12\Delta^2 K_1,\qquad
+         \lambda_{SG}^b = \Delta^2 K_2$</td>
+    </tr>
+
+<tr><td><tt>he3_cpar(ttc,p)</tt>
+    <br><tt>he3_cperp(ttc,p)</tt></td>
+    <td>Velocity of transverse spin waves parallel
+        and perpendicular to the $l$ direction [cm/s]:
+    <br>$c_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\qquad
+        c_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B}(K-K'/2),\qquad
+        c_\parallel^2/c_\perp^2\approx 4/3.$</td>
+    </tr>
+<tr><td><tt>he3_clpar(ttc, p)</tt>
+    <br><tt>he3_clperp(ttc, p)</tt></td>
+    <td>Same for longitudinal waves [cm/s]:
+    <br>$C_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B}(K-K'),\qquad
+         C_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\qquad
+         C_\parallel^2/C_\perp^2\approx 1/2.$</td>
+    </tr>
+</table>
+
+<p>Transverse spin-wave velocities at $T/T_c\approx0$ was measured
+in Zajalov-2015. This measurements was used to extract value of $F^1_a$.
+The functions for spin-wave velocities use this value, and thus agree with
+the experiment.
+
+</body>
+</html>

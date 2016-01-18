@@ -3,9 +3,11 @@
 rm -f data/*
 mkdir -p data
 
-sed -nre 's|.*"data/([^"]*)".*|\1|p' index.htm |
-while read fname; do
-  cmd="$(printf "$fname" | sed 's|&| |g')"
-  echo "$cmd -> $fname"
-  ../he3 $cmd > data/$fname
+for f in *.htm; do
+  sed -nre 's|.*"data/([^"]*)".*|\1|p' $f |
+  while read fname; do
+    cmd="$(printf "$fname" | sed 's|&| |g')"
+    echo "$cmd -> $fname"
+    ../he3 $cmd > data/$fname
+  done
 done

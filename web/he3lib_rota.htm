@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>ROTA-specific functions and constants</h2>
+
+<p>See also source files:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_rota.f">
+<tt>he3_rota.f</tt></a> and
+<a href="https://github.com/slazav/he3lib/blob/master/he3_const.f">
+<tt>he3_const.f</tt></a>.
+
+<table><tr><td><tt>rota_c_ns(T, I</tt>)</td>
+    <td>Nuclear stage heat capacity [J/K] vs T[K] and I[A]
+<br>$C_{ns} = 9.66 \cdot 10^{-5}\ {\rm [J/T^2]} \ (0.113\ {\rm [T/A]}\  I/T)^2$</td>
+    </tr>
+
+<tr><td><tt>rota_fork_cal(w,p,N)</tt></td>
+    <td>Calibration of fork $N$, temperature $T/T_c$,
+        vs fork width $w$ [Hz] and pressure $P$ [bar]
+    <br>$w = a \exp\left(-\frac{\Delta_{\rm WC+}(P, T/T_c)}{T/T_c}\right),$
+    <br>$a = \alpha \ p_F^4(P),$ where $\alpha$ is a geometrical factor
+    <br>$N=1:\qquad $ Fork K, calibration 30.4.2010, $P=29$ bar, $a = 11700$
+    <br>$N=2:\qquad $ Fork E, calibration 30.4.2010, $P=29$ bar, $a = 17543$</td>
+    </tr>
+
+<tr><td><tt>rota_rcell</tt></td>
+    <td>cell radius</td>
+    </tr>
+<tr><td><tt>rota_nmra</tt></td>
+    <td>field/current in nmrA solenoid [G/A]</td>
+    </tr>
+<tr><td><tt>rota_nmrb</tt></td>
+    <td>field/current in nmrB solenoid [G/A]</td>
+    </tr>
+<tr><td><tt>rota_nmra_q(f0)</tt></td>
+    <td>Q value of the nmrA spectrometer vs frequency</td>
+    </tr>
+<tr><td><tt>rota_nmra_f(n)</tt></td>
+    <td>frequencies of nmrA spectrometer,kHz for n=1..8</td>
+    </tr>
+<tr><td><tt>rota_hmina_r</tt></td>
+    <td>effective radius of the HminA coil [cm]</td>
+    </tr>
+<tr><td><tt>rota_hmina_n</tt></td>
+    <td>number of turns of the HminA coil, 4</td>
+    </tr>
+<tr><td><tt>rota_hmina</tt></td>
+    <td>field/current in the center of HminA coil [G/A]</td>
+    </tr>
+<tr><td><tt>rota_hmina_mr</tt></td>
+    <td>quadratic radial term of the HminA field, [G/A/cm$^2$]</td>
+    </tr>
+<tr><td><tt>rota_hmina_i0i</tt></td>
+    <td>effectve HminA coil current divided by NMR current</td>
+    </tr>
+<tr><td><tt>rota_hmina_i0f</tt></td>
+    <td>effectve HminA coil current divided by NMR frequency</td>
+    </tr>
+<tr><td><tt>rota_rrda</tt></td>
+    <td>radiation damping constant $R_{RD}$ for the nmrA spectrometer</td>
+    </tr>
+<tr><td><tt>rota_Bza(I,Imin,r,z)</tt></td>
+    <td>Bz field profile of A spectrometer</td>
+    </tr>
+</table>
+
+</body>
+</html>

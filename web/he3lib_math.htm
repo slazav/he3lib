@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>Math</h2>
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_math.f">
+<tt>he3_math.f</tt></a>.
+
+<table>
+<tr><td><tt>math_ele(x)</tt>
+    <br><tt>math_elk(y)</tt></td>
+    <td>Complete elliptic integrals E(x) and K(x)</td>
+    </tr>
+<tr><td><tt>loop_bz(rloop,r,z)</tt>
+    <br><tt>loop_br(rloop,r,z)</tt></td>
+    <td>Magnetic field  of a current loop with 1 A current, Bz, Br [G],
+        as a function of radial and axial coordinates [cm].
+  </td>
+    </tr>
+</table>
+
+<p>Following functions have only fortran interface.
+Use <tt>he3_math.fh</tt> include file. Examples are in <tt>test_int</tt> folder.
+
+<table>
+<tr><td><tt>real*8&nbsp;math_dint(func,xmin,xmax,nx)</tt>
+    <br><tt>complex*16&nbsp;math_cint(func,xmin,xmax,nx)</tt></td>
+    <td>Simple integration of real*8 and complex*16 functions (Gauss 2pt).</td>
+    </tr>
+<tr><td><tt>real*8&nbsp;math_dint2d(func,xmin,xmax,nx,ymin,ymax,ny)</tt>
+    <br><tt>complex*16&nbsp;math_cint2d(func,xmin,xmax,nx,ymin,ymax,ny)</tt></td>
+    <td>Integration of 2D real*8 and complex*16 functions.</td>
+    </tr>
+</table>
+
+<table>
+<tr><td><tt>real*8&nbsp;math_dint_gk(func, xmin, xmax, nx, aerr)</tt></td>
+    <td>Integrate real*8 function using Gauss-7pk+Kronrod-13pt.</td>
+    </tr>
+<tr><td><tt>real*8&nbsp;math_dint_gka(func,xmin, xmax, aerr_lim, rerr_lim)</tt></td>
+    <td>Adaptive integration.</td>
+    </tr>
+<tr><td><tt>real*8&nbsp;math_dint2d_gk(func,xmin,xmax,nx,ymin,ymax,ny,aerr)</tt></td>
+    <td>Integrate 2D real*8 function using Gauss-7pk+Kronrod-13pt.</td>
+    </tr>
+</table>
+
+TODO: solve_qubic
+
+</body>
+</html>
