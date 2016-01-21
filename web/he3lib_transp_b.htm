@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-<script type="text/javascript" src="d3.js"></script>
+<script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="make_plot.js"></script>
 <script type="text/javascript"
   async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
@@ -18,103 +18,84 @@
 <p><a href="he3lib.htm">Return to the he3lib page...</a>
 <h2>Transport properties in the B phase</h2>
 
-Values for <tt>he3_tau0, he3_tau_av, he3_diff_*</tt> are extended to
-$T>T_c$ region using normal phase functions.
-
 <p>See also the source file:
 <a href="https://github.com/slazav/he3lib/blob/master/he3_transp_b.f">
 <tt>he3_transp_b.f</tt></a> and <tt>doc_tech/spin_diff.pdf</tt>.
+<br>Values for <tt>he3_tau0, he3_tau_av, he3_diff_*</tt> are extended to
+$T>T_c$ region using normal phase functions.
 
+<h4>Collision integral for Bogoliubov quasiparticles</h4>
 
-<h4>Collision integral for Bogoliubov quasiparticles:</h4>
-
-<table><tr><td><tt>he3_coll_int(xi</tt>, ttc, gap, g0, d0)</td>
-    <td>
-   Full temperature range approximation
-<br>{\small (Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)}</td>
+<table><tr><td><tt>he3_coll_int(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Full temperature range approximation.
+    <br>(Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)</td>
     </tr>
-<tr><td><tt>he3_coll_int_lt(xi</tt>, ttc, gap, g0, d0)</td>
-    <td>
-   Collision integral for low temp (good for $< 0.7 T_c$)
-<br>{\small (Einzel, JLTP84 (1991), f.76)}</td>
+<tr><td><tt>he3_coll_int_lt(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Collision integral for low temp (good for $T < 0.7 T_c$).
+    <br>(Einzel, JLTP84 (1991), f.76)</td>
     </tr>
-<tr><td><tt>he3_coll_int_ht(xi</tt>, ttc, gap, g0, d0)</td>
-    <td>
-   Collision integral for high temp
-<br>{\small (Einzel, JLTP84 (1991), f.75)}</td>
+<tr><td><tt>he3_coll_int_ht(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Collision integral for high temp.
+    <br>(Einzel, JLTP84 (1991), f.75)</td>
     </tr>
 </table>
 
-<h4>Bogoliubov quasiparticles lifetime and mean free path:</h4>
+<h4>Bogoliubov quasiparticles lifetime and mean free path</h4>
 
 <table>
-<tr><td><tt>he3_tau0(ttc, p)</tt></td>
-    <td>Lifetime at the Fermi level, s.
-                           $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$
-<br>{\small(Einzel-1991, f.74,76. Einzel-1990 f.A1)}</td>
+<tr><td><tt>he3_tau0(ttc,p)</tt></td>
+    <td>Lifetime at the Fermi level, [s].
+        $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$
+    <br>(Einzel-1991, f.74,76. Einzel-1990 f.A1)</td>
     </tr>
-
-<tr><td><tt>he3_tau0lt(ttc, p)</tt></td>
-    <td>$1/\tau, T\rightarrow0$ limit (does not depend on energy).
-                            {\small(Einzel-1978, f.79)}</td>
+<tr><td><tt>he3_tau0lt(ttc,p)</tt></td>
+    <td>$1/\tau$ in the $T\rightarrow0$ limit (does not depend on energy).
+        (Einzel-1978, f.79)</td>
     </tr>
-<tr><td><tt>he3_tau_av(ttc, p)</tt></td>
-    <td>Thermal average lifetime, s.
-                           $\displaystyle\quad 1/\bar\tau = \frac{1}{Y_0}
-                           \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$
-<br>{\small(Einzel-1991, f.77)}</td>
+<tr><td><tt>he3_tau_av(ttc,p)</tt></td>
+    <td>Thermal average lifetime, [s].
+        $\displaystyle\quad 1/\bar\tau = \frac{1}{Y_0}
+         \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$
+    <br>(Einzel-1991, f.77)</td>
     </tr>
-<tr><td><tt>he3_fpath(ttc, p)</tt></td>
-    <td>Mean free path, cm
-<br>{\small (Einzel JLTP32 (1978) f.84)}</td>
+<tr><td><tt>he3_fpath(ttc,p)</tt></td>
+    <td>Mean free path, [cm]. (Einzel JLTP32 (1978) f.84)</td>
     </tr>
-
-<tr><td><tt>he3_tau_dperp(ttc, p)</tt>
-<br><tr><td><tt>he3_tau_dpar(ttc, p)</tt></td>
-    <td>Spin diff. transport time, s.
+<tr><td><tt>he3_tau_dperp(ttc,p)</tt>
+    <br><tt>he3_tau_dpar(ttc,p)</tt></td>
+    <td>Spin diff. transport time, [s].
                            \ $\tau_D^{\perp,\parallel} = \bar\tau
                             /(1-\lambda_1^a Y^{\perp,\parallel})$
-<br>{\small(Einzel-1991, f.90,96)}</td>
+    <br>(Einzel-1991, f.90,96)</td>
     </tr>
 </table>
 
-<h4>Spin diffusion:</h4>
+<h4>Spin diffusion</h4>
 
-\noindent\begin{tabular}{p{6cm}p{10cm}}
-<tr><td><tt>he3_diff_hperp_zz(ttc, p)</tt>
-<br><tr><td><tt>he3_diff_hpar_zz(ttc, p)</tt>
-</td>
+<table>
+<tr><td><tt>he3_diff_hperp_zz(ttc,p)</tt>
+    <br><tt>he3_diff_hpar_zz(ttc,p)</tt></td>
     <td>Spin diffusion in hydrodynamic limit ($\omega_L \tau \ll 1$),
-  $D^{\perp,\parallel}_{zz}(\omega_L=0)$, cm$^2$/s. According to Einzel's
-  paper (see f.105) nonhydrodynamic effects do not affect $D^\parallel$.
-  In Mukharsky paper they do.
-<br>{(\small Einzel JLTP84 (1991) f.102)}</td>
+        $D^{\perp,\parallel}_{zz}(\omega_L=0)$, [cm$^2$/s].
+        Einzel JLTP84 (1991) f.102)
+    <br>According to Einzel's paper (see f.105) nonhydrodynamic
+        effects do not affect $D^\parallel$. In Mukharsky paper they do.</td>
     </tr>
-
-<tr><td><tt>he3_diff_perp_xx(ttc</tt>, p, nu0)
-<br><tr><td><tt>he3_diff_perp_zz(ttc</tt>, p, nu0)
-<br><tr><td><tt>he3_diff_perp_xx_im(ttc</tt>, p, nu0)
-<br><tr><td><tt>he3_diff_perp_zz_im(ttc</tt>, p, nu0)
-<br><tr><td><tt>he3_diff_par_xx(ttc</tt>, p, nu0)
-<br><tr><td><tt>he3_diff_par_zz(ttc</tt>, p, nu0)
-<br></td>
-    <td>Components of spin diffusion tenzor, cm$^2$/s
-<br>{\small(Bunkov et al, 1990 f.3; Einzel, 1991, f.108;
-<br>Markelov, Mukharsky, 1992, f.7,8)}</td>
+<tr><td><tt>he3_diff_perp_xx(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_zz(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_xx_im(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_zz_im(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_par_xx(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_par_zz(ttc,p,nu0)</tt></td>
+    <td>Components of spin diffusion tenzor, [cm$^2$/s]
+    <br>(Bunkov et al, 1990 f.3; Einzel, 1991, f.108;
+    <br>Markelov, Mukharsky, 1992, f.7,8)</td>
     </tr>
 </table>
-
-<p>Problem with $D^\parallel$. According to Einzel-1991 (see f.105)
-nonhydrodynamic effects do not affect $D^\parallel$ and you should use
-he3_diff_hpar_zz for any frequency.
-In Markelov-Mukharsky paper the result for $D^\parallel$ is completely
-different (it is used in he3_diff_par_xx, _zz).
-$D^\perp$ is the same in all papers.
-
 
 <p>TODO:
 <br>Exchange coupling strength is in the $F_1^a = 0$ limit. (small difference from normal phase values)
-<br>How does <tt>he3_diff_perp_??_im</tt> extends to normal phase?
+<br>How does <tt>he3_diff_perp_??_im</tt> extends to the normal phase?
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-<script type="text/javascript" src="d3.js"></script>
+<script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="make_plot.js"></script>
 <script type="text/javascript"
   async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
@@ -108,7 +108,9 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
   ]);
 </script>
 
-<h4>Vapor pressure and critical point (1962 $^3$He scale of temperatures).</h4>
+
+
+<h4>Vapor pressure and critical point (1962 He3 scale of temperatures)</h4>
 <table>
 <tr><td><tt>he3_pvap(T)</tt></td>
     <td>Vapor pressure [bar] vs temperature [K],
@@ -122,11 +124,11 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
     </tr>
 </table>
 
-<h4>Greywall-86 temperature scale.</h4>
+<h4>Greywall-86 temperature scale</h4>
 
 <p>Melting curve is extended to 31 K using data from
-Osborne,Abraham,Weinstock-1951 ($0.5-2.0$ K) and Mills,Grilly-1955
-($2.0-31$ K). Melting curve minimum is from PLTS-2000 temperature scale.
+Abraham et al. (0.5--2.0 K) and Mills et al. (2.0-31 K).
+Melting curve minimum is from PLTS-2000 temperature scale.
 
 <table>
 <tr><td><tt>he3_pmelt(T)</tt></td>
@@ -201,6 +203,34 @@ Osborne,Abraham,Weinstock-1951 ($0.5-2.0$ K) and Mills,Grilly-1955
 
 <p>TODO: Add he3_tc and he3_tab for PLTS-2000 (interpolated). Add switch
 between Greywall and PLTS scales.
+
+<h4>References</h4>
+<ul>
+<li>The 1962 He3 scale of temperatures IV. Tables.
+<br>Sherman, R.H.; Sydoriak, S.G.; Roberts, T.R.
+<br>National Bureau of Standards, 1964.
+<br><a href="https://archive.org/details/jresv68An6p579">
+             https://archive.org/details/jresv68An6p579</a>
+
+<li>3He specific heat and thermometry at millikelvin temperatures.
+<br>Dennis S. Greywall
+<br>Phus.Rev.B 33, 7520 (1986)
+<br>See f.5 for Tc(P), f.15 for Tab(P), f.A1 for melting pressure.
+
+<li>Properties of Liquid Helium 3
+<br>Abraham, B. M.; Osborne, D. W.; Weinstock, B.
+<br>Science, 117, 121-126 (1953)
+
+<li>Melting Curves of He3, He4, H2, D2, Ne, N2, and O2 up to 3500 kg/cm2.
+<br>R. L. Mills and E. R. Grilly
+<br>Phys. Rev. 99, 480-486 (1955)
+
+<li>The Provisional Low Temperature Scale from 0.9 mK to 1 K, PLTS-2000.
+<br>International Bureau of Weights and Measures. Retrieved December 2013.
+<br><a href="http://www.bipm.org/utils/en/pdf/PLTS-2000.pdf">
+             http://www.bipm.org/utils/en/pdf/PLTS-2000.pdf</a>
+
+</ul>
 
 </body>
 </html>

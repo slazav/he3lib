@@ -2,7 +2,8 @@ h1 {text-align: center;}
 
 body { font: 16px Arial;}
 
-li.w { padding-bottom: 10px;}
+li { padding-bottom: 10px;}
+li.t { padding-bottom: 1px;}
 
 td {padding:3px 15px 3px 25px; vertical-align: text-top;}
 
