@@ -214,9 +214,9 @@
         sl2 = 3D0 ! slope
         sl3 = 3D0 ! slope
         do i=1,1000
-          dA  = sl1*F1a
-          dB  = sl2*F2a
-          dwe = sl3*F3a
+          dA  = sl1*F1a*(1D0-0.8D0**i)
+          dB  = sl2*F2a*(1D0-0.8D0**i)
+          dwe = sl3*F3a*(1D0-0.8D0**i)
           A   = A + dA
           B   = B + dB
           we  = we + dwe
