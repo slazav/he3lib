@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<h1>$^3$He library</h1>
+
+
+<script>
+  plot_text_defs.class="n";
+  make_mplot([
+    //{title: 'Examples: select a plot...'},
+
+    { title: '- Average dipolar coupling enegy, he3_gdk(p)', ylabel: "he3_gdk, 1e-7 K",
+      data: [ { url: "data/he3_gdk&0:34.4", ysc: 1e7} ] },
+
+    { title: '- Molar volume, v_m',
+      xlabel: "P, bar", ylabel: "v_m, cm^3/mol",
+      xmin:0, xmax:34.4, ymin:0, xmax:34.4,
+      data: [ { url: "data/he3_vm&0:34.4"} ]
+    },
+
+    { title: '- Graywall-86 phase diagram',
+      xlabel: "T, mK", ylabel: "P, bar",
+      ymin:0, ymax:38,
+      data: [
+        { url: "data/he3_tc&0:34.33", xcol:1, ycol:0},
+        { url: "data/he3_tab&21.2:34.33", xcol:1, ycol:0},
+        { url: "data/he3_pmelt&0:0.1e-3:2.7e-3", xsc:1e3},
+        { xpt: 0.9291, ypt: 34.3905},
+        { xpt: 1.932,  ypt: 34.3580},
+        { xpt: 2.491,  ypt: 34.3380},
+        { xpt: 2.2730, ypt: 21.22},
+        { text: "he3_ts", x: 0.9291, y: 36.5},
+        { text: "he3_ps", x: 0.9291, y: 35.1},
+        { text: "he3_ta", x: 2.491, y: 36.5, align: "middle"},
+        { text: "he3_pa", x: 2.491, y: 35.1, align: "middle"},
+        { text: "he3_tb", x: 1.932, y: 36.5, align: "middle"},
+        { text: "he3_pb", x: 1.932, y: 35.1, align: "middle"},
+        { text: "he3_tabn", x: 2.2730+0.02, y: 20.2},
+        { text: "he3_pabn", x: 2.2730+0.02, y: 18.8},
+
+        { text: "he3_pmelt(t)", x: 1.5, y: 33, align: "middle"},
+        { text: "he3_tab(t)",   x: 2.1, y: 27, align: "end"},
+        { text: "he3_tc(t)",    x: 2,   y: 12},
+      ]
+    }
+  ]);
+</script>
+aaa
+
+
+</body>

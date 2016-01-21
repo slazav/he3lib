@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>Other B-phase textural parameters</h2>
+
+Formulas are given according to Thuneberg's paper JLTP 122, p657 (2001).
+High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are neglected.
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_text.f">
+<tt>he3_text.f</tt></a>.
+
+
+\hrule
+
+<table>
+<tr><td><tt>he3_text_a(ttc,p)</tt></td>
+    <td>Parameter $a$, [erg/cm$^3$ G$^{-2}$] in the magneto-dipolar energy:
+    <br>$\displaystyle F_{DH} = -a \int_V ({\bf n} \cdot {\bf H})^2\ d^3r$
+    <br>$\displaystyle a = \frac{5 g_d}{2}
+        \left[\frac{\hbar \gamma / 2}{1 + F_0^a (2+Y_0)/3}\right]^2
+        \left(5-3\frac{Z_3}{Z_5}\right)$.
+    <br><br></td>
+    </tr>
+
+<tr><td><tt>he3_text_d(ttc,p)</tt></td>
+    <td>Parameter $d$, [erg/(cm$^2$ G$^2$)] in the magneto-surface energy:
+    <br>$\displaystyle F_{SH} = -d \int_S [{\bf H} \cdot R \cdot {\bf s} ]^2\ d^2r$
+    <br>Note: Ginsburg-Landau extrapolation of $\xi_0$ is used!
+    <br><br></td>
+    </tr>
+
+<tr><td><tt>he3_text_ldv(ttc,p)</tt></td>
+    <td>Parameter $\lambda_{DV}$, [erg/cm$^3$ (cm/s)$^{-2}$] in the dipole-counterflow energy:
+    <br>$\displaystyle F_{DV} = -\lambda_{DV}
+         \int_V [{\bf n} \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r$,
+    <br>$\displaystyle \lambda_{DV} = 5 g_d
+         \left( \frac{m^* v_F}{1 + F_1^s Y_0/3} \right)^2
+         \left( 1 - \frac{3 Z_5}{2 Z_3} \right)$.
+    <br>Note: this term is $\ll F_{HV}$ in our usual magnetic fields. $H\approx200$ G.
+    <br><br></td>
+    </tr>
+
+<tr><td><tt>he3_text_lhv(ttc,p)</tt></td>
+    <td>Parameter $\lambda_{HV}$ in the magneto-counterflow energy:
+    <br>$\displaystyle F_{HV} = -\lambda_{HV}
+         \int_V [{\bf H} \cdot R \cdot ({\bf v_s}-{\bf v_n}) ]^2\ d^3r$,
+    <br>$\displaystyle \lambda_{HV} =
+         \frac{\rho}{\Delta^2}
+         \frac{1 + F_1^s / 3}{(1 + F_1^s Y_0/3)^2}
+         \left( \frac{\hbar\gamma/2}{ 1 + F_0^a (2 + Y_0)/3)} \right)^2
+         \left( Z_3 - \frac{9}{10} Z_5 + \frac{9}{10}\ \frac{Z_5^2}{Z_3} -
+         \frac32 Z_7 \right).$
+    <br><br></td>
+    </tr>
+
+<tr><td><tt>he3_text_llh(ttc,p,omega)</tt></td>
+    <td>Parameter $\lambda_{LH}$, [erg/(cm$^3$ G$^2$ s)] in the vortex orientation energy.
+    <br>This is counterflow part only, at low temperatures
+        other effects are much larger!
+    <br>$\displaystyle F_{LH} = \frac{\lambda_{LH}}{2\Omega}
+         \int_L |\omega_s| [{\bf H} \cdot R \cdot {\bf l} ]^2\ d^3r$
+    <br>$\displaystyle \lambda_{LH} =
+         \frac{\hbar}{2m}\Omega \lambda_{HV}
+         \left(\ln\frac{R}{r} - \frac34\right)$.
+    <br><br></td>
+    </tr>
+</table>
+
+<h4>Derived values</h4>
+
+<table>
+<tr><td><tt>he3_text_lo(ttc,p,omega)</tt></td>
+    <td>Parameter $\lambda/\Omega$, [1/(rad/s)]  used in the texture library:
+    <br>$\displaystyle \frac{\lambda}{\Omega} =
+         \frac{5\lambda_{LH}}{2a\Omega}$.
+    <br>This is counterflow part only, at low temperatures
+        other effects are much larger!
+    <br><br></td>
+    </tr>
+<tr><td><tt>he3_text_xih(ttc,p,h)</tt></td>
+    <td>Magnetic length
+        $\xi_H = \sqrt{65\lambda_{G2}/(8 a H^2)}$, [cm]</td>
+    </tr>
+
+<tr><td><tt>he3_text_xid(ttc,p)</tt></td>
+  <td>Dipolar length (according to Hakonen-1989).
+  $\xi_D = \sqrt{13\lambda_{G2}/12\lambda_D}$, [cm].
+  <br>Note: in Thuneberg's paper $\xi_D = \sqrt{\lambda_{G2}/\lambda_D}$ is used.</td>
+  </tr>
+
+<tr><td><tt>he3_text_vd(ttc, p)</tt></td>
+  <td>Dipolar velocity (according to Thuneberg-2001),
+  $v_D = \sqrt{2a/5\lambda_{HV}}$</td>
+  </tr>
+
+
+</table>
+
+</body>
+</html>

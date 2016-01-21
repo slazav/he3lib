@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>B-phase in a strong magnetic field (B$_2$-phase)</h2>
+
+<p>Data for the A-B transition in a magnetic field came from Inseob Hahn PhD thesis
+(see also He3-calculator <a href="http://spindry.phys.northwestern.edu/he3.htm">
+http://spindry.phys.northwestern.edu/he3.htm</a>).
+An approximation problem have been fixed near $P=21.2$ bar.
+
+<p>Gap distortion and spin polarization is calculated according
+with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_b2.f">
+<tt>he3_b2.f</tt></a>.
+
+<table><tr><td><tt>he3_b2hcr(ttc</tt>,T)</td>
+    <td>Magnetic field of AB transition</td>
+    </tr>
+<tr><td><tt>he3_b2tab(p</tt>,H)</td>
+    <td>Temperature of AB transition in non-zero field</td>
+    </tr>
+<tr><td><tt>he3_b2gap1(ttc</tt>, p, H)</td>
+    <td>$\Delta_\parallel/\Delta_0$</td>
+    </tr>
+<tr><td><tt>he3_b2gap2(ttc</tt>, p, H)</td>
+    <td>$\Delta_\perp/\Delta_0$</td>
+    </tr>
+<tr><td><tt>he3_b2heff(ttc</tt>, p, H)</td>
+    <td>effective field</td>
+    </tr>
+<tr><td><tt>he3_b2mag(ttc</tt>, p, H)</td>
+    <td>magnetization</td>
+    </tr>
+<tr><td><tt>he3_b2rho_npar(ttc</tt>, p, H)</td>
+    <td>normal fluid density</td>
+    </tr>
+<tr><td><tt>he3_b2rho_nper(ttc</tt>, p, H)</td>
+    <td>normal fluid density</td>
+    </tr>
+<tr><td><tt>he3_b2rhoab_npar(ttc, p)</tt></td>
+    <td>normal fluid density at the A-B boundary</td>
+    </tr>
+<tr><td><tt>he3_b2rhoab_nper(ttc, p)</tt></td>
+    <td>normal fluid density at the A-B boundary</td>
+    </tr>
+<tr><td><tt>he3_b2magab(ttc</tt>, p, H)</td>
+    <td>magnetization an the A-B boundary</td>
+    </tr>
+</table>
+
+</body>
+</html>

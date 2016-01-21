@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="he3lib.htm">Return to the he3lib page...</a>
+<h2>B-phase dipole energy and Legget frequency</h2>
+
+<p>
+<script>
+  plot_defs.xlabel="P, bar";
+  make_mplot([
+    {title: 'Examples: select a plot...'},
+
+    { title: '- he3_gd(p)', ylabel: "gd, 1e31 1/(erg cm^3)",
+      data: [
+        { url: "data/he3_gd&0:34", ysc:1e-31},
+      ]
+    },
+
+    { title: '- Leggett frequency, he3_nu_b(ttc,p)',
+      xlabel: "T/Tc", ylabel: "nu_b, kHz",
+      ymax: 330,
+      data: [
+        { url: "data/he3_nu_b&0:0.01:1&0",  ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&10", ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&20", ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&30", ycol:2, ysc:1e-3},
+        { text: " 0 bar", x: 0.01, y: 130, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 220, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 270, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 315, color: "blue"},
+      ]
+    },
+
+    { title: '- Leggett frequency in the zero temperature limit',
+      xlabel: "P, bar", ylabel: "nu_b(T=0), kHz",
+      ymax: 330,
+      data: [
+        { url: "data/he3_nu_b&0&0:34", xcol:1, ycol:2, ysc:1e-3},
+      ]
+    },
+
+    { title: '- he3_nu_b(ttc,p) vs he3_nu_b1(ttc,p)',
+      xlabel: "T/Tc", ylabel: "nu_b, kHz", ymax: 330,
+      data: [
+        { url: "data/he3_nu_b&0:0.01:1&0",  ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&10", ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&20", ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_b&0:0.01:1&30", ycol:2, ysc:1e-3},
+
+        { url: "data/he3_nu_b1&0:0.01:1&0",  ycol:2, ysc:1e-3, color: "#FF8080"},
+        { url: "data/he3_nu_b1&0:0.01:1&10", ycol:2, ysc:1e-3, color: "#FF8080"},
+        { url: "data/he3_nu_b1&0:0.01:1&20", ycol:2, ysc:1e-3, color: "#FF8080"},
+        { url: "data/he3_nu_b1&0:0.01:1&30", ycol:2, ysc:1e-3, color: "#FF8080"},
+
+        { text: " 0 bar", x: 0.01, y: 130, color: "blue"},
+        { text: "10 bar", x: 0.01, y: 220, color: "blue"},
+        { text: "20 bar", x: 0.01, y: 270, color: "blue"},
+        { text: "30 bar", x: 0.01, y: 315, color: "blue"},
+      ]
+    },
+
+  ]);
+</script>
+
+Values are given according to Thuneberg's paper JLTP 122, p657 (2001).
+Temperature independent $g_d$ parameter is restored from experimental
+data for $\Omega_B$, measured in transverse and longitudinal NMR.
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_dipole.f">
+<tt>he3_dipole.f</tt></a>.
+
+Dipolar energy:
+$$
+F_D = \lambda_D \int (R_{ii}R_{jj}+R_{ij}R_{ji})\ d^3r
+\quad =\quad 4 \lambda_D \int \cos\theta(1+2\cos\theta)\ d^3r
+$$
+$$
+\lambda_D = \Delta^2 g_d,
+\qquad \Omega_B = \gamma \sqrt{15 \lambda_D/\chi_B}
+$$
+
+Note: In old papers (Leggett, ...) $g_D/5$ is used instead of $\lambda_G$.
+
+<table><tr><td><tt>he3_gd(p)</tt></td>
+    <td>$g_d$, [1/(erg cm$^3$)]</td>
+    </tr>
+<tr><td><tt>he3_ld(p)</tt></td>
+    <td>$\lambda_D = \Delta^2 g_d$, [erg/cm$^3$]</td>
+    </tr>
+<tr><td><tt>he3_nu_b(ttc, p)</tt></td>
+    <td>B-phase Leggett frequency
+        $\nu_B = \frac{\gamma}{2\pi}
+        \sqrt{15 \Delta^2 g_d/\chi_B}$ [Hz]</td>
+    </tr>
+
+<tr><td><tt>he3_nu_b1(ttc, p)</tt></td>
+    <td>Less accurate formula without using $g_d$
+    <br>$\nu_B =\frac{1}{2\pi}\sqrt{\frac{3\pi}{2\chi}}
+        \ \frac{\gamma^2\hbar}{2}\ N(0)\ \Delta \log\frac{e_f}{\Delta}$ [Hz]</td>
+    </tr>
+</table>
+
+
+</body>
+</html>
