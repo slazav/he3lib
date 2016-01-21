@@ -26,7 +26,7 @@ all: headers\
 
 .PHONY: octave matlab matlab64 headers library cmdline doc
 
-FC=gfortran
+#FC=gfortran
 
 ###################################
 
