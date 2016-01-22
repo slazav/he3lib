@@ -106,7 +106,7 @@
         else if (T.gt.2.0D0.and.T.lt.3.0D0) then
           He3_pmelt_plts =
      .      ( (T-2.0D0)*He3_pmelt_mills_org(T)
-     .      + (3.0D0-T)*He3_pmelt_interp(T) ) / (2.0D0-3.0D0)
+     .      + (3.0D0-T)*He3_pmelt_interp(T) ) / (3.0D0-2.0D0)
         else if (T.ge.3.0D0.and.T.le.31D0) then
           He3_pmelt_plts = He3_pmelt_mills_org(T)
         else
