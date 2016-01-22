@@ -36,6 +36,8 @@ he3_pb_plts   # A-B-Solid crit.pt, bar (PLTS2000)
 he3_tb_plts   # A-B-Solid crit.pt, mK  (PLTS2000)
 he3_ps_plts   # AFM transition in solid He3, bar (PLTS2000)
 he3_ts_plts   # AFM transition in solid He3, mK  (PLTS2000)
+he3_pabn_plts # A-B-Normal crit.pt, bar (PLTS2000)
+he3_tabn_plts # A-B-Normal crit.pt, mK  (PLTS2000)
 
 # Phase diagram functions (see he3_phase.f)
 he3_pvap(T)        # Vapor pressure [bar] vs T [K]
@@ -43,8 +45,8 @@ he3_pmelt(T)       # Melting pressure [bars] vs T [K] (Greywall86)
 he3_tc(P)          # T_c [mK] vs P [bar] (Greywall86)
 he3_tab(P)         # T_ab [mK] vs P [bar] (Greywall86)
 he3_pmelt_plts(T)  # PLTS2000 melting pressure [bars] vs T [K]
-he3_gr2plts(T)     # Greywall86 -> PLTS2000 temperature conversion
-he3_plts2gr(T)     # PLTS2000 -> Greywall86 temperature conversion
+he3_tc_plts(P)     # T_c  [mK] in PLTS2000 scale vs pressure [bar]
+he3_tab_plts(P)    # T_ab [mK] in PLTS2000 scale vs pressure [bar]
 
 # Fermi-liquid functions (see he3_fermi.f)
 he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]

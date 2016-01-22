@@ -106,7 +106,7 @@
         else if (T.gt.2.0D0.and.T.lt.3.0D0) then
           He3_pmelt_plts =
      .      ( (T-2.0D0)*He3_pmelt_mills_org(T)
-     .      + (3.0D0-T)*He3_pmelt_interp(T) ) / (3.0D0-2.0D0)
+     .      + (3.0D0-T)*He3_pmelt_interp(T) ) / (2.0D0-3.0D0)
         else if (T.ge.3.0D0.and.T.le.31D0) then
           He3_pmelt_plts = He3_pmelt_mills_org(T)
         else
@@ -180,15 +180,27 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Greywall -> PLTS2000 conversion T [mK] vs T [mK]
-      function He3_gr2plts(t)
+! see tests/phase/gr2plts.m
+!  t2 = (1D0 - 5.14809D-2 + 3.05134D-2*t1 - 6.9936D-3*t1**2)*t1
+!  p2 = (1D0 + 8.2454D-05)*p1
+!  c = (-1.2297e-02, -4.2958e-04, 8.2456e-05)
+!
+! T_c and Tab scaled from Greywall to PLTS
+      function He3_tc_plts(P)
         implicit none
-        real*8 t, he3_gr2plts
-        he3_gr2plts = 0.96756D0*t + 0.031803D0
+        include 'he3.fh'
+        real*8 P,P1,T1
+        P1 = P/(1D0 + 8.2454D-05)
+        T1 = he3_tc(P1)
+        He3_tc_plts =
+     .    (1D0 - 5.14809D-2 + 3.05134D-2*T1 - 6.9936D-3*T1**2)*T1
       end
-      function He3_plts2gr(t)
+      function He3_tab_plts(P)
         implicit none
-        real*8 t, he3_plts2gr
-        he3_plts2gr = (t - 0.031803D0)/0.96756D0
+        include 'he3.fh'
+        real*8 P,P1,T1
+        P1 = P/(1D0 + 8.2454D-05)
+        T1 = he3_tab(P1)
+        He3_tab_plts =
+     .    (1D0 - 5.14809D-2 + 3.05134D-2*T1 - 6.9936D-3*T1**2)*T1
       end
-
-

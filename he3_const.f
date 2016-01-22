@@ -21,8 +21,8 @@
      .    he3_Pabn   /21.22D0/,      ! A-B-Normal crit.pt, bar
      .    he3_Tabn   /2.273D0/,      ! A-B-Normal crit.pt, mK.
 
-     .    he3_Pm     /29.3113D0/,    ! Melting curve minimum, bar
-     .    he3_Tm     /0.31524D0/,    ! Melting curve minimum, K
+     .    he3_Pm     /29.3113D0/,    ! Melting curve minimum, bar (PLTS2000)
+     .    he3_Tm     /0.31524D0/,    ! Melting curve minimum, K   (PLTS2000)
 
      .    he3_Pa     /34.3380D0/,    ! A-N-Solid crit.pt, bar (Greywall-86)
      .    he3_Ta     /2.491D0/,      ! A-N-Solid crit.pt, mK  (Greywall-86)
@@ -37,6 +37,9 @@
      .    he3_Tb_plts  /1.896D0/,      ! A-B-Solid crit.pt, mK  (PLTS2000)
      .    he3_Ps_plts  /34.3934D0/,    ! AFM transition in solid He3, bar (PLTS2000)
      .    he3_Ts_plts  /0.902D0/,      ! AFM transition in solid He3, mK  (PLTS2000)
+
+     .    he3_Pabn_plts /21.222D0/,    ! A-B-Normal pt., Greywall->PLTS, bar
+     .    he3_Tabn_plts /2.2315D0/,    ! A-B-Normal pt., Greywall->PLTS, mK
 
      .    rota_rcell    /0.2925D0/,       ! cell radius (2011-2014)
      .    rota_nmra     /96.69139692D0/,  ! field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)

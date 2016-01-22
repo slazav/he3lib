@@ -8,10 +8,19 @@
   press=0:0.1:36;
   plot(he3_tab(press), press, 'b-');
   plot(he3_tc(press), press, 'b-');
-  plot(he3_tabn, he3_pabn, 'ro');
-  plot(he3_ta, he3_pa, 'ro');
-  plot(he3_tb, he3_pb, 'ro');
-  plot(he3_ts, he3_ps, 'go');
+  plot(he3_tabn, he3_pabn, 'bo');
+  plot(he3_ta, he3_pa, 'bo');
+  plot(he3_tb, he3_pb, 'bo');
+  plot(he3_ts, he3_ps, 'bo');
+
+  plot(he3_tab_plts(press), press, 'r-');
+  plot(he3_tc_plts(press), press, 'r-');
+  plot(he3_tabn_plts, he3_pabn_plts, 'ro');
+  plot(he3_ta_plts, he3_pa_plts, 'ro');
+  plot(he3_tb_plts, he3_pb_plts, 'ro');
+  plot(he3_ts_plts, he3_ps_plts, 'ro');
+
+
   xlim([0.5 3]);
   ylim([0 45]);
   text(he3_ts-0.2, he3_ps+5, 'he3\_ps,');
