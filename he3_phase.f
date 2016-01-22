@@ -22,23 +22,16 @@
         else
           He3_Pvap = NaN
         endif
-        return
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-! Melting pressure [bars] vs T [mK]
-! Arg: T = 0.0009 .. 31 [K]
-! Ref: Greywall. PRB33 7520 (1986) f.A1
-! Ref: Osborne, Abraham, Weinstock, 1951, 1952
-! Ref: Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955)
-! see also: Johnson, Symko, Weatley -- Phis. Rev. Lett. 23, 1017 (1969)
-      function He3_Pmelt(T)
+!     Melting pressure [bars] vs T [K], original datasets
+!     Greywall. PRB33 7520 (1986) f.A1,  T = 0.0009 - 0.25 K
+!      see also tests/phase/pmelt_interp.m
+      function He3_pmelt_greywall_org(T)
         implicit none
-        include 'he3.fh'
-        real*8 T
-        if (T.gt.9D-4.and.T.le.0.25D0) then
-          He3_Pmelt = 34.3380D0
+        real*8 T, He3_pmelt_greywall_org
+          He3_pmelt_greywall_org = 34.3380D0
      .     - 0.19652970D-1 * (T*1D3)**(-3)
      .     + 0.61880268D-1 * (T*1D3)**(-2)
      .     - 0.78803055D-1 * (T*1D3)**(-1)
@@ -48,41 +41,98 @@
      .     - 0.17180436D-6 * (T*1D3)**3
      .     - 0.22093906D-9 * (T*1D3)**4
      .     + 0.85450245D-12* (T*1D3)**5
-        else if (T.gt.0.25D0.and.T.le.0.5D0) then
-!         Interpolation (see tests/pmelt_interp.m)
-          He3_Pmelt =
-     .      3786.422495D0 * T**5
-     .     -6984.120614D0 * T**4
-     .     +5051.847883D0 * T**3
-     .     -1756.109750D0 * T**2
-     .      +289.300690D0 * T
-     .       +11.551436D0
-        else if (T.gt.0.5D0.and.T.le.1.5D0) then
-!         Osborne, Abraham, Weinstock, 1951
-!         Pm = 26.8 + 13.1 T^2 [atm], T = 0.5 .. 1.5
-!         atm->bar: 1.01325
-          He3_Pmelt = (26.8D0 + 13.1D0 * T**2) * 1.01325D0
-        else if (T.gt.1.5D0.and.T.le.2D0) then
-!         Interpolation (see tests/pmelt_interp.m)
-          He3_Pmelt =
-     .      -53.992350D0 * T**3
-     .     +286.394879D0 * T**2
-     .     -454.915548D0 * T
-     .     +277.229670D0
-        else if (T.gt.2D0.and.T.le.31D0) then
-!         Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955))
-!         Pm = 25.16 + 20.08201 T^1.517083  [kg/cm2] P=76-3500
-!         He4: -17.80 + 17.31457 T^1.555414 [kg/cm2] P=37-3500
-!         kgf/cm2 -> bar: 0.980665
-          He3_Pmelt = (25.16D0 + 20.08201D0 * T**1.517083D0)
-     .                * 0.980665D0 ! kgf/cm2 -> bar
-        else
-          He3_Pmelt = NaN
-        endif
-        return
+      end
+!     PLTS-2000, T = 0.0009 - 1 K
+      function He3_pmelt_plts_org(T)
+        implicit none
+        real*8 T, He3_pmelt_plts_org
+          He3_pmelt_plts_org = (
+     .     - 1.3855442D-12 * T**(-3)
+     .     + 4.5557026D-9  * T**(-2)
+     .     - 6.4430869D-6  * T**(-1)
+     .     + 3.4467434D0
+     .     - 4.4176438D0 * T**1
+     .     + 1.5417437D1 * T**2
+     .     - 3.5789858D1 * T**3
+     .     + 7.1499125D1 * T**4
+     .     - 1.0414379D2 * T**5
+     .     + 1.0518538D2 * T**6
+     .     - 6.9443767D1 * T**7
+     .     + 2.6833087D1 * T**8
+     .     - 4.5875709D0 * T**9 )
+     .           * 10D0 ! MPa -> bar
+      end
+!     Osborne, Abraham, Weinstock, 1951, 1952,  0.5-1.5 K
+      function He3_pmelt_osborne_org(T)
+        implicit none
+        real*8 T, He3_pmelt_osborne_org
+        He3_pmelt_osborne_org =
+     .    (26.8D0 + 13.1D0 * T**2)
+     .              * 1.01325D0 ! atm -> bar
+      end
+!     Mills, Grilly, 1955 (Phys. Rev. 99, 480486 (1955), 2-31K
+      function He3_pmelt_mills_org(T)
+        implicit none
+        real*8 T, He3_pmelt_mills_org
+        He3_pmelt_mills_org =
+     .    (25.16D0 + 20.08201D0 * T**1.517083D0)
+     .              * 0.980665D0 ! kgf/cm2 -> bar
+      end
+!     Interpolation function between PLTS, osborne, mills
+!     see tests/phase/pmelt_interp.m
+      function He3_pmelt_interp(T)
+        implicit none
+        real*8 T, He3_pmelt_interp
+        He3_pmelt_interp =
+     .   -2.8399D0*T**3 + 21.1585D0*T**2 - 3.5740D0*T + 25.1894D0
       end
 
+! Smooth function for T = 0.0009 .. 31 K, PLTS-2000
+      function He3_pmelt_plts(T) ! PLTS version
+        implicit none
+        include 'he3.fh'
+        real*8 T
+        real*8 He3_pmelt_plts_org
+        real*8 He3_pmelt_mills_org
+        real*8 He3_pmelt_interp
+        if (T.ge.9D-4.and.T.le.1D0) then
+          He3_pmelt_plts = He3_pmelt_plts_org(T)
+        else if (T.gt.1D0.and.T.lt.1.1D0) then
+          He3_pmelt_plts =
+     .      ( (T-1.0D0)*He3_pmelt_interp(T)
+     .      + (1.1D0-T)*He3_pmelt_plts_org(T) ) / (1.1D0-1.0D0)
+        else if (T.ge.1.1D0.and.T.le.2.0D0) then
+          He3_pmelt_plts = He3_pmelt_interp(T)
+        else if (T.gt.2.0D0.and.T.lt.3.0D0) then
+          He3_pmelt_plts =
+     .      ( (T-2.0D0)*He3_pmelt_mills_org(T)
+     .      + (3.0D0-T)*He3_pmelt_interp(T) ) / (3.0D0-2.0D0)
+        else if (T.ge.3.0D0.and.T.le.31D0) then
+          He3_pmelt_plts = He3_pmelt_mills_org(T)
+        else
+          He3_pmelt_plts = NaN
+        endif
+      end
+! Smooth function for T = 0.0009 .. 31 K, Greywall-86
+      function He3_pmelt(T)
+        implicit none
+        include 'he3.fh'
+        real*8 T
+        real*8 He3_pmelt_greywall_org
+        if (T.ge.9D-4.and.T.le.0.25D0) then
+          He3_pmelt = He3_pmelt_greywall_org(T)
+        else if (T.gt.0.25D0.and.T.lt.0.27D0) then
+          He3_pmelt =
+     .      ( (T-0.25D0)*He3_pmelt_greywall_org(T)
+     .      + (0.27D0-T)*He3_pmelt_plts(T) ) / (0.27D0-0.25D0)
+        else if (T.ge.0.27D0.and.T.le.31D0) then
+          He3_pmelt = He3_pmelt_plts(T)
+        else
+          He3_pmelt = NaN
+        endif
+      end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! T_c [mK] vs P [bar]
 ! Arg: P = 0 .. Pa [bar]
 ! Ref: Greywall. PRB33 (1986) f.5
@@ -139,43 +189,6 @@
         implicit none
         real*8 t, he3_plts2gr
         he3_plts2gr = (t - 0.031803D0)/0.96756D0
-      end
-
-! PLTS2000 melting pressure temperature scale [bars] vs T [mK]
-! Arg: T = 0.0009 .. 0.250 [K]
-      function He3_Pmelt_plts(T)
-        implicit none
-        include 'he3.fh'
-        real*8 T
-        if (T.gt.9D-4.and.T.le.0.25D0) then
-          He3_Pmelt_plts =
-     .     - 1.3855442D-12 * T**(-3)
-     .     + 4.5557026D-9  * T**(-2)
-     .     - 6.4430869D-6  * T**(-1)
-     .     + 3.4467434D0
-     .     - 4.4176438D0 * T**1
-     .     + 1.5417437D1 * T**2
-     .     - 3.5789858D1 * T**3
-     .     + 7.1499125D1 * T**4
-     .     - 1.0414379D2 * T**5
-     .     + 1.0518538D2 * T**6
-     .     - 6.9443767D1 * T**7
-     .     + 2.6833087D1 * T**8
-     .     - 4.5875709D0 * T**9
-         He3_Pmelt_plts = He3_Pmelt_plts * 10D0 ! MPa -> bar
-        else if (T.gt.0.25D0.and.T.le.0.5D0) then
-!         Interpolation (see tests/pmelt_interp.m)
-          He3_Pmelt_plts =
-     .      -117.241694D0 * T**5
-     .      +319.841794D0 * T**4
-     .      -304.391790D0 * T**3
-     .      +167.316047D0 * T**2
-     .       -49.031497D0 * T
-     .       +34.882895D0
-        else
-          He3_Pmelt_plts = He3_Pmelt(T)
-        endif
-        return
       end
 
 
