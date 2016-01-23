@@ -32,7 +32,7 @@
      .              7.639438D0, -2.379517D0, -0.537422D0/
 
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
-          He3_b2hcr = 1D0/0D0
+          He3_b2hcr = NaN
           return
         endif
 
@@ -91,7 +91,7 @@
         do i=1,100
           He3_b2tab = t2 + (H2**2-H**2)/(H2**2-H1**2)*(t1-t2)
           if (He3_b2tab.lt.0D0.or.He3_b2tab.gt.1D0) then
-            He3_b2tab=1D0/0D0;
+            He3_b2tab=NaN;
             return
           endif
           t1=t2
@@ -188,9 +188,9 @@
         integer i
 
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
-          gap1=1D0/0D0
-          gap2=1D0/0D0
-          He=1D0/0D0
+          gap1=NaN
+          gap2=NaN
+          He=NaN
           return
         endif
         if (ttc.eq.1D0) then
@@ -231,9 +231,9 @@
           F2a=F2b
           F3a=F3b
         enddo
-1       A=1D0/0D0
-        B=1D0/0D0
-        we=1D0/0D0
+1       A=NaN
+        B=NaN
+        we=NaN
 2       gap1=gap*(1D0+A)
         gap2=gap*(1D0+B)
         He = we*tc/(he3_gyro*const_hbar) ! Tc units -> G
