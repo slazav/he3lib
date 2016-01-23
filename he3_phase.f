@@ -87,7 +87,7 @@
      .   -2.8399D0*T**3 + 21.1585D0*T**2 - 3.5740D0*T + 25.1894D0
       end
 
-! Smooth function for T = 0.0009 .. 31 K, PLTS-2000
+! Smooth function for T = 0 .. 31 K, PLTS-2000
       function He3_pmelt_plts(T) ! PLTS version
         implicit none
         include 'he3.fh'
@@ -95,7 +95,10 @@
         real*8 He3_pmelt_plts_org
         real*8 He3_pmelt_mills_org
         real*8 He3_pmelt_interp
-        if (T.ge.9D-4.and.T.le.1D0) then
+        if (T.ge.0D0.and.T.lt.9D-4) then ! extrapolaton to 0
+          He3_pmelt_plts = 
+     .      3.4417D1 - 2.2765D-2*(T/1D3) - 3.6027D-3*(T/1D3)**2
+        else if (T.ge.9D-4.and.T.le.1D0) then
           He3_pmelt_plts = He3_pmelt_plts_org(T)
         else if (T.gt.1D0.and.T.lt.1.1D0) then
           He3_pmelt_plts =
@@ -113,13 +116,16 @@
           He3_pmelt_plts = NaN
         endif
       end
-! Smooth function for T = 0.0009 .. 31 K, Greywall-86
+! Smooth function for T = 0 .. 31 K, Greywall-86
       function He3_pmelt(T)
         implicit none
         include 'he3.fh'
         real*8 T
         real*8 He3_pmelt_greywall_org
-        if (T.ge.9D-4.and.T.le.0.25D0) then
+        if (T.ge.0D0.and.T.lt.9D-4) then ! extrapolaton to 0
+          He3_pmelt =
+     .      3.4416D1 - 2.4569D-2*(T/1D3) - 2.7825D-3*(T/1D3)**2
+        else if (T.ge.9D-4.and.T.le.0.25D0) then
           He3_pmelt = He3_pmelt_greywall_org(T)
         else if (T.gt.0.25D0.and.T.lt.0.27D0) then
           He3_pmelt =
