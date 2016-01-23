@@ -22,20 +22,225 @@
 <a href="https://github.com/slazav/he3lib/blob/master/he3_bspec.f">
 <tt>he3_bspec.f</tt></a>.
 
+<h4>Theory</h4>
+<br>See also [JETP Letters 101, 802-807 (2015),  arXiv:1601.04192] for more information.
+
+<p>At low frequencies and magnetic fields $\omega, \gamma H\ll\Delta$
+there are four degrees of freedom in the $^3$He-B order parameter.
+Motion of the phase~$\varphi$ is sound, and motions of the rotation
+matrix~$R_{aj}$ (three degrees of freedom) are spin waves. In the
+discussion of spin waves there are three important terms in the
+hamiltonian: magnetic energy,energy of spin-orbit interaction and
+gradient energy:
+\begin{eqnarray}
+F_M &=& - ({\bf S} \cdot \gamma {\bf H})
+     + \frac{\gamma^2}{2\chi_B} {\bf S}^2,\\
+F_{SO} &=& \frac{\chi_B\Omega_B^2}{15\gamma^2} \left[
+           R_{jj}R_{kk}
+         + R_{jk}R_{kj}\right],\\
+F_\nabla &=& \frac12 \Delta^2 \left[   K_1
+(\nabla_j R_{ak})(\nabla_j R_{ak})
++ K_2 (\nabla_j R_{ak})(\nabla_k R_{aj})
++ K_3 (\nabla_j R_{aj})(\nabla_k R_{ak}) \right].
+\end{eqnarray}
+
+<p>Linear equation for small spin oscillations in the uniform texture
+can be written as
+$$
+\delta \ddot {\bf S} = [\delta \dot{\bf S}\times \gamma {\bf H}] +
+\hat{\bf\Lambda}\delta{\bf S},
+\qquad
+\hat\Lambda_{ab} = \frac{\Delta^2\gamma^2}{\chi_B} \left[
+  K\ \delta_{ac}\ \nabla^2
+- K'\  R^0_{aj}R^0_{bk} \nabla_j\nabla_k\right]
+- \Omega_B^2\ n_a n_b,
+$$
+<p>where $K=2K_1+K_2+K_3$ and $K'=K_2+K_3$.
+
+<p>This can be rewritten for a spin wave with frequency $\omega$, wave
+vector $\bf k$ and amplitude $\bf s$ as
+$$
+-\omega^2 {\bf s} = i\omega\ [{\bf s}\times \gamma {\bf H}] +
+\hat{\bf\Lambda} {\bf s},
+\qquad
+\hat\Lambda_{ab} = \frac{\Delta^2\gamma^2}{\chi_B} \left[
+-  K\ \delta_{ac}\ {\bf k}^2
++ K'\  R^0_{cj}R^0_{ak} k_j k_k\right]
+- \Omega_B^2\ n_a n_b.
+$$
+<p>If effect of gradient and spin orbit energy is small ($\Lambda\ll\omega,\omega_L$)
+then longitudinal and transverse spin modes can be separated and we have
+"simple" formulas for magnon spectra:
+\begin{eqnarray}
+ c_\perp^2\ k^2 + (c_\parallel^2-c_\perp^2) ({\bf k\cdot\hat l})^2
++ \frac12 \Omega_B^2 \sin^2\beta_n
+&=& \omega(\omega-\gamma H),
+\\
+C_\perp^2 k^2 + (C_\parallel^2-C_\perp^2) ({\bf k\cdot\hat l})^2
++ \Omega_B^2 \cos^2\beta_n &=& \omega^2,
+\end{eqnarray}
+where spin wave velocities are introduced (see <a
+href="he3lib_grad.htm"><tt>he3lib_grad</tt> section</a>):
+\begin{equation}
+c_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B}(K-K'/2),\quad
+c_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\quad
+C_\perp^2 = \frac{\gamma^2\Delta^2}{\chi_B} K,\quad
+C_\parallel^2 = \frac{\gamma^2\Delta^2}{\chi_B} (K-K').
+\end{equation}
+These equations have three solutions for $\omega$: acoustic and optical
+transverse magnons and longitudinal magnons.
+
+<p>However, it is also possible to solve the full qubic equation without
+splitting transverse and longitudinal modes. This is "full" formula below.
+
+<h4>Examples</h4>
+
+<p>Examples show magnon spectra in $T=0$ and $P=0$
+(Legget frequency $\Omega_B/2\pi = 125.1kHz$). Light curves are simple formula,
+dark ones are full formula.
+<script>
+
+  make_mplot([
+    {title: 'Examples: select a plot...'},
+
+    { title: '- Spectra at f0=500kHz, beta_k = pi/2, beta_n=0, ',
+      xlabel: "k, 1/cm", ylabel: "f, kHz",
+      data: [
+        // note: 500kHz = 154.17 G
+        //       1/2pi = 0.15915
+        // parameters: (ttc,P,H,kv,ak,bk,an,bn)
+        { url: "data/he3b_spec1s&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec2s&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec3s&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec1&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+        { url: "data/he3b_spec2&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+        { url: "data/he3b_spec3&0&0&154.17&0:10:10000&0&1.5708&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+      ]
+    },
+
+    { title: '- Spectra at f0=500kHz, beta_k = pi/10, beta_n=0, ',
+      xlabel: "k, 1/cm", ylabel: "f, kHz",
+      data: [
+        // note: 500kHz = 154.17 G
+        //       1/2pi = 0.15915
+        // parameters: (ttc,P,H,kv,ak,bk,an,bn)
+        { url: "data/he3b_spec1s&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec2s&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec3s&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec1&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+        { url: "data/he3b_spec2&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+        { url: "data/he3b_spec3&0&0&154.17&0:10:10000&0&0.31415&0&0",
+                xcol:3, ycol:8, ysc:0.15915e-3, width:3, color: "blue"},
+      ]
+    },
+
+    { title: '- Spectra at f0=500kHz, beta_k = 0, beta_n=pi/10, ',
+      xlabel: "k, 1/cm", ylabel: "f, kHz",
+      data: [
+        // note: 500kHz = 154.17 G
+        //       1/2pi = 0.15915
+        // parameters: (ttc,P,H,kv,ak,bk,an,bn)
+        { url: "data/he3b_spec1s&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec2s&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec3s&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:1, color:"#8080FF"},
+        { url: "data/he3b_spec1&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color: "blue"},
+        { url: "data/he3b_spec2&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color: "blue"},
+        { url: "data/he3b_spec3&0&0&154.17&0:10:10000&0&0&0&0.31415",
+                xcol:3, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color: "blue"},
+      ]
+    },
+
+    { title: '- Uniform NMR frequencies, k=0, beta_n=pi/10, ',
+      xlabel: "f0 = \gamma H, kHz", ylabel: "f, kHz",
+      data: [
+        { url: "data/he3b_spec2s&0&0&0:1:80&0&0&0&0&0.087266",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#808080"},
+        { url: "data/he3b_spec3s&0&0&0:1:80&0&0&0&0&0.087266",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#808080"},
+        { url: "data/he3b_spec2s&0&0&0:1:80&0&0&0&0&0.52360",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#8080FF"},
+        { url: "data/he3b_spec3s&0&0&0:1:80&0&0&0&0&0.52360",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#8080FF"},
+        { url: "data/he3b_spec2s&0&0&0:1:80&0&0&0&0&1.0472",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#FF80FF"},
+        { url: "data/he3b_spec3s&0&0&0:1:80&0&0&0&0&1.0472",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#FF80FF"},
+        { url: "data/he3b_spec2s&0&0&0:1:80&0&0&0&0&1.5708",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#FF8080"},
+        { url: "data/he3b_spec3s&0&0&0:1:80&0&0&0&0&1.5708",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:2, color:"#FF8080"},
+
+        { url: "data/he3b_spec2&0&0&0:1:80&0&0&0&0&0.087266",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"black"},
+        { url: "data/he3b_spec3&0&0&0:1:80&0&0&0&0&0.087266",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"black"},
+        { url: "data/he3b_spec2&0&0&0:1:80&0&0&0&0&0.52360",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"blue"},
+        { url: "data/he3b_spec3&0&0&0:1:80&0&0&0&0&0.52360",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"blue"},
+        { url: "data/he3b_spec2&0&0&0:1:80&0&0&0&0&1.0472",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"magenta"},
+        { url: "data/he3b_spec3&0&0&0:1:80&0&0&0&0&1.0472",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"magenta"},
+        { url: "data/he3b_spec2&0&0&0:1:80&0&0&0&0&1.5708",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"red"},
+        { url: "data/he3b_spec3&0&0&0:1:80&0&0&0&0&1.5708",
+                xcol:2, ycol:8, ysc:0.15915e-3, xsc:3.2433, width:3, color:"red"},
+
+        { text: "beta_n =  5 deg", x:201, y:127, color: "black"},
+        { text: "beta_n = 30 deg", x:201, y:110, color: "blue"},
+        { text: "beta_n = 60 deg", x:201, y:60, color: "magenta"},
+        { text: "beta_n = 90 deg", x:201, y:5, color: "red"},
+      ]
+    },
+  ]);
+</script>
+
+<h4>Library functions</h4>
+
 <table>
 <tr><td><tt>he3b_spec1s(ttc,P,H,kv,ak,bk,an,bn)</tt>
     <br><tt>he3b_spec2s(ttc,P,H,kv,ak,bk,an,bn)</tt>
     <br><tt>he3b_spec3s(ttc,P,H,kv,ak,bk,an,bn)</tt></td>
-    <td>Simple formula, acoustic, optical, longitudinal magnons</td>
+    <td>Simple formula, acoustic, optical, longitudinal magnons.
+    <br> Here <tt>ttc</tt> and <tt>p</tt> are temperature and pressure [bar],
+    used for calculating Leggett frequncy $\Omega_B$ and spin-wave velocities;
+    <tt>kv</tt>, <tt>ak</tt> and <tt>bk</tt> are absolute value [1/cm],
+    azimuthal angle and polar angle for the wave vector $\bf k$;
+    <tt>an</tt> and <tt>bn</tt> are azimuthal angle
+    and polar angle for the texture vector $\bf n$. Angles are in radians.
+    <br>Vector orientations are set with respect to the direction of magnetic field.
+    In the simple formula only angle between $\bf k$ and $\bf n$ is important.
+    </td>
     </tr>
 <tr><td><tt>he3b_spec1(ttc,P,H,kv,ak,bk,an,bn)</tt>
     <br><tt>he3b_spec2(ttc,P,H,kv,ak,bk,an,bn)</tt>
     <br><tt>he3b_spec3(ttc,P,H,kv,ak,bk,an,bn)</tt></td>
-    <td>Full formula, low-, middle- and high-frequncy modes.</td>
+    <td>Full formula, low-, middle- and high-frequncy modes.
+    <br>All parameters have the same meaning as in simple formula. Note then
+    in this general case spectra depend not only on the angle between $\bf k$ and $\bf n$,
+    but also on wheir orientations in the magnetic field. Parallel and perpendicular
+    spin-wave velocities can not be introduced.</td>
     </tr>
 </table>
 
-<p>TODO: theory and examples.
+<p>TODO: examples. 
 
 </body>
 </html>

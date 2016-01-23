@@ -7,7 +7,7 @@ var plot_defs = {
     lmarg:   60, // margins
     rmarg:   10,
     tmarg:   10,
-    bmarg:   30,
+    bmarg:   35,
     xlabel:  "X", // x/y labels
     ylabel:  "Y",
     xticks:  10,  // number of ticks
@@ -306,7 +306,8 @@ function make_plot(svg, opts){
     .attr("class", "x label")
     .attr("x", plot.width/2)
     .attr("y", plot.height + opts.bmarg)
-    .attr("text-anchor", "middle");
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "ideographic");
 
   // Y label
   plot.svg_ylab = plot.svg.append("text")
