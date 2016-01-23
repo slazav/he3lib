@@ -1,0 +1,8 @@
+*.o
+*h
+*.a
+*.so
+tests/
+matlab/
+doc/
+he3

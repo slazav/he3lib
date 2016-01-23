@@ -35,13 +35,25 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
   make_mplot([
     {title: 'Examples: select a plot...'},
 
+    { title: '- Vapor pressure',
+      xlabel: "T, K", ylabel: "P, bar",
+      ymin:0, ymax:1.2, xmin:0, xmax:3.5, yfmt:".1f",
+      data: [
+        { url: "data/he3_pvap&0.201:3.32399", xcol:0, ycol:1},
+        { xpt: 3.324, ypt: 1.16317}, // ps, ts
+        { text: "he3_tcr", x: 3.22, y: 1.15, align:"end"},
+        { text: "he3_pcr", x: 3.22, y: 1.11, align:"end"},
+        { text: "he3_pvap(t)", x: 2.6, y: 0.45}
+      ]
+    },
+
     { title: '- Graywall-86 phase diagram',
       xlabel: "T, mK", ylabel: "P, bar",
       ymin:0, ymax:38,
       data: [
         { url: "data/he3_tc&0:34.338", xcol:1, ycol:0},
         { url: "data/he3_tab&21.2:34.358", xcol:1, ycol:0},
-        { url: "data/he3_pmelt&0:0.1e-3:2.8e-3", xsc:1e3},
+        { url: "data/he3_pmelt&9e-4:0.1e-3:2.8e-3", xsc:1e3},
         { xpt: 0.9291, ypt: 34.3905},
         { xpt: 1.932,  ypt: 34.3580},
         { xpt: 2.491,  ypt: 34.3380},
@@ -70,10 +82,10 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
       data: [
         { url: "data/he3_tc&0:34.338", xcol:1, ycol:0},
         { url: "data/he3_tab&21.2:34.358", xcol:1, ycol:0},
-        { url: "data/he3_pmelt&0:0.1e-3:2.7e-3", xsc:1e3},
+        { url: "data/he3_pmelt&9e-4:0.1e-3:2.7e-3", xsc:1e3},
         { url: "data/he3_tc_plts&0:34.338", xcol:1, ycol:0, color:"#FF8080"},
         { url: "data/he3_tab_plts&21.2:34.358", xcol:1, ycol:0, color:"#FF8080"},
-        { url: "data/he3_pmelt_plts&0:0.1e-3:2.7e-3", xsc:1e3, color:"#FF8080"},
+        { url: "data/he3_pmelt_plts&9e-4:0.1e-3:2.7e-3", xsc:1e3, color:"#FF8080"},
         { text: "A-phase",x: 2.10, y: 31, class: "ll", color: "black"},
         { text: "B-phase",x: 1.42, y: 21, class: "ll", color: "black"},
         { text: "Solid",  x: 1.22, y: 36, class: "ll", color: "black"},
@@ -89,10 +101,10 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
       data: [
         { url: "data/he3_tc&34.3:0.001:34.338", xcol:1, ycol:0},
         { url: "data/he3_tab&34.3:0.001:34.358", xcol:1, ycol:0},
-        { url: "data/he3_pmelt&0:0.1e-3:2.8e-3", xsc:1e3},
+        { url: "data/he3_pmelt&9e-4:0.1e-3:2.8e-3", xsc:1e3},
         { url: "data/he3_tc_plts&34.3:0.001:34.3407", xcol:1, ycol:0, color: "#FF8080"},
         { url: "data/he3_tab_plts&34.3:0.001:34.3609", xcol:1, ycol:0, color: "#FF8080"},
-        { url: "data/he3_pmelt_plts&0:0.1e-3:2.8e-3", xsc:1e3, color: "#FF8080"},
+        { url: "data/he3_pmelt_plts&9e-4:0.1e-3:2.8e-3", xsc:1e3, color: "#FF8080"},
         { xpt: 0.9291, ypt: 34.3905}, // ps, ts
         { xpt: 1.932,  ypt: 34.3580}, // pb, tb
         { xpt: 2.491,  ypt: 34.3380}, // pa, ta
@@ -109,35 +121,24 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
       ]
     },
 
-    { title: '- Vapor pressure',
-      xlabel: "T, K", ylabel: "P, bar",
-      ymin:0, ymax:1.2, xmin:0, xmax:3.5, yfmt:".1f",
-      data: [
-        { url: "data/he3_pvap&0.201:3.32399", xcol:0, ycol:1},
-        { xpt: 3.324, ypt: 1.16317}, // ps, ts
-        { text: "he3_tcr", x: 3.22, y: 1.15, align:"end"},
-        { text: "he3_pcr", x: 3.22, y: 1.11, align:"end"},
-        { text: "he3_pvap(t)", x: 2.6, y: 0.45}
-      ]
-    },
 
     { title: '- Melting curve 0 - 31 K',
       xlabel: "T, K", ylabel: "P, bar",
       ymin:0, xmin:0,
       data: [
-        { url: "data/he3_pmelt&0:0.001:31", xcol:0, ycol:1},
+        { url: "data/he3_pmelt&0:0.1:31", xcol:0, ycol:1},
       ]
     },
 
     { title: '- Melting curve 0 - 1 K',
       xlabel: "T, K", ylabel: "P, bar",
-      ymin:0, xmin:0,
+      ymin:28, xmin:0,
       data: [
         { url: "data/he3_pmelt&0:0.005:1", xcol:0, ycol:1},
         { xpt: 0.31524, ypt: 29.3113}, // pm, tm
-        { text: "he3_tm", x: 0.31, y: 30.5},
-        { text: "he3_pm", x: 0.31, y: 32},
-        { text: "he3_pmelt(t)", x: 0.65, y: 30.5}
+        { text: "he3_tm", x: 0.31, y: 28.6},
+        { text: "he3_pm", x: 0.31, y: 28.1},
+        { text: "he3_pmelt(t)", x: 0.65, y: 31.5}
       ]
     },
 
@@ -217,7 +218,7 @@ minimum), Abraham et al. and Mills et al. (2.0-31 K).
 <p>The scale includes the melting curve in the range 0.9mK - 1K and
 critical points on it. Melting curve is extended to 31 K using data from 
 Abraham et al. and Mills et al. Functions for $T_c$ and $T_{ab}$, as well as
-A-B-N critical point are calculated from Greywall's data.
+A-B-N critical point are interpoleted using Greywall's data.
 
 <table><tr><td><tt>he3_pmelt_plts(T)</tt></td>
     <td>PLTS-2000 melting presure [bar] vs temperature [K].</td>

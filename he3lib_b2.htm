@@ -37,23 +37,62 @@ with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 
     { title: '- Phase diagram at non-zero magnetic field',
       xlabel: "T, mK", ylabel: "P, bar",
-      ymin:0, ymax:38,
+      xmin:0, ymin:0, ymax:38,
       data: [
+        { url: "data_m/he3_b2tab&0:0.1:35&1000", ycol:0, xcol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2tab&0:0.1:35&2000", ycol:0, xcol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2tab&0:0.1:35&3000", ycol:0, xcol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2tab&0:0.1:35&4000", ycol:0, xcol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2tab&0:0.1:35&5000", ycol:0, xcol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2tab&0:0.1:35&5500", ycol:0, xcol:2, color: "#FF8080"},
+
         { url: "data/he3_tc&0:34.338", xcol:1, ycol:0},
         { url: "data/he3_tab&21.2:34.358", xcol:1, ycol:0},
         { url: "data/he3_pmelt&0:0.1e-3:2.8e-3", xsc:1e3},
 
-        { url: "data/he3_b2tab&0:0.1:35&100", ycol:0, xcol:2, color: "#FF8080"},
-
         { xpt: 1.932,  ypt: 34.3580},
         { xpt: 2.491,  ypt: 34.3380},
         { xpt: 2.2730, ypt: 21.22},
-        { text: "A-phase",x: 2.10, y: 31, class: "ll", color: "black"},
-        { text: "B-phase",x: 1.42, y: 21, class: "ll", color: "black"},
-        { text: "Solid",  x: 1.22, y: 36, class: "ll", color: "black"},
+        { text: "A-phase",x: 2.01, y: 32.5, class: "ll", color: "black"},
+        { text: "B-phase",x: 0.05, y: 25.5, class: "ll", color: "black"},
+        { text: "Solid",  x: 3.30, y: 36, class: "ll", color: "black"},
         { text: "Normal", x: 2.22, y: 6,  class: "ll", color: "black"},
+
+        { text: "5.5 kG",x: 0.10, y: 31.1, color: "red"},
+        { text: "5 kG",  x: 0.96, y: 28.1, color: "red"},
+        { text: "4 kG",  x: 1.35, y: 26.1, color: "red"},
+        { text: "3 kG",  x: 1.62, y: 24.1, color: "red"},
+        { text: "2 kG",  x: 1.86, y: 23.1, color: "red"},
+        { text: "1 kG",  x: 2.09, y: 21.5, color: "red"},
+
       ]
     },
+
+    { title: '- H vs P phase diagram',
+      xlabel: "P, bar", ylabel: "H, G",
+      xmin:0, ymin:0,
+      data: [
+        { url: "data_m/he3_b2hcr&0.0&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.4&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.5&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.6&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.7&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.8&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.9&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { url: "data_m/he3_b2hcr&0.98&0:0.1:34", xcol:1, ycol:2, color: "#FF8080"},
+        { text: "T=0",  x: 30.5, y: 5550, color: "red"},
+        { text: "0.4 Tc",  x: 30.5, y: 4830, color: "red"},
+        { text: "0.5 Tc",  x: 30.5, y: 4200, color: "red"},
+        { text: "0.6 Tc",  x: 30.5, y: 3330, color: "red"},
+        { text: "0.7 Tc",  x: 30.5, y: 2330, color: "red"},
+        { text: "0.8 Tc",  x: 27.1, y: 1580, color: "red"},
+        { text: "0.9 Tc",  x: 22.1, y: 1100, color: "red"},
+        { text: "0.98 Tc",  x: 16.8, y:  600, color: "red"},
+        { text: "A-phase",x: 1, y: 5100, class: "ll", color: "black"},
+        { text: "B-phase",x: 6, y: 200, class: "ll", color: "black"},
+      ]
+    },
+
   ]);
 </script>
 
@@ -88,8 +127,8 @@ with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 <tr><td><tt>he3_b2rhoab_nper(ttc, p)</tt></td>
     <td>normal fluid density at the A-B boundary</td>
     </tr>
-<tr><td><tt>he3_b2magab(ttc,p,H)</tt></td>
-    <td>magnetization an the A-B boundary</td>
+<tr><td><tt>he3_b2magab(ttc,p)</tt></td>
+    <td>magnetization at the A-B boundary</td>
     </tr>
 </table>
 
