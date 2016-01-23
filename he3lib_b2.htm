@@ -30,28 +30,56 @@ with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 <a href="https://github.com/slazav/he3lib/blob/master/he3_b2.f">
 <tt>he3_b2.f</tt></a>.
 
-<table><tr><td><tt>he3_b2hcr(ttc</tt>,T)</td>
+<p>
+<script>
+  make_mplot([
+    {title: 'Examples: select a plot...'},
+
+    { title: '- Phase diagram at non-zero magnetic field',
+      xlabel: "T, mK", ylabel: "P, bar",
+      ymin:0, ymax:38,
+      data: [
+        { url: "data/he3_tc&0:34.338", xcol:1, ycol:0},
+        { url: "data/he3_tab&21.2:34.358", xcol:1, ycol:0},
+        { url: "data/he3_pmelt&0:0.1e-3:2.8e-3", xsc:1e3},
+
+        { url: "data/he3_b2tab&0:0.1:35&100", ycol:0, xcol:2, color: "#FF8080"},
+
+        { xpt: 1.932,  ypt: 34.3580},
+        { xpt: 2.491,  ypt: 34.3380},
+        { xpt: 2.2730, ypt: 21.22},
+        { text: "A-phase",x: 2.10, y: 31, class: "ll", color: "black"},
+        { text: "B-phase",x: 1.42, y: 21, class: "ll", color: "black"},
+        { text: "Solid",  x: 1.22, y: 36, class: "ll", color: "black"},
+        { text: "Normal", x: 2.22, y: 6,  class: "ll", color: "black"},
+      ]
+    },
+  ]);
+</script>
+
+<table><tr><td><tt>he3_b2hcr(ttc,p)</tt></td>
     <td>Magnetic field of AB transition</td>
     </tr>
-<tr><td><tt>he3_b2tab(p</tt>,H)</td>
-    <td>Temperature of AB transition in non-zero field</td>
+<tr><td><tt>he3_b2tab(p,H)</tt></td>
+    <td>Temperature of AB transition in non-zero field,
+        $T$ [mK] vs $P$ [bar] and $H$ [G]</td>
     </tr>
-<tr><td><tt>he3_b2gap1(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2gap1(ttc,p,H)</tt></td>
     <td>$\Delta_\parallel/\Delta_0$</td>
     </tr>
-<tr><td><tt>he3_b2gap2(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2gap2(ttc,p,H)</tt></td>
     <td>$\Delta_\perp/\Delta_0$</td>
     </tr>
-<tr><td><tt>he3_b2heff(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2heff(ttc,p,H)</tt></td>
     <td>effective field</td>
     </tr>
-<tr><td><tt>he3_b2mag(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2mag(ttc,p,H)</tt></td>
     <td>magnetization</td>
     </tr>
-<tr><td><tt>he3_b2rho_npar(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2rho_npar(ttc,p,H)</tt></td>
     <td>normal fluid density</td>
     </tr>
-<tr><td><tt>he3_b2rho_nper(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2rho_nper(ttc,p,H)</tt></td>
     <td>normal fluid density</td>
     </tr>
 <tr><td><tt>he3_b2rhoab_npar(ttc, p)</tt></td>
@@ -60,7 +88,7 @@ with Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 <tr><td><tt>he3_b2rhoab_nper(ttc, p)</tt></td>
     <td>normal fluid density at the A-B boundary</td>
     </tr>
-<tr><td><tt>he3_b2magab(ttc</tt>, p, H)</td>
+<tr><td><tt>he3_b2magab(ttc,p,H)</tt></td>
     <td>magnetization an the A-B boundary</td>
     </tr>
 </table>

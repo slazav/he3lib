@@ -64,7 +64,7 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
       ]
     },
 
-    { title: '- Graywall-86 vs. PLTS2000',
+    { title: '- Graywall-86 vs. PLTS-2000',
       xlabel: "T, mK", ylabel: "P, bar",
       ymin:0, ymax:38,
       data: [
@@ -83,7 +83,7 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
       ]
     },
 
-    { title: '- Graywall-86 vs. PLTS-2000',
+    { title: '- Graywall-86 vs. PLTS-2000 near the melting curve',
       xlabel: "T, mK", ylabel: "P, bar",
       ymin:34.3, ymax:34.4, yfmt: ".4g",
       data: [
@@ -111,18 +111,33 @@ in the <a href="he3lib_b2.htm">B$_2$-phase section</a>.
 
     { title: '- Vapor pressure',
       xlabel: "T, K", ylabel: "P, bar",
-      ymin:0, ymax:1.2, xmin:0, xmax:3.5,
+      ymin:0, ymax:1.2, xmin:0, xmax:3.5, yfmt:".1f",
       data: [
         { url: "data/he3_pvap&0.201:3.32399", xcol:0, ycol:1},
         { xpt: 3.324, ypt: 1.16317}, // ps, ts
+        { text: "he3_tcr", x: 3.22, y: 1.15, align:"end"},
+        { text: "he3_pcr", x: 3.22, y: 1.11, align:"end"},
+        { text: "he3_pvap(t)", x: 2.6, y: 0.45}
       ]
     },
 
-    { title: '- Melting curve',
+    { title: '- Melting curve 0 - 31 K',
       xlabel: "T, K", ylabel: "P, bar",
       ymin:0, xmin:0,
       data: [
-        { url: "data/he3_pmelt&0:0.05:31", xcol:0, ycol:1},
+        { url: "data/he3_pmelt&0:0.001:31", xcol:0, ycol:1},
+      ]
+    },
+
+    { title: '- Melting curve 0 - 1 K',
+      xlabel: "T, K", ylabel: "P, bar",
+      ymin:0, xmin:0,
+      data: [
+        { url: "data/he3_pmelt&0:0.005:1", xcol:0, ycol:1},
+        { xpt: 0.31524, ypt: 29.3113}, // pm, tm
+        { text: "he3_tm", x: 0.31, y: 30.5},
+        { text: "he3_pm", x: 0.31, y: 32},
+        { text: "he3_pmelt(t)", x: 0.65, y: 30.5}
       ]
     },
 

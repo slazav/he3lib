@@ -25,12 +25,62 @@ High order Fermi liquid parameters ($F_2^a$, $F_3^a$) are neglected.
 <a href="https://github.com/slazav/he3lib/blob/master/he3_text.f">
 <tt>he3_text.f</tt></a>.
 
+<p>
+<script>
+  plot_defs.xlabel="P, bar";
+  make_mplot([
+    {title: 'Examples: select a plot...'},
 
-\hrule
+    { title: '- he3_text_a(ttc,p)',
+      ylabel: "he3_text_a, 10^-12 erg/(cm^3 G^2)", xlabel: "T/Tc",
+      ymin:0, yfmt:".2f",
+      data: [
+        { url: "data/he3_text_a&0:0.01:1&0",  ycol:2, ysc:1e12},
+        { url: "data/he3_text_a&0:0.01:1&10", ycol:2, ysc:1e12},
+        { url: "data/he3_text_a&0:0.01:1&20", ycol:2, ysc:1e12},
+        { url: "data/he3_text_a&0:0.01:1&30", ycol:2, ysc:1e12},
+        { text: " 0 bar", x: 0.95, y: 0.32, color: "blue"},
+        { text: "10 bar", x: 0.93, y: 0.52, color: "blue"},
+        { text: "20 bar", x: 0.92, y: 0.71, color: "blue"},
+        { text: "30 bar", x: 0.88, y: 1.11, color: "blue"},
+      ]
+    },
+
+    { title: '- he3_text_a(0,p)',
+      ylabel: "he3_text_a, 10^-13 erg/cm^3 G^-2", xlabel: "T/Tc",
+      ymin:0, yfmt:".2f",
+      data: [
+        { url: "data/he3_text_a&0&0:34", xcol:1, ycol:2, ysc:1e13},
+      ]
+    },
+
+    { title: '- he3_text_d(ttc,p)',
+      ylabel: "he3_text_d, 10^-12 erg/(cm^2 G^2)", xlabel: "T/Tc",
+      ymin:0, yfmt:".2f",
+      data: [
+        { url: "data/he3_text_d&0:0.01:1&0",  ycol:2, ysc:1e12},
+        { url: "data/he3_text_d&0:0.01:1&10", ycol:2, ysc:1e12},
+        { url: "data/he3_text_d&0:0.01:1&30", ycol:2, ysc:1e12},
+        { text: " 0 bar", x: 0.65, y: 0.202, color: "blue"},
+        { text: "10 bar", x: 0.61, y: 0.151, color: "blue"},
+        { text: "30 bar", x: 0.61, y: 0.167, color: "blue"},
+      ]
+    },
+
+    { title: '- he3_text_d(0,p)',
+      ylabel: "he3_text_d, 10^-13 erg/(cm^2 G^2)", xlabel: "T/Tc",
+      ymin:0, yfmt:".1f",
+      data: [
+        { url: "data/he3_text_d&0&0:0.1:34", xcol:1, ycol:2, ysc:1e13},
+      ]
+    },
+
+  ]);
+</script>
 
 <table>
 <tr><td><tt>he3_text_a(ttc,p)</tt></td>
-    <td>Parameter $a$, [erg/cm$^3$ G$^{-2}$] in the magneto-dipolar energy:
+    <td>Parameter $a$, [erg/(cm$^3$ G$^{2})$] in the magneto-dipolar energy:
     <br>$\displaystyle F_{DH} = -a \int_V ({\bf n} \cdot {\bf H})^2\ d^3r$
     <br>$\displaystyle a = \frac{5 g_d}{2}
         \left[\frac{\hbar \gamma / 2}{1 + F_0^a (2+Y_0)/3}\right]^2
