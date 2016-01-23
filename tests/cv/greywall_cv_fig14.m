@@ -18,6 +18,6 @@ function greywall_cv_fig14()
   ylabel('C_v/RT');
   set(gca, 'yTick', [2.4:0.2:4.4]);
 
-  print -deps -color greywall_cv_fig14.eps
+  %print -deps -color greywall_cv_fig14.eps
 
 end

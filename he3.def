@@ -4,6 +4,7 @@
 ## - creation of F and F90 include file he3.fh he3.f90h
 ## - command line program
 
+######################################################################
 # Constants (see he3_const.f)
 he3_gyro      # g-factor
 he3_amass     # He3 "atom" mass, g
@@ -16,7 +17,17 @@ const_hbar    # reduced Planck constant, g*cm2/s
 const_mu0     # vacuum permeability G*cm/A
 const_pi      # pi
 const_2pi     # 2pi
-# phase diagram
+
+######################################################################
+# Phase diagram functions (see he3_phase.f)
+he3_pvap(T)        # Vapor pressure [bar] vs T [K]
+he3_pmelt(T)       # Melting pressure [bars] vs T [K] (Greywall86)
+he3_tc(P)          # T_c [mK] vs P [bar] (Greywall86)
+he3_tab(P)         # T_ab [mK] vs P [bar] (Greywall86)
+he3_pmelt_plts(T)  # PLTS2000 melting pressure [bars] vs T [K]
+he3_tc_plts(P)     # T_c  [mK] in PLTS2000 scale vs pressure [bar]
+he3_tab_plts(P)    # T_ab [mK] in PLTS2000 scale vs pressure [bar]
+# phase diagram constants (see he3_const.f)
 he3_pcr       # Liquid He3 critical point pressure, bar
 he3_tcr       # Liquid He3 critical point temperature, K
 he3_pabn      # A-B-Normal crit.pt, bar
@@ -29,7 +40,7 @@ he3_pb        # A-B-Solid crit.pt, bar (Greywall-86)
 he3_tb        # A-B-Solid crit.pt, mK  (Greywall-86)
 he3_ps        # AFM transition in solid He3, bar (Greywall-86)
 he3_ts        # AFM transition in solid He3, mK  (Greywall-86)
-# phase diagram -- PLTS
+# phase diagram constants -- PLTS (see he3_const.f)
 he3_pa_plts   # A-N-Solid crit.pt, bar (PLTS2000)
 he3_ta_plts   # A-N-Solid crit.pt, mK  (PLTS2000)
 he3_pb_plts   # A-B-Solid crit.pt, bar (PLTS2000)
@@ -39,15 +50,7 @@ he3_ts_plts   # AFM transition in solid He3, mK  (PLTS2000)
 he3_pabn_plts # A-B-Normal crit.pt, bar (PLTS2000)
 he3_tabn_plts # A-B-Normal crit.pt, mK  (PLTS2000)
 
-# Phase diagram functions (see he3_phase.f)
-he3_pvap(T)        # Vapor pressure [bar] vs T [K]
-he3_pmelt(T)       # Melting pressure [bars] vs T [K] (Greywall86)
-he3_tc(P)          # T_c [mK] vs P [bar] (Greywall86)
-he3_tab(P)         # T_ab [mK] vs P [bar] (Greywall86)
-he3_pmelt_plts(T)  # PLTS2000 melting pressure [bars] vs T [K]
-he3_tc_plts(P)     # T_c  [mK] in PLTS2000 scale vs pressure [bar]
-he3_tab_plts(P)    # T_ab [mK] in PLTS2000 scale vs pressure [bar]
-
+######################################################################
 # Fermi-liquid functions (see he3_fermi.f)
 he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]
 he3_gammaf(P) # R-Gas constant GAMMA=C/RT [1/(Kmol)] vs P [bar]
@@ -72,6 +75,7 @@ he3_f1a(P)    # F1a vs P [bar]
 he3_f2a(P)    # F2a vs P [bar]
 he3_f2s(P)    # F2s vs P [bar]
 
+######################################################################
 # BCS gap + strong coupling correction (see he3_gap.f)
 he3_bcsgap(ttc)           # BCS energy gap
 he3_bcsgap_fast(ttc)      # BCS energy gap approximation
@@ -87,14 +91,16 @@ he3_z7(ttc, gap)
 he3_lambda(ttc, gap)
 he3_rho_nb(ttc, P)        # B-phase Normal component density \rho_nb/\rho_0
 he3_chi_b(ttc, P)         # B-phase susceptibility chi_b/chi_0
-he3_chi_bp(ttc, P)        # B-phase Cooper pair susceptibility ratio chi_bp/chi_b
+he3_chi_bp(ttc, P)        # B-phase Cooper pair susceptibility chi_bp/chi_b
 
+######################################################################
 # Dipole energy and Leggett frequency (see he3_dipole.f)
 he3_gd(P)          # Experimental value of Dipolar coefficient g_d, [1/(erg cm3)]
 he3_ld(ttc, P)     # lambda_D = Delta^2 g_d, [erg/cm3]
 he3_nu_b(ttc, P)   # B-phase Leggett frequency, Hz
 he3_nu_b1(ttc, P)  # B-phase Leggett frequency, Hz
 
+######################################################################
 # Gradient energy and spin wave velocities (see he3_grad.f)
 he3_grad_c(ttc,p)       # gradient energy c parameter, see VW 7.25
 he3_grad_delta(ttc,p)   # gradient energy delta parameter, see VW 7.25
@@ -111,14 +117,14 @@ he3_cperp(ttc,p)  # Fomin's spin wave velocity c_perp
 he3_clpar(ttc,p)  # Leggett's spin wave velocity c_par
 he3_clperp(ttc,p) # Leggett's spin wave velocity c_perp
 
-! test functions for F1a+F3a gradient energy parameters
-! Dorfle, PRB23 3267 (1981)
-! K1 = K2 = rho_s/40m* Rl
-!      K3 = rho_s/40m* (4Rt-3Rl)
-
+# test functions for F1a+F3a gradient energy parameters
+# Dorfle, PRB23 3267 (1981)
+# K1 = K2 = rho_s/40m* Rl
+#      K3 = rho_s/40m* (4Rt-3Rl)
 he3_dorfle_rl(ttc, p, f1a, f3a) # Dorfle Rl
 he3_dorfle_rt(ttc, p, f1a, f3a) # Dorfle Rt
 
+######################################################################
 # Other textural parameters (see he3_text.f)
 he3_text_a(ttc, p)     # Textural parameter a [erg/cm^3 1/G^2]
 he3_text_ldv(ttc, p)   # Textural parameter lambda_{DV}
@@ -130,6 +136,7 @@ he3_text_vd(ttc, p)      # Dipole velocity v_d, cm/s
 he3_text_xid(ttc, p)     # Dipole length xi_d, cm
 he3_text_xih(ttc, p, h)  # Magnetic length xi_h, cm
 
+######################################################################
 # Transport in the normal phase (see he3_transp_n.f)
 he3_crsect_w(P)  # Crossections
 he3_crsect_wi(P) #
@@ -145,6 +152,7 @@ he3_tau_nd(ttc, P)    # Spin diffusion transport time for a normal Fermi-liquid,
 he3_diffn_hydr(ttc, p)       # Hydrodynamic spin diffusion in normal liquid, cm2/s
 he3_diffn_perp(ttc, p, nu0)  # Spin diffusion D_perp in normal liquid, cm2/s
 
+######################################################################
 # Transport in the B phase (see he3_transp_b.f)
 he3_coll_int(xi, ttc, gap, g0, d0)    # Collision integral approximation ttc=0..1
 he3_coll_int_lt(xi, ttc, gap, g0, d0) # Collision integral for low temp (good for < 0.7Tc)
@@ -164,6 +172,7 @@ he3_diff_perp_zz_im(ttc, p, nu0)  # Spin diffusion Im D_perp_zz, cm2/s
 he3_diff_par_xx(ttc, p, nu0)      # Spin diffusion D_par_xx, cm2/s
 he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
 
+######################################################################
 # B2 phase
 he3_b2hcr(ttc,T)                  # magnetic field [G] of AB transition
 he3_b2tab(p,H)                    # Temperature [mK] of AB transition in non-zero field
@@ -177,15 +186,18 @@ he3_b2rhoab_npar(ttc, p)          # B2-phase normal fluid density at the A-B bou
 he3_b2rhoab_nper(ttc, p)          # B2-phase normal fluid density at the A-B bounbary
 he3_b2magab(ttc, p)               # magnetization at the A-B bounbary
 
+######################################################################
 # Other (see he3_other.f)
 he3_xigl(ttc, p)           # Extrapolated GL coherence length, cm
 he3_vneq(ttc, p, omega, r) # Equilibrium vortex number
 he3_tau_r(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
-he3_tau_f(ttc)     # Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+he3_tau_f(ttc)     # Leggett-Takagi tau_f [s] vs T/Tc, 20bar
 
+######################################################################
 # Normal (see he3_normal.f)
-he3_cv_n(T, V)     # heat capacity, Cv vs T,V
+he3_cv_n(T, V)     # heat capacity, Cv vs T,Vm
 
+######################################################################
 # Polar phase (see he3_polar.f)
 he3p_chi_par(ttc,p) # suscetibility parallel to d vector (chi_par/chi_0)
 he3p_xid_perp(ttc,p)
@@ -193,13 +205,14 @@ he3p_xid_par(ttc,p)
 he3p_xih_perp(ttc,p,h)
 he3p_xih_par(ttc,p,h)
 
+######################################################################
 # ROTA-specific (see he3_rota.f)
 rota_c_ns(T, I)        # Nuclear stage heat capacity [J/K] vs T[K] and I[A]
 rota_fork_cal(w, p, n) # Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
 rota_nmra_q(f0)        # Q value of the nmrA spectrometer vs frequency
 rota_nmra_f(n)         # Frequencies of nmrA spectrometer, kHz for n=1..8
 
-# rota-specific constants (see he3_const,f)
+# rota-specific constants (see he3_const.f)
 rota_rcell    # cell radius
 rota_nmra     # field/current in nmrA solenoid [G/A]
 rota_nmrb     # field/current in nmrB solenoid [G/A]
@@ -210,31 +223,20 @@ rota_hmina_mr # quadratic radial term of the HminA field, [G/A/cm^2]
 rota_hmina_i0i #effectve HminA coil current divided by NMR current
 rota_hmina_i0f #effectve HminA coil current divided by NMR frequncy
 rota_rrda     # radiation damping constant for the nmrA spectrometer
+
 rota_bza(I,Imin,r,z)    # Bz field profile of A spectrometer
 rota_nspeca(f0, I,Imin) # normal phase spectrum
 
-# Q-balls in the zero temperature limit
-qball_nu_b(P)  # Leggett frequency [Hz] (measurements, same as he3_nu_b(0,p) )
-qball_cpar(P)  # cpar [cm/s] (measured)
-qball_cper(P)  # cper [cm/s] (measured)
-qball_lg1(P)   # lambda_g1 (measured)
-qball_lg2(P)   # lambda_g2 (measured)
-qball_dbetan(P, f0)  # Derivative of the textural angle beta_N in the center of the cell (no rotation, rota-specific, measured), [rad/cm]
-qball_fz0(P,f0,Imin) # 1/2 of distance between visible axial levels (no rotation, rota-specific, measured), [Hz]
-qball_fr0(P,f0,Imin) # 1/2 of distance between visible radial levels (no rotation, rota-specific, measured), [Hz]
-qball_az0(P,f0,Imin) # z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
-qball_ar0(P,f0,Imin) # r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
-qball_trd(P,f0,fr,fz) # tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
-qball_trd0(P,f0,imin) # tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
-qball_text_a(P)       # measured textural parameter a [erg/cm^3 1/G^2]
-qball_text_d(P)       # measured textural parameter d [erg/(cm^2 G^2)]
-qball_text_lsg(P)     # measured textural parameter lambda_SG
+rota_qball_dbetan(P, f0)   # Derivative of the textural angle beta_N in the center of the cell (no rotation, rota-specific, measured), [rad/cm]
+rota_qball_fz0(P,f0,Imin)  # 1/2 of distance between visible axial levels (no rotation, rota-specific, measured), [Hz]
+rota_qball_fr0(P,f0,Imin)  # 1/2 of distance between visible radial levels (no rotation, rota-specific, measured), [Hz]
+rota_qball_az0(P,f0,Imin)  # z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+rota_qball_ar0(P,f0,Imin)  # r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+rota_qball_trd(P,f0,fr,fz) # tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
+rota_qball_trd0(P,f0,imin) # tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
 
-math_ele(x)           # complete elliptic integral E(x)
-math_elk(x)           # complete elliptic integral K(x)
-loop_bz(rloop,r,z)    # magnetic field Bz of a current loop
-loop_br(rloop,r,z)    # magnetic field Br of a current loop
-
+######################################################################
+# B phase magnons (see he3_spec.f)
 he3b_spec1s(ttc,P,H, kv, ak,bk, an,bn) # acoustic magnon spectrum, simple formula
 he3b_spec2s(ttc,P,H, kv, ak,bk, an,bn) # optical magnon spectrum, simple formula
 he3b_spec3s(ttc,P,H, kv, ak,bk, an,bn) # longitudinal magnon spectrum, simple formula
@@ -242,3 +244,10 @@ he3b_spec3s(ttc,P,H, kv, ak,bk, an,bn) # longitudinal magnon spectrum, simple fo
 he3b_spec1(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, lowest mode
 he3b_spec2(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, middle mode
 he3b_spec3(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, highest mode
+
+######################################################################
+# Math (see he3_math.f)
+math_ele(x)           # complete elliptic integral E(x)
+math_elk(x)           # complete elliptic integral K(x)
+loop_bz(rloop,r,z)    # magnetic field Bz of a current loop
+loop_br(rloop,r,z)    # magnetic field Br of a current loop

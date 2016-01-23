@@ -1,3 +1,4 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!! ROTA specific functions
 
 ! Nuclear stage heat capacity [J/K] vs T[K] and I[A]
@@ -150,3 +151,92 @@
         enddo
 
       end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! Q-balls in the zero temperature limit
+
+! Derivative of the textural angle beta_N in the center
+!  of the cell (rota-specific, measured), [rad/cm]
+      function rota_qball_dbetan(p, f0)
+        implicit none
+        include 'he3.fh'
+        real*8 p, f0, A,B,C, cOb
+        A =  9.144220D-6*p**4 - 1.202768D-3*p**3
+     .      +4.139982D-2*p**2 - 6.613861D-2*p - 4.830108D-1
+        B = -9.742400D-6*p**4 + 1.570559D-3*p**3
+     .      -5.013987D-2*p**2 - 3.998610D-1*p - 8.127855D-1
+        C = -1.165609D-5*p**4 + 6.445247D-4*p**3
+     .      -2.218588D-2*p**2 + 7.691508D-1*p + 5.337443D+0
+        cOb = A*(f0/1D6)**2 + B*(f0/1D6) + C
+        rota_qball_dbetan = 1D9*cOb/
+     .     (const_2pi*he3_nu_b(0D0,p)*he3_cperp(0D0,p))
+      end
+
+! nu_z (1/2 of distance between visible axial levels) (no rotation, rota-specific, measured), [Hz]
+      function rota_qball_fz0(p,f0,imin)
+        implicit none
+        include 'he3.fh'
+        real*8 p,f0,imin,w0,imin1
+        w0=const_2pi*f0
+        imin1 = imin + rota_hmina_i0f*f0
+        rota_qball_fz0 = he3_cpar(0D0,p)/const_2pi
+     .           * sqrt( 8D0*he3_gyro*rota_hmina_mr*imin1/w0)
+      end
+
+! nu_r (1/2 of distance between visible radial levels) (no rotation, rota-specific, measured), [Hz]
+      function rota_qball_fr0(p,f0,imin)
+        implicit none
+        include 'he3.fh'
+        real*8 p,f0,imin,w0,imin1
+        w0=const_2pi*f0
+        imin1 = imin + rota_hmina_i0f*f0
+        rota_qball_fr0 = he3_cperp(0D0,p)/const_2pi
+     .    * sqrt(2D0*(rota_qball_dbetan(p,f0)*he3_nu_b(0D0,p)/f0)**2
+     .             - 4D0*he3_gyro*rota_hmina_mr*imin1/w0)
+      end
+
+! z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+      function rota_qball_az0(P,f0,imin)
+        implicit none
+        include 'he3.fh'
+        real*8 P,f0,imin
+        rota_qball_az0 = he3_cpar(0D0,P)/const_2pi
+     .           * sqrt(2D0/rota_qball_fz0(P,f0,imin)/f0)
+      end
+
+! r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+      function rota_qball_ar0(P,f0,imin)
+        implicit none
+        include 'he3.fh'
+        real*8 P,f0,imin
+        rota_qball_ar0 = he3_cperp(0D0,P)/const_2pi
+     .           * sqrt(2D0/rota_qball_fr0(P,f0,imin)/f0)
+      end
+
+!  tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
+      function rota_qball_trd(P, f0,  fr, fz)
+        implicit none
+        include 'he3.fh'
+        real*8 P,f0, fr,fz,ar,az, krd,chi,oB,H
+
+        chi = he3_chi_b(0D0,P) * he3_chi_n(P)
+        oB  = const_2pi * he3_nu_b(0D0,P)
+        H   = const_2pi * f0 / he3_gyro
+
+        az = he3_cpar(0D0,p)/const_2pi * sqrt(2D0/fz/f0)
+        ar = he3_cperp(0D0,p)/const_2pi * sqrt(2D0/fr/f0)
+        krd = 8D0*const_pi**1.5D0*chi*ar**2*az*H*rota_nmra_q(f0)
+        rota_qball_trd = rota_rrda / krd
+      end
+
+!  tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
+      function rota_qball_trd0(P,f0,imin)
+        implicit none
+        include 'he3.fh'
+        real*8 P,f0, imin, fr,fz
+        fr = rota_qball_fr0(P, f0, imin)
+        fz = rota_qball_fz0(P, f0, imin)
+        rota_qball_trd0 = rota_qball_trd(P, f0,  fr, fz)
+      end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

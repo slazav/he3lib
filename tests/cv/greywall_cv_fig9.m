@@ -16,6 +16,6 @@ function greywall_cv_fig9()
   xlabel('T, K');
   ylabel('C_v/R');
 
-  print -deps -color greywall_cv_fig9.eps
+  %print -deps -color greywall_cv_fig9.eps
 
 end
