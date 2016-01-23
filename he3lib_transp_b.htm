@@ -24,6 +24,69 @@
 <br>Values for <tt>he3_tau0, he3_tau_av, he3_diff_*</tt> are extended to
 $T>T_c$ region using normal phase functions.
 
+<p>
+<script>
+  make_mplot([
+    {title: 'Examples: select a plot...'},
+
+    { title: '- Quasiparticle lifetime at P=0',
+      xlabel: "T/Tc", ylabel: "tau, s",
+      ylog:10, yfmt:"1e", yticks:1, rmarg:130,
+      data: [
+        { url: "data/he3_tau_n0&0.4:0.01:1.1&0", ycol:2, width:1},
+        { url: "data/he3_tau_n_av&0.4:0.01:1.1&0", ycol:2, color: "#FF8080", width:1},
+
+        { url: "data/he3_tau0&0.4:0.01:1.1&0", ycol:2},
+        { url: "data/he3_tau_av&0.4:0.01:1.1&0", ycol:2, color: "#FF8080"},
+
+        { text: "at Fermi level", x: 1.11, y: 5e-7, color: "blue"},
+        { text: "average", x: 1.11, y: 3.6e-7, color: "red"},
+        { text: "Normal phase", x: 0.5, y: 1.2e-6, color: "black"},
+        { text: "B-phase", x: 0.75, y: 1.6e-6, color: "black"},
+      ]
+    },
+
+    { title: '- Mean free path',
+      xlabel: "T/Tc", ylabel: "l, cm",
+      ylog:10, yfmt:"1e", xfmt:".1f", yticks:1, rmarg:50,
+      data: [
+        { url: "data/he3_fpath&0.3:0.9&0",  ycol:2, color: "red"},
+        { url: "data/he3_fpath&0.3:0.9&10", ycol:2, color: "magenta"},
+        { url: "data/he3_fpath&0.3:0.9&20", ycol:2, color: "blue"},
+        { url: "data/he3_fpath&0.3:0.9&30", ycol:2, color: "black"},
+
+        { url: "data/he3_fpath&0.9:1&0",  ycol:2, color: "red"},
+        { url: "data/he3_fpath&0.9:1&10", ycol:2, color: "magenta"},
+        { url: "data/he3_fpath&0.9:1&20", ycol:2, color: "blue"},
+        { url: "data/he3_fpath&0.9:1&30", ycol:2, color: "black"},
+
+        { text: " 0 bar", x: 1.005, y: 3.12e-3, color: "red"},
+        { text: "10 bar", x: 1.005, y: 3.33e-4, color: "magenta"},
+        { text: "20 bar", x: 1.005, y: 1.42e-4, color: "blue"},
+        { text: "30 bar", x: 1.005, y: 9.31e-5, color: "black"},
+      ]
+    },
+
+    { title: '- Spin diffusion for transverse spin precession, P = 30 bar',
+      xlabel: "T/Tc", ylabel: "D, cm^2/s",
+      ymax:0.08,
+//      ylog:10, yfmt:"1e", xfmt:".1f", yticks:1, rmarg:130,
+      data: [
+        { url: "data/he3_diff_perp_xx&0.2:0.01:1.4&30&0",  ycol:3, color: "#FF8080"},
+        { url: "data/he3_diff_perp_zz&0.2:0.01:1.4&30&0",  ycol:3, color: "#8080FF"},
+        { url: "data/he3_diff_perp_xx&0.2:0.01:1.4&30&1e6",  ycol:3, color: "red"},
+        { url: "data/he3_diff_perp_zz&0.2:0.01:1.4&30&1e6",  ycol:3, color: "blue"},
+        { text: "Dzz, 1MHz", x: 0.45, y: 0.015, color: "blue"},
+        { text: "Dxx, 1MHz", x: 0.42, y: 0.035, color: "red", align: "end"},
+        { text: "Dzz, static", x: 0.66, y: 0.065, color: "blue"},
+        { text: "Dxx, static", x: 0.55, y: 0.065, color: "red", align: "end"},
+      ]
+    },
+
+  ]);
+</script>
+
+
 <h4>Collision integral for Bogoliubov quasiparticles</h4>
 
 <table><tr><td><tt>he3_coll_int(xi,ttc,gap,g0,d0)</tt></td>
