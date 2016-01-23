@@ -165,8 +165,8 @@ he3_diff_par_xx(ttc, p, nu0)      # Spin diffusion D_par_xx, cm2/s
 he3_diff_par_zz(ttc, p, nu0)      # Spin diffusion D_par_zz, cm2/s
 
 # B2 phase
-he3_b2hcr(ttc,T)                  # magnetic field of AB transition
-he3_b2tab(p,H)                    # Temperature of AB transition in non-zero field
+he3_b2hcr(ttc,T)                  # magnetic field [G] of AB transition
+he3_b2tab(p,H)                    # Temperature [mK] of AB transition in non-zero field
 he3_b2gap1(ttc, p, H)             # gap distortion
 he3_b2gap2(ttc, p, H)             # gap distortion
 he3_b2heff(ttc, p, H)             # effective field

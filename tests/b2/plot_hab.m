@@ -1,10 +1,12 @@
 function plot_hab()
-% gap distortion at the AB boundary
+% phase diagram
+
+  addpath ../../matlab
 
   figure(1); clf; hold on;
   for H=0:200:6000
     p=0:0.01:35;
-    t = he3_b2tab(p, H).*he3_tc(p);
+    t = he3_b2tab(p, H);
     ii=find(isfinite(t));
     if length(ii)==0; continue; end
     t=t(ii); p=p(ii);

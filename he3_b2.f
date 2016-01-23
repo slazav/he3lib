@@ -73,7 +73,7 @@
         he3_b2hcr = dsqrt(1D0 - X2**2) * Bc
       end
 
-! inverse function: find Tab/Tc with known p, H
+! inverse function: find Tab [mK] with known P [bar], H [G]
       function He3_b2tab(P,H)
         implicit none
         include 'he3.fh'
@@ -86,7 +86,7 @@
         H1 = 0D0
         H2 = he3_b2hcr(t2,P)
         He3_b2tab = t1
-        if (H.le.0D0) return
+        if (H.le.0D0) goto 103
 
         do i=1,100
           He3_b2tab = t2 + (H2**2-H**2)/(H2**2-H1**2)*(t1-t2)
@@ -98,8 +98,9 @@
           H1=H2
           t2=He3_b2tab
           H2=he3_b2hcr(t2,P)
-          if (dabs(H-H2).lt.1D-10) return
+          if (dabs(H-H2).lt.1D-10) goto 103
         enddo
+103      He3_b2tab = He3_b2tab * he3_tc(P)
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
