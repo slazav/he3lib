@@ -18,6 +18,8 @@ var plot_defs = {
     ymax: "auto",
     xfmt: "g",
     yfmt: "g",
+    xlog: 0, // log scale base or 0 for linear scale
+    ylog: 0,
     xmarg: 0, // data x margings
     ymarg: 0, // data y margings
     data: [] // plot data
@@ -238,22 +240,37 @@ function make_plot(svg, opts){
   plot.opts = opts;
 
   // Set the ranges
-  plot.x = d3.scale.linear().range([0, plot.width]);
-  plot.y = d3.scale.linear().range([plot.height, 0]);
+  if (opts.xlog>0){
+    plot.x = d3.scale.log().range([0, plot.width]).base(opts.ylog);
+  } else {
+    plot.x = d3.scale.linear().range([0, plot.width]);
+  }
+  if (opts.ylog>0){
+    plot.y = d3.scale.log().range([plot.height,0]).base(opts.ylog);
+  } else {
+    plot.y = d3.scale.linear().range([plot.height, 0]);
+  }
 
   // Define the axes
   plot.d3_xax = d3.svg.axis()
     .scale(plot.x)
     .orient("bottom")
-    .ticks(opts.xticks)
-    .tickFormat(d3.format(opts.xfmt))
     .tickSize(plot.height);
   plot.d3_yax = d3.svg.axis()
     .scale(plot.y)
     .orient("left")
-    .ticks(opts.yticks)
-    .tickFormat(d3.format(opts.yfmt))
     .tickSize(plot.width);
+
+  if (opts.xlog>0){
+    plot.d3_xax.ticks(opts.xticks, opts.xfmt);
+  } else{
+    plot.d3_xax.ticks(opts.xticks).tickFormat(d3.format(opts.xfmt));
+  }
+  if (opts.ylog>0){
+    plot.d3_yax.ticks(opts.yticks, opts.yfmt);
+  } else {
+    plot.d3_yax.ticks(opts.yticks).tickFormat(d3.format(opts.yfmt));
+  }
 
 //  if (opts.yexp!=0){
 //    yaxis.tickFormat(function(d) { return (d/Math.pow(10,opts.yexp)); })
