@@ -49,7 +49,7 @@ parse_range(const char * str,
 
 void
 call_func(struct tab_t * F, char *argv[]){
-  const int MAXARG=5; /* max number of arguments */
+  const int MAXARG=8; /* max number of arguments */
   int N=1;            /* table length */
   int i,j;
   /* arguments: first and last value, step, current value */
