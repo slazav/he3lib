@@ -1,0 +1,8 @@
+#!/bin/sh
+
+sed -e "s/'/\\\\'/g;"'s/"/\\"/g' he3.tab |
+while read name nargs descr; do
+  mkoctfile octfunc.cc\
+   -DFUNC="${name}" -DFUNC_="${name}_" -DNARGIN="${nargs}"\
+   -DESCR="\"${descr}\"" -lhe3 -L.. -W -std=c++11 -s -v -o "${name}"
+done

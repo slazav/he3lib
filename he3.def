@@ -7,7 +7,7 @@
 ######################################################################
 # Constants (see he3_const.f)
 he3_gyro      # g-factor
-he3_amass     # He3 "atom" mass, g
+he3_amass     # He3 atom mass, g
 he3_mmass     # He3 molar mass, g/mol
 const_na      # Avogadro constant Na, 1/mole
 const_kb      # Boltzmann constant k, erg/K

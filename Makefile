@@ -32,7 +32,7 @@ all: headers\
 
 # header files for C/F77/F90 are created from he3.def
 headers: he3.f90h he3.fh he3.h he3tab.h
-he3.f90h he3.fh he3.h he3tab.h: he3.def make_inc
+he3.f90h he3.fh he3.h he3tab.h octave/he3.tab: he3.def make_inc
 	./make_inc
 
 LIBNAME=libhe3
@@ -59,8 +59,36 @@ he3: he3.o libhe3.a
 	$(FC) $+ -o $@
 
 ###################################
-octave: library
-	make -C matlab octave
+## install rules
+
+bindir  ?= /usr/bin
+libdir  ?= /usr/lib
+datadir ?= /usr/share
+includedir  ?= /usr/include
+octdir = ${datadir}/octave/packages/he3lib
+
+install: install_headers install_library install_cmdline
+
+install_headers: he3.f90h he3.fh he3.h
+	mkdir -p ${includedir}
+	install -m0644 $+  ${includedir}
+
+install_library: $(LIBNAME).a $(LIBNAME).so
+	mkdir -p ${libdir}
+	install -m0644 $+ ${libdir}
+
+install_cmdline: he3
+	mkdir -p ${bindir}
+	install -m0755 $+ ${bindir}
+
+install_octave: octave
+	mkdir -p ${octdir}/packinfo
+	install -m0644 octave/*.oct ${octdir}
+	install -m0644 octave/DESCRIPTION ${octdir}/packinfo
+
+###################################
+octave: library octave/he3.tab
+	make -C octave
 
 matlab: library
 	make -C matlab matlab
