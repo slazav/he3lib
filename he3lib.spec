@@ -10,7 +10,9 @@ Packager:     Vladislav Zavjalov <slazav@altlinux.org>
 
 Source:       %name-%version.tar
 
-BuildRequires: octave-devel libGraphicsMagick-c++-devel libGraphicsMagick-devel libgl2ps-devel libsuitesparse-devel
+BuildRequires: octave-devel libGraphicsMagick-c++-devel libGraphicsMagick-devel
+BuildRequires: libgl2ps-devel libsuitesparse-devel libhdf5-devel libqrupdate-devel
+BuildRequires: libreadline-devel libpcre-devel
 Requires: octave
 
 %description
