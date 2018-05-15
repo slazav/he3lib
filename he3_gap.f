@@ -60,6 +60,8 @@
 
 ! Trivial strong-coupling correction to the BCS energy gap
 ! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+! Corrections are from Serene,Rainer-1983 (Phys. Rep. 101, 221), table 4
+! Specific heat jump (dcpcn) is from Greywall-1985 paper (PRB 33, 7520), Fig.19
       function he3_trivgap(ttc,p)
         implicit none
         include 'he3.fh'
