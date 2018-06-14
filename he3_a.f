@@ -3,6 +3,7 @@
 
 ! Legget frequency nu_a [Hz] vs P, ttc
 ! Interpolation formula by A.Yudin based on Halperin and ROTA data
+! There is no check that t > t_ab
 
       function he3_nu_a(ttc, p)
         implicit none
