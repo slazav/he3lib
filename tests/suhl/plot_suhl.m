@@ -46,7 +46,7 @@ plot([0 40], ab*[0 40], 'b-');
 xlabel('\beta, deg');
 xlabel('a(\beta)');
 legend('a11', 'a12-13', 'a23', 'a', 'picture from paper', 'location', 'southeast')
-
+# print -dpng acoeff.png
 
 t=0.12:0.002:0.26;
 f1=823000;
