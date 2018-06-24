@@ -198,6 +198,10 @@ he3_tau_f(ttc)     # Leggett-Takagi tau_f [s] vs T/Tc, 20bar
 he3_cv_n(T, V)     # heat capacity, Cv vs T,Vm
 
 ######################################################################
+# A-phase (see he3_a.f)
+he3_nu_a(ttc,p)     # Leggett frequency [Hz] vs T/Tc, P[bar]
+
+######################################################################
 # Polar phase (see he3_polar.f)
 he3p_chi_par(ttc,p) # suscetibility parallel to d vector (chi_par/chi_0)
 he3p_xid_perp(ttc,p)
