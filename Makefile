@@ -22,9 +22,10 @@ all: headers\
      cmdline
 #    doc
 #    octave
+#    octave-mex
 #    matlab
 
-.PHONY: octave matlab matlab64 headers library cmdline doc
+.PHONY: octave matlab octave-mex matlab64 headers library cmdline doc
 
 #FC=gfortran
 
@@ -95,6 +96,9 @@ matlab: library
 
 matlab64: library
 	make -C matlab matlab64
+
+octave-mex: library
+	make -C octave-mex
 
 doc: octave
 	make -C doc
