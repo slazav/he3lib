@@ -42,7 +42,7 @@ function comp(name, narg)
         'mexfunc.c');
     return
   end
-  if length(regexp(version, '^8\.3\.\d+.\d+')) || length(regexp(version, '^9\.'))
+  if length(regexp(version, '^8\.')) || length(regexp(version, '^9\.'))
     % new matlab
     mex(['-DFUNC=' name '_'], ['-DNARGIN=' num2str(narg)],...
         '-output', name, '-lhe3',...
