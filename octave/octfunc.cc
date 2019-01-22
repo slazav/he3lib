@@ -84,7 +84,7 @@ DEFUN_DLD(FUNC, args, nargout, "DESCR") {
   int numel = 1;
 
   for (int i=0; i<NARGIN; i++){
-    if (!args(i).is_numeric_type())
+    if (!args(i).isnumeric())
       error("numeric matrix or scalar expected in argument %d", i);
 
     ina[i] = args(i).array_value(); // array
