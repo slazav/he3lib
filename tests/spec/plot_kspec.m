@@ -1,4 +1,4 @@
-function plot1()
+function plot_kspec()
   % original program for plotting B-phase spin-wave spectra
   % (full equation for a uniform texture)
   % use two solvers: strightforward non-linear one, and cubic equation solver
@@ -6,14 +6,14 @@ function plot1()
 
   figure(1); clf; hold on;
 
-  bn  =  0; % beta_n, deg
+  bn  = 40; % beta_n, deg
   an  =  0; % alpha_n, deg
-  bk  = 90; % beta_k, deg
+  bk  =  90; % beta_k, deg
   ak  = 0;  % alpha_k, deg
-  wL  = 2;  % wL/wB
+  wL  = 1.5;  % wL/wB
   c12 = 2;  % gradient term, K
   c22 = 1;  % gradient term, K'
-  km  = 10; % maximal k value
+  km  = 2; % maximal k value
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   n  = [sind(bn)*cosd(an); sind(bn)*sind(an); cosd(bn)];
@@ -85,9 +85,10 @@ function plot1()
     end
   end
 
+
   if (1)
-    plot(kv, wL*ones(size(kv)),'k-', 'linewidth', 2);
-    plot(kv,    ones(size(kv)),'g-', 'linewidth', 2);
+    plot(0, wL,'g*', 'linewidth', 2);
+    plot(0, 1 ,'g*', 'linewidth', 2);
 
     plot(kv, w1,'r', 'linewidth', 2);
     plot(kv, w2,'r', 'linewidth', 2);
@@ -96,9 +97,31 @@ function plot1()
     plot(kv, w10,'b--');
     plot(kv, w20,'b--');
     plot(kv, w30,'b--');
-    xlabel('omegaL/OmegaB')
+    xlabel('k')
     ylabel('omega/omegaL')
   end
+
+
+  % inverse spec
+  if (bk!=90) return; end
+
+  wv=linspace(1e-6,4,500);
+  for i=1:length(wv)
+    [k2a(i), k2b(i), k2c(i)] = specfunc_k(c12,c22, wL, 1, wv(i), an,bn);
+  end
+
+%  [wa, k2a] = fixk(wv, k2a);
+%  [wb, k2b] = fixk(wv, k2b);
+%  [wc, k2c] = fixk(wv, k2c);
+
+  iia = find(k2a >=0 & k2a < km^2);
+  iib = find(k2b >=0 & k2b < km^2);
+  iic = find(k2c >=0 & k2c < km^2);
+
+  plot(sqrt(k2a(iia)), wv(iia), 'g-', 'linewidth', 2)
+  plot(sqrt(k2b(iib)), wv(iib), 'c-', 'linewidth', 2)
+  plot(sqrt(k2c(iic)), wv(iic), 'm-', 'linewidth', 2)
+
 
 end
 
@@ -150,3 +173,64 @@ function [w1,w2,w3] = specfunc1(c1,c2,wL,wB2, kv, ak, bk, an, bn);
   w2=sqrt(w2);
   w3=sqrt(w3);
 end
+
+
+% function sutable for fortran kx^2(w)
+% only for bn=90deg!
+function [k2a,k2b,k2c] = specfunc_k(c1,c2,wL,wB2, w, an, bn);
+
+  % components of the n vector
+  nx = sind(bn)*cosd(an);
+  ny = sind(bn)*sind(an);
+  nz = cosd(bn);
+
+  % rotated k vector, R_{aj} k_j
+  ct=-1/4; st=sqrt(15)/4;
+  Rxx = ct + (1-ct)*nx*nx;
+  Ryx = (1-ct)*ny*nx + st*nz;
+  Rzx = (1-ct)*nz*nx - st*ny;
+
+  Axx = - c1 + c2*Rxx*Rxx;
+  Ayy = - c1 + c2*Ryx*Ryx;
+  Azz = - c1 + c2*Rzx*Rzx;
+  Axy =        c2*Rxx*Ryx;
+  Ayz =        c2*Ryx*Rzx;
+  Azx =        c2*Rzx*Rxx;
+  Bxx = - wB2*nx*nx;
+  Byy = - wB2*ny*ny;
+  Bzz = - wB2*nz*nz;
+  Bxy = - wB2*nx*ny;
+  Byz = - wB2*ny*nz;
+  Bzx = - wB2*nz*nx;
+
+  % qubic equation for the frequncy: det(L)=0,
+  % w^6 + a2*w^4 + a1*w^2 + a0 = 0
+  a3 = Axx*Ayy*Azz + 2D0*Axy*Ayz*Azx ...
+     - Axx*Ayz^2 - Ayy*Azx^2 - Azz*Axy^2;
+
+  a2 = (Axx*Ayy + Ayy*Azz + Azz*Axx)*w^2 ...
+     - (Axy^2 + Ayz^2 + Azx^2)*w^2 ...
+     + Axx*Ayy*Bzz + Axx*Byy*Azz + Bxx*Ayy*Azz ...
+     + 2D0*(Axy*Ayz*Bzx + Axy*Byz*Azx + Bxy*Ayz*Azx) ...
+     - 2D0*(Axx*Ayz*Byz + Ayy*Azx*Bzx + Azz*Axy*Bxy) ...
+     - Bxx*Ayz^2 - Byy*Azx^2 - Bzz*Axy^2;
+
+   a1 = (Axx + Ayy + Azz)*w^4 - Azz*wL^2*w^2 ...
+      + (Axx*Byy + Ayy*Bxx + Ayy*Bzz)*w^2 ...
+      + (Azz*Byy + Azz*Bxx + Axx*Bzz)*w^2 ...
+      - 2D0*(Axy*Bxy + Ayz*Byz + Azx*Bzx)*w^2 ...
+      + Axx*Byy*Bzz + Bxx*Ayy*Bzz + Bxx*Byy*Azz ...
+      + 2D0*(Axy*Byz*Bzx + Bxy*Ayz*Bzx + Bxy*Byz*Azx) ...
+      - 2D0*(Bxx*Ayz*Byz + Byy*Azx*Bzx + Bzz*Axy*Bxy) ...
+      - Axx*Byz^2 - Ayy*Bzx^2 - Azz*Bxy^2;
+
+   a0 = w^6 + (Bxx+Byy+Bzz-wL^2)*w^4 ...
+      + (Bxx*Byy + Byy*Bzz + Bzz*Bxx)*w^2 ...
+      - (Bxy^2 + Byz^2 + Bzx^2 + Bzz*wL^2)*w^2 ...
+      + Bxx*Byy*Bzz + 2D0*Bxy*Byz*Bzx ...
+      - Bxx*Byz^2 - Byy*Bzx^2 - Bzz*Bxy^2;
+
+  [n k2a k2b k2c] = solve_cubic(a3,a2,a1,a0);
+
+end
+

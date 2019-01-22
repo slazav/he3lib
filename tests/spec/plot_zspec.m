@@ -1,4 +1,4 @@
-function plot1()
+function plot_zspec()
   % plot B-phase spin-wave spectra
   % for k=0 (uniform NMR)
 

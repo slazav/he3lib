@@ -165,3 +165,110 @@
         he3b_spec3 = w3
       end
 
+
+
+      ! Inverse formula, k^2(w) for spin-wave propagating in x direction.
+      !
+      subroutine he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
+        real*8 ct,st, nx,ny,nz
+        real*8 Rxx,Ryx,Rzx
+        real*8 wL,wB2, c1,c2
+        real*8 Axx,Ayy,Azz,Axy,Ayz,Azx
+        real*8 Bxx,Byy,Bzz,Bxy,Byz,Bzx
+       real*8 a0,a1,a2,a3
+
+        ! theta is 104deg
+        ct = -0.25D0         ! \cos\theta
+        st = sqrt(15D0/16D0) ! \sin\theta
+
+        ! components of the n vector
+        nx = dsin(bn)*dcos(an)
+        ny = dsin(bn)*dsin(an)
+        nz = dcos(bn)
+
+        ! components of the order parameter matrix
+        Rxx = ct + (1-ct)*nx*nx
+        Ryx = (1-ct)*ny*nx + st*nz
+        Rzx = (1-ct)*nz*nx - st*ny
+
+        ! Larmor and Leggett frequencies
+        wL = he3_gyro*H
+        wB2 = (const_2pi * he3_nu_b(ttc,P))**2
+
+        ! gradient terms
+        c1 = he3_clperp(ttc,P)**2 ! K
+        c2 = (he3_clperp(ttc,P)**2 - he3_clpar(ttc,P)**2) ! K'
+
+        ! components of the L = A*k^2 + B matrix
+        Axx = - c1 + c2*Rxx*Rxx
+        Ayy = - c1 + c2*Ryx*Ryx
+        Azz = - c1 + c2*Rzx*Rzx
+        Axy =        c2*Rxx*Ryx
+        Ayz =        c2*Ryx*Rzx
+        Azx =        c2*Rzx*Rxx
+        Bxx = - wB2*nx*nx
+        Byy = - wB2*ny*ny
+        Bzz = - wB2*nz*nz
+        Bxy = - wB2*nx*ny
+        Byz = - wB2*ny*nz
+        Bzx = - wB2*nz*nx
+
+        ! Here I substituted L=Ak^2+B into equation for w
+        ! and rewrite it as a qubic equation for k^2.
+
+        a3 = Axx*Ayy*Azz + 2D0*Axy*Ayz*Azx
+     .     - Axx*Ayz**2 - Ayy*Azx**2 - Azz*Axy**2
+
+        a2 = (Axx*Ayy + Ayy*Azz + Azz*Axx)*w**2
+     .     - (Axy**2 + Ayz**2 + Azx**2)*w**2
+     .    + Axx*Ayy*Bzz + Axx*Byy*Azz + Bxx*Ayy*Azz
+     .    + 2D0*(Axy*Ayz*Bzx + Axy*Byz*Azx + Bxy*Ayz*Azx)
+     .    - 2D0*(Axx*Ayz*Byz + Ayy*Azx*Bzx + Azz*Axy*Bxy)
+     .    - Bxx*Ayz**2 - Byy*Azx**2 - Bzz*Axy**2
+
+        a1 = (Axx + Ayy + Azz)*w**4 - Azz*wL**2*w**2
+     .     + (Axx*Byy + Ayy*Bxx + Ayy*Bzz)*w**2
+     .     + (Azz*Byy + Azz*Bxx + Axx*Bzz)*w**2
+     .     - 2D0*(Axy*Bxy + Ayz*Byz + Azx*Bzx)*w**2
+     .     + Axx*Byy*Bzz + Bxx*Ayy*Bzz + Bxx*Byy*Azz
+     .     + 2D0*(Axy*Byz*Bzx + Bxy*Ayz*Bzx + Bxy*Byz*Azx)
+     .     - 2D0*(Bxx*Ayz*Byz + Byy*Azx*Bzx + Bzz*Axy*Bxy)
+     .     - Axx*Byz**2 - Ayy*Bzx**2 - Azz*Bxy**2
+
+        a0 = w**6 + (Bxx+Byy+Bzz-wL**2)*w**4
+     .     + (Bxx*Byy + Byy*Bzz + Bzz*Bxx)*w**2
+     .     - (Bxy**2 + Byz**2 + Bzx**2 + Bzz*wL**2)*w**2
+     .     + Bxx*Byy*Bzz + 2D0*Bxy*Byz*Bzx
+     .     - Bxx*Byz**2 - Byy*Bzx**2 - Bzz*Bxy**2
+
+        call solve_cubic(a3,a2,a1,a0, k2a,k2b,k2c)
+      end
+
+      function he3b_spec_kx2a(ttc,P,H, w, an,bn)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
+        call he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
+        he3b_spec_kx2a = k2a
+      end
+
+      function he3b_spec_kx2b(ttc,P,H, w, an,bn)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
+        call he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
+        he3b_spec_kx2b = k2b
+      end
+
+      function he3b_spec_kx2c(ttc,P,H, w, an,bn)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
+        call he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
+        he3b_spec_kx2c = k2c
+      end
+
+
