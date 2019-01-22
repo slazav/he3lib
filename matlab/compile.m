@@ -34,7 +34,7 @@ function comp(name, narg)
   fprintf('>> compiling %s (%d args)\n', name, narg);
   if iscell(name); name=name{1}; end
 
-  if regexp(version, '^3\.\d+\.\d+') 
+  if length(regexp(version, '^3\.\d+\.\d+'))
     % old matlab + octave
     mex(['-DFUNC=' name '_ -DNARGIN=' num2str(narg)],...
          '-o', name, '-lhe3',...
@@ -42,7 +42,7 @@ function comp(name, narg)
         'mexfunc.c');
     return
   end
-  if regexp(version, '^8\.3\.\d+.\d+') 
+  if length(regexp(version, '^8\.3\.\d+.\d+')) || length(regexp(version, '^9\.'))
     % new matlab
     mex(['-DFUNC=' name '_'], ['-DNARGIN=' num2str(narg)],...
         '-output', name, '-lhe3',...
@@ -50,7 +50,8 @@ function comp(name, narg)
         'mexfunc.c');
     return
   end
-  error('Unknown matlab version\n');
+  fprintf('Unknown matlab version: %s\n', version);
+  exit
 end
 
 
