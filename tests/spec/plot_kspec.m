@@ -81,7 +81,8 @@ function plot_kspec()
       if i>1; w0 = 2*w0 - [w1(i-1) w2(i-1) w3(i-1)]; end
     else
       % qubic solver
-      [w1(i),w2(i),w3(i)] = specfunc1(c12,c22,wL,1, kv(i), ak, bk, an, bn);
+      [w1a(i),w2a(i),w3a(i)] = specfunc1(c12,c22,wL,1, kv(i), ak, bk, an, bn);
+      [w1b(i),w2b(i),w3b(i)] = specfunc2(c12,c22,wL,1, kv(i), ak, bk, an, bn);
     end
   end
 
@@ -90,9 +91,16 @@ function plot_kspec()
     plot(0, wL,'g*', 'linewidth', 2);
     plot(0, 1 ,'g*', 'linewidth', 2);
 
-    plot(kv, w1,'r', 'linewidth', 2);
-    plot(kv, w2,'r', 'linewidth', 2);
-    plot(kv, w3,'r', 'linewidth', 2);
+    plot(kv, w1a,'g', 'linewidth', 2);
+    plot(kv, w2a,'g', 'linewidth', 2);
+    plot(kv, w3a,'g', 'linewidth', 2);
+
+    plot(kv, w1b,'r', 'linewidth', 2);
+    plot(kv, w2b,'r', 'linewidth', 2);
+    plot(kv, w3b,'r', 'linewidth', 2);
+
+    % compare specfunc1 and specfunc2
+    printf('%e\n', sum(w1a-w1b).^2 + sum(w2a-w2b).^2 + sum(w3a-w3b).^2)
 
     plot(kv, w10,'b--');
     plot(kv, w20,'b--');
@@ -174,6 +182,54 @@ function [w1,w2,w3] = specfunc1(c1,c2,wL,wB2, kv, ak, bk, an, bn);
   w3=sqrt(w3);
 end
 
+% function sutable for fortran
+function [w1,w2,w3] = specfunc2(c1,c2,wL,wB2, kv, ak, bk, an, bn);
+
+  % components of the n vector
+  nx = sind(bn)*cosd(an);
+  ny = sind(bn)*sind(an);
+  nz = cosd(bn);
+
+  % components of the k vector
+  kx = kv*sind(bk)*cosd(ak);
+  ky = kv*sind(bk)*sind(ak);
+  kz = kv*cosd(bk);
+
+  % rotated k vector, R_{aj} k_j
+  ct=-1/4; st=sqrt(15)/4;
+  kn  = kx*nx + ky*ny + kz*nz; % (k*n)
+  kl = kz*ct + nz*kn*(1-ct) - (kx*ny-ky*nx)*st;
+
+  % he3 parameters - not now
+%  cpar2 = he3_cpar(ttc, P)^2;
+%  cper2 = he3_cperp(ttc, P)^2;
+%  wB2 = (2*pi*he3_nu_b(ttc, P))^2;
+%  wL = he3_gyro*H;
+
+  % qubic equation for the frequncy: det(L)=0,
+  % w^6 + a2*w^4 + a1*w^2 + a0 = 0
+
+  a2 = - (3*c1 - c2)*kv^2 - wB2 - wL^2;
+  a1 = ...
+    + kv^4*c1*(3*c1 - 2*c2) ...
+    + kv^2*wB2*(2*c1 - c2) ...
+    + kn^2*wB2*c2 ...
+    + wL^2*(c1*kv^2 - c2*kl^2 + wB2*nz^2);
+  a0 = ...
+     + kv^4*c1*(kv^2*c1 + wB2)*(c2-c1) ...
+     - wB2*kv^2*c1*c2*kn^2;
+
+# 1. n_j k_j
+# 2. |k|
+# 3. n_z
+# 4. l_j k_j
+
+  [n w1 w2 w3] = solve_cubic(1,a2,a1,a0);
+
+  w1=sqrt(w1);
+  w2=sqrt(w2);
+  w3=sqrt(w3);
+end
 
 % function sutable for fortran kx^2(w)
 % only for bn=90deg!
@@ -233,4 +289,5 @@ function [k2a,k2b,k2c] = specfunc_k(c1,c2,wL,wB2, w, an, bn);
   [n k2a k2b k2c] = solve_cubic(a3,a2,a1,a0);
 
 end
+
 
