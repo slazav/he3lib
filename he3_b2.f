@@ -3,9 +3,11 @@
 
 !! B_ab [mk] vs P, ttc
 ! Inseob Hahn PhD thesis, p79
+! see also https://doi.org/10.1016/0921-4526(94)90737-4
 ! see also code at http://spindry.phys.northwestern.edu/he3.htm
-      function pfunc(p,a,n)
+
       ! function used to approximate pressure-dependent parameters
+      function pfunc(p,a,n)
         real*8 p,a(n),pfunc
         integer i
         pfunc=0
@@ -14,6 +16,8 @@
         enddo
         pfunc = pfunc/(1D0+a(n)*p)
       end
+
+! critical field vs temperature and pressure
       function He3_b2hcr(ttc,P)
         implicit none
         include 'he3.fh'
@@ -239,6 +243,7 @@
         He = we*tc/(he3_gyro*const_hbar) ! Tc units -> G
       end
 
+! gap distortion
       function he3_b2gap1(ttc,p,H)
         implicit none
         real*8 ttc,p,H
@@ -246,7 +251,6 @@
         call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
         he3_b2gap1 = gap1
       end
-
       function he3_b2gap2(ttc,p,H)
         implicit none
         real*8 ttc,p,H
@@ -255,6 +259,7 @@
         he3_b2gap2 = gap2
       end
 
+! effective field
       function he3_b2heff(ttc,p,H)
         implicit none
         real*8 ttc,p,H
@@ -263,6 +268,7 @@
         he3_b2heff = He
       end
 
+! magnetization
       function he3_b2mag(ttc,p,H)
         implicit none
         include 'he3.fh'
