@@ -8,7 +8,7 @@ octave:
 
 matlab:
 	rm -f *.mexglx
-	matlab -nojvm -nosplash -r 'compile'
+	matlab -nojvm -nosplash -r 'compile;exit'
 
 matlab64:
-	matlab64 -nojvm -nosplash -r 'compile'
+	matlab64 -nojvm -nosplash -r 'compile; exit'

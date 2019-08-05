@@ -249,6 +249,10 @@ he3b_spec1(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, lowest m
 he3b_spec2(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, middle mode
 he3b_spec3(ttc,P,H, kv, ak,bk, an,bn)  # magnon spectrum, full formula, highest mode
 
+he3b_spec_kx2a(ttc,P,H, w, an,bn)  # magnon spectrum, kx^2(w), lowest mode
+he3b_spec_kx2b(ttc,P,H, w, an,bn)  # magnon spectrum, kx^2(w), middle mode
+he3b_spec_kx2c(ttc,P,H, w, an,bn)  # magnon spectrum, kx^2(w), highest mode
+
 ######################################################################
 # Math (see he3_math.f)
 math_ele(x)           # complete elliptic integral E(x)
