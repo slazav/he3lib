@@ -127,6 +127,14 @@
         !he3_gap = he3_todogap(ttc,p)
       end
 
+! he3_gap expressed in energy units [erg] rather then $T_c$
+      function he3_egap(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        he3_egap = he3_trivgap(ttc,p)*he3_tc(p)/1D3*const_kb
+      end
+
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
