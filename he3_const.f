@@ -13,6 +13,7 @@
      .    const_h    /6.62606957D-27/,  ! Planck constant, [g*cm2/s]
      .    const_hbar /1.054571726D-27/, ! reduced Planck constant, [g*cm2/s]
      .    const_mu0  /1.2566370614D0/,  ! vacuum permeability [G*cm/A]
+     .    const_ev   /1.602176634D-12/, ! electronvolt [erg]
      .    const_pi    /3.1415926535897932D0/,
      .    const_2pi   /6.2831853071795864D0/,
 

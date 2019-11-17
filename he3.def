@@ -15,6 +15,7 @@ const_r       # R-gas constant, kb*na, [erg/K/mol]
 const_h       # Planck constant, [g*cm2/s]
 const_hbar    # reduced Planck constant, [g*cm2/s]
 const_mu0     # vacuum permeability [G*cm/A]
+const_ev      # electronvolt [erg]
 const_pi      # pi
 const_2pi     # 2pi
 
