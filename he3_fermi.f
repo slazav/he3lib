@@ -27,7 +27,7 @@
         endif
       end
 
-!     C_p/RT (exp data), 1/(mol K), Greywall-86
+!     C_p/RT (exp data), [1/K], Greywall-86
 !     see also Alvesalo PRL44 1076 (1980) - they have different values!
       function He3_gammaf(P)
         implicit none
@@ -54,7 +54,7 @@
         He3_rho = he3_mmass / he3_vm(P)
       end
 
-!     2N0
+!     2N0 [1/erg/cm^3]
       function He3_2N0(P)
         implicit none
         include 'he3.fh'
@@ -64,7 +64,7 @@
      .    3D0 *const_na/const_kb/const_pi**2
       end
 
-! Fermi momentum [sgs] vs P [bar]
+! Fermi momentum [g cm/s] vs P [bar]
       function He3_Pf(P)
         implicit none
         include 'he3.fh'

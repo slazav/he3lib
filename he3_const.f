@@ -3,16 +3,16 @@
         include 'he3.fh'
 
         data
-     .    he3_gyro   /20378.0D0/,    ! g-factor
-     .    he3_amass  /5.0079D-24/,   ! He3 atom mass, g
-     .    he3_mmass  /3.0158281D0/,  ! He3 molar mass, g/mol
+     .    he3_gyro   /20378.0D0/,    ! g-factor, [1/s/G]
+     .    he3_amass  /5.0079D-24/,   ! He3 atom mass, [g]
+     .    he3_mmass  /3.0158281D0/,  ! He3 molar mass, [g/mol]
 
-     .    const_na   /6.02214129D+23/,  ! Avogadro constant, 1/mole
-     .    const_kb   /1.3806488D-16/,   ! Boltzmann constant, erg/K
-     .    const_r    /8.314472D+7/,     ! R-gas constant, kb*na, SGS
-     .    const_h    /6.62606957D-27/,  ! Planck constant, g*cm2/s
-     .    const_hbar /1.054571726D-27/, ! reduced Planck constant, g*cm2/s
-     .    const_mu0  /1.2566370614D0/,  ! vacuum permeability G*cm/A
+     .    const_na   /6.02214129D+23/,  ! Avogadro constant, [1/mole]
+     .    const_kb   /1.3806488D-16/,   ! Boltzmann constant, [erg/K]
+     .    const_r    /8.314472D+7/,     ! R-gas constant, kb*na, [erg/K/mol]
+     .    const_h    /6.62606957D-27/,  ! Planck constant, [g*cm2/s]
+     .    const_hbar /1.054571726D-27/, ! reduced Planck constant, [g*cm2/s]
+     .    const_mu0  /1.2566370614D0/,  ! vacuum permeability [G*cm/A]
      .    const_pi    /3.1415926535897932D0/,
      .    const_2pi   /6.2831853071795864D0/,
 

@@ -6,15 +6,15 @@
 
 ######################################################################
 # Constants (see he3_const.f)
-he3_gyro      # g-factor
-he3_amass     # He3 atom mass, g
-he3_mmass     # He3 molar mass, g/mol
-const_na      # Avogadro constant Na, 1/mole
-const_kb      # Boltzmann constant k, erg/K
-const_r       # R-gas constant, kb*na, SGS
-const_h       # Planck constant, g*cm2/s
-const_hbar    # reduced Planck constant, g*cm2/s
-const_mu0     # vacuum permeability G*cm/A
+he3_gyro      # g-factor [1/G/s]
+he3_amass     # He3 atom mass, [g]
+he3_mmass     # He3 molar mass, [g/mol]
+const_na      # Avogadro constant Na, [1/mole]
+const_kb      # Boltzmann constant k, [erg/K]
+const_r       # R-gas constant, kb*na, [erg/K/mol]
+const_h       # Planck constant, [g*cm2/s]
+const_hbar    # reduced Planck constant, [g*cm2/s]
+const_mu0     # vacuum permeability [G*cm/A]
 const_pi      # pi
 const_2pi     # 2pi
 
@@ -51,11 +51,11 @@ he3_pabn_plts # A-B-Normal crit.pt, bar (PLTS2000)
 he3_tabn_plts # A-B-Normal crit.pt, mK  (PLTS2000)
 
 ######################################################################
-# Fermi-liquid functions (see he3_fermi.f)
+# Normal fermi-liquid (see he3_fermi.f)
 he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]
-he3_gammaf(P) # R-Gas constant GAMMA=C/RT [1/(Kmol)] vs P [bar]
+he3_gammaf(P) # Specific heat, Cv/RT [1/K] vs P [bar]
 he3_rho(P)    # Density [g/cm^3] vs P [bar]
-he3_2n0(P)    # 2N0 vs P [bar]
+he3_2n0(P)    # 2N0 [1/erg/cm^3] vs P [bar]
 he3_mm(P)     # Effective mass / atom mass vs P [bar]
 he3_meff(P)   # Effective mass [g] vs P [bar]
 he3_pf(P)     # Fermi momentum [sgs] vs P [bar]
@@ -195,7 +195,7 @@ he3_tau_f(ttc)     # Leggett-Takagi tau_f [s] vs T/Tc, 20bar
 
 ######################################################################
 # Normal (see he3_normal.f)
-he3_cv_n(T, V)     # heat capacity, Cv vs T,Vm
+he3_cv_n(T, V)     # Heat capacity of normal 3He, Cv/R [nimensionless] vs T [K], Vm [cm^3/mol]
 
 ######################################################################
 # A-phase (see he3_a.f)

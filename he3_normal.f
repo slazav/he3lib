@@ -1,11 +1,13 @@
-! Extended normal liquid parameters
+! Normal 3He liquid parameters
 ! beyond zero-temperature limit
 
 ! TODO -- Vm, Cv, Cp, ... from ??
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!     heat capacity, Cv
+!     heat capacity, Cv/R [dimensionless]
+!     arguments: T [K], Vm [cm^3/mol]
+!     (Cv = Cp up to terms (T/Tf)^3)
 !     Greywall-1983
       function He3_cv_n(t, v)
         implicit none
