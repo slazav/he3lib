@@ -1,0 +1,18 @@
+%molar volume of helium3
+
+%    in cm^3 per mole
+
+function vol=volume(p)
+
+G(1)=0.27840464e1;
+      G(2)=0.69575243D-1
+      G(3)=-0.14738303D-2
+      G(4)=0.46153498D-4
+      G(5)=-0.53785385D-6
+      G(6)=0.0D1
+vol=0;
+pr=1;
+for c=1:6
+    vol=vol+A(c)*pr;
+    pr=pr*p;
+end
