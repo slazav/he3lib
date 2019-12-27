@@ -3,18 +3,18 @@
 
 clear
 global  f a alpha rhorat rho ee
-
+addpath 'X:\Coding and Programs\Tony_wire_calibrations\twangsol'
 % input data  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 name = 'cylinder programme using wide line treatment and slip fudge';
-rhow=2.659;   % tantalum density in g/cc 16.7, quartz 2.659, NbTi 6.05
-diam=85;     % diameter in microns 124,  fork 101,  micro 13.5, triple 4.5
-fv=32700;     % vacuum frequency in Hz 
-p=0;          % pressure in bar
+rhow=6.05;   % tantalum density in g/cc 16.7, quartz 2.659, NbTi 6.05
+diam=0.9;     % diameter in microns 124,  fork 101,  micro 13.5, triple 4.5
+fv=6000;     % vacuum frequency in Hz 
+p=1.7;          % pressure in bar
 
 %Temp=[5:.5:10,10.5:1:30];
 T=[.93, .95, .975,1:.1:5,5.2:.2:10, 11:1:19, 20:2:200];% temperatures required in mK
 T=fliplr(T);
-file = 'D:\AMG\matlab_files\newfork32700diam85.dat';  %file to store data
+file = 'Mm_normal.dat';  %file to store data
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 alpha=1.9;
@@ -76,10 +76,13 @@ for c=1:wmax,
    Width(c)=df;
 end
 
+figure(1)
+clf
 plot (Inv,F2,'r+',Inverset,Width, 'b-')
 % save data
-fid=fopen(file,'w')
+fid=fopen(file,'w');
 fprintf(fid, name);
+fprintf(fid, '\n pressure %9.2f bar  \n', p);
 fprintf(fid, '\n vacuum frequency %9.2f Hz  \n', fv);
 fprintf(fid, '  density  %9.3f g/cc  \n', rhow);
 fprintf(fid, '  diameter %8.1f microns  \n\n', diam);
@@ -91,7 +94,7 @@ fprintf(fid,'%9.3f    %9.3f     %9.3f    %9.3f   %9.3f \n', OUT);
 fprintf(fid,'\n\n 7th order polynomial to give 1/T(mK) as powers of width\n');
 fprintf(fid,'%14.6e \n', PP);
 
-fclose(fid)
+fclose(fid);
 
 
 
