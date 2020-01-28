@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 
 with open(r'../he3.h', 'r') as header:
@@ -41,5 +43,5 @@ def %s_scalar(%s): %sreturn he3lib.%s(%s)
 ''' % (func_name, python_name, ', '.join(args), docstr, func_name,
     ', '.join(['ctypes.byref(ctypes.c_double(%s))' % arg for arg in args]),
     python_name, python_name, len(args)))
-            except Exception, ex:
-                print '%s: %s' % (line, ex)
+            except (Exception, ex):
+                print ('%s: %s' % (line, ex))
