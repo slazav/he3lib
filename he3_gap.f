@@ -58,6 +58,25 @@
      .          (1D0+0.1916D0*(1D0-ttc) + 0.2065D0*(1D0-ttc)**2)))
       end
 
+! Heat capacity jump for He3-B, DeltaCb/Cn
+! Greywall-1986, Fig.19
+      function he3_dcbcn(p)
+        implicit none
+        include 'he3.fh'
+        real*8 p
+        he3_dcbcn = 41.9D0 / he3_vm(p) + 0.322D0
+      end
+
+! Heat capacity jump for He3-A, DeltaCa/Cn
+! Greywall-1986, Fig.19
+      function he3_dcacn(p)
+        implicit none
+        include 'he3.fh'
+        real*8 p
+        he3_dcacn = 94.2D0 / he3_vm(p) - 1.58D0
+      end
+
+
 ! Trivial strong-coupling correction to the BCS energy gap
 ! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
 ! Corrections are from Serene,Rainer-1983 (Phys. Rep. 101, 221), table 4
@@ -70,7 +89,7 @@
         real*8 c,x
         dimension c(5), x(11,5)
         c = (/ 1.43D0,1.6D0,1.8D0,2.D0,2.2D0 /)
-        dcpcn = 41.9D0 / he3_vm(p) + 0.322D0
+        dcpcn = he3_dcbcn(p)
         x(11,1:5) = (/ 1.D0,1.056D0,1.115D0,1.171D0,1.221D0 /)
         x(10,1:5) = (/ 1D0,1.048D0,1.097D0,1.141D0,1.18D0 /)
         x(9,1:5)  = (/ 1D0,1.041D0,1.083D0,1.119D0,1.15D0 /)

@@ -84,6 +84,8 @@ he3_trivgap(ttc, p)       # Trivial strong-coupling correction to the BCS gap
 he3_todogap(ttc, p)       # Gap based on Todoschenko's measurements
 he3_gap(ttc, p)           # wrapper which is used everywhere in the lib (trivgap by default)
 he3_egap(ttc, p)          # he3_gap expressed in energy units [erg]
+he3_dcbcn(p)              # Heat capacity jump for He3-B, DeltaCb/Cn
+he3_dcacn(p)              # Heat capacity jump for He3-A, DeltaCa/Cn
 he3_yosida(ttc, gap, n)   # Yosida functions
 he3_yosida_par(ttc, gap)
 he3_yosida_perp(ttc, gap)
