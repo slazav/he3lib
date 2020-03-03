@@ -154,6 +154,9 @@
         he3_egap = he3_trivgap(ttc,p)*he3_tc(p)/1D3*const_kb
       end
 
+
+
+
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
@@ -226,6 +229,65 @@
      .       4D0 * he3_yosida(ttc, gap,0D0)
      .     + 1D0 * he3_yosida(ttc, gap,2D0)
      .    )/5D0
+      end
+
+! Interpolation of Yosida function Y0 (Einzel-2003)
+      function he3_yosida_0(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap
+        real*8 y00, y0, y0tc, k
+        gap = he3_gap(0D0,P) ! zero-temperature gap!
+        y00 = dsqrt(const_2pi*gap/ttc)*dexp(-gap/ttc)
+        y0  = y00*(1D0 + 3D0/8D0*ttc/gap)
+        y0tc = dsqrt(const_2pi*gap)*dexp(-gap)*(1D0+3D0/8D0/gap)
+        k = (2.5D0 - gap) / (1D0 - y0tc)
+        ! k = 2.388693; for BCS gap
+        he3_yosida_0 = y0*(1D0-ttc**k)
+     .               + dexp(gap-gap/ttc)*ttc**(k-0.5D0)
+      end
+
+! Interpolation of Entropy Yosida function Ys (Einzel-2003)
+      function he3_yosida_s(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap, dcbcn
+        real*8 y00, y0, y0tc, k
+        gap = he3_gap(0D0,P) ! zero-temperature gap!
+        dcbcn = he3_dcbcn(P)
+        y00 = dsqrt(const_2pi*gap/ttc)*dexp(-gap/ttc)
+        y0   = 3D0/const_pi**2 * gap/ttc
+     .       * y00 * (1D0 + 15D0/8D0*ttc/gap)
+        y0tc = 3D0/const_pi**2 * gap
+     .       * dsqrt(const_2pi*gap)*dexp(-gap)
+     .       * (1D0 + 15D0/8D0/gap)
+        k = (dcbcn + 1.5D0 - gap)/(1D0 - y0tc)
+        !  k = 2.150244; for BCS gap and dcbcn
+        he3_yosida_s = y0 * (1D0-ttc**k)
+     .               + dexp(gap-gap/ttc)*ttc**(k-1.5D0)
+      end
+
+! Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
+      function he3_yosida_c(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap, dcbcn
+        real*8 y00, y0, y0tc, ytc, k, l2, c
+        gap = he3_gap(0D0,P) ! zero-temperature gap!
+        dcbcn = he3_dcbcn(P)
+        y00 = dsqrt(const_2pi*gap/ttc)*dexp(-gap/ttc)
+        y0   = 3D0*(gap/ttc/const_pi)**2
+     .       * y00 * (1D0 + 11D0/8D0*ttc/gap)
+        y0tc = 3D0*(gap/const_pi)**2
+     .       * dsqrt(const_2pi*gap)*dexp(-gap)
+     .       * (1D0 + 11D0/8D0/gap)
+        ytc = 1D0 + dcbcn
+        l2 = dcbcn*(1D0-31D0/144D0*1.036D0*dcbcn**2)
+        k = (3D0*l2/ytc + 2.5D0 - gap)/(1D0 - y0tc/ytc)
+        !  k = 2.811729; for BCS gap and dcbcn
+        c = (ytc-1D0)/y0tc - 1D0 ! this term is missing in Einzel paper!
+        he3_yosida_c = y0 * (1D0+c*ttc**k)
+     .               + dexp(gap-gap/ttc)*ttc**(k-2.5D0)
       end
 
 ! Z3,Z5,Z7, lambda

@@ -89,6 +89,11 @@ he3_dcacn(p)              # Heat capacity jump for He3-A, DeltaCa/Cn
 he3_yosida(ttc, gap, n)   # Yosida functions
 he3_yosida_par(ttc, gap)
 he3_yosida_perp(ttc, gap)
+
+he3_yosida_0(ttc,p)   # Interpolation of Yosida function Y0 (Einzel-2003)
+he3_yosida_s(ttc,p)   # Interpolation of Entropy Yosida function Ys (Einzel-2003)
+he3_yosida_c(ttc,p)   # Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
+
 he3_z3(ttc, gap)
 he3_z5(ttc, gap)
 he3_z7(ttc, gap)
