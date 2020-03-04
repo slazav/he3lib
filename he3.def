@@ -16,8 +16,16 @@ const_h       # Planck constant, [g*cm2/s]
 const_hbar    # reduced Planck constant, [g*cm2/s]
 const_mu0     # vacuum permeability [G*cm/A]
 const_ev      # electronvolt [erg]
+
+const_e       # e
 const_pi      # pi
-const_2pi     # 2pi
+const_2pi     # 2*pi
+const_euler   # Euler's constant
+const_z2      # zeta(2)
+const_z3      # zeta(3)
+const_z4      # zeta(4)
+const_z5      # zeta(5)
+
 
 ######################################################################
 # Phase diagram functions (see he3_phase.f)

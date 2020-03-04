@@ -14,8 +14,14 @@
      .    const_hbar /1.054571726D-27/, ! reduced Planck constant, [g*cm2/s]
      .    const_mu0  /1.2566370614D0/,  ! vacuum permeability [G*cm/A]
      .    const_ev   /1.602176634D-12/, ! electronvolt [erg]
-     .    const_pi    /3.1415926535897932D0/,
-     .    const_2pi   /6.2831853071795864D0/,
+     .    const_e     /2.7182818284590452D0/, ! e
+     .    const_pi    /3.1415926535897932D0/, ! pi
+     .    const_2pi   /6.2831853071795864D0/, ! 2*pi
+     .    const_euler /0.5772156649015329D0/, ! Euler's constant
+     .    const_z2    /1.6449340668482264D0/, ! zeta(2)
+     .    const_z3    /1.2020569031595943D0/, ! zeta(3)
+     .    const_z4    /1.0823232337111382D0/, ! zeta(4)
+     .    const_z5    /1.0369277551433699D0/, ! zeta(5)
 
      .    he3_Pcr   /1.16317D0/,
      .    he3_Tcr   /3.324D0/,
