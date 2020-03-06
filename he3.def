@@ -109,6 +109,8 @@ he3_lambda(ttc, gap)
 he3_rho_nb(ttc, P)        # B-phase Normal component density \rho_nb/\rho_0
 he3_chi_b(ttc, P)         # B-phase susceptibility chi_b/chi_0
 he3_chi_bp(ttc, P)        # B-phase Cooper pair susceptibility chi_bp/chi_b
+he3_cb(ttc,P)             # He3-B heat capacity (C/R)
+
 
 ######################################################################
 # Dipole energy and Leggett frequency (see he3_dipole.f)

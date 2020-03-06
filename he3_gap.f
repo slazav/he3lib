@@ -481,4 +481,13 @@
      .    2D0*(1D0 - Y2) / (2D0+Y0)
       end
 
+! He3-B heat capacity (C/R)
+      function he3_cb(ttc,P)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,P
+        he3_cb = he3_gammaf(P)
+     .         *ttc*he3_tc(P)*1D-3   ! T,K
+     .         * he3_yosida_c(ttc,P)
+      end
 
