@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="index.html">Return to the he3lib page...</a>
+<h2>A-phase</h2>
+
+<h3>Examples</h3>
+<p>
+<script>
+  make_mplot([
+    {title: 'Select a plot...'},
+
+    { title: 'Leggett frequncy in a-phase',
+      xlabel: "T, mK", ylabel: "nu_a, kHz",
+      xmin:0.85, ymin:0, ymax:70,
+      data: [
+        { url: "data/he3_nu_a&0.859:0.001:1&29", ycol:2, ysc:1e-3},
+        { url: "data/he3_nu_a&0.928:0.001:1&25", ycol:2, ysc:1e-3},
+
+        { text: "P = 25 bar", x: 0.91, y: 40, class: "ll", color: "black"},
+        { text: "P = 29 bar", x: 0.86, y: 58, class: "ll", color: "black"},
+      ]
+    },
+
+  ]);
+</script>
+
+
+<h3>Library functions</h3>
+
+<table><tr><td><tt>he3_nu_a(ttc,p)</tt></td>
+    <td>Leggett frequency in A-phase</td>
+    </tr>
+</table>
+
+</body>
+</html>

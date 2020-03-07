@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="index.html">Return to the he3lib page...</a>
+<h2>Transport properties in the B phase</h2>
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_transp_b.f">
+<tt>he3_transp_b.f</tt></a> and <tt>doc_tech/spin_diff.pdf</tt>.
+<br>Values for <tt>he3_tau0, he3_tau_av, he3_diff_*</tt> are extended to
+$T>T_c$ region using normal phase functions.
+
+<h3>Examples</h3>
+<p>
+<script>
+  make_mplot([
+    {title: 'Select a plot...'},
+
+    { title: '- Quasiparticle lifetime at P=0',
+      xlabel: "T/Tc", ylabel: "tau, s",
+      ylog:10, yfmt:"1e", yticks:1, rmarg:130,
+      data: [
+        { url: "data/he3_tau_n0&0.4:0.01:1.1&0", ycol:2, width:1},
+        { url: "data/he3_tau_n_av&0.4:0.01:1.1&0", ycol:2, color: "#FF8080", width:1},
+
+        { url: "data/he3_tau0&0.4:0.01:1.1&0", ycol:2},
+        { url: "data/he3_tau_av&0.4:0.01:1.1&0", ycol:2, color: "#FF8080"},
+
+        { text: "at Fermi level", x: 1.11, y: 5e-7, color: "blue"},
+        { text: "average", x: 1.11, y: 3.6e-7, color: "red"},
+        { text: "Normal phase", x: 0.5, y: 1.2e-6, color: "black"},
+        { text: "B-phase", x: 0.75, y: 1.6e-6, color: "black"},
+      ]
+    },
+
+    { title: '- Mean free path',
+      xlabel: "T/Tc", ylabel: "l, cm",
+      ylog:10, yfmt:"1e", xfmt:".1f", yticks:1, rmarg:50,
+      data: [
+        { url: "data/he3_fpath&0.3:0.9&0",  ycol:2, color: "red"},
+        { url: "data/he3_fpath&0.3:0.9&10", ycol:2, color: "magenta"},
+        { url: "data/he3_fpath&0.3:0.9&20", ycol:2, color: "blue"},
+        { url: "data/he3_fpath&0.3:0.9&30", ycol:2, color: "black"},
+
+        { url: "data/he3_fpath&0.9:1&0",  ycol:2, color: "red"},
+        { url: "data/he3_fpath&0.9:1&10", ycol:2, color: "magenta"},
+        { url: "data/he3_fpath&0.9:1&20", ycol:2, color: "blue"},
+        { url: "data/he3_fpath&0.9:1&30", ycol:2, color: "black"},
+
+        { text: " 0 bar", x: 1.005, y: 3.12e-3, color: "red"},
+        { text: "10 bar", x: 1.005, y: 3.33e-4, color: "magenta"},
+        { text: "20 bar", x: 1.005, y: 1.42e-4, color: "blue"},
+        { text: "30 bar", x: 1.005, y: 9.31e-5, color: "black"},
+      ]
+    },
+
+    { title: '- Spin diffusion for transverse spin precession, P = 30 bar',
+      xlabel: "T/Tc", ylabel: "D, cm^2/s",
+      ymax:0.08,
+//      ylog:10, yfmt:"1e", xfmt:".1f", yticks:1, rmarg:130,
+      data: [
+        { url: "data/he3_diff_perp_xx&0.2:0.01:1.4&30&0",  ycol:3, color: "#FF8080"},
+        { url: "data/he3_diff_perp_zz&0.2:0.01:1.4&30&0",  ycol:3, color: "#8080FF"},
+        { url: "data/he3_diff_perp_xx&0.2:0.01:1.4&30&1e6",  ycol:3, color: "red"},
+        { url: "data/he3_diff_perp_zz&0.2:0.01:1.4&30&1e6",  ycol:3, color: "blue"},
+        { text: "Dzz, 1MHz", x: 0.45, y: 0.015, color: "blue"},
+        { text: "Dxx, 1MHz", x: 0.42, y: 0.035, color: "red", align: "end"},
+        { text: "Dzz, static", x: 0.66, y: 0.065, color: "blue"},
+        { text: "Dxx, static", x: 0.55, y: 0.065, color: "red", align: "end"},
+      ]
+    },
+
+  ]);
+</script>
+
+<h3>Library functions</h3>
+
+<h4>Collision integral for Bogoliubov quasiparticles</h4>
+
+<table><tr><td><tt>he3_coll_int(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Full temperature range approximation.
+    <br>(Einzel, Wolfle, Hirschfeld, JLTP80 (1990), p.66)</td>
+    </tr>
+<tr><td><tt>he3_coll_int_lt(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Collision integral for low temp (good for $T < 0.7 T_c$).
+    <br>(Einzel, JLTP84 (1991), f.76)</td>
+    </tr>
+<tr><td><tt>he3_coll_int_ht(xi,ttc,gap,g0,d0)</tt></td>
+    <td>Collision integral for high temp.
+    <br>(Einzel, JLTP84 (1991), f.75)</td>
+    </tr>
+</table>
+
+<h4>Bogoliubov quasiparticles lifetime and mean free path</h4>
+
+<table>
+<tr><td><tt>he3_tau0(ttc,p)</tt></td>
+    <td>Lifetime at the Fermi level, [s].
+        $\displaystyle\quad 1/\tau(0) = \frac{I (0,T)}{\tau_N(0,T)},$
+    <br>(Einzel-1991, f.74,76. Einzel-1990 f.A1)</td>
+    </tr>
+<tr><td><tt>he3_tau0lt(ttc,p)</tt></td>
+    <td>$1/\tau$ in the $T\rightarrow0$ limit (does not depend on energy).
+        (Einzel-1978, f.79)</td>
+    </tr>
+<tr><td><tt>he3_tau_av(ttc,p)</tt></td>
+    <td>Thermal average lifetime, [s].
+        $\displaystyle\quad 1/\bar\tau = \frac{1}{Y_0}
+         \int_{-\infty}^{\infty} \frac{\phi_k\ d\xi}{\tau}$
+    <br>(Einzel-1991, f.77)</td>
+    </tr>
+<tr><td><tt>he3_fpath(ttc,p)</tt></td>
+    <td>Mean free path, [cm]. (Einzel JLTP32 (1978) f.84)</td>
+    </tr>
+<tr><td><tt>he3_tau_dperp(ttc,p)</tt>
+    <br><tt>he3_tau_dpar(ttc,p)</tt></td>
+    <td>Spin diff. transport time, [s].
+                           \ $\tau_D^{\perp,\parallel} = \bar\tau
+                            /(1-\lambda_1^a Y^{\perp,\parallel})$
+    <br>(Einzel-1991, f.90,96)</td>
+    </tr>
+</table>
+
+<h4>Spin diffusion</h4>
+
+<table>
+<tr><td><tt>he3_diff_hperp_zz(ttc,p)</tt>
+    <br><tt>he3_diff_hpar_zz(ttc,p)</tt></td>
+    <td>Spin diffusion in hydrodynamic limit ($\omega_L \tau \ll 1$),
+        $D^{\perp,\parallel}_{zz}(\omega_L=0)$, [cm$^2$/s].
+        Einzel JLTP84 (1991) f.102)
+    <br>According to Einzel's paper (see f.105) nonhydrodynamic
+        effects do not affect $D^\parallel$. In Mukharsky paper they do.</td>
+    </tr>
+<tr><td><tt>he3_diff_perp_xx(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_zz(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_xx_im(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_perp_zz_im(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_par_xx(ttc,p,nu0)</tt>
+    <br><tt>he3_diff_par_zz(ttc,p,nu0)</tt></td>
+    <td>Components of spin diffusion tenzor, [cm$^2$/s]
+    <br>(Bunkov et al, 1990 f.3; Einzel, 1991, f.108;
+    <br>Markelov, Mukharsky, 1992, f.7,8)</td>
+    </tr>
+</table>
+
+<p>TODO:
+<br>Exchange coupling strength is in the $F_1^a = 0$ limit. (small difference from normal phase values)
+<br>How does <tt>he3_diff_perp_??_im</tt> extends to the normal phase?
+
+</body>
+</html>

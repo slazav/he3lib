@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="index.html">Return to the he3lib page...</a>
+<h2>Normal liquid beyond zero temperature limit</h2>
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_normal.f">
+<tt>he3_normal.f</tt></a>.
+
+<h3>Examples</h3>
+<p>
+<script>
+  plot_text_defs.class="n";
+  make_mplot([
+    {title: 'Select a plot...'},
+
+    { title: '- Heat capacity C_v (see Greywall-1983 Fig.9)',
+      xlabel: "T, K", ylabel: "C_v/R",
+      xmin:0, yfmt:".2f", rmarg:50, tmarg:30,
+      data: [
+        { url: "data/he3_cv_n&0.16:0.01:2.5&36.82", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&32.59", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&30.39", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&28.89", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&27.70", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&26.84", xcol:0, ycol:2},
+        { url: "data/he3_cv_n&0.16:0.01:2.5&26.17", xcol:0, ycol:2},
+        { text: "Vm [cm^3/mol]:", x: 2.1, y: 0.93, color: "blue"},
+        { text: "36.82", x: 2.51, y: 0.91, color: "blue"},
+        { text: "32.59", x: 2.51, y: 0.77, color: "blue"},
+        { text: "30.39", x: 2.51, y: 0.72, color: "blue"},
+        { text: "28.89", x: 2.51, y: 0.67, color: "blue"},
+        { text: "27.70", x: 2.51, y: 0.63, color: "blue"},
+        { text: "26.84", x: 2.51, y: 0.59, color: "blue"},
+        { text: "26.17", x: 2.51, y: 0.57, color: "blue"},
+
+      ]
+    },
+  ]);
+</script>
+
+<h3>Library functions</h3>
+
+<table><tr><td><tt>he3_cv_n(t,Vm)</tt></td>
+    <td>Normal phase heat capacity $C_v/R$ vs $T$ [K] and $V_m$ [cm^3/mol], Greywall-1983</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

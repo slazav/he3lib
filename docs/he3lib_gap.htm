@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="index.html">Return to the he3lib page...</a>
+
+<h2>B-phase energy gap, normal fluid density, susceptibility</h2>
+
+<p>BCS energy gap + trivial strong coupling correction + some values
+derived from energy gap.
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_gap.f">
+<tt>he3_gap.f</tt></a>.
+
+<h3>Examples</h3>
+<p>
+<script>
+  make_mplot([
+    {title: 'Select a plot...'},
+
+    { title: '- Gap', ylabel: "Delta/Tc", xlabel: "T/Tc",
+      ymax: 2.0,
+      data: [
+        { url: "data/he3_bcsgap&0:0.01:1", color: "black"},
+        { url: "data/he3_trivgap&0:0.01:1&0", ycol:2, color: "red"},
+        { url: "data/he3_trivgap&0:0.01:1&30", ycol:2, color: "blue"},
+        { url: "data/he3_todogap&0:0.01:1&30", ycol:2, color: "green"},
+
+        { text: "Todo gap, 30 bar", x:0.11, y:1.52, color: "green"},
+        { text: "WC+ gap, 30 bar",  x:0.11, y:1.42, color: "blue"},
+        { text: "WC+ gap, 0 bar",   x:0.11, y:1.32, color: "red"},
+        { text: "BCS gap", x:0.11, y:1.22, color: "black"},
+      ]
+    },
+
+    { title: '- Normal fluid dencity', ylabel: "rho_nb/rho_n", xlabel: "T/Tc",
+      data: [
+        { url: "data/he3_rho_nb&0:0.01:1&0", color: "red", ycol:2},
+        { url: "data/he3_rho_nb&0:0.01:1&30", color: "blue", ycol:2},
+        { text: "0 bar",  x:0.61, y:0.46, color: "red"},
+        { text: "30 bar", x:0.49, y:0.51, color: "blue", align: "end"},
+      ]
+    },
+
+    { title: '- Susceptibility', ylabel: "chi_b/chi_n", xlabel: "T/Tc",
+      ymin:0,
+      data: [
+        { url: "data/he3_chi_b&0:0.01:1&0", color: "red", ycol:2},
+        { url: "data/he3_chi_b&0:0.01:1&30", color: "blue", ycol:2},
+        { text: "0 bar",  x:0.61, y:0.51, color: "red", align: "end"},
+        { text: "30 bar", x:0.71, y:0.46, color: "blue"},
+      ]
+    },
+
+  ]);
+</script>
+
+<h3>Library functions</h3>
+
+<table><tr><td><tt>he3_bcsgap(ttc)</tt></td>
+    <td>BCS gap for 3He-B in $T_c$ units.</td>
+    </tr>
+<tr><td><tt>he3_bcsgap_fast(ttc)</tt></td>
+    <td>Einzel approximation for BCS gap (0.5% accuracy, 70 times faster).
+    <br>(Einzel-1991, f.68)</td>
+    </tr>
+<tr><td><tt>he3_trivgap(ttc,p)</tt></td>
+    <td>Trivial strong-coupling correction to the BCS gap.</td>
+    </tr>
+<tr><td><tt>he3_todogap(ttc,p)</tt></td>
+    <td>Gap based on Todoschenko's measurements:
+        linear interpolation in density between BCS value at zero bar and
+        measured value 1.99 at melting pressure.
+        Temperature behaviour as in <tt>he3_trivgap</tt>.</td>
+    </tr>
+<tr><td><tt>he3_gap(ttc,p)</tt></td>
+    <td> Wrapper for the gap used everywhere in the lib (trivgap by default).</td>
+    </tr>
+
+<tr><td><tt>he3_egap(ttc,p)</tt></td>
+    <td> <tt>he3_gap</tt> expressed in energy units [erg] rather then $T_c$.</td>
+    </tr>
+
+<tr><td><tt>he3_yosida(ttc,gap,n)</tt></td>
+    <td>Yosida functions $Y_n(T/T_c,\Delta) =
+        \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
+        \ \frac{1}{2T/T_c}\ \mbox{ch}^{-2}\left(\frac{E_k}{2T/T_c}\right)\ d\xi_k$
+    <br>Note: type of <tt>n</tt> parameter in fortran should be real*8 (this is done
+        for standard function handling). If <tt>n</tt> is integer, result is unpredictable!</td>
+    </tr>
+<tr><td><tt>he3_yosida_par(ttc,gap)</tt>
+    <br><tt>he3_yosida_perp(ttc,gap)</tt>
+    <br><tt>he3_z3(ttc,gap)</tt>
+    <br><tt>he3_z5(ttc,gap)</tt>
+    <br><tt>he3_z7(ttc,gap)</tt>
+    <br><tt>he3_lambda(ttc,gap)</tt></td>
+    <td>Various functions</td>
+    </tr>
+
+<tr><td><tt>he3_rho_nb(ttc, p)</tt></td>
+    <td>B-phase normal component density:
+        $\frac{\rho_B^n}{\rho_{N}} =
+         \frac{(3 + F_1^s) Y_0}{3 + F_1^s Y_0}$</td>
+    </tr>
+<tr><td><tt>he3_chi_b(ttc, p)</tt></td>
+    <td>B-phase susceptibility (ratio of he3_chi_n):
+       $\frac{\chi_B}{\chi_N} =
+       \frac{(1+F_0^a)(2 + Y_0)}{3+F_0^a(2 + Y_0)}$</td>
+    </tr>
+<tr><td><tt>he3_chi_bp(ttc, p)</tt></td>
+    <td>B-phase Cooper pair susceptibility (ratio of he3_chi_b):
+       $\frac{\chi^p_B}{\chi_B} = \frac{2 (1-Y_2)}{(2 + Y_0)}$</td>
+    </tr>
+</table>
+
+</body>
+</html>

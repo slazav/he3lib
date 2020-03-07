@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript" src="make_plot.js"></script>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="make_plot.css">
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+
+<p><a href="index.html">Return to the he3lib page...</a>
+<h2>Transport properties in the normal phase</h2>
+
+<p>See also the source file:
+<a href="https://github.com/slazav/he3lib/blob/master/he3_transp_n.f">
+<tt>he3_transp_n.f</tt></a>.
+
+<h3>Library functions</h3>
+
+<p>Crossections and scattering factors:
+
+<table><tr><td><tt>he3_scatt_w(P)</tt></td>
+    <td>Scattering crossection ${<}W{>}$ (Einzel-1978, f.82)</td>
+    </tr>
+<tr><td><tt>he3_scatt_wi(P)</tt></td>
+    <td>${<}W_I{>}$ (Einzel-1978, f.82)</td>
+    </tr>
+<tr><td><tt>he3_scatt_wd(P)</tt></td>
+    <td>${<}W_D{>}$ (Einzel-1978, f.82)</td>
+    </tr>
+<tr><td><tt>he3_scatt_wl(P)</tt></td>
+    <td>${<}W_L{>}$ (Einzel-1978, f.71)</td>
+    </tr>
+<tr><td><tt>he3_scatt_g0(P)</tt></td>
+    <td>Scattering factor $\gamma_0 = {<}W_I{>}/{<}W{>}$ (Einzel-1978, f.66)</td>
+    </tr>
+<tr><td><tt>he3_scatt_d0(P)</tt></td>
+    <td>Scattering factor $\delta_0 = {<}W_D{>}/{<}W{>}$ (Einzel-1978, f.67)</td>
+    </tr>
+<tr><td><tt>he3_scatt_w0(P)</tt></td>
+    <td>$w_0 = 1 - 3/2 \gamma_0 + \delta_0$ (Einzel-1978, f.79)</td>
+    </tr>
+<tr><td><tt>he3_scatt_l1a(P)</tt></td>
+    <td>Scattering factor $\lambda_1^a$ used in spin diffusion
+        transport time. Has a very small effect. (Einzel-1978, f.74, p.350).
+</table>
+
+<table><tr><td><tt>he3_tau_n0(ttc,p)</tt></td>
+    <td>Normal state quasiparticle lifetime at the Fermi level, s.
+    <br>$\tau_N(0,T) = \tau_N(0,T_c) \left(\frac{T_c}{T}\right)^2
+                     = \frac{32 E_F\hbar}{{<}W{>}(\pi k_B T)^2}$
+                     (Einzel-1991, p.325)</td>
+    </tr>
+<tr><td><tt>he3_tau_n_av(ttc,p)</tt></td>
+    <td>Thermal average of normal state quasiparticle lifetime, [s].
+    <br>$\bar\tau_N = \left<\frac{\tau_N(0,T)}{1+(\xi_k/\pi T)^2}\right>
+                    = \frac34 \tau_N(0,T)\quad$
+                    (Einzel-1991, f.4-5)</td>
+    </tr>
+<tr><td><tt>he3_tau_nd(ttc,p)</tt></td>
+    <td>Spin diffusion transport time for a normal Fermi-liquid, [s]
+<br>$\tau_{ND} = \tau_1 = \bar\tau_N/(1-\lambda_1^a)\quad$
+                    (Einzel-1991, p.328)</td>
+    </tr>
+
+<tr><td><tt>he3_diffn_hydr(ttc,p)</tt></td>
+    <td>Hydrodynamic spin diffusion in normal liquid, $D_0$ [cm$^2$/s].
+        Einzel JLTP84 (1991) f.23)</td>
+    </tr>
+<tr><td><tt>he3_diffn_perp(ttc,p,nu0)</tt></td>
+    <td>Perpendicular component of spin diffusion, reduced because of
+        the Leggett-Rice effect, $D_N^\perp$ [cm$^2$/s].
+        (Einzel JLTP84 (1991) f.22)</td>
+    </tr>
+</table>
+
+<p>TODO: Temperature is measured in $T_c$ units which is strange for the normal phase.
+Maybe it is better to use K of $T_F$ units here.
+
+</body>
+</html>
