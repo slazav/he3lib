@@ -224,7 +224,7 @@
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
         he3_yosidas_int =
-     .     xi/ttc
+     .     (xi/ttc)**2
      .     / (dcosh(ek/(2D0*ttc)))**2 / 2D0/ttc
      .     * C / (1D0-x**2)
       end
