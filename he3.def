@@ -63,6 +63,7 @@ he3_tabn_plts # A-B-Normal crit.pt, mK  (PLTS2000)
 # Normal fermi-liquid (see he3_fermi.f)
 he3_vm(P)     # Molar Volume [cm3/mole] vs P [bar]
 he3_gammaf(P) # Specific heat, Cv/RT [1/K] vs P [bar]
+he3_c_n(T,P)  # heat capacity (C/R) vs T(K) and P(bar)
 he3_rho(P)    # Density [g/cm^3] vs P [bar]
 he3_2n0(P)    # 2N0 [1/erg/cm^3] vs P [bar]
 he3_mm(P)     # Effective mass / atom mass vs P [bar]
@@ -95,14 +96,14 @@ he3_egap(ttc, p)          # he3_gap expressed in energy units [erg]
 he3_dcbcn(p)              # Heat capacity jump for He3-B, DeltaCb/Cn
 he3_dcacn(p)              # Heat capacity jump for He3-A, DeltaCa/Cn
 he3_yosida(ttc, gap, n)   # Yosida functions
-he3_yosidas(ttc, gap)     # Entropy Yosida function
-he3_yosidac(ttc, P)       # Heat capacity Yosida function (uses he3_gap() function, if P<0 BCS is used)
+he3_yosida_s(ttc, gap)    # Entropy Yosida function
+he3_yosida_c(ttc, P)      # Heat capacity Yosida function (uses P instead of gap, if P<0 BCS gap is used)
 he3_yosida_par(ttc, gap)
 he3_yosida_perp(ttc, gap)
 
-he3_yosida_0(ttc,p)   # Interpolation of Yosida function Y0 (Einzel-2003)
-he3_yosida_s(ttc,p)   # Interpolation of Entropy Yosida function Ys (Einzel-2003)
-he3_yosida_c(ttc,p)   # Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
+he3_yosida_0_appr(ttc,p)   # Interpolation of Yosida function Y0 (Einzel-2003)
+he3_yosida_s_appr(ttc,p)   # Interpolation of Entropy Yosida function Ys (Einzel-2003)
+he3_yosida_c_appr(ttc,p)   # Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
 
 he3_z3(ttc, gap)
 he3_z5(ttc, gap)
@@ -111,7 +112,7 @@ he3_lambda(ttc, gap)
 he3_rho_nb(ttc, P)        # B-phase Normal component density \rho_nb/\rho_0
 he3_chi_b(ttc, P)         # B-phase susceptibility chi_b/chi_0
 he3_chi_bp(ttc, P)        # B-phase Cooper pair susceptibility chi_bp/chi_b
-he3_cb(ttc,P)             # He3-B heat capacity (C/R)
+he3_c_b(ttc,P)            # He3-B heat capacity (C/R)
 
 
 ######################################################################

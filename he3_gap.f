@@ -213,17 +213,17 @@
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
 ! See also tests/plot_yosida_int.m
-      function he3_yosidas_int(x)
+      function he3_yosida_s_int(x)
         implicit none
         include 'he3.fh'
-        real*8 x, he3_yosidas_int
+        real*8 x, he3_yosida_s_int
         real*8 ttc, gap
-        common /he3_yosidas_int_cb/ ttc, gap
+        common /he3_yosida_s_int_cb/ ttc, gap
         real*8 xi, ek, C
         C=4D0
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
-        he3_yosidas_int =
+        he3_yosida_s_int =
      .     (xi/ttc)**2
      .     / (dcosh(ek/(2D0*ttc)))**2 / 2D0/ttc
      .     * C / (1D0-x**2)
@@ -232,15 +232,15 @@
 
 ! Entropy Yosida function vs T/Tc, gap
 ! See Einzel-2004
-      function he3_yosidas(ttc, gap)
+      function he3_yosida_s(ttc, gap)
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
-        real*8 he3_yosidas_int
-        external he3_yosidas_int
+        real*8 he3_yosida_s_int
+        external he3_yosida_s_int
         real*8 ttc, gap
         real*8 ttc1, gap1
-        common /he3_yosidas_int_cb/ ttc1, gap1
+        common /he3_yosida_s_int_cb/ ttc1, gap1
         ttc1=ttc
         gap1=gap
 
@@ -257,14 +257,15 @@
           return
         endif
 
-        he3_yosidas = 3D0/const_pi**2
-     .              * math_dint(he3_yosidas_int, 0D0, 1D0, 100, 0)
+        he3_yosida_s = 3D0/const_pi**2
+     .              * math_dint(he3_yosida_s_int, 0D0, 1D0, 100, 0)
       end
 
 ! Heat Capacity Yosida function vs T/Tc, gap
 ! See D.Einzel-2003
-! Just simple derivative of he3_yosidas
-      function he3_yosidac(ttc, P)
+! Just simple derivative of he3_yosida_s
+! Note: argument P instead of gap is needed
+      function he3_yosida_c(ttc, P)
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -300,10 +301,10 @@
         endif
 
         ! Yc = C/T = dS/dT = d/dT (T*Ys) = T dYs/dT + Ys
-        he3_yosidac = ttc *
-     .   (he3_yosidas(ttc+dtp, gapp)-he3_yosidas(ttc-dtm, gapm))/
+        he3_yosida_c = ttc *
+     .   (he3_yosida_s(ttc+dtp, gapp)-he3_yosida_s(ttc-dtm, gapm))/
      .   (dtp+dtm)
-     .   + he3_yosidas(ttc, gap)
+     .   + he3_yosida_s(ttc, gap)
       end
 
 
@@ -332,7 +333,7 @@
 ! Interpolation of Yosida function Y0 (Einzel-2003)
 ! See my notes somewhere
 ! If P<0 BCS is used
-      function he3_yosida_0(ttc,p)
+      function he3_yosida_0_appr(ttc,p)
         implicit none
         include 'he3.fh'
         real*8 ttc, p 
@@ -357,11 +358,11 @@
         dy0tc = y0tc*(gap-0.5D0*(gap-bet)/(gap+bet))
 
         k = (s - dy0tc/y0tc)/(1D0-y0tc);
-        he3_yosida_0 = y0*(1D0-(1D0-1D0/y0tc)*ttc**k)
+        he3_yosida_0_appr = y0*(1D0-(1D0-1D0/y0tc)*ttc**k)
       end
 
 ! Interpolation of Entropy Yosida function Ys (Einzel-2003)
-      function he3_yosida_s(ttc,p)
+      function he3_yosida_s_appr(ttc,p)
         implicit none
         include 'he3.fh'
         real*8 ttc, p 
@@ -389,11 +390,11 @@
         dy0tc = (gap - 1.5D0 + bet/(gap+bet))*y0tc
 
         k = (s - dy0tc/y0tc)/(1D0-y0tc);
-        he3_yosida_s = y0*(1D0-(1D0-1D0/y0tc)*ttc**k)
+        he3_yosida_s_appr = y0*(1D0-(1D0-1D0/y0tc)*ttc**k)
       end
 
 ! Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
-      function he3_yosida_c(ttc,p)
+      function he3_yosida_c_appr(ttc,p)
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -427,7 +428,7 @@
         dy0tc = (gap - 2.5D0 + bet/(gap+bet))*y0tc
 
         k = (s - dy0tc/y0tc)/(1D0-y0tc/ytc)
-        he3_yosida_c = y0*(1D0-(1D0-ytc/y0tc)*ttc**k)
+        he3_yosida_c_appr = y0*(1D0-(1D0-ytc/y0tc)*ttc**k)
       end
 
 ! Z3,Z5,Z7, lambda
@@ -580,12 +581,12 @@
       end
 
 ! He3-B heat capacity (C/R)
-      function he3_cb(ttc,P)
+      function he3_c_b(ttc,P)
         implicit none
         include 'he3.fh'
         real*8 ttc,P
-        he3_cb = he3_gammaf(P)
-     .         *ttc*he3_tc(P)*1D-3   ! T,K
-     .         * he3_yosida_c(ttc,P)
+        he3_c_b = he3_gammaf(P)
+     .          * ttc*he3_tc(P)*1D-3   ! T,K
+     .          * he3_yosida_c(ttc,P)
       end
 

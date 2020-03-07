@@ -46,6 +46,15 @@
       end
 
 !!!!!!!    derived values
+
+! heat capacity (C/R) vs T(K) and P(bar)
+      function he3_c_n(T,P)
+        implicit none
+        include 'he3.fh'
+        real*8 T,P
+        he3_c_n = he3_gammaf(P)*T
+      end
+
 !     density, g/cm^3
       function He3_rho(P)
         implicit none
