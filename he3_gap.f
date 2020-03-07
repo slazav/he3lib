@@ -261,7 +261,7 @@
      .              * math_dint(he3_yosida_s_int, 0D0, 1D0, 100, 0)
       end
 
-! Heat Capacity Yosida function vs T/Tc, gap
+! Heat Capacity Yosida function vs T/Tc, P
 ! See D.Einzel-2003
 ! Just simple derivative of he3_yosida_s
 ! Note: argument P instead of gap is needed

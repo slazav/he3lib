@@ -79,7 +79,7 @@ derived from energy gap.
     <br>(Einzel-1991, f.68)</td>
     </tr>
 <tr><td><tt>he3_trivgap(ttc,p)</tt></td>
-    <td>Trivial strong-coupling correction to the BCS gap.</td>
+    <td>Trivial strong-coupling (or weak-couplig-plus, WCP) correction to the BCS gap. </td>
     </tr>
 <tr><td><tt>he3_todogap(ttc,p)</tt></td>
     <td>Gap based on Todoschenko's measurements:
@@ -99,8 +99,25 @@ derived from energy gap.
     <td>Yosida functions $Y_n(T/T_c,\Delta) =
         \int_{-\infty}^{\infty} \left(\frac{\xi_k}{E_k}\right)^n
         \ \frac{1}{2T/T_c}\ \mbox{ch}^{-2}\left(\frac{E_k}{2T/T_c}\right)\ d\xi_k$
-    <br>Note: type of <tt>n</tt> parameter in fortran should be real*8 (this is done
-        for standard function handling). If <tt>n</tt> is integer, result is unpredictable!</td>
+    <br>Note: type of <tt>n</tt> parameter should be real*8 (this is done
+        for standard function handling).</td>
+    </tr>
+
+<tr><td><tt>he3_yosida_s(ttc,gap)</tt></td>
+    <td>Entropy Yosida function
+        $Y_s(T/T_c,\Delta) = \frac{3}{\pi^2}
+        \int_{-\infty}^{\infty} \left(\frac{E_k}{T/T_c}\right)^2
+        \ \frac{1}{2T/T_c}\ \mbox{ch}^{-2}\left(\frac{E_k}{2T/T_c}\right)\ d\xi_k$
+    </td>
+    </tr>
+
+<tr><td><tt>he3_yosida_c(ttc,P)</tt></td>
+    <td>Heat Capacity Yosida function
+        $Y_c(T/T_c,\Delta) = Y_s + T/T_c \frac{d}{dT/T_c}$
+        <br> Note: pressure [bar] is used as a secong argument because
+             temperature dependence of gap is needed.
+             <tt>he3_gap()</tt> is used if $P\ge 0$, <tt>he3_bcsgap()</tt> is used overwise.
+    </td>
     </tr>
 <tr><td><tt>he3_yosida_par(ttc,gap)</tt>
     <br><tt>he3_yosida_perp(ttc,gap)</tt>
@@ -109,6 +126,15 @@ derived from energy gap.
     <br><tt>he3_z7(ttc,gap)</tt>
     <br><tt>he3_lambda(ttc,gap)</tt></td>
     <td>Various functions</td>
+    </tr>
+
+<tr><td><tt>he3_yosida_0_appr(ttc,P)</tt>
+    <br><tt>he3_yosida_s_appr(ttc,P)</tt>
+    <br><tt>he3_yosida_c_appr(ttc,P)</tt></td>
+    <td> Einzel-2003 approximations of $Y_0$, $Y_s$, $Y_c$ functions (See Einzel-2003),
+     extended to WCP gap (see my note somewhere).
+     <tt>he3_gap()</tt> is used if $P\ge 0$, <tt>he3_bcsgap()</tt> is used overwise.
+    </td>
     </tr>
 
 <tr><td><tt>he3_rho_nb(ttc, p)</tt></td>
@@ -124,6 +150,9 @@ derived from energy gap.
 <tr><td><tt>he3_chi_bp(ttc, p)</tt></td>
     <td>B-phase Cooper pair susceptibility (ratio of he3_chi_b):
        $\frac{\chi^p_B}{\chi_B} = \frac{2 (1-Y_2)}{(2 + Y_0)}$</td>
+    </tr>
+<tr><td><tt>he3_c_b(ttc, p)</tt></td>
+    <td>B-phase heat capacity, $C/R$</td>
     </tr>
 </table>
 
