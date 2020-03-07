@@ -218,13 +218,13 @@
         include 'he3.fh'
         real*8 x, he3_yosidas_int
         real*8 ttc, gap
-        common /he3_yosidas_int_cb/ ttc, gap, n
-        real*8 xi, ek, n, C
+        common /he3_yosidas_int_cb/ ttc, gap
+        real*8 xi, ek, C
         C=4D0
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
         he3_yosidas_int =
-     .     (xi/ttc)**n
+     .     xi/ttc
      .     / (dcosh(ek/(2D0*ttc)))**2 / 2D0/ttc
      .     * C / (1D0-x**2)
       end
@@ -238,12 +238,11 @@
         include 'he3_math.fh'
         real*8 he3_yosidas_int
         external he3_yosidas_int
-        real*8 ttc, gap, n
-        real*8 ttc1, gap1, n1
-        common /he3_yosidas_int_cb/ ttc1, gap1, n1
+        real*8 ttc, gap
+        real*8 ttc1, gap1
+        common /he3_yosidas_int_cb/ ttc1, gap1
         ttc1=ttc
         gap1=gap
-        n1=2
 
         if (ttc.lt.0D0) then
           he3_yosida=NaN
