@@ -151,7 +151,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        he3_egap = he3_trivgap(ttc,p)*he3_tc(p)/1D3*const_kb
+        he3_egap = he3_gap(ttc,p)*he3_tc(p)/1D3*const_kb
       end
 
 
