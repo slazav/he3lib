@@ -11,7 +11,7 @@ p=0;   % pressure in bar
 
 T=[1:-.002:0.14];% temperatures required in mK
 
-file = 'D:\AMG\matlab_files\triplemicro2.dat';  %file to store data
+file = 'new/SuperfluidHe3_cal.dat';  %file to store data
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 al=1.9;  % value of alpha (modify if required)
@@ -75,16 +75,16 @@ plot (Inv,LL,'r+',Inverset,LogW, 'b-')
 T=T*1000;  % back to mK
 % save data
 fid=fopen(file,'w')
-fprintf(fid, name);
-fprintf(fid, '\n  frequency %9.2f Hz  \n', f);
-fprintf(fid, '  density  %9.3f g/cc  \n', rhow);
-fprintf(fid, '  diameter %8.1f microns  \n\n', diam);
+fprintf(fid, '# %s\n', name);
+fprintf(fid, '#  frequency %9.2f Hz  \n', f);
+fprintf(fid, '#  density  %9.3f g/cc  \n', rhow);
+fprintf(fid, '#  diameter %8.1f microns  \n\n', diam);
 
 OUT=[T;F2;F1];
-fprintf(fid,'Temperature(mK)  Width        Shift\n');
+fprintf(fid,'# Temperature(mK)  Width        Shift\n');
 fprintf(fid,'%9.4f     %9.4f     %9.4f \n', OUT);
 
-fprintf(fid,'\n\n 7th order polynomial to give 1/T(mK) as powers of log10width\n');
-fprintf(fid,'%14.6e \n', PP);
+fprintf(fid,'\n\n # 7th order polynomial to give 1/T(mK) as powers of log10width\n');
+fprintf(fid,'# %14.6e \n', PP);
 
 fclose(fid)

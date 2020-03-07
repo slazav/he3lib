@@ -11,7 +11,7 @@ f=1092;  %frequency in Hz  385
 %Temp=[5:.5:10,10.5:1:30];
 T=[2:.1:5,5.2:.2:10,10.5:.5:19.5, 20:1:90];% temperatures required in mK
 T=fliplr(T);
-file = 'D:\AMG\viscfort\mctwian2.dat';  %file to store data
+file = 'new/MC_calibration.dat';  %file to store data
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 alpha=2.2;   % mfp fudge.
@@ -63,16 +63,16 @@ plot (Inv,F2,'r+',Inverset,Width, 'b-')
 
 % save data
 fid=fopen(file,'w')
-fprintf(fid, name);
-fprintf(fid, '\n  frequency %9.2f Hz  \n', f);
-fprintf(fid, '  density  %9.3f g/cc  \n', rhow);
-fprintf(fid, '  diameter %8.1f microns  \n\n', diam);
+fprintf(fid, '# %s\n', name);
+fprintf(fid, '#  frequency %9.2f Hz  \n', f);
+fprintf(fid, '#  density  %9.3f g/cc  \n', rhow);
+fprintf(fid, '#  diameter %8.1f microns  \n\n', diam);
 
 OUT=[T;F2;F1];
-fprintf(fid,'Temperature(mK)  Width        Shift\n');
+fprintf(fid,'#Temperature(mK)  Width        Shift\n');
 fprintf(fid,'%9.4f     %9.4f     %9.4f \n', OUT);
 
-fprintf(fid,'\n\n 5th order polynomial to give 1/T(mK) as powers of width\n');
+fprintf(fid,'\n\n# 5th order polynomial to give 1/T(mK) as powers of width\n');
 fprintf(fid,'%14.6e \n', PP);
 
 fclose(fid)

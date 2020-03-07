@@ -1,0 +1,37 @@
+#!/usr/bin/gnuplot
+
+set key bottom right
+set xlabel "1/T [1/mK]"
+set ylabel "width [Hz]"
+
+plot\
+  "new/MC_calibration.dat" using (1/$1):2 with lines title 'new',\
+  "old/MC_calibration.dat" using (1/$1):2 with lines title 'old'
+
+pause -1
+
+plot\
+  "new/NormalHe3_twanger_cal_exact.dat" using (1/$1):2 with lines title 'new',\
+  "old/NormalHe3_twanger_cal_exact.dat" using (1/$1):2 with lines title 'old'
+
+pause -1
+
+plot\
+  "new/NormalHe3_twanger_high_exact.dat" using (1/$1):2 with lines title 'new',\
+  "old/NormalHe3_twanger_high_exact.dat" using (1/$1):2 with lines title 'old',\
+
+pause -1
+
+plot\
+  "new/NormalHe3_twanger_low_exact.dat" using (1/$1):2 with lines title 'new',\
+  "old/NormalHe3_twanger_low_exact.dat" using (1/$1):2 with lines title 'old',\
+
+pause -1
+
+set log y
+
+plot\
+  "new/SuperfluidHe3_cal.dat" using (1/$1):2 with lines title 'new',\
+  "old/SuperfluidHe3_cal.dat" using (1/$1):2 with lines title 'old',\
+
+pause -1

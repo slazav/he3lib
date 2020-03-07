@@ -14,7 +14,7 @@ p=0;          % pressure in bar
 %Temp=[5:.5:10,10.5:1:30];
 T=[.93, .95, .975,1:.1:5,5.2:.2:10, 10.2:.2:19, 20:1:30]%100,110:10:1600];% temperatures required in mK
 T=fliplr(T);
-file = 'D:\AMG\matlab_files\floppervaryf.dat';  %file to store data
+file = 'new/NormalHe3_twanger_high_exact.dat';  %file to store data
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 alpha=1.9;   %1.9
@@ -79,16 +79,16 @@ end
 plot (Inv,F2,'r+',Inverset,Width, 'b-')
 % save data
 fid=fopen(file,'w')
-fprintf(fid, name);
-fprintf(fid, '\n vacuum frequency %9.2f Hz  \n', fv);
-fprintf(fid, '  density  %9.3f g/cc  \n', rhow);
-fprintf(fid, '  diameter %8.1f microns  \n\n', diam);
+fprintf(fid, '# %s\n', name);
+fprintf(fid, '# vacuum frequency %9.2f Hz  \n', fv);
+fprintf(fid, '#  density  %9.3f g/cc  \n', rhow);
+fprintf(fid, '#  diameter %8.1f microns  \n\n', diam);
 
 OUT=[T;F2;F1;F2a;F1a];
-fprintf(fid,'Temperature(mK)  Width    Frequency  approx width  approx freq\n');
+fprintf(fid,'# Temperature(mK)  Width    Frequency  approx width  approx freq\n');
 fprintf(fid,'%9.3f    %9.3f     %9.3f    %9.3f   %9.3f \n', OUT);
 
-fprintf(fid,'\n\n 7th order polynomial to give 1/T(mK) as powers of width\n');
+fprintf(fid,'\n\n# 7th order polynomial to give 1/T(mK) as powers of width\n');
 fprintf(fid,'%14.6e \n', PP);
 
 fclose(fid)
