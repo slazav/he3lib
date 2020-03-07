@@ -209,6 +209,99 @@
         he3_yosida = math_dint(he3_yosida_int, 0D0, 1D0, 100, 0)
       end
 
+! Integrand for Entropy Yosida function (see Einzel-2003, table 1)
+! x = tanh(\xi)/2 change is made to get good integrand
+! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
+! See also tests/plot_yosida_int.m
+      function he3_yosidas_int(x)
+        implicit none
+        include 'he3.fh'
+        real*8 x, he3_yosidas_int
+        real*8 ttc, gap
+        common /he3_yosidas_int_cb/ ttc, gap, n
+        real*8 xi, ek, n, C
+        C=4D0
+        xi = datanh(x)*C
+        ek=dsqrt(xi**2 + gap**2)
+        he3_yosidas_int =
+     .     (xi/ttc)**n
+     .     / (dcosh(ek/(2D0*ttc)))**2 / 2D0/ttc
+     .     * C / (1D0-x**2)
+      end
+
+
+! Entropy Yosida function vs T/Tc, gap
+! See Einzel-2004
+      function he3_yosidas(ttc, gap)
+        implicit none
+        include 'he3.fh'
+        include 'he3_math.fh'
+        real*8 he3_yosidas_int
+        external he3_yosidas_int
+        real*8 ttc, gap, n
+        real*8 ttc1, gap1, n1
+        common /he3_yosidas_int_cb/ ttc1, gap1, n1
+        ttc1=ttc
+        gap1=gap
+        n1=2
+
+        if (ttc.lt.0D0) then
+          he3_yosida=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_yosida=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_yosida=1D0
+          return
+        endif
+
+        he3_yosidas = 3D0/const_pi**2
+     .              * math_dint(he3_yosidas_int, 0D0, 1D0, 100, 0)
+      end
+
+! Heat Capacity Yosida function vs T/Tc, gap
+! See D.Einzel-2003
+! Just simple derivative of he3_yosidas
+      function he3_yosidac(ttc, P)
+        implicit none
+        include 'he3.fh'
+        include 'he3_math.fh'
+        real*8 ttc, P
+        real*8 dtp,dtm, gap,gapm,gapp
+        dtp=ttc*1D-3
+        dtm=ttc*1D-3
+
+        if (ttc.lt.0D0) then
+          he3_yosida=NaN
+          return
+        endif
+        if (ttc.eq.0D0) then
+          he3_yosida=0D0
+          return
+        endif
+        if (ttc.gt.1D0) then
+          he3_yosida=1D0
+          return
+        endif
+        if (ttc.gt.1D0-dtp) then
+          dtp = 1D0-ttc
+        endif
+
+        gap = he3_gap(ttc, P);
+        gapp = he3_gap(ttc+dtp, P);
+        gapm = he3_gap(ttc-dtm, P);
+
+        ! Yc = C/T = dS/dT = d/dT (T*Ys) = T dYs/dT + Ys
+        he3_yosidac = ttc *
+     .   (he3_yosidas(ttc+dtp, gapp)-he3_yosidas(ttc-dtm, gapm))/
+     .   (dtp+dtm)
+     .   + he3_yosidas(ttc, gap)
+      end
+
+
 ! Eizel-1991 f.90
       function he3_yosida_par(ttc, gap)
         implicit none
