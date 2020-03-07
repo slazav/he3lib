@@ -96,7 +96,7 @@ he3_dcbcn(p)              # Heat capacity jump for He3-B, DeltaCb/Cn
 he3_dcacn(p)              # Heat capacity jump for He3-A, DeltaCa/Cn
 he3_yosida(ttc, gap, n)   # Yosida functions
 he3_yosidas(ttc, gap)     # Entropy Yosida function
-he3_yosidac(ttc, P)       # Heat capacity Yosida function (uses he3_gap() function)
+he3_yosidac(ttc, P)       # Heat capacity Yosida function (uses he3_gap() function, if P<0 BCS is used)
 he3_yosida_par(ttc, gap)
 he3_yosida_perp(ttc, gap)
 

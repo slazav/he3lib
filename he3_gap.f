@@ -289,9 +289,15 @@
           dtp = 1D0-ttc
         endif
 
-        gap = he3_gap(ttc, P);
-        gapp = he3_gap(ttc+dtp, P);
-        gapm = he3_gap(ttc-dtm, P);
+        if (P.lt.0D0) then
+          gap = he3_bcsgap(ttc);
+          gapp = he3_bcsgap(ttc+dtp);
+          gapm = he3_bcsgap(ttc-dtm);
+        else
+          gap = he3_gap(ttc, P);
+          gapp = he3_gap(ttc+dtp, P);
+          gapm = he3_gap(ttc-dtm, P);
+        endif
 
         ! Yc = C/T = dS/dT = d/dT (T*Ys) = T dYs/dT + Ys
         he3_yosidac = ttc *
