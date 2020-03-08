@@ -281,3 +281,6 @@ math_ele(x)           # complete elliptic integral E(x)
 math_elk(x)           # complete elliptic integral K(x)
 loop_bz(rloop,r,z)    # magnetic field Bz of a current loop
 loop_br(rloop,r,z)    # magnetic field Br of a current loop
+
+math_stokes_k(g)      # Stokes K function
+math_stokes_kp(g)     # Stokes K' function

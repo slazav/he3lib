@@ -653,3 +653,80 @@
         x2 = (-A1+dsqrt(D))/(2D0*A2)
         return
       end
+
+
+!
+!  evaluates the STOKES functions K and K'
+!
+!  uses the methods outlined in
+!
+!  STOKES--- Mathematical and physical papers Vol III.
+!
+!  for gamma>=3 use equations 113
+!            <3               103-105
+!
+!   G    : gamma
+!   K    : Stokes function K
+!   K1   : Stokes function K'
+!
+!   Code is taken from Lancaster ULT wire program
+
+      subroutine math_stokes(g,k,k1)
+        implicit none
+        include 'he3.fh'
+        real*8 g, k, k1
+        real*8 M0, M1, AL, E0, E1, G1
+        real*8 A, B, C, D, E, G2, G4, G5, G6, G8, G10, G12
+        if (G. GE. 3.0) then
+          G2=G*G
+          G4=G2*G2
+          G5=G4*G
+          A=2.828427D0  / G
+          B=.3535534D0  / G /G2
+          C=.552427D0   / G5
+          D=2.9637719D0 / G5 / G2
+          E=20.4632383D0 / G5 / G4
+          K = 1D0 + A + B - 0.5D0 / G4
+     +        + C - D + 12.8875857D0/G4/G4 - E
+          K1 = A + 2D0/G2 - B + C - 1.625D0/G4/G2 + D - E
+        else
+          G1=G/2D0
+          G2=G1*G1
+          G4=G2*G2
+          G6=G4*G2
+          G8=G4*G4
+          G10=G6*G4
+          G12=G6*G6
+          M0 = G2 - G6/12D0 + G10/2880D0
+          M1 = G2 - G6/36D0 + G10/14400D0
+          E0 = G4/2. - G8/144. +G12/86400D0
+          E1 = G4/4. - G8/576. +G12/518400D0
+          AL = 0.5772158D0 + dlog(G1)
+          A = -(AL*M0) + const_pi/4D0*E0 - 0.5D0*M1
+     +        + (G2 - G6/6.545454D0 + G10/1261.313D0)
+          B = const_pi/4D0*M0 + AL*E0 - 0.5D0*(1D0-E1)
+     +        - (G4*0.75D0 - G8/69.12D0 + G12/35265.31D0)
+          C = - (const_pi/4D0*M1) + AL*(1D0-E1)
+     +        + (G4/2.666666D0 - G8/276.48D0 + G12/211591.84D0)
+          D = -(AL*M1) - const_pi/4D0*(1D0-E1)
+     +        + (G2 - G6/19.636363D0 +G10/6306.57D0)
+          K  = 1D0 + 2D0*(A*C + B*D)/(G2*(C*C + D*D))
+          K1 = 2D0*(B*C - A*D)/(G2*(C*C + D*D))
+        endif
+      end
+
+      function math_stokes_k(g)
+        implicit none
+        include 'he3.fh'
+        real*8 g,k,kp
+        call math_stokes(g,k,kp)
+        math_stokes_k = k
+      end
+
+      function math_stokes_kp(g)
+        implicit none
+        include 'he3.fh'
+        real*8 g,k,kp
+        call math_stokes(g,k,kp)
+        math_stokes_kp = kp
+      end
