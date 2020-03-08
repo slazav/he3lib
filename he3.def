@@ -179,12 +179,15 @@ he3_diffn_perp(ttc, p, nu0)  # Spin diffusion D_perp in normal liquid, cm2/s
 he3_coll_int(xi, ttc, gap, g0, d0)    # Collision integral approximation ttc=0..1
 he3_coll_int_lt(xi, ttc, gap, g0, d0) # Collision integral for low temp (good for < 0.7Tc)
 he3_coll_int_ht(xi, ttc, gap, g0, d0) # Collision integral for high temp
-he3_tau0(ttc, p)      # Bogoliubov quasiparticle lifetime at the Fermi level, s
-he3_tau0lt(ttc, p)    # he3_tau0 at T->0
-he3_tau_av(ttc, p)    # Thermal average quasiparticle lifetime, s
-he3_fpath(ttc, p)     # Mean free path of Bogoliubov quasiparticles
-he3_tau_dperp(ttc, p) # Spin diffusion perp transport time, s
-he3_tau_dpar(ttc, p)  # Spin diffusion parallel transport time, s
+he3_tau0(ttc, p)       # Bogoliubov quasiparticle lifetime at the Fermi level, s
+he3_tau0lt(ttc, p)     # he3_tau0 at T->0
+he3_tau_av(ttc, p)     # Thermal average quasiparticle lifetime, s
+he3_fpath(ttc, p)      # Mean free path of Bogoliubov quasiparticles, cm
+he3_visc_fpath(ttc, p) # Viscous mean free path of Bogoliubov quasiparticles, cm
+he3_hvisc(ttc, p)      # Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles, g/cm/s
+he3_rmsv(ttc, p)       # Rms velosity of Bogoliubov quasiparticles, cm/s
+he3_tau_dperp(ttc, p)  # Spin diffusion perp transport time, s
+he3_tau_dpar(ttc, p)   # Spin diffusion parallel transport time, s
 he3_diff_hperp_zz(ttc, p)    # Hydrodynamic spin diffusion D_perp_zz, cm2/s
 he3_diff_hpar_zz(ttc, p)     # Hydrodynamic spin diffusion D_par_zz, cm2/s
 he3_diff_perp_xx(ttc, p, nu0)     # Spin diffusion Re D_perp_xx, cm2/s

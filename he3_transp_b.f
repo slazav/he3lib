@@ -206,7 +206,7 @@
      .   * C/(1D0-x**2)
       end
 
-! Mean free path of Bogoliubov quasiparticles
+! Mean free path of Bogoliubov quasiparticles [cm]
 ! Einzel JLTP32 (1978) f.84
       function he3_fpath(ttc, p)
         implicit none
@@ -235,6 +235,61 @@
      .    *dsqrt(math_dint(he3_fpath_int1, 0D0, 1D0, 1000)/
      .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000))
       end
+
+
+! Viscous free path of Bogoliubov quasiparticles [cm]
+! Einzel 1990 Eq.26
+      function he3_visc_fpath(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 gap, Y0,Y2, l2
+
+        ! qubic fit of l2 from Einzel-1990, table.1:
+        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
+
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+
+        he3_visc_fpath = he3_fpath(ttc, p) / (1D0 - l2*Y2/Y0)
+      end
+
+! Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]
+! Einzel 1990 Eq.28
+      function he3_hvisc(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 gap, Y0,Y2, l2
+
+        ! qubic fit of l2 from Einzel-1990, table.1:
+        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
+
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+
+        ! Note: in Eq.28 rho0n = rho*Y is used
+        he3_hvisc = 0.2D0 * he3_rho(p)
+     .   * he3_vf(p) * dsqrt(Y2*Y0)
+     .   * he3_visc_fpath(ttc,p)
+      end
+
+! Rms velosity of Bogoliubov quasiparticles [cm/s]
+! Einzel JLTP32 (1990) f.28 and below
+      function he3_rmsv(ttc, p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 gap, Y0,Y2
+
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+        he3_rmsv = he3_vf(p) * dsqrt(Y2/Y0)
+      end
+
 
 ! Spin diffusion perpendicular transport time, s
 ! Einzel JLTP84 (1991) f.90,96
