@@ -1,31 +1,29 @@
-function plot_yosida_int()
+function plot_integrand()
+% Plot yosida function integrand for different
+% temperatures.
 % It should not go to infinity at any T/Tc.
 % This can be controlled by changing c in
 % x = tanh(xi/c(ttc))
 % c = 2 is a rather good value
 
-  function int = integrand(x,gap,TTc,n)
-    c = 2;  % important power factor
-    ksi = atanh(x) * c;
-    Ek=sqrt(ksi.^2+gap.^2);
-    phi=(cosh(Ek/(2*TTc))).^(-2) / 2 / TTc;
-    int=(ksi/Ek).^n .* phi ./ (1-x.^2) * c;
-  end
-
-  figure;
-  hold on;
-  addpath ../../matlab
+  clf; hold on;
 
   x=0.001:0.001:0.999;
 
   for TTc=[0.05 0.5 0.99]
     gap=he3_bcsgap(TTc)
-    ksi = atanh(x)*TTc*2;
-    Ek=sqrt(ksi.^2+gap.^2);
-    I = integrand(x,gap,TTc,0);
-    plot(x, I/I(1), 'r')
+    I0 = yosida_int(x,gap,TTc,0);
+    I1 = yosida_int(x,gap,TTc,1);
+    I2 = yosida_int(x,gap,TTc,2);
+    I3 = yosida_int(x,gap,TTc,3);
+    I4 = yosida_int(x,gap,TTc,4);
+    plot(x, I0/max(I0), 'r')
+    plot(x, I1/max(I1), 'g')
+    plot(x, I2/max(I2), 'b')
+    plot(x, I3/max(I3), 'm')
+    plot(x, I4/max(I4), 'c')
   end
 
-  print -deps -color plot_yosida_int.eps
+%  print -deps -color plot_yosida_int.eps
 
 end
