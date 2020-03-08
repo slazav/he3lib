@@ -3,8 +3,8 @@
 function k2=stokesk2(g,l)
 global f a alpha rhorat ee
  
-k1=stokes2k1(g);
-k=stokes2k(g);
+k1=math_stokes_kp(g);
+k=math_stokes_k(g);
 b=0.25*0.579*l/a;
 b=b*(1+ee*alpha*l/a)/(1+ee*l/a);
 num= k-1;

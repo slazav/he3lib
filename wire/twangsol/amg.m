@@ -1,8 +1,8 @@
 function k2 = amg(g,l)
  
 a=.101e-3/2;
-k=stokes2k(g);
-k1=stokes2k1(g);
+k1=math_stokes_kp(g);
+k=math_stokes_k(g);
 alpha=1.9;
 ee=1;
 
