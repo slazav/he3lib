@@ -2,6 +2,9 @@
 clear
 global  f a alpha rhorat rho ee
 
+addpath twangsol
+addpath ../octave
+
 % input data  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 name = 'ian MC TW';
 rhow=16.7; % tantalum density in g/cc 16.7, quartz 2.659, NbTi 6.05

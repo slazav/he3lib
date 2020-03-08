@@ -3,7 +3,10 @@
 
 clear
 global  f a alpha rhorat rho ee
-addpath 'X:\Coding and Programs\Tony_wire_calibrations\twangsol'
+addpath twangsol
+addpath ../octave
+
+
 % input data  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 name = 'cylinder programme using wide line treatment and slip fudge';
 rhow=6.05;   % tantalum density in g/cc 16.7, quartz 2.659, NbTi 6.05
@@ -21,13 +24,13 @@ alpha=1.9;
 ee=1; %switch to ballistic
 a=diam/2e6; %radius in m
 %helium data
-vol=volume(p);
+vol=he3_vm(p);
 rho=3.016/vol;
 rhorat=rho/rhow;
 eovl=0.2*(6.023e29/vol)^(4/3)*(3*9.8696)^(1/3)*1.0546e-34;
 T=T/1000; %convert to Kelvin
 n=length(T);
-tc=tche3(p)/1000;
+tc = he3_tc(p)/1000;
 %check always in normal state (optional)
 for c=n-10:n
    T(c)=max([T(c) tc]);

@@ -2,6 +2,9 @@
 clear
 global  f a alpha rhorat rho ee 
 
+addpath twangsol
+addpath ../octave
+
 % input data  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 name = 'triplemicro';
 rhow=6.05; % tantalum density in g/cc 16.7, quartz 2.659, NbTi 6.05
@@ -17,15 +20,15 @@ file = 'new/SuperfluidHe3_cal.dat';  %file to store data
 al=1.9;  % value of alpha (modify if required)
 a=diam/2e6; %radius in m
 ee=1; % ballistic switch wick
-vol=volume(p);
-rho3=3.016/vol;
+
+tc    = he3_tc(p)/1000;   %in kelvin
+vol   = he3_vm(p);
+rho3  = he3_rho(p);
+ff    = he3_f1s(p);  %F1s parameter
+
 eovl=0.2*(6.023e29/vol)^(4/3)*(3*9.8696)^(1/3)*1.0546e-34;
-tc=tche3(p)/1000;   %in kelvin
 vistc=1/(visca(p)*tc^2+viscb(p));
-ggh=gammahe(p); %heat capacity gamma
-pf=2.7551e-19/vol^(1/3);
-mstar=3.06413e-18*ggh/(vol*pf);
-ff=3*(mstar - 1);   %F1 parameter
+
 %get relative temperatures 
 T=T/1000;   %kelvin
 n=length(T);
