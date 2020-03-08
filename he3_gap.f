@@ -2,6 +2,7 @@
 ! Newton iteration based on a note by EVT & RH
 ! From ROTA texture library
 ! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+!      http://ltl.tkk.fi/research/theory/qc/bcsgap.pdf
       function he3_bcsgap(ttc)
         implicit none
         include 'he3.fh'
@@ -35,6 +36,48 @@
         end do
         he3_bcsgap = const_2pi*ynew
       end
+
+!     Derivative of BCS energy gap, d(Delta^2)/d(T/Tc)
+!     V.Zavjalov, 2020
+      function he3_bcsdgap2(ttc)
+        implicit none
+        include 'he3.fh'
+        integer n, m
+        real*8 ttc,gap, root,y,dy,ynew,g1,g2
+        gap = he3_bcsgap(ttc)/const_2pi
+        if (ttc.eq.1D0) then
+          ! See Einzel-2003, Eq 3
+          he3_bcsdgap2 = -8D0/7D0/const_z3 * const_pi**2
+          return
+        end if
+        if (ttc.gt.1D0) then
+          he3_bcsdgap2 = 0D0
+          return
+        end if
+        if (ttc.lt.0D0) then
+          he3_bcsdgap2 = NaN
+          return
+        end if
+        m = 30
+        ! From the gap formula:
+        !  dg/dt + dg/dy^2 * dy^2/dt = 0
+
+        root = DSQRT((dble(m)*ttc)**2+gap**2)
+        g1 = (dble(m) + dble(m)**2*ttc/root)/(dble(m)*ttc+root)
+     .     + dble(m)*ttc**2/root**3/8D0
+     .     - dble(m)*ttc**3/root**5/8D0 * dble(m)**2 * ttc
+
+        g2 = 0.5D0 /root / (dble(m)*ttc+root)
+     .     - 0.5D0 * dble(m)*ttc**3/root**5/8D0
+        do n=1,m
+          root=DSQRT((ttc*(dble(n)-0.5D0))**2 + gap**2)
+          g1 = g1 - 1D0/root
+     .           + ttc/root**3 * ttc*(dble(n)-0.5D0)**2
+          g2 = g2 + 0.5D0 * ttc/root**3
+        end do
+        he3_bcsdgap2 = -g1/g2 * const_2pi**2
+      end
+
 
 ! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
 ! Einzel approximation (D.Einzel JLTP 84 (1991) f.68)

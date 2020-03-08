@@ -88,6 +88,7 @@ he3_f2s(P)    # F2s vs P [bar]
 ######################################################################
 # BCS gap + strong coupling correction (see he3_gap.f)
 he3_bcsgap(ttc)           # BCS energy gap
+he3_bcsdgap2(ttc)         # Derivative of BCS energy gap, d(Delta^2)/d(T/Tc)
 he3_bcsgap_fast(ttc)      # BCS energy gap approximation
 he3_trivgap(ttc, p)       # Trivial strong-coupling correction to the BCS gap
 he3_todogap(ttc, p)       # Gap based on Todoschenko's measurements
