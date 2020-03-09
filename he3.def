@@ -103,10 +103,6 @@ he3_yosida_c(ttc, gap, dgap2) # Heat capacity Yosida function
 he3_yosida_par(ttc, gap)
 he3_yosida_perp(ttc, gap)
 
-he3_yosida_0_appr(ttc,p)   # Interpolation of Yosida function Y0 (Einzel-2003)
-he3_yosida_s_appr(ttc,p)   # Interpolation of Entropy Yosida function Ys (Einzel-2003)
-he3_yosida_c_appr(ttc,p)   # Interpolation of Heat capacity Yosida function Yc (Einzel-2003)
-
 he3_z3(ttc, gap)
 he3_z5(ttc, gap)
 he3_z7(ttc, gap)
