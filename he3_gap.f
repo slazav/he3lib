@@ -119,50 +119,14 @@
         he3_dcacn = 94.2D0 / he3_vm(p) - 1.58D0
       end
 
-
-! Trivial strong-coupling correction to the BCS energy gap
-! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
-! Corrections are from Serene,Rainer-1983 (Phys. Rep. 101, 221), table 4
-! Specific heat jump (dcpcn) is from Greywall-1985 paper (PRB 33, 7520), Fig.19
-!      function he3_trivgap(ttc,p)
-!        implicit none
-!        include 'he3.fh'
-!        integer it, ic
-!        real*8 ttc, p, dcpcn, wt1, wt2, wc1, wc2, corr
-!        real*8 c,x
-!        dimension c(5), x(11,5)
-!        c = (/ 1.43D0,1.6D0,1.8D0,2.D0,2.2D0 /)
-!        dcpcn = he3_dcbcn(p)
-!        x(11,1:5) = (/ 1.D0,1.056D0,1.115D0,1.171D0,1.221D0 /)
-!        x(10,1:5) = (/ 1D0,1.048D0,1.097D0,1.141D0,1.18D0 /)
-!        x(9,1:5)  = (/ 1D0,1.041D0,1.083D0,1.119D0,1.15D0 /)
-!        x(8,1:5)  = (/ 1D0,1.036D0,1.072D0,1.102D0,1.128D0 /)
-!        x(7,1:5)  = (/ 1D0,1.032D0,1.063D0,1.089D0,1.112D0 /)
-!        x(6,1:5)  = (/ 1D0,1.028D0,1.056D0,1.079D0,1.099D0 /)
-!        x(5,1:5)  = (/ 1D0,1.026D0,1.051D0,1.073D0,1.091D0 /)
-!        x(4,1:5)  = (/ 1D0,1.024D0,1.049D0,1.069D0,1.086D0 /)
-!        x(3,1:5)  = (/ 1D0,1.024D0,1.048D0,1.068D0,1.085D0 /)
-!        x(2,1:5)  = (/ 1D0,1.024D0,1.048D0,1.068D0,1.085D0 /)
-!        x(1,1:5)  = (/ 1D0,1.024D0,1.048D0,1.068D0,1.085D0 /)
-!        it=INT(ttc*10D0 - 1D-5) + 1
-!        wt1 = (0.1D0*dble(it)-ttc)/0.1D0
-!        wt2 = 1D0 - wt1
-!        ic = 1
-!        do
-!          if (dcpcn < c(ic+1) ) exit
-!          ic = ic+1
-!          if (ic == 4) exit
-!        end do
-!        wc1 = (c(ic+1)-dcpcn)/(c(ic+1)-c(ic))
-!        wc2 = 1D0 - wc1
-!        corr = wt1*(wc1*x(it,ic)+wc2*x(it,ic+1))
-!        corr = corr + wt2*(wc1*x(it+1,ic)+wc2*x(it+1,ic+1))
-!        he3_trivgap = he3_bcsgap(ttc)*corr
-!      end
-
 ! Trivial strong-coupling correction (WCP) to the BCS energy gap.
 ! Approximation of Serene,Rainer-1983 corrections
 ! (Phys. Rep. 101, 221), table 4
+! Note that derivative of
+! the gap squared in $T_c$ is not strictly proportional to the heat capacity jump.
+! This probably shows that exact heat capacity calculation requires WCP energy terms,
+! not just BCS calculations with modified gap...
+
       function he3_trivgap(ttc,p)
         implicit none
         include 'he3.fh'
