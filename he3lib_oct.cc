@@ -3,7 +3,7 @@
 #include <iostream>
 
 /* This is a universal octave interface for
- * constants and functions with 1..5 aguments.
+ * all he3lib constants and functions.
  * All arguments and returned values are double.
  * Vectors or matrices can be used as arguments,
  * vector and matrix arguments can be mixed
@@ -13,16 +13,13 @@
  *                               slazav, 2013-2020 */
 
 extern "C" {
-#include "he3.h"
+#include "he3tab.h"
 }
 
 DEFUN_DLD(he3lib, args, nargout, "he3 library") {
 
   int max_na = 8;
 
-  std::string fn; // function name
-  std::string fd; // function description
-  int na = -1; // number of arguments
   double cnst;
   typedef double (*fun1_t)(double*);
   typedef double (*fun2_t)(double*, double*);
@@ -33,53 +30,47 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
   typedef double (*fun7_t)(double*, double*, double*, double*, double*, double*, double*);
   typedef double (*fun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
 
-  void *func;
-
   // first argument - a string is a function name
   if (args.length() < 1)
     error("name of function expected");
-
   if (!args(0).is_string())
     error("name of function in the first argument should be a string");
+  std::string fn = args(0).string_value();
 
-  fn = args(0).string_value();
-
-  // read function table, find wich function we need,
-  // number of arguments, description
-  if (0) {}
-  #define STR(s) #s
-  #define CONST(name, args, descr)\
-     else if (fn + '_' == STR(name)){ cnst = name; na = args; fd = descr;}
-  #define FUNC(name, args, descr)\
-     else if (fn + '_' == STR(name)){ func = (void*)name; na = args; fd = descr;}
-  #include "he3funcs.h"
-  else
-    error("unknown function name: %s", fn.c_str());
-
-  if (args.length() != 1 + na)
-    error("%s -- %d arguments expected", fd.c_str(), na);
-
-  if (args.length() > max_na+1)
-    error("functions with > 8 arguments are not supported in octfunc.c");
-
-  /* Constants */
-  if (na == 0) {
-    Matrix out(1,1);
-    *out.fortran_vec()=cnst;
-    return octave_value(out);
+  /* look for the command in a constant list */
+  struct tab_t *F = NULL;
+  for (int i=0; const_tab[i].name!=NULL ; i++){
+    if (strcmp(func_tab[i].name, fn.c_str())==0){
+      F = &const_tab[i];
+      Matrix out(1,1);
+      *out.fortran_vec()=*(double *)F->func;
+      return octave_value(out);
+    }
   }
 
-  /* Functions */
+  /* look for the command in a function list */
+  for (int i=0; func_tab[i].name!=NULL ; i++){
+    if (strcmp(func_tab[i].name, fn.c_str())==0){
+      F = &func_tab[i];
+      break;
+    }
+  }
+
+  if (F == NULL)
+    error("%s: unknown function name", fn.c_str());
+  if (args.length() != 1 + F->narg)
+    error("%s: %d arguments expected (%s)", fn.c_str(), F->narg, F->args);
+
+
   /* Get input arguments, calculate maximal size */
-  NDArray ina[na];
-  double  *in[na];
-  bool s[na];
+  NDArray ina[F->narg];
+  double  *in[F->narg];
+  bool s[F->narg];
   dim_vector dv0(1,1);
   int numel = 1;
-
-  for (int i=0; i<na; i++){
+  for (int i=0; i<F->narg; i++){
     if (!args(i+1).isnumeric())
-      error("%s -- numeric matrix or scalar expected in argument %d", fd.c_str(), i);
+      error("%s: numeric matrix or scalar expected in argument %d", fn.c_str(), i);
 
     ina[i] = args(i+1).array_value(); // array
     in[i] = ina[i].fortran_vec();     // pointer to its raw data
@@ -100,36 +91,41 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
   double *o = out.fortran_vec();
 
   /* calculate values */
+  double (*ff)() = F->func;
   for (int i=0; i<numel; i++){
     OCTAVE_QUIT; // octave can break here;
-    if (na==1) o[i] =
-      ((fun1_t)func)(in[0]+(s[0]?0:i));
-    if (na==2) o[i] =
-      ((fun2_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i));
-    if (na==3) o[i] =
-      ((fun3_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i));
-    if (na==4) o[i] =
-      ((fun4_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i), in[3]+(s[3]?0:i));
-    if (na==5) o[i] =
-      ((fun5_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                     in[4]+(s[4]?0:i));
-    if (na==6) o[i] =
-      ((fun6_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                     in[4]+(s[4]?0:i), in[5]+(s[5]?0:i));
-    if (na==7) o[i] =
-      ((fun7_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                     in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
-                     in[6]+(s[6]?0:i));
-    if (na==8) o[i] =
-      ((fun8_t)func)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                     in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                     in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
-                     in[6]+(s[6]?0:i), in[7]+(s[7]?0:i));
+    switch(F->narg){
+      case 1: o[i] = ((fun1_t)ff)(in[0]+(s[0]?0:i));
+              break;
+      case 2: o[i] = ((fun2_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i));
+              break;
+      case 3: o[i] = ((fun3_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i));
+              break;
+      case 4: o[i] = ((fun4_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i));
+              break;
+      case 5: o[i] = ((fun5_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                  in[4]+(s[4]?0:i));
+              break;
+      case 6: o[i] = ((fun6_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i));
+              break;
+      case 7: o[i] = ((fun7_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                                  in[6]+(s[6]?0:i));
+              break;
+      case 8: o[i] = ((fun8_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                  in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                  in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                                  in[6]+(s[6]?0:i), in[7]+(s[7]?0:i));
+              break;
+      default:
+        error("Error: unsupported function prototype\n");
+    }
   }
   return octave_value(out);
 }
