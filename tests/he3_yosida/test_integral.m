@@ -1,10 +1,5 @@
-function yosida_int()
+function test_integral()
   % integrate Yosida functions and compare result with he3lib:
-
-% It should not go to infinity at any T/Tc.
-% This can be controlled by changing c in
-% x = tanh(xi/c(ttc))
-% c = 2 is a rather good value
 
   hold on;
   addpath ../../octave
