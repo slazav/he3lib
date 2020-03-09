@@ -170,7 +170,7 @@
         real*8 k,x,y,a,b,c,d
 
         y = he3_dcbcn(p) - 12D0/7D0/const_z3
-        x = 1-ttc
+        x = 1D0-ttc
         a = -0.08342397526067D0*y**2
      .     + 0.28724078111814D0*y + 1D0
         b =  0.03832526906988D0*y**2
@@ -185,6 +185,35 @@
         k = a + b*dexp(-x*c-x**2*d)
 
         he3_trivgap = dsqrt(k)*he3_bcsgap(ttc)
+      end
+
+! Derivative of the trivial strong-coupling (WCP) gap: d(Delta^2)/d(T/Tc)
+      function he3_trivdgap2(ttc,p)
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 k,dk,x,y,a,b,c,d
+
+        y = he3_dcbcn(p) - 12D0/7D0/const_z3
+        x = 1D0-ttc
+        a = -0.08342397526067D0*y**2
+     .     + 0.28724078111814D0*y + 1D0
+        b =  0.03832526906988D0*y**2
+     .     + 0.38097566888497D0*y
+        c =  0.22188897390807D0*y**2
+     .     + 1.33772124075848D0*y
+     .     + 2.16590470748955D0
+        d = -2.04760212642877D0*y**2
+     .     + 0.59148230270250D0*y
+     .     + 2.79334876756980D0
+        k = a + b*dexp(-x*c-x**2*d)
+        dk = b*dexp(-x*c-x**2*d)*(c+2D0*x*d) ! d/dx = -d/dttc
+
+        ! g^2 = g0^2 * k
+        ! d(g^2) = d(g0^2)*k + g0^2 * dk
+
+        he3_trivdgap2 = he3_bcsdgap2(ttc) * k
+     .                + he3_bcsgap(ttc)**2 * dk
       end
 
 ! delta(0)/Tc for 3He versus pressure, bar
