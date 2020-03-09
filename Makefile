@@ -33,7 +33,7 @@ all: headers\
 
 # header files for C/F77/F90 are created from he3.def
 headers: he3.f90h he3.fh he3.h he3tab.h
-he3.f90h he3.fh he3.h he3tab.h octave/he3.tab: he3.def make_inc
+he3.f90h he3.fh he3.h he3tab.h octave/he3.tab he3funcs.h: he3.def make_inc
 	./make_inc
 
 LIBNAME=libhe3
@@ -45,6 +45,7 @@ LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
         he3_transp_n he3_transp_b he3_b2 he3_other he3_polar\
         he3_rota he3_bspec he3_a
 OBJS= $(patsubst %,%.o,$(LIBOBJS))
+$(OBJS): he3.fh
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+
@@ -63,12 +64,10 @@ he3: he3.o libhe3.a
 ## install rules
 
 bindir  ?= /usr/bin
-libdir  ?= /usr/lib
+libdir  ?= /usr/lib64
 datadir ?= /usr/share
 includedir  ?= /usr/include
-octdir = ${datadir}/octave/packages/he3lib
-
-install: install_headers install_library install_cmdline
+octdir = ${datadir}/octave/site/he3lib
 
 install_headers: he3.f90h he3.fh he3.h
 	mkdir -p ${includedir}
@@ -82,14 +81,17 @@ install_cmdline: he3
 	mkdir -p ${bindir}
 	install -m0755 $+ ${bindir}
 
-install_octave: octave
+install_octave: octave install_library
 	mkdir -p ${octdir}/packinfo
-	install -m0644 octave/*.oct ${octdir}
-	install -m0644 octave/DESCRIPTION ${octdir}/packinfo
+	install -m0644 *.oct ${octdir}
+	install -m0644 m/*.m ${octdir}
+	install -m0644 m/DESCRIPTION ${octdir}/packinfo
 
 ###################################
-octave: library octave/he3.tab
-	make -C octave
+
+octave: library he3lib.oct
+he3lib.oct: he3lib_oct.cc he3.h he3funcs.h
+	mkoctfile $< -lhe3 -L. -W -std=c++11 -s -v -o $@
 
 matlab: library
 	make -C matlab matlab
@@ -106,6 +108,6 @@ doc: octave
 
 ###################################
 clean:
-	rm -f *.a *.so *.o libs/*.o he3.f90h he3.fh he3.h he3
+	rm -f *.a *.so *.o libs/*.o *.oct m/*.m he3.f90h he3.fh he3.h he3 he3funcs.h he3tab.h
 #	make -C matlab clean
 #	make -C doc clean

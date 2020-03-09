@@ -13,10 +13,10 @@ function plot_integrand()
   for ttc=[0.05 0.5 0.99]
     gap=he3_bcsgap(ttc)
     dgap2=he3_bcsdgap2(ttc)
-    I0 = yosida_c_int(x,gap,dgap2,ttc);
+    I0 = integrand_c(x,gap,dgap2,ttc);
     plot(x, I0/max(I0), 'r')
   end
 
-%  print -deps -color plot_yosida_int.eps
+%  print -deps -color plot_integrand_c.eps
 
 end

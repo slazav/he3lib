@@ -1,5 +1,5 @@
 % Yosida function integrand
-function int = yosida_int(x,gap,TTc,n)
+function int = integrand(x,gap,TTc,n)
   c = 2;  % important power factor
   ksi = atanh(x) * c;
   Ek=sqrt(ksi.^2+gap.^2);

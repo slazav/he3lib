@@ -1,7 +1,7 @@
 all: octave
 
 clean:
-	rm -f *.oct
+	rm -f *.oct *.o
 
 octave:	octfunc.cc
 	rm -f *.oct
