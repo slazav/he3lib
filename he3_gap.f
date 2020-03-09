@@ -160,9 +160,9 @@
 !        he3_trivgap = he3_bcsgap(ttc)*corr
 !      end
 
-! Trivial strong-coupling correction to the BCS energy gap.
-! Application of Einzel-2003 interpolation formula to Serene,Rainer-1983 
-! corrections (Phys. Rep. 101, 221), table 4
+! Trivial strong-coupling correction (WCP) to the BCS energy gap.
+! Approximation of Serene,Rainer-1983 corrections
+! (Phys. Rep. 101, 221), table 4
       function he3_trivgap(ttc,p)
         implicit none
         include 'he3.fh'
