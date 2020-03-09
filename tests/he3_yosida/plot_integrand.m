@@ -12,11 +12,11 @@ function plot_integrand()
 
   for TTc=[0.05 0.5 0.99]
     gap=he3_bcsgap(TTc)
-    I0 = yosida_int(x,gap,TTc,0);
-    I1 = yosida_int(x,gap,TTc,1);
-    I2 = yosida_int(x,gap,TTc,2);
-    I3 = yosida_int(x,gap,TTc,3);
-    I4 = yosida_int(x,gap,TTc,4);
+    I0 = integrand(x,gap,TTc,0);
+    I1 = integrand(x,gap,TTc,1);
+    I2 = integrand(x,gap,TTc,2);
+    I3 = integrand(x,gap,TTc,3);
+    I4 = integrand(x,gap,TTc,4);
     plot(x, I0/max(I0), 'r')
     plot(x, I1/max(I1), 'g')
     plot(x, I2/max(I2), 'b')
@@ -24,6 +24,6 @@ function plot_integrand()
     plot(x, I4/max(I4), 'c')
   end
 
-%  print -deps -color plot_yosida_int.eps
+%  print -deps -color plot_integrand.eps
 
 end

@@ -259,7 +259,7 @@
 ! Integrand for Yosida function calculations
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
-! See also tests/plot_yosida_int.m
+! See also tests/he3_yosida
       function he3_yosida_int(x)
         implicit none
         include 'he3.fh'
@@ -311,7 +311,7 @@
 ! Integrand for Entropy Yosida function (see Einzel-2003, table 1)
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
-! See also tests/plot_yosida_int.m
+! See also tests/he3_yosida
       function he3_yosida_s_int(x)
         implicit none
         include 'he3.fh'
@@ -362,7 +362,7 @@
 ! Integrand for Heat capacity Yosida function (see Einzel-2003, table 1)
 ! x = tanh(\xi)/2 change is made to get good integrand
 ! and [0:1] integrating range.  d\xi -> 2 dx / (1-x**2)
-! See also tests/plot_yosida_int.m
+! See also tests/he3_yosida
       function he3_yosida_c_int(x)
         implicit none
         include 'he3.fh'
