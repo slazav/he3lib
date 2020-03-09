@@ -370,7 +370,7 @@
         real*8 ttc, gap, dgap2
         common /he3_yosida_c_int_cb/ ttc, gap, dgap2
         real*8 xi, ek, C
-        C=3D0
+        C=4D0
         xi = datanh(x)*C
         ek=dsqrt(xi**2 + gap**2)
         he3_yosida_c_int =
