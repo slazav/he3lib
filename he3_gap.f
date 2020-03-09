@@ -374,15 +374,15 @@
         dtm=ttc*1D-3
 
         if (ttc.lt.0D0) then
-          he3_yosida=NaN
+          he3_yosida_c=NaN
           return
         endif
         if (ttc.eq.0D0) then
-          he3_yosida=0D0
+          he3_yosida_c=0D0
           return
         endif
         if (ttc.gt.1D0) then
-          he3_yosida=1D0
+          he3_yosida_c=1D0
           return
         endif
         if (ttc.gt.1D0-dtp) then
