@@ -167,29 +167,25 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        real*8 y,l1,l2,g0,ga,aa,x
-        real*8 yb,l1b,l2b,g0b,aab,gab  ! BCS values
+        real*8 k,x,y,a,b,c,d
 
-        ! see my notes somewhere
-        x=1D0-ttc
-        y=he3_dcbcn(p)
+        y = he3_dcbcn(p) - 12D0/7D0/const_z3
+        x = 1-ttc
+        a = -0.08342397526067D0*y**2
+     .     + 0.28724078111814D0*y + 1D0
+        b =  0.03832526906988D0*y**2
+     .     + 0.38097566888497D0*y
+        c =  0.22188897390807D0*y**2
+     .     + 1.33772124075848D0*y
+     .     + 2.16590470748955D0
+        d = -2.04760212642877D0*y**2
+     .     + 0.59148230270250D0*y
+     .     + 2.79334876756980D0
 
-        yb = 12D0/7D0/const_z3
-        l1b = 2D0/3D0*yb
-        l2b = yb*(1D0-31D0/144D0*const_z5*yb**2)
-        g0b = const_pi/dexp(const_euler)
-        aab = -l2b/l1b + 2D0*l1b/3D0 * dexp(2D0*const_euler) - 1D0
-        gab = g0b*dtanh(const_pi/g0b*dsqrt(l1b/(1D0-x)*(x+aab*x**2)))
+        k = a + b*dexp(-x*c-x**2*d)
 
-        l1 = 2D0/3D0*y*(1.021745D0+0.002692D0*y-0.012582D0*y**2)
-        l2 = y*(-0.436318D0+0.733004D0*y-0.032478D0*y**2)
-        g0 = g0b*(0.700558D0+0.275132*y-0.045649D0*y**2)
-        aa = -l2/l1 + 2D0*l1/3D0 * dexp(2D0*const_euler) - 1D0
-        ga = g0*dtanh(const_pi/g0*dsqrt(l1/(1D0-x)*(x+aa*x**2)))
-
-        he3_trivgap = ga/gab*he3_bcsgap(ttc)
+        he3_trivgap = dsqrt(k)*he3_bcsgap(ttc)
       end
-
 
 ! delta(0)/Tc for 3He versus pressure, bar
 ! linear interpolation in density between BCS value at zero bar
