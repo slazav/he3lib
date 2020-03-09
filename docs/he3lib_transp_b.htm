@@ -126,6 +126,16 @@ $T>T_c$ region using normal phase functions.
 <tr><td><tt>he3_fpath(ttc,p)</tt></td>
     <td>Mean free path, [cm]. (Einzel JLTP32 (1978) f.84)</td>
     </tr>
+<tr><td><tt>he3_visc_fpath(ttc,p)</tt></td>
+    <td>Viscous mean free path, [cm]. (Einzel 1990, eq.26)
+    </td>
+    </tr>
+
+<tr><td><tt>he3_rmsv(ttc,p)</tt></td>
+    <td>Rms velosity of Bogoliubov quasiparticles [cm/s] (Einzel JLTP32 (1990) f.28)
+    </td>
+    </tr>
+
 <tr><td><tt>he3_tau_dperp(ttc,p)</tt>
     <br><tt>he3_tau_dpar(ttc,p)</tt></td>
     <td>Spin diff. transport time, [s].
@@ -134,6 +144,14 @@ $T>T_c$ region using normal phase functions.
     <br>(Einzel-1991, f.90,96)</td>
     </tr>
 </table>
+
+<h4>Viscosity</h4>
+
+<tr><td><tt>he3_he3_hvisc(ttc,p)</tt></td>
+    <td>Viscosity in hydrodynamic limit ($\omega_L \tau \ll 1$) [g/cm/s],
+        (Einzel JLTP84 (1990) f.28)
+    </td>
+    </tr>
 
 <h4>Spin diffusion</h4>
 

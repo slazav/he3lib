@@ -74,12 +74,24 @@ derived from energy gap.
 <table><tr><td><tt>he3_bcsgap(ttc)</tt></td>
     <td>BCS gap for 3He-B in $T_c$ units.</td>
     </tr>
+<table><tr><td><tt>he3_bcsdgap2(ttc)</tt></td>
+    <td>Derivative of the BCS gap $d(\Delta^2)/d(T/T_c)$.</td>
+    </tr>
 <tr><td><tt>he3_bcsgap_fast(ttc)</tt></td>
     <td>Einzel approximation for BCS gap (0.5% accuracy, 70 times faster).
     <br>(Einzel-1991, f.68)</td>
     </tr>
+
 <tr><td><tt>he3_trivgap(ttc,p)</tt></td>
-    <td>Trivial strong-coupling (or weak-couplig-plus, WCP) correction to the BCS gap. </td>
+    <td>Trivial strong-coupling (or weak-couplig-plus, WCP) correction to the BCS gap.
+        Tabulated values from Sirene-Rainer-1983 paper are used. Note that derivative of
+        the gap squared in $T_c$ is not strictly proportional to the heat capacity jump.
+        This probably shows that exact heat capacity calculation requires WCP energy terms,
+        not just BCS calculations with modified gap...
+    </td>
+    </tr>
+<table><tr><td><tt>he3_bcsdgap2(ttc, p)</tt></td>
+    <td>Derivative of the WCP gap $d(\Delta^2)/d(T/T_c)$.</td>
     </tr>
 <tr><td><tt>he3_todogap(ttc,p)</tt></td>
     <td>Gap based on Todoschenko's measurements:
@@ -111,12 +123,10 @@ derived from energy gap.
     </td>
     </tr>
 
-<tr><td><tt>he3_yosida_c(ttc,P)</tt></td>
+<tr><td><tt>he3_yosida_c(ttc,gap,dgap2)</tt></td>
     <td>Heat Capacity Yosida function
-        $Y_c(T/T_c,\Delta) = Y_s + T/T_c \frac{d}{dT/T_c}$
-        <br> Note: pressure [bar] is used as a secong argument because
-             temperature dependence of gap is needed.
-             <tt>he3_gap()</tt> is used if $P\ge 0$, <tt>he3_bcsgap()</tt> is used overwise.
+        $Y_c(T/T_c,\Delta) = Y_s + T/T_c \frac{d}{dT/T_c} Y_s$
+        <br> Gap derivative should be provided as a third argument.
     </td>
     </tr>
 <tr><td><tt>he3_yosida_par(ttc,gap)</tt>
@@ -126,15 +136,6 @@ derived from energy gap.
     <br><tt>he3_z7(ttc,gap)</tt>
     <br><tt>he3_lambda(ttc,gap)</tt></td>
     <td>Various functions</td>
-    </tr>
-
-<tr><td><tt>he3_yosida_0_appr(ttc,P)</tt>
-    <br><tt>he3_yosida_s_appr(ttc,P)</tt>
-    <br><tt>he3_yosida_c_appr(ttc,P)</tt></td>
-    <td> Einzel-2003 approximations of $Y_0$, $Y_s$, $Y_c$ functions (See Einzel-2003),
-     extended to WCP gap (see my note somewhere).
-     <tt>he3_gap()</tt> is used if $P\ge 0$, <tt>he3_bcsgap()</tt> is used overwise.
-    </td>
     </tr>
 
 <tr><td><tt>he3_rho_nb(ttc, p)</tt></td>
