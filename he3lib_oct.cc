@@ -40,7 +40,7 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
   /* look for the command in a constant list */
   struct tab_t *F = NULL;
   for (int i=0; const_tab[i].name!=NULL ; i++){
-    if (strcmp(func_tab[i].name, fn.c_str())==0){
+    if (strcmp(const_tab[i].name, fn.c_str())==0){
       F = &const_tab[i];
       Matrix out(1,1);
       *out.fortran_vec()=*(double *)F->func;
@@ -59,7 +59,7 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
   if (F == NULL)
     error("%s: unknown function name", fn.c_str());
   if (args.length() != 1 + F->narg)
-    error("%s: %d arguments expected (%s)", fn.c_str(), F->narg, F->args);
+    error("%s: %d argument(s) expected (%s)", fn.c_str(), F->narg, F->args);
 
 
   /* Get input arguments, calculate maximal size */

@@ -72,7 +72,7 @@ foreach (<DEF>){
       "\"$name\",", "(const void*)&${name}_,", "\"$tcomm\"";
 
     open(OCT_F, "> m/$name.m") or die "can't open octave_f/$name.m: $!";
-      print OCT_F "function v=$name() v=he3lib(\"$name\"); end";
+      print OCT_F "function v=$name(varargin) v=he3lib(\"$name\", varargin{:}); end";
     close(OCT_F);
     next;
   }

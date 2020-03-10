@@ -93,6 +93,9 @@ octave: library he3lib.oct
 he3lib.oct: he3lib_oct.cc he3.h he3tab.h
 	mkoctfile $< -lhe3 -L. -W -std=c++11 -s -v -o $@
 
+he3lib.mex: he3lib_mex.c he3.h he3tab.h
+	mkoctfile $< -mex -lhe3 -L. -W -s -v -o $@
+
 matlab: library
 	make -C matlab matlab
 
