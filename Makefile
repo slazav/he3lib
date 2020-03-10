@@ -89,21 +89,22 @@ install_octave: octave install_library
 
 ###################################
 
-octave: library he3lib.oct
+octave:     library he3lib.oct
+octave-mex: library he3lib.mex
+matlab:     library he3lib.mexglx
+matlab64:   library he3lib.mexa64
+
 he3lib.oct: he3lib_oct.cc he3.h he3tab.h
 	mkoctfile $< -lhe3 -L. -W -std=c++11 -s -v -o $@
 
 he3lib.mex: he3lib_mex.c he3.h he3tab.h
 	mkoctfile $< -mex -lhe3 -L. -W -s -v -o $@
 
-matlab: library
-	make -C matlab matlab
+he3lib.mexglx: he3lib_mex.c he3.h he3tab.h
+	matlab -nojvm -nosplash -r "mex -output $@ -lhe3 $<"
 
-matlab64: library
-	make -C matlab matlab64
-
-octave-mex: library
-	make -C octave-mex
+he3lib.mexa64: he3lib_mex.c he3.h he3tab.h
+	matlab64 -nojvm -nosplash -r "mex -output $@ -lhe3 $<"
 
 doc: octave
 	make -C doc
