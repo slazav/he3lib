@@ -1,0 +1,15 @@
+#!/usr/bin/gnuplot
+
+# when writng points I assumed x axis to be 0..1,
+# but it is 0.2..1,  x=0.2+x*0.8
+
+set key bottom
+
+plot\
+  "SR1983.f5.5_2.2.txt" using (0.2+$1*0.8):2 with linespoints pt 6 title "2.2",\
+  "SR1983.f5.5_2.0.txt" using (0.2+$1*0.8):2 with linespoints pt 6 title "2.0",\
+  "SR1983.f5.5_1.8.txt" using (0.2+$1*0.8):2 with linespoints pt 6 title "1.8",\
+  "SR1983.f5.5_1.6.txt" using (0.2+$1*0.8):2 with linespoints pt 6 title "1.6",\
+  "SR1983.f5.5_1.43.txt" using (0.2+$1*0.8):2 with linespoints pt 6 title "1.43",\
+
+pause -1
