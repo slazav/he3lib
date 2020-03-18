@@ -20,14 +20,6 @@ void
 mexFunction(int nlhs, mxArray *plhs[],
             int nrhs, const mxArray *prhs[]){
 
-  typedef double (*fun1_t)(double*);
-  typedef double (*fun2_t)(double*, double*);
-  typedef double (*fun3_t)(double*, double*, double*);
-  typedef double (*fun4_t)(double*, double*, double*, double*);
-  typedef double (*fun5_t)(double*, double*, double*, double*, double*);
-  typedef double (*fun6_t)(double*, double*, double*, double*, double*, double*);
-  typedef double (*fun7_t)(double*, double*, double*, double*, double*, double*, double*);
-  typedef double (*fun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
   struct tab_t *F = NULL;
   char fn[1024];
 

@@ -20,16 +20,6 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
 
   int max_na = 8;
 
-  double cnst;
-  typedef double (*fun1_t)(double*);
-  typedef double (*fun2_t)(double*, double*);
-  typedef double (*fun3_t)(double*, double*, double*);
-  typedef double (*fun4_t)(double*, double*, double*, double*);
-  typedef double (*fun5_t)(double*, double*, double*, double*, double*);
-  typedef double (*fun6_t)(double*, double*, double*, double*, double*, double*);
-  typedef double (*fun7_t)(double*, double*, double*, double*, double*, double*, double*);
-  typedef double (*fun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
-
   // first argument - a string is a function name
   if (args.length() < 1)
     error("name of function expected");
