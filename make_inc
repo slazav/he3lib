@@ -30,7 +30,6 @@ print OUT_F77 $fnan;
 print OUT_F90 $fnan;
 
 my $fcblk="! Common blocks for all constants\n";
-my $tab_c="";
 my $tab_f="";
 foreach (<DEF>){
   ## hidden comments
@@ -50,62 +49,60 @@ foreach (<DEF>){
     print OUT_F90 "!$1\n";
     next;
   }
-  ## constants
-  if (/^\s*([^\s\(\)]+)(\s*)(#\s*(.*))?$/){
-    my ($name, $sp, $comm) = ($1, $2, $4);
-    # C
-    my $ccomm = defined($comm)? "$sp/* $comm */": "";
-    print OUT_C   "extern double ${name}_;$ccomm\n";
-    # F
-    my $fcomm = defined($comm)? "$sp! $comm": "";
-    my $ffunc = "      real*8 $name$fcomm\n";
-    $fcblk  .= sprintf("        common %15s $name\n", "/$name/");
-    print OUT_F77 $ffunc;
-    print OUT_F90 $ffunc;
-    # Octave table
-    my $ocomm = $comm || '';
-    print OUT_OCT "$name 0 $sp$name -- $ocomm\n";
-    # TAB
-    my $tcomm = defined($comm)? "$comm": "";
-    $tcomm =~ s/\"/\\\"/g;
-    $tab_c .= sprintf "{%-22s %-36s 0, \"\", %s},\n",
-      "\"$name\",", "(const void*)&${name}_,", "\"$tcomm\"";
 
-    open(OCT_F, "> m/$name.m") or die "can't open octave_f/$name.m: $!";
-      print OCT_F "function v=$name(varargin) v=he3lib(\"$name\", varargin{:}); end";
-    close(OCT_F);
+  ## functions and constants
+  my ($name, $args, $sp, $comm);
+  if (/^\s*([^\s\(\)]+)(\s*)(#\s*(.*))?$/){
+    ($name, $args, $sp, $comm) = ($1, '', $2, $4);
+  }
+  elsif (/^\s*([^\s\(\)]+)\(([^)]+)\)(\s*)(#\s*(.*))?$/){
+    ($name, $args, $sp, $comm) = ($1, $2, $3, $5);
+  }
+  else {
     next;
   }
-  ## functions
-  if (/^\s*([^\s\(\)]+)\(([^)]+)\)(\s*)(#\s*(.*))?$/){
-    my ($name, $args, $sp, $comm) = ($1, $2, $3, $5);
-    # C
-    my @args = split(/\s*,\s*/, $args);
-    my $cargs = 'double *' . join(', double *', @args);
-    my $ccomm = defined($comm)? "$sp/* $comm */": "";
+
+
+  #### C
+  my @args = split(/\s*,\s*/, $args);
+  my $ccomm = defined($comm)? "$sp/* $comm */": "";
+  if (!$args){
+    print OUT_C   "extern double ${name}_;$ccomm\n";
+  }
+  else {
+    my $cargs .= 'double *' . join(', double *', @args);
     print OUT_C "double ${name}_($cargs);$ccomm\n";
-    # F
-    my $fcomm = defined($comm)? "$sp! $comm": "";
-    my $ffunc = "      real*8 $name$fcomm\n";
-    print OUT_F77 $ffunc;
-    print OUT_F90 $ffunc;
-    # Octave table
-    my $ocomm = $comm || '';
+  }
+
+  #### F
+  my $fcomm = defined($comm)? "$sp! $comm": "";
+  my $ffunc = "      real*8 $name$fcomm\n";
+  if ($args eq ''){
+    $fcblk  .= sprintf("        common %15s $name\n", "/$name/");
+  }
+  print OUT_F77 $ffunc;
+  print OUT_F90 $ffunc;
+
+  #### Octave table
+  my $ocomm = $comm || '';
+  if (!$args){
+    print OUT_OCT "$name 0 $sp$name -- $ocomm\n";
+  }
+  else {
     my $nargs = $#args+1;
     print OUT_OCT "$name $nargs $sp$name($args) -- $ocomm\n";
-    # TAB
-    my $tcomm = defined($comm)? "$comm": "";
-    $tcomm =~ s/\"/\\\"/g;
-    my $targs = $args;
-    $targs =~ s/[\s,]+/ /g;
-    $tab_f .= sprintf "{%-22s %-36s %d, %-20s %s},\n", 
-      "\"$name\",", "(const void*)&${name}_,", $#args+1, "\"$targs\",", "\"$tcomm\"";
-
-    open(OCT_F, "> m/$name.m") or die "can't open octave_f/$name.m: $!";
-      print OCT_F "function v=$name(varargin) v=he3lib(\"$name\", varargin{:}); end";
-    close(OCT_F);
-    next;
   }
+
+  #### TAB
+  my $tcomm = $comm || '';
+  $tcomm =~ s/\"/\\\"/g;
+  $tab_f .= sprintf "{%-22s %-36s, %d, \"%s\", \"%s\"},\n",
+    "\"$name\",", "(const void*)&${name}_", $#args+1, $args, $tcomm;
+
+  #### Octave wrapper function
+  open(OCT_F, "> m/$name.m") or die "can't open octave_f/$name.m: $!";
+    print OCT_F "function v=$name(varargin) v=he3lib(\"$name\", varargin{:}); end";
+  close(OCT_F);
 }
 
 print OUT_C   "#endif\n";
@@ -143,8 +140,6 @@ struct tab_t {
   const char * args;
   const char * comm;
 };
-struct tab_t const_tab[] = {
-${tab_c}{NULL,NULL,0,NULL,NULL}};
 struct tab_t func_tab[] = {
 ${tab_f}{NULL,NULL,0,NULL,NULL}};
 |;

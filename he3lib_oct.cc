@@ -27,23 +27,12 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
     error("name of function in the first argument should be a string");
   std::string fn = args(0).string_value();
 
-  /* look for the command in a constant list */
-  struct tab_t *F = NULL;
-  for (int i=0; const_tab[i].name!=NULL ; i++){
-    if (strcmp(const_tab[i].name, fn.c_str())==0){
-      F = &const_tab[i];
-      Matrix out(1,1);
-      *out.fortran_vec()=*(double *)F->func;
-      return octave_value(out);
-    }
-  }
-
   /* look for the command in a function list */
+  struct tab_t *F = NULL;
   for (int i=0; func_tab[i].name!=NULL ; i++){
-    if (strcmp(func_tab[i].name, fn.c_str())==0){
-      F = &func_tab[i];
-      break;
-    }
+    if (strcmp(func_tab[i].name, fn.c_str())!=0) continue;
+    F = &func_tab[i];
+    break;
   }
 
   if (F == NULL)
@@ -51,6 +40,13 @@ DEFUN_DLD(he3lib, args, nargout, "he3 library") {
   if (args.length() != 1 + F->narg)
     error("%s: %d argument(s) expected (%s)", fn.c_str(), F->narg, F->args);
 
+
+  /* constant */
+  if (F->narg == 0){
+    Matrix out(1,1);
+    *out.fortran_vec()=*(double *)F->func;
+    return octave_value(out);
+  }
 
   /* Get input arguments, calculate maximal size */
   NDArray ina[F->narg];

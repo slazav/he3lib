@@ -102,42 +102,35 @@ main(int argc, char *argv[]){
   if (argc<2){
     printf("### he3lib command line interface, slazav, 03.2014 ###\n");
     printf("### Command list:\n");
-    /* constants */
-    for (i=0; const_tab[i].name!=NULL ; i++){
-      struct tab_t *F = &const_tab[i];
-      printf("%-22s %s\n", F->name, F->comm);
-    }
-    /* functions */
     for (i=0; func_tab[i].name!=NULL ; i++){
       struct tab_t * F = &func_tab[i];
-      printf("%s(%s)\t%s\n", F->name, F->args, F->comm);
+      if (F->narg==0)
+        printf("%-22s %s\n", F->name, F->comm);
+      else
+        printf("%s(%s)\t%s\n", F->name, F->args, F->comm);
     }
     exit(1);
   }
 
   /* first argument -- command name */
   cmd=argv[1];
-  /* look for the command in a constant list */
-  for (i=0; const_tab[i].name!=NULL ; i++){
-    struct tab_t *F = &const_tab[i];
-    if (strcmp(F->name, cmd)==0){
-      printf("%e\n", *(double *)F->func);
-      exit(0);
-    }
-  }
+
   /* look for the command in a function list */
   for (i=0; func_tab[i].name!=NULL ; i++){
     struct tab_t *F = &func_tab[i];
-    if (strcmp(F->name, cmd)==0){
-      /* check number of arguments */
-      if (argc-2!=F->narg){
-        printf("# %s\n", F->comm);
-        printf("Usage: %s %s %s\n", F->name, F->args, F->comm);
-        exit(1);
-      }
-      call_func(F, argv+2);
-      exit(0);
+    if (strcmp(F->name, cmd)!=0) continue;
+    /* check number of arguments */
+    if (argc-2!=F->narg){
+      printf("%s\n", F->comm);
+      printf("Not enough argumnets (%d expected)\n", F->narg);
+      printf("Usage: %s %s\n", F->name, F->args);
+      exit(1);
     }
+    if (F->narg == 0)
+      printf("%e\n", *(double *)F->func);
+    else
+      call_func(F, argv+2);
+    exit(0);
   }
   printf("Unknown command: %s\n", cmd);
   exit(1);

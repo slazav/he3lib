@@ -32,20 +32,6 @@ mexFunction(int nlhs, mxArray *plhs[],
   if (mxGetString(prhs[0], fn, sizeof(fn))!=0)
     mexErrMsgTxt("can't convert string value");
 
-  /* look for the command in a constant list */
-  for (int i=0; const_tab[i].name!=NULL ; i++){
-    if (strcmp(const_tab[i].name, fn)!=0) continue;
-    double *out;
-    F = &const_tab[i];
-    if (nrhs-1 != 0){
-      mexPrintf("%s: ", fn);
-      mexErrMsgTxt("zero arguments expected");
-    }
-    plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
-    out = (double*)mxGetPr(plhs[0]);
-    *out = *(double*)F->func;
-    return;
-  }
   /* look for the command in a function list */
   for (int i=0; func_tab[i].name!=NULL ; i++){
     if (strcmp(func_tab[i].name, fn)!=0) continue;
@@ -58,9 +44,23 @@ mexFunction(int nlhs, mxArray *plhs[],
     mexErrMsgTxt("unknown function name");
   }
 
+  if (F->narg == 0 && nrhs-1 != 0){
+    mexPrintf("%s: ", fn);
+    mexErrMsgTxt("zero arguments expected");
+  }
+
   if (nrhs-1 != F->narg){
     mexPrintf("%s: %d argument(s) expected (%s)\n", fn, F->narg, F->args);
     mexErrMsgTxt("wrong number of arguments");
+  }
+
+  /* Constants */
+  if (F->narg == 0){
+    double *out;
+    plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
+    out = (double*)mxGetPr(plhs[0]);
+    *out = *(double*)F->func;
+    return;
   }
 
   /* Functions */
