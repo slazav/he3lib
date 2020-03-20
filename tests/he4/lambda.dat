@@ -1,0 +1,14 @@
+# Swenson-1952, table1
+# T[K] - P[atm]
+# 1 atm = 1.01325 bar
+
+2.186 0.05221 # adjusted using He4 temperature scale, original value: 0.02
+2.15  3.18
+2.10  7.26
+2.05  11.10
+2.00  14.72
+1.95  18.18
+1.90  21.50
+1.85  24.62
+1.80  27.62
+1.764 29.64

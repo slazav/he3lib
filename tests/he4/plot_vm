@@ -1,0 +1,56 @@
+#!/usr/bin/gnuplot
+
+##################
+# formula from paper 2.15-2.22K
+
+Vl = 27.38704
+Tl = 2.1720
+A = 1.4375451 # note that A = log(Vm) is wrong in the paper!
+B1 = 0.013287
+C1 = 0.007331
+B2 = 0.002102
+C2 = -0.007313
+
+f1(T) = 10**(A + B1*(T-Tl) + C1*(T-Tl)*log(T-Tl)/log(10))
+f2(T) = 10**(A + B2*(Tl-T) + C2*(Tl-T)*log(Tl-T)/log(10))
+
+plot [2.15:2.22]\
+  '1964_kerr.dat' using 1:2 pt 6,\
+  f1(x), f2(x)
+
+pause -1
+
+##################
+# High T: 2.22-4.4K
+# In the paper there is another expression which uses he3_pvap
+Au = A + B1*(2.22-Tl) + C1*(2.22-Tl)*log(2.22-Tl)/log(10)
+fu(T) = 10**(Au + Bu*(T-2.22) + Cu*(T-2.22)**2)
+Bu = 0.00861848
+Cu = 0.0127383
+print Au
+
+fit [2.22:] fu(x) '1964_kerr.dat' using 1:2 via Bu,Cu
+
+plot [2.22:]\
+  '1964_kerr.dat' using 1:2 pt 6, fu(x)
+
+pause -1
+
+##################
+# Low T: 0-2.15K
+
+V0 = 27.5793
+Al  = 55.912
+T1  = 9.8751
+Bl  = 0.598036
+T2  = 2.67447
+Cl  = 0.659719
+
+
+fl(T) = V0 - Al*exp(-T1/T) + Bl*exp(-(T-T2)**2/Cl)
+#fit [1e-4:2.15] fl(x) '1964_kerr.dat' using 1:2 via Al,T1,Bl,T2,Cl
+
+plot [0:2.15]\
+  '1964_kerr.dat' using 1:2 pt 6, fl(x)
+
+pause -1

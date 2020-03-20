@@ -285,3 +285,21 @@ loop_br(rloop,r,z)    # magnetic field Br of a current loop
 
 math_stokes_k(g)      # Stokes K function
 math_stokes_kp(g)     # Stokes K' function
+
+######################################################################
+# He4 (see he4.f)
+
+he4_amass     # He4 atom mass, [g]
+he4_mmass     # He4 molar mass, [g/mol]
+he4_tcv       # superfluid transition temperature at vapor pressure [K]
+he4_pcv       # vapor pressure at superfluid transition [bar]
+he4_tcm       # superfluid transition temperature at melting pressure [K]
+he4_pcm       # superfluid transition pressure at melting curve [bar]
+he4_tcr       # critical temperature [K]
+he4_pcr       # critical pressure [bar]
+
+he4_tc(p)     # Superfluid transition temperature [K] vs pressure [bar]
+he4_vm(t)     # Molar volume [cm^3/mol] vs T [K], saturated vapor pressure, 0..4.4K
+he4_pmelt(t)  # Melting pressure [bar] vs temperature [K], 0..4K
+he4_pvap(t)   # Vapor pressure [bar] vs temperature [K]
+

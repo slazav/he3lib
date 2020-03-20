@@ -19,6 +19,7 @@ print OUT_C   "#ifndef HE3_H\n#define HE3_H\n";
 # We need this to avoid possible linker problems
 # See http://gcc.gnu.org/onlinedocs/gcc-3.4.6/g77/Block-Data-and-Libraries.html#Block-Data-and-Libraries
 print OUT_F90 "external he3_const_block\n";
+print OUT_F90 "external he4_const_block\n";
 
 # NaN definition for fortran
 my $fnan =qq{
