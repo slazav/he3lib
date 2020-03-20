@@ -274,6 +274,11 @@
         real*8 P
         if (P.ge.0D0.and.P.le.34.40D0) then
           He3_F2s = 0D0
+!          ! value from Engel-1985
+!          he3_f2s = -1.264D0 + 0.896D0*dsqrt(P)
+!     .              -0.187D0*P + 0.0163D0*dsqrt(P**3)
+!          ! value from Mastumoto-1996
+!          he3_f2s = 0.15D0;
         else
           He3_F2s = NaN
         endif
