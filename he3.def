@@ -303,3 +303,8 @@ he4_vm(t)     # Molar volume [cm^3/mol] vs T [K], saturated vapor pressure, 0..4
 he4_pmelt(t)  # Melting pressure [bar] vs temperature [K], 0..4K
 he4_pvap(t)   # Vapor pressure [bar] vs temperature [K]
 
+######################################################################
+# Wire calibration (see he3_wire.f)
+
+he3_wire_mix_f(t, rho, diam, fre) # mixing chamber calibration, frequency
+he3_wire_mix_w(t, rho, diam, fre) # mixing chamber calibration, line width

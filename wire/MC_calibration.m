@@ -37,7 +37,7 @@ for c=1:n,
    G(c)=a/pend(t);
    cratio=0.0665/C(c);
    L(c)=visc(t)/105.5302*((cratio)^(4/3));
-    
+
 end
 %work out shift and width
 for c=1:n,
@@ -62,7 +62,15 @@ for c=1:wmax,
    Width(c)=df;
 end
 
+clf; hold on;
 plot (Inv,F2,'r+',Inverset,Width, 'b-')
+plot (Inv,F1,'r*')
+
+% compare with he3lib
+F1a = he3_wire_mix_f(T/1000, rhow, diam, f)
+F2a = he3_wire_mix_w(T/1000, rhow, diam, f)
+plot (Inv,F1a,'go')
+plot (Inv,F2a,'go')
 
 % save data
 fid=fopen(file,'w')
