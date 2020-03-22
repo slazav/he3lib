@@ -1,0 +1,46 @@
+#!/usr/bin/gnuplot
+
+# fit 1958 He scale data
+
+set nokey
+
+rHg=13.5951  # [g/cm] Hg density
+g=980.665    # [cm/s^2]
+k = g*rHg/10000/10 / 1e5 # umHg to bar
+
+
+#last point: pvap(5.22)=1744290*k
+ee(x,v,a,b,c,d,k1,k2) = (v/a / (x/b)**k2 / exp(-b/x) / (1 + c*(x/b) + d*(x/b)**2 + e*(x/b)**3) - 1)/(x/b)**k1
+
+# function is simalar to Einzel's yosida function approximations
+f(x) = log(a * (x/b)**k2 * exp(-b/x) * (1 + c*(x/b) + d*(x/b)**2 + e*(x/b)**3) * (1 + ee(5.22, 1744290*k,a,b,c,d,k1,k2)*(x/b)**k1))
+
+a  = 27.7796
+b  = 6.91722
+c  = 7.74665
+d  = -21.346
+e  = 1
+k1 = 0.681269
+k2 = 2.78802
+
+fit [1e-3:] f(x) 'He4scale.dat' using 1:(log($2*k)) via a,b,c,d,e,k1,k2
+
+print a,b,c,d,e, ee(5.22, 1744290*k,a,b,c,d,k1,k2), k1,k2
+
+
+plot [] []\
+  'He4scale.dat' using 1:(log($2*k)) pt 6,\
+  f(x)
+
+pause -1
+
+plot [] []\
+  'He4scale.dat' using 1:($2*k) pt 6,\
+  exp(f(x))
+
+pause -1
+
+plot [] []\
+  'He4scale.dat' using 1:($2*k/exp(f($1))) w linespoints pt 6
+
+pause -1

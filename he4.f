@@ -56,11 +56,12 @@
       end
 
 ! Vapor pressure [bar] vs temperature [K], 0..tcr
-! Fit of 1958 temperature scale (~3% accuracy)
+! Fit of 1958 temperature scale (~1.5% accuracy)
       function he4_pvap(t)
         implicit none
         include 'he3.fh'
         real*8 t
+        real*8 a,b,c,d,e,ee,k1,k2
 
         if (t.eq.0D0) then
           he4_pvap = 0D0
@@ -68,8 +69,22 @@
         endif
 
         if (t.le.he4_tcr) then
-          he4_pvap = dexp(-2.38491D0 - 8.14649D0/t
-     .       + 2.19785D0*t - 0.423192D0*t**2 + 0.0342826D0*t**3)
+
+          a = 40.896039500269D0
+          b = 6.73825999245785D0
+          c = -3.147638667442D0
+          d = 3.97695025409929D0
+          e = -1.77535194090704D0
+          ee = 3.08578394156274D0
+          k1 = 0.0606579218927369D0
+          k2 = 3.42982579814079D0
+          he4_pvap = a*(t/b)**k2 * dexp(-b/t)
+     .       * (1D0 + c*(t/b) + d*(t/b)**2 + e*(t/b)**3)
+     .       * (1D0 + ee*(t/b)**k1)
+
+!          ! old fit version, 3% acc
+!          he4_pvap = dexp(-2.38491D0 - 8.14649D0/t
+!     .       + 2.19785D0*t - 0.423192D0*t**2 + 0.0342826D0*t**3)
           return
         endif
 
