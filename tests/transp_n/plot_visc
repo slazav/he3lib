@@ -1,0 +1,10 @@
+#!/usr/bin/gnuplot
+
+set log
+
+plot [0.001:]\
+ "visc_norm_1958_zin.txt" using 1:(1e-5*$2*$1**2) title "Zinov'eva-1958",\
+ 1.834e-6,\
+ 1e-6/(0.373 + 0.04/(1e3*x)**2)
+
+pause -1
