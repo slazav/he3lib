@@ -308,3 +308,5 @@ he4_pvap(t)   # Vapor pressure [bar] vs temperature [K]
 
 he3_wire_mix_f(t, rho, diam, fre) # mixing chamber calibration, frequency
 he3_wire_mix_w(t, rho, diam, fre) # mixing chamber calibration, line width
+he3_wire_bphase_f(t, p, rho, diam, fre) # mixing chamber calibration, frequency
+he3_wire_bphase_w(t, p, rho, diam, fre) # mixing chamber calibration, line width

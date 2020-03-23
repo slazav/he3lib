@@ -26,6 +26,7 @@ vol   = he3_vm(p);
 rho3  = he3_rho(p);
 ff    = he3_f1s(p);  %F1s parameter
 
+
 eovl=0.2*(6.023e29/vol)^(4/3)*(3*9.8696)^(1/3)*1.0546e-34;
 vistc=1/(visca(p)*tc^2+viscb(p));
 
@@ -38,6 +39,9 @@ for c=1:n       %ensure all below Tc
     end
 end
 TR=T/tc;    %reduced temperature
+
+% L = he3_visc_fpath(TR,p); %mean free path
+
 %pick up Stokes G and mfp L as arrays
 for c=1:n,
     vis=vistc*redvis(TR(c));     %fudged effective viscosity from CHH
@@ -48,7 +52,7 @@ for c=1:n,
    rhorat(c)=rho(c)/rhow;                        %density ratio
    pen(c)=sqrt(vis/(2000*pi*rho(c)*f));          %penetration depth
    zeta(c)=0.5*y5*vis/eovl;                      %  effective slip length
-    L(c)=vis/(eovl*y6);                          %mean free path
+   L(c)=vis/(eovl*y6);                          %mean free path
    alp(c)=1.156*al/(y5*y6);                      %effective alpha
    G(c)=a/pen(c);                                %gamma for Stokes
 %work out shift and width
@@ -59,6 +63,7 @@ for c=1:n,
    F2(c)= f*rhorat(c)*stokesk3s(g,l,z);%*(1-1.14*rhorat(c)*stokesk2s(g,l,z));
    F1(c)= f*rhorat(c)*0.5*stokesk2s(g,l,z);%*(1-0.75*rhorat(c)*stokesk2s(g,l,z));
    Inv(c)=1/T(c)/1000;      %1/T in mK
+
 end
 LL=log10(F2);
 plot(Inv,LL)
@@ -74,7 +79,17 @@ for c=1:200,
    Inverset(c)=DF*PP';
    LogW(c)=df;
 end
-plot (Inv,LL,'r+',Inverset,LogW, 'b-')
+
+clf; hold on;
+plot (Inv,log10(F2),'r*',Inverset,LogW, 'b-')
+plot (Inv,log10(F1),'g*')
+
+% compare with he3lib
+F1a = he3_wire_bphase_f(T, p, rhow, diam, f);
+F2a = he3_wire_bphase_w(T, p, rhow, diam, f);
+plot (Inv,log10(F1a),'bo')
+plot (Inv,log10(F2a),'mo')
+
 T=T*1000;  % back to mK
 % save data
 fid=fopen(file,'w')
