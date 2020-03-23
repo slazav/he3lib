@@ -6,7 +6,7 @@
         real*8 func1,func2, s0
         external func1,func2
         integer i
-        include "../he3_math.fh"
+        include "../../he3_math.fh"
 
         do i=10,120,2
           s0 = math_dint3d_delta(func1, func2,
