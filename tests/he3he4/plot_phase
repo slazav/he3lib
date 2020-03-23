@@ -1,0 +1,57 @@
+#!/usr/bin/gnuplot
+
+# Kerr formula
+tkerr(x) = 2.17* (1-x)**(2.0/3.0)
+tkerr_inv(t) = 1-(t/2.17)**1.5
+
+# Chaudhry-2009, f.2.5
+t0 = 0.867
+x0 = 0.674
+tl(x) = t0 - 2.620259*(x-x0) - 1.023726*(x-x0)**2
+# above 150mK
+xd(t) = x0 - 0.209148*(t-t0)/(t-t0-0.080280) + 0.960222*(t-t0) + 0.549920*(t-t0)**2
+# above 40mK
+xc(t) = 1 - 10**(-0.36 + 1.92*log(t)/log(10) -0.85*(log(t)/log(10))**2 + 0.59*(log(t)/log(10))**3)
+
+#  Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.23
+#  valid below 0.15K
+f(t) = 0.064*(1+10.8*t**2)
+fs(t) = 1-1.13*t**1.5*exp(-0.71/t)
+# from wire program
+f2(t)=0.066+0.5056*t**2-0.2488*t**3+18.22*t**4-74.22*t**5;
+
+
+print f(0.15), f2(0.15), xd(0.15)
+
+# from wire program
+f2(t)=0.066+0.5056*t**2-0.2488*t**3+18.22*t**4-74.22*t**5
+
+
+set log x
+
+plot [0.1:2.7] [0:1]\
+ "phase1.txt" using 2:1 pt 7 lc 1,\
+ "phase1.txt" using 3:1 pt 7 lc 2,\
+ "satur_prop.txt" using 1:2 with linespoints pt 7  lc 3,\
+ "satur_prop.txt" using 1:3 with linespoints pt 7  lc 3,\
+ tkerr_inv(x),\
+ f(x),\
+ f2(x),\
+ fs(x),\
+ xd(x),\
+ xc(x)
+
+pause -1
+
+unset log x
+set log y
+
+plot  [0:1] [0.1:2.7]\
+ "phase1.txt" using 1:2 pt 7 lc 1,\
+ "phase1.txt" using 1:3 pt 7 lc 2,\
+ "satur_prop.txt" using 2:1 with linespoints pt 7  lc 3,\
+ "satur_prop.txt" using 3:1 with linespoints pt 7  lc 3,\
+ tkerr(x),\
+ tl(x)
+
+pause -1

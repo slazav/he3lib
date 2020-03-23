@@ -304,6 +304,20 @@ he4_pmelt(t)  # Melting pressure [bar] vs temperature [K], 0..4K
 he4_pvap(t)   # Vapor pressure [bar] vs temperature [K]
 
 ######################################################################
+# He3-He4 mixtures (see he34.f)
+
+he34_xcr      # critical point at saturated pressure, concentration of He3
+he34_tcr      # critical point at saturated pressure, temperature [K]
+he34_xdil(t)  # Dilute phase-separation curve, concentration vs temperature [K]
+he34_xcon(t)  # Concentrated phase-separation curve, concentration vs temperature [K]
+he34_tlambda(x)  # Lambda curve, temperature [K] vs concentration at saturated pressure
+he34_tcr_p(p)    # Tricritical line, t[K] vs p[bar], 0..10 bar
+he34_xcr_p(p)    # Tricritical line, x vs p[bar], 0..10 bar
+he34_xdil_p(t,p) # Dilute phase-separation curve, x vs t[K] and p[bar]
+he34_xcon_p(t,p) # Concentrated phase-separation curve, x vs t[K] and p[bar]
+he34_tlambda_p(x,p) #  Lambda curve, t[K] vs x and p[bar]
+
+######################################################################
 # Wire calibration (see he3_wire.f)
 
 he3_wire_mix_f(t, rho, diam, fre) # mixing chamber calibration, frequency

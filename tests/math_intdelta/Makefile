@@ -13,11 +13,14 @@ FFLAGS= -Werror -Wconversion\
 
 all: plot
 
-test2d: test2d.f ../he3_math.f
-test3d: test3d.f ../he3_math.f
+test2d: test2d.f ../../he3_math.f
+test3d: test3d.f ../../he3_math.f
 
 %.dat: %
 	./$< > $@
 
 plot: plot.gp test2d.dat test3d.dat
 	./plot.gp
+
+clean:
+	rm -f test2d test3d test2d.dat test3d.dat
