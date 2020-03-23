@@ -15,13 +15,14 @@ ee(x,v,a,b,c,d,k1,k2) = (v/a / (x/b)**k2 / exp(-b/x) / (1 + c*(x/b) + d*(x/b)**2
 # function is simalar to Einzel's yosida function approximations
 f(x) = log(a * (x/b)**k2 * exp(-b/x) * (1 + c*(x/b) + d*(x/b)**2 + e*(x/b)**3) * (1 + ee(5.22, 1744290*k,a,b,c,d,k1,k2)*(x/b)**k1))
 
-a  = 27.7796
-b  = 6.91722
-c  = 7.74665
-d  = -21.346
-e  = 1
-k1 = 0.681269
-k2 = 2.78802
+a = 40.896
+b = 6.73826
+c = -3.14764
+d = 3.97695
+e = -1.77535
+k1= 0.0606579
+k2= 3.42983
+
 
 fit [1e-3:] f(x) 'He4scale.dat' using 1:(log($2*k)) via a,b,c,d,e,k1,k2
 
@@ -30,6 +31,7 @@ print a,b,c,d,e, ee(5.22, 1744290*k,a,b,c,d,k1,k2), k1,k2
 
 plot [] []\
   'He4scale.dat' using 1:(log($2*k)) pt 6,\
+  'He4scale_.dat' using 1:(log($2*k)) pt 6,\
   f(x)
 
 pause -1

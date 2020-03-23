@@ -6,16 +6,15 @@ rHg=13.5951  # [g/cm] Hg density
 g=980.665    # [cm/s^2]
 k = g*rHg/10000/10 / 1e5 # umHg to bar
 
-f(x) = a + b/x + c*x + d*x**2 + e*x**3
+f(x) = a + b/x + c*x + d*x**2 + e*x**3 + f*log(x)
 a  = -2.38491
 b  = -8.14649
 c  = 2.19785
 d  = -0.423192
 e  = 0.0342826
-
-fit [1e-3:] f(x) 'He4scale.dat' using 1:(log($2*k)) via a,b,c,d,e
+fit [1e-3:] f(x) 'He4scale.dat' using 1:(log($2*k)) via a,b,c,d,e,f
 
 plot [] []\
-  'He4scale.dat' using 1:($2*k/exp(f($1))) pt 6,\
+  'He4scale.dat' using 1:($2*k/exp(f($1))) pt 6
 
 pause -1
