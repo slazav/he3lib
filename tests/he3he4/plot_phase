@@ -16,8 +16,12 @@ xc(t) = 1 - 10**(-0.36 + 1.92*log(t)/log(10) -0.85*(log(t)/log(10))**2 + 0.59*(l
 #  Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.23
 #  valid below 0.15K
 f(t) = 0.064*(1+10.8*t**2)
+fs(t) = 1-1.13*t**1.5*exp(-0.71/t)
+# from wire program
+f2(t)=0.066+0.5056*t**2-0.2488*t**3+18.22*t**4-74.22*t**5;
 
-print f(0.15), xd(0.15)
+
+print f(0.15), f2(0.15), xd(0.15)
 
 # from wire program
 f2(t)=0.066+0.5056*t**2-0.2488*t**3+18.22*t**4-74.22*t**5
@@ -33,6 +37,7 @@ plot [0.1:2.7] [0:1]\
  tkerr_inv(x),\
  f(x),\
  f2(x),\
+ fs(x),\
  xd(x),\
  xc(x)
 
