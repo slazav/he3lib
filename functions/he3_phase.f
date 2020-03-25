@@ -1,5 +1,37 @@
 !HH> He3 phase diagram
 
+      block data he3_phase_block
+        implicit none
+        include 'he3.fh'
+!H> Helium-3 phase diagram constants
+        data
+     .    he3_pcr   /1.16317D0/,     !C> He3: critical pressure [bar]
+     .    he3_tcr   /3.324D0/,       !C> He3: critical temperature [K]
+     .    he3_pabn   /21.22D0/,      !C> He3: A-B-Normal tricritical pressure [bar]
+     .    he3_tabn   /2.273D0/,      !C> He3: A-B-Normal tricritical temperature [mK]
+
+     .    he3_pm     /29.3113D0/,    !C> He3: Melting curve minimum [bar] (PLTS2000)
+     .    he3_tm     /0.31524D0/,    !C> He3: Melting curve minimum [K]   (PLTS2000)
+
+     .    he3_pa     /34.3380D0/,    !C> He3: A-N-Solid crit.pt, bar (Greywall-86)
+     .    he3_ta     /2.491D0/,      !C> He3: A-N-Solid crit.pt, mK  (Greywall-86)
+     .    he3_pb     /34.3580D0/,    !C> He3: A-B-Solid crit.pt, bar (Greywall-86)
+     .    he3_tb     /1.932D0/,      !C> He3: A-B-Solid crit.pt, mK  (Greywall-86)
+     .    he3_ps     /34.3905D0/,    !C> Solid He3: AFM transition at melting curve [bar] (Greywall-86)
+     .    he3_ts     /0.9291D0/,     !C> Solid He3: AFM transition at melting curve [mK]  (Greywall-86)
+
+!H> Helium-3 phase diagram constants (PLTS2000)
+     .    he3_pa_plts  /34.3407D0/,  !C> He3: A-N-Solid crit.pt, bar (PLTS2000)
+     .    he3_ta_plts  /2.444D0/,    !C> He3: A-N-Solid crit.pt, mK  (PLTS2000)
+     .    he3_pb_plts  /34.3609D0/,  !C> He3: A-B-Solid crit.pt, bar (PLTS2000)
+     .    he3_tb_plts  /1.896D0/,    !C> He3: A-B-Solid crit.pt, mK  (PLTS2000)
+     .    he3_ps_plts  /34.3934D0/,  !C> He3: AFM transition in solid He3, bar (PLTS2000)
+     .    he3_ts_plts  /0.902D0/,    !C> He3: AFM transition in solid He3, mK  (PLTS2000)
+
+     .    he3_pabn_plts /21.222D0/,  !C> He3: A-B-Normal pt., Greywall->PLTS, bar
+     .    he3_tabn_plts /2.2315D0/  !C> He3: A-B-Normal pt., Greywall->PLTS, mK
+      end
+
 !> Vapor pressure [bars] vs T [K] (1962 temperature scale)
 !> Sherman, R.H.; Sydoriak, S.G.; Roberts, T.R.
 !> The 1962 He3 scale of temperatures

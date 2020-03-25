@@ -7,8 +7,6 @@
         include 'he3.fh'
 
         data
-     .    he4_amass  /6.6465D-24/,   !C> He4 atom mass, [g]
-     .    he4_mmass  /4.002602D0/    !C> He4 molar mass, [g/mol]
 !         Swenson-1952 temperature data is shifted to have Tc(Pvap) = 2.1720K (1958 temperature scale)
 !         in 1958 temperature scale umHg = 1.33322387e-6 bar
      .    he4_tcv    /2.1720D0/,     !C> He4 superfluid transition temperature at vapor pressure [K] (1958 temperature scale)

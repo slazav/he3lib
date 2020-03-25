@@ -1,5 +1,22 @@
 !HH> ROTA-specific functions
 
+!H> ROTA-specific constants
+      block data he3_rota_block
+        implicit none
+        include 'he3.fh'
+        data
+     .    rota_rcell    /0.2925D0/,       !C> ROTA: cell radius (2011-2014)
+     .    rota_nmra     /96.69139692D0/,  !C> ROTA: field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)
+     .    rota_nmrb     /136.6058277D0/,  !C> ROTA: field/current in nmrB solenoid [G/A] (normal phase measurements 2014-10-29, 2014-11-03: f0=1176586.91Hz I0=1907.345mA)
+     .    rota_hmina_r  /1.032D0/,        !C> ROTA: effective radius of the HminA coil [cm]
+     .    rota_hmina_n  /4D0/,            !C> ROTA: number of turns of the HminA coil
+     .    rota_hmina    /2.2305D0/,       !C> ROTA: field/current in the center of HminA coil [G/A]
+     .    rota_hmina_mr /1.652D0/,        !C> ROTA: quadratic radial term of the HminA field, [G/A/cm^2]
+     .    rota_hmina_i0i /-0.02918D0/,    !C> ROTA: effectve HminA coil current divided by NMR current
+     .    rota_hmina_i0f /-9.3050D-08/,   !C> ROTA: effectve HminA coil current divided by NMR frequency, rota_hmina_i0i = rota_hmina_i0f * he3_gyro/2/pi * rota_nmra
+     .    rota_rrda     /1.01D-4/         !C> ROTA: radiation damping constant for the nmrA spectrometer
+      end
+
 !> Nuclear stage heat capacity [J/K] vs T[K] and I[A]
       function rota_c_ns(t, i) !F>
         implicit none
