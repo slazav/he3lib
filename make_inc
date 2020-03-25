@@ -37,7 +37,7 @@ sub quote_c_comm($){
 my @data;
 my @dblocks;
 foreach my $fname (@files) {
-  open F, "$fname" or die "can't open $fname: $!";
+  open F, "functions/$fname" or die "can't open $fname: $!";
   my $mode = 0;
   my $text = '';
   push @data, {

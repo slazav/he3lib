@@ -6,7 +6,7 @@
 #  -Wno-unused-parameter -Wno-align-commons -fno-range-check
 
 # gfortran parameters
-FFLAGS= -Werror -Wconversion\
+FFLAGS= -Werror -Wconversion -I.\
   -Wline-truncation\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
@@ -36,8 +36,8 @@ LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
         he3_math he3_gap he3_dipole he3_grad he3_text\
         he3_transp_n he3_transp_b he3_b2 he3_other he3_polar\
         he3_rota he3_bspec he3_a he4 he3_wire he34
-OBJS= $(patsubst %,%.o,$(LIBOBJS))
-SRCS= $(patsubst %,%.f,$(LIBOBJS))
+OBJS= $(patsubst %,functions/%.o,$(LIBOBJS))
+SRCS= $(patsubst %,functions/%.f,$(LIBOBJS))
 
 $(OBJS): he3.fh
 
@@ -115,6 +115,6 @@ doc: octave
 
 ###################################
 clean:
-	rm -f *.a *.so *.o libs/*.o *.oct m/*.m he3.f90h he3.fh he3.h he3 he3tab.h
+	rm -f *.a *.so *.o *.oct m/*.m he3.f90h he3.fh he3.h he3 he3tab.h functions/*.o
 #	make -C matlab clean
 #	make -C doc clean
