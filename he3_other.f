@@ -1,7 +1,7 @@
-! Extrapolated GL coherence length, cm
-! see Thuneberg-2001, p.667
-! No strong coupling corrections are needed!
-      function he3_xigl(ttc,p)
+!> Extrapolated GL coherence length, cm
+!> see Thuneberg-2001, p.667
+!> No strong coupling corrections are needed!
+      function he3_xigl(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,bcsgap
@@ -10,8 +10,8 @@
      .    / (dsqrt(10D0)*bcsgap)
       end
 
-! Equilibrium vortex number
-      function he3_vneq(ttc,p,omega,r)
+!> Equilibrium vortex number
+      function he3_vneq(ttc,p,omega,r) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,omega,r
@@ -27,23 +27,23 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Leggett-Takagi tau_r and tau_s [s] vs T/Tc, 20bar
-! Ref: WV pic.10.5 20bar
-
-      function He3_tau_r(TTC)
+!> Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+!> Ref: WV pic.10.5 20bar
+      function he3_tau_r(ttc) !F>
         implicit none
         include 'he3.fh'
-        real*8 TTC
-        He3_tau_r = 1.2D-7/dsqrt(1.0D0-TTC)
+        real*8 ttc
+        he3_tau_r = 1.2D-7/dsqrt(1.0D0-ttc)
       end
 
-      function He3_tau_f(TTC)
+!> Leggett-Takagi tau_f [s] vs T/Tc, 20bar
+      function he3_tau_f(ttc) !F>
         implicit none
         include 'he3.fh'
-        real*8 TTC, P
+        real*8 ttc, P
         P=20D0
-        He3_tau_f = 1D0 /
-     .    (const_2pi**2 *He3_nu_b(P,TTC) * He3_tau_r(TTC))
+        he3_tau_f = 1D0 /
+     .    (const_2pi**2 *he3_nu_b(P,ttc) * he3_tau_r(ttc))
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

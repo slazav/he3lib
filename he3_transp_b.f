@@ -1,12 +1,12 @@
-! B phase spin diffusion
+!H> B phase transport properties
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! Collision integral for Bogoliubov quasiparticles
+!H> Collision integral for Bogoliubov quasiparticles
 
-! Collision integral in Einzel approximation
-! Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66
-! + my small fixes
-      function he3_coll_int(xi,ttc, gap, g0, d0)
+!> Collision integral in Einzel approximation
+!> Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66
+!> + my small fixes
+      function he3_coll_int(xi,ttc, gap, g0, d0) !F>
         implicit none
         include 'he3.fh'
         real*8 xi, ttc, gap, x
@@ -57,9 +57,9 @@
         he3_coll_int = ( I0 - g0*(I1+I2) + d0*I3 )
       end
 
-! Collision integral for low temp (good for < 0.7Tc)
-! Einzel, JLTP84 (1991), p.345
-      function he3_coll_int_lt(xi,ttc, gap, g0, d0)
+!> Collision integral for low temp (good for < 0.7Tc)
+!> Einzel, JLTP84 (1991), p.345
+      function he3_coll_int_lt(xi,ttc, gap, g0, d0) !F>
         implicit none
         include 'he3.fh'
         real*8 xi, ttc, gap, x, g0,d0,w0
@@ -71,10 +71,10 @@
      .                      - (1D0+2D0*x**2)*(g0/3D0+d0) ))
       end
 
-! Collision integral for high temp (good above 0.95 Tc)
-! Einzel, JLTP84 (1991), p.345
-! Einzel, JLTP32 (1978), f.80 - first (gap/ttc)^2 term
-      function he3_coll_int_ht(xi,ttc, gap, g0, d0)
+!> Collision integral for high temp (good above 0.95 Tc)
+!> Einzel, JLTP84 (1991), p.345
+!> Einzel, JLTP32 (1978), f.80 - first (gap/ttc)^2 term
+      function he3_coll_int_ht(xi,ttc, gap, g0, d0) !F>
         implicit none
         include 'he3.fh'
         real*8 xi, ttc, gap, x, g0,d0,w0
@@ -87,9 +87,11 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Quasiparticle lifetime at Fermi level
-! Einzel JLTP84 (1991) p.344
-      function he3_tau0(ttc, p)
+!H> Quasiparticle lifetime, mean free path
+
+!> Quasiparticle lifetime at Fermi level
+!> Einzel JLTP84 (1991) p.344
+      function he3_tau0(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, g0, d0, tn
@@ -108,9 +110,9 @@
         he3_tau0 = tn / he3_coll_int(0D0, ttc, gap, g0, d0);
       end
 
-! Quasiparticle lifetime at low temp limit (no Ek dep)
-! Einzel-1978 f.79
-      function he3_tau0lt(ttc, p)
+!> Quasiparticle lifetime at low temp limit (no Ek dep)
+!> Einzel-1978 f.79
+      function he3_tau0lt(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, g0, d0, tn
@@ -141,9 +143,9 @@
      .   * C/(1D0-x**2)
       end
 
-! Averaged quasiparticle lifetime
-! Einzel JLTP84 (1991) p.345
-      function he3_tau_av(ttc, p)
+!> Averaged quasiparticle lifetime
+!> Einzel JLTP84 (1991) p.345
+      function he3_tau_av(ttc, p) !F>
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -206,9 +208,9 @@
      .   * C/(1D0-x**2)
       end
 
-! Mean free path of Bogoliubov quasiparticles [cm]
-! Einzel JLTP32 (1978) f.84
-      function he3_fpath(ttc, p)
+!> Mean free path of Bogoliubov quasiparticles [cm]
+!> Einzel JLTP32 (1978) f.84
+      function he3_fpath(ttc, p) !F>
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -236,10 +238,26 @@
      .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000))
       end
 
+!> Rms velosity of Bogoliubov quasiparticles [cm/s]
+!> Einzel JLTP32 (1990) f.28 and below
+      function he3_rmsv(ttc, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 gap, Y0,Y2
 
-! Viscous free path of Bogoliubov quasiparticles [cm]
-! Einzel 1990 Eq.26
-      function he3_visc_fpath(ttc, p)
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+        he3_rmsv = he3_vf(p) * dsqrt(Y2/Y0)
+      end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!H> Viscosity
+
+!> Viscous free path of Bogoliubov quasiparticles [cm]
+!> Einzel 1990 Eq.26
+      function he3_visc_fpath(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -255,9 +273,9 @@
         he3_visc_fpath = he3_fpath(ttc, p) / (1D0 - l2*Y2/Y0)
       end
 
-! Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]
-! Einzel 1990 Eq.28
-      function he3_hvisc(ttc, p)
+!> Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]
+!> Einzel 1990 Eq.28
+      function he3_hvisc(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -276,24 +294,12 @@
      .   * he3_visc_fpath(ttc,p)
       end
 
-! Rms velosity of Bogoliubov quasiparticles [cm/s]
-! Einzel JLTP32 (1990) f.28 and below
-      function he3_rmsv(ttc, p)
-        implicit none
-        include 'he3.fh'
-        real*8 ttc, p
-        real*8 gap, Y0,Y2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!H> Spin diffusion
 
-        gap = he3_gap(ttc, p)
-        Y0  = he3_yosida(ttc, gap, 0D0)
-        Y2  = he3_yosida(ttc, gap, 2D0)
-        he3_rmsv = he3_vf(p) * dsqrt(Y2/Y0)
-      end
-
-
-! Spin diffusion perpendicular transport time, s
-! Einzel JLTP84 (1991) f.90,96
-      function he3_tau_dperp(ttc, p)
+!> Spin diffusion perpendicular transport time, s
+!> Einzel JLTP84 (1991) f.90,96
+      function he3_tau_dperp(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, l1a, gap, Y0, Yp
@@ -305,9 +311,9 @@
      .   /(1D0 - l1a*Yp/Y0)
       end
 
-! Spin diffusion parallel transport time, s
-! Einzel JLTP84 (1991) f.90,96
-      function he3_tau_dpar(ttc, p)
+!> Spin diffusion parallel transport time, s
+!> Einzel JLTP84 (1991) f.90,96
+      function he3_tau_dpar(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, l1a, gap, Y0, Yp
@@ -319,9 +325,9 @@
      .   /(1D0 - l1a*Yp/Y0)
       end
 
-! Hydrodynamic spin diffusion D_perp, cm2/s
-! Einzel JLTP84 (1991) f.102
-      function he3_diff_hperp_zz(ttc, p)
+!> Hydrodynamic spin diffusion D_perp, cm2/s
+!> Einzel JLTP84 (1991) f.102
+      function he3_diff_hperp_zz(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -336,9 +342,9 @@
      .                    * he3_yosida_perp(ttc,gap)
       end
 
-! Hydrodynamic spin diffusion D_par, cm2/s
-! Einzel JLTP84 (1991) f.102
-      function he3_diff_hpar_zz(ttc, p)
+!> Hydrodynamic spin diffusion D_par, cm2/s
+!> Einzel JLTP84 (1991) f.102
+      function he3_diff_hpar_zz(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -502,7 +508,7 @@
         he3_diff_int_i = he3_diff_int_i * phi * C/(1D0-x**2)
       end
 
-! Spin diffusion coefficient D_perp, cm2/s
+! diffusion coefficient D, any component depending on type [cm2/s]
       function he3_diff_all(ttc, p, nu0, type)
         implicit none
         include 'he3.fh'
@@ -567,8 +573,8 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Spin diffusion coefficient D_perp_xx, cm2/s
-      function he3_diff_perp_xx(ttc, p, nu0)
+!> Spin diffusion coefficient D_perp_xx [cm2/s]
+      function he3_diff_perp_xx(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
@@ -580,8 +586,8 @@
         endif
       end
 
-! Spin diffusion coefficient D_perp_xx_im, cm2/s
-      function he3_diff_perp_xx_im(ttc, p, nu0)
+!> Spin diffusion coefficient D_perp_xx_im [cm2/s]
+      function he3_diff_perp_xx_im(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
@@ -593,8 +599,8 @@
         endif
       end
 
-! Spin diffusion coefficient D_perp_zz, cm2/s
-      function he3_diff_perp_zz(ttc, p, nu0)
+!> Spin diffusion coefficient D_perp_zz [cm2/s]
+      function he3_diff_perp_zz(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
@@ -606,8 +612,8 @@
         endif
       end
 
-! Spin diffusion coefficient D_perp_zz_im, cm2/s
-      function he3_diff_perp_zz_im(ttc, p, nu0)
+!> Spin diffusion coefficient D_perp_zz_im [cm2/s]
+      function he3_diff_perp_zz_im(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 he3_diff_all
@@ -619,8 +625,8 @@
         endif
       end
 
-! Spin diffusion coefficient D_par_xx, cm2/s
-      function he3_diff_par_xx(ttc, p, nu0)
+!> Spin diffusion coefficient D_par_xx [cm2/s]
+      function he3_diff_par_xx(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0
@@ -632,8 +638,8 @@
         endif
       end
 
-! Spin diffusion coefficient D_perp_zz, cm2/s
-      function he3_diff_par_zz(ttc, p, nu0)
+!> Spin diffusion coefficient D_perp_zz [cm2/s]
+      function he3_diff_par_zz(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0

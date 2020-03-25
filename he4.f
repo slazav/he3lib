@@ -1,27 +1,29 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Helium-4 parameters
+!> Helium-4 parameters
+
+!H4> Constants
 
       block data he4_const_block
         implicit none
         include 'he3.fh'
 
         data
-     .    he4_amass  /6.6465D-24/,   ! He4 atom mass, [g]
-     .    he4_mmass  /4.002602D0/    ! He4 molar mass, [g/mol]
+     .    he4_amass  /6.6465D-24/,   !C> He4 atom mass, [g]
+     .    he4_mmass  /4.002602D0/    !C> He4 molar mass, [g/mol]
 !         Swenson-1952 temperature data is shifted to have Tc(Pvap) = 2.1720K (1958 temperature scale)
 !         in 1958 temperature scale umHg = 1.33322387e-6 bar
-     .    he4_tcv    /2.1720D0/,     ! superfluid transition temperature at vapor pressure [K] (1958 temperature scale)
-     .    he4_pcv    /0.050396D0/,   ! vapor pressure at superfluid transition [bar] (1958 temperature scale)
-     .    he4_tcm    /1.750D0/,      ! superfluid transition temperature at melting pressure [K] (Swenson-1952, shifted)
-     .    he4_pcm    /30.033D0/,     ! superfluid transition pressure at melting curve [bar] (Swenson-1952)
-     .    he4_tcr    /5.1994D0/,     ! critical temperature [K] (1958 temperature scale)
-     .    he4_pcr    /2.2905D0/      ! critical pressure [bar] (1958 temperature scale)
+     .    he4_tcv    /2.1720D0/,     !C> He4 superfluid transition temperature at vapor pressure [K] (1958 temperature scale)
+     .    he4_pcv    /0.050396D0/,   !C> He4 vapor pressure at superfluid transition [bar] (1958 temperature scale)
+     .    he4_tcm    /1.750D0/,      !C> He4 superfluid transition temperature at melting curve [K] (Swenson-1952, shifted)
+     .    he4_pcm    /30.033D0/,     !C> He4 superfluid transition pressure at melting curve [bar] (Swenson-1952)
+     .    he4_tcr    /5.1994D0/,     !C> He4 critical temperature [K] (1958 temperature scale)
+     .    he4_pcr    /2.2905D0/      !C> He4 critical pressure [bar] (1958 temperature scale)
       end
 
-! Superfluid transition temperature [K] vs pressure [bar]
-! Swenson-1952, table1 (1 atm = 1.01325 bar)
-! Values are shifted to get Tc = 2.1720 at vapor pressure (as in 1958 temperature scale)
-      function he4_tc(p)
+!> He4 superfluid transition temperature [K] vs pressure [bar].
+!> Data from [[Swenson-1952]], shifted by -0.014K to
+!> have Tc(Pvap) = 2.1720K (according to 1958 temperature scale).
+      function he4_tc(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p
@@ -36,9 +38,9 @@
         endif
       end
 
-! Melting pressure [bar] vs temperature [K], 0..4K
-! Swenson-1950,1951
-      function he4_pmelt(t)
+!> He4 Melting pressure [bar] vs temperature [K], 0..4K
+!> [[Swenson-1950,1951]]
+      function he4_pmelt(t) !F>
         implicit none
         include 'he3.fh'
         real*8 t
@@ -55,9 +57,9 @@
         he4_pmelt = NaN
       end
 
-! Vapor pressure [bar] vs temperature [K], 0..tcr
-! Fit of 1958 temperature scale (~1.5% accuracy)
-      function he4_pvap(t)
+!> He4 Vapor pressure [bar] vs temperature [K], 0..tcr
+!> Fit of 1958 temperature scale (~1.5% accuracy)
+      function he4_pvap(t) !F>
         implicit none
         include 'he3.fh'
         real*8 t
@@ -86,9 +88,9 @@
         he4_pvap = NaN
       end
 
-! Molar volume [cm^3/mol] vs T [K], saturated vapor pressure
-! Kerr and Taylor 1964
-      function he4_vm(t)
+!> He4 molar volume at saturated vapor pressure [cm^3/mol] vs T [K]
+!> [[Kerr,Taylor-1964]]
+      function he4_vm(t) !F>
         implicit none
         include 'he3.fh'
         real*8 t, dt
@@ -97,7 +99,7 @@
 !       In the paper there is another expression which uses he3_pvap
 !       This fit is also good but has some small derivative step
         dt = t - 2.22D0
-        if (dt.gt.0D0) then
+        if (dt.gt.0D0.and.t.le.4.4D0) then
           he4_vm = 10D0**(1.43771882061654D0
      .           + 0.00861848D0*dt
      .           + 0.0127383D0*dt**2)

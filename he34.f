@@ -1,23 +1,25 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! 3He-4He mixtures
+!H> 3He-4He mixtures
 
       block data he34_const_block
         implicit none
         include 'he3.fh'
 
         data
-     .    he34_xcr  /0.674D0/,       ! critical point at saturated pressure, concentration of He3
-     .    he34_tcr  /0.867D0/       ! critical point at saturated pressure, temperature [K]
+     .    he34_xcr  /0.674D0/, !C> critical point at saturated pressure, concentration of He3
+     .    he34_tcr  /0.867D0/  !C> critical point at saturated pressure, temperature [K]
       end
 
 
-! Phase diagram functions are from Chaudhry PhD thesis (Massachusetts, 2009)
+!> Phase diagram functions are from Chaudhry PhD thesis (Massachusetts, 2009)
 
-! Dilute phase-separation curve, concentration vs temperature [K]
-! (0.08014 < x < 0.674; 0.15 K < T < 0.867 K):
-! Chaudhry PhD thesis (Massachusetts, 2009)
-! Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.23
-      function he34_xdil(t)
+!H> Phase diagram at saturated vapor pressure
+
+!> Dilute phase-separation curve, concentration vs temperature [K]
+!> (0.08014 < x < 0.674; 0.15 K < T < 0.867 K):
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+!> Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.23
+      function he34_xdil(t) !F>
         implicit none
         include 'he3.fh'
         real*8 t, dt
@@ -37,11 +39,11 @@
         endif
       end
 
-! Concentrated phase-separation curve, concentration vs temperature [K]
-! (0.674 < x < 1; 0.15 K < T < 0.867 K).
-! Chaudhry PhD thesis (Massachusetts, 2009)
-! Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.25.
-      function he34_xcon(t)
+!> Concentrated phase-separation curve, concentration vs temperature [K]
+!> (0.674 < x < 1; 0.15 K < T < 0.867 K).
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+!> Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.25.
+      function he34_xcon(t) !F>
         implicit none
         include 'he3.fh'
         real*8 t, dt
@@ -57,9 +59,9 @@
         endif
       end
 
-! Lambda curve, temperature [K] vs concentration
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_tlambda(x)
+!> Lambda curve, temperature [K] vs concentration
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_tlambda(x) !F>
         implicit none
         include 'he3.fh'
         real*8 x, dx
@@ -73,11 +75,11 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! phase diagram at pressures 0..10bar
+!H> phase diagram at pressures 0..10bar
 
-! Tricritical line vs pressure [bar], 0..10 bar
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_tcr_p(p)
+!> Tricritical line vs pressure [bar], 0..10 bar
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_tcr_p(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p
@@ -89,9 +91,9 @@
         endif
       end
 
-! Concentration along the tricritical line vs pressure [bar]:
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_xcr_p(p)
+!> Concentration along the tricritical line vs pressure [bar]:
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_xcr_p(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p, dt
@@ -104,9 +106,9 @@
         endif
       end
 
-! Dilute phase-separation curve, x vs t[K] and p[bar]
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_xdil_p(t,p)
+!> Dilute phase-separation curve, x vs t[K] and p[bar]
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_xdil_p(t,p) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, dt, K0,K1,K2,Ka
@@ -125,9 +127,9 @@
         endif
       end
 
-! Concentrated phase-separation curve, x vs t[K] and p[bar]
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_xcon_p(t,p)
+!> Concentrated phase-separation curve, x vs t[K] and p[bar]
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_xcon_p(t,p) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, dt, K1,K2,K3
@@ -145,9 +147,9 @@
         endif
       end
 
-! Lambda curve, t[K] vs x and p[bar]
-! Chaudhry PhD thesis (Massachusetts, 2009)
-      function he34_tlambda_p(x,p)
+!> Lambda curve, t[K] vs x and p[bar]
+!> Chaudhry PhD thesis (Massachusetts, 2009)
+      function he34_tlambda_p(x,p) !F>
         implicit none
         include 'he3.fh'
         real*8 x, p, dx, K1,K2

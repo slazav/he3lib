@@ -1,4 +1,4 @@
-
+!H> Mathematics
 
 ! Integration of a real*8 function
 ! from xmin to xmax using imax points
@@ -355,7 +355,6 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! calculate int( f1 \delta(f2) )
-! See:
 ! Discretization of Dirac delta functions in level set methods
 ! Journal of Computational Physics, Volume 207, Issue 1, 20 July 2005, Pages 28-51
 ! Bjo:rn Engquist, Anna-Karin Tornberg, Richard Tsai
@@ -433,8 +432,10 @@
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! complete elliptic integral E(x), from IMSL library
-      function math_ele(x)
+
+!> complete elliptic integral E(x)
+!> from IMSL library
+      function math_ele(x) !F>
         implicit none
         real*8 x, A(10),B(10), suma, sumb, e, eta, math_ele
         integer i
@@ -468,8 +469,10 @@
            math_ele = 1D0
         endif
       end
-! complete elliptic integral K(x), from IMSL library
-      function math_elk(x)
+
+!> complete elliptic integral K(x)
+!> from IMSL library
+      function math_elk(x) !F>
         implicit none
         real*8 x, A(11),B(11), suma, sumb, e, eta, math_elk
         integer i
@@ -503,8 +506,8 @@
         endif
       end
 
-! magnetic field Bz of a current loop
-      function loop_bz(Rl, r, z)
+!> magnetic field Bz of a current loop
+      function loop_bz(Rl, r, z) !F>
         implicit none
         include 'he3.fh'
         real*8 Rl,r,z
@@ -519,8 +522,8 @@
      .    (ele*(Rl**2-r**2-z**2)/((Rl-r)**2+z**2) + elk)
       end
 
-! magnetic field Bz of a current loop
-      function loop_br(Rl, r, z)
+!> magnetic field Bz of a current loop
+      function loop_br(Rl, r, z) !F>
         implicit none
         include 'he3.fh'
         real*8 Rl,r,z
@@ -637,7 +640,7 @@
 
         return
       end
-  
+
 ! solve quadratic equation A2 x^2 + A1*x + A0 = 0
       subroutine solve_quadr(A2,A1,A0, x1,x2)
         implicit none
@@ -655,7 +658,6 @@
       end
 
 
-!
 !  evaluates the STOKES functions K and K'
 !
 !  uses the methods outlined in
@@ -715,7 +717,8 @@
         endif
       end
 
-      function math_stokes_k(g)
+!> Stokes K function
+      function math_stokes_k(g) !F>
         implicit none
         include 'he3.fh'
         real*8 g,k,kp
@@ -723,7 +726,8 @@
         math_stokes_k = k
       end
 
-      function math_stokes_kp(g)
+!> Stokes K' function
+      function math_stokes_kp(g) !F>
         implicit none
         include 'he3.fh'
         real*8 g,k,kp

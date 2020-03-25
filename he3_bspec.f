@@ -1,7 +1,9 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! B phase magnon spectra.
+!H> B phase magnon spectra.
 
-      ! simple formula
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! simple formula
+
       subroutine he3b_spec_simp(ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3)
         implicit none
         include 'he3.fh'
@@ -56,7 +58,8 @@
 
       end
 
-      function he3b_spec1s(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B acoustic magnon spectrum, simple formula
+      function he3b_spec1s(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -64,7 +67,8 @@
         he3b_spec1s = w1
       end
 
-      function he3b_spec2s(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B optical magnon spectrum, simple formula
+      function he3b_spec2s(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -72,7 +76,8 @@
         he3b_spec2s = w2
       end
 
-      function he3b_spec3s(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B longitudinal magnon spectrum, simple formula
+      function he3b_spec3s(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -80,9 +85,9 @@
         he3b_spec3s = w3
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! complete formula
 
-
-      ! complete formula
       subroutine he3b_spec_full(ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3)
         implicit none
         include 'he3.fh'
@@ -141,7 +146,8 @@
         w3=dsqrt(w3)
       end
 
-      function he3b_spec1(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B magnon spectrum, full formula, lowest mode
+      function he3b_spec1(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -149,7 +155,8 @@
         he3b_spec1 = w1
       end
 
-      function he3b_spec2(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B magnon spectrum, full formula, middle mode
+      function he3b_spec2(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -157,7 +164,8 @@
         he3b_spec2 = w2
       end
 
-      function he3b_spec3(ttc,P,H, kv, ak,bk, an,bn)
+!> He3-B magnon spectrum, full formula, highest mode
+      function he3b_spec3(ttc,P,H, kv, ak,bk, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, kv, ak,bk,an,bn, w1,w2,w3
@@ -166,9 +174,9 @@
       end
 
 
-
-      ! Inverse formula, k^2(w) for spin-wave propagating in x direction.
-      !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Inverse formula, k^2(w) for spin-wave propagating in x direction.
+!
       subroutine he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
         implicit none
         include 'he3.fh'
@@ -247,7 +255,8 @@
         call solve_cubic(a3,a2,a1,a0, k2a,k2b,k2c)
       end
 
-      function he3b_spec_kx2a(ttc,P,H, w, an,bn)
+!> He3-B magnon spectrum, kx^2(w), lowest mode
+      function he3b_spec_kx2a(ttc,P,H, w, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
@@ -255,7 +264,8 @@
         he3b_spec_kx2a = k2a
       end
 
-      function he3b_spec_kx2b(ttc,P,H, w, an,bn)
+!> He3-B magnon spectrum, kx^2(w), middle mode
+      function he3b_spec_kx2b(ttc,P,H, w, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
@@ -263,12 +273,11 @@
         he3b_spec_kx2b = k2b
       end
 
-      function he3b_spec_kx2c(ttc,P,H, w, an,bn)
+!> He3-B magnon spectrum, kx^2(w), highest mode
+      function he3b_spec_kx2c(ttc,P,H, w, an,bn) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P,H, w, an,bn, k2a,k2b,k2c
         call he3b_spec_kx2(ttc,P,H, w, an,bn, k2a,k2b,k2c)
         he3b_spec_kx2c = k2c
       end
-
-

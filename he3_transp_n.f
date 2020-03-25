@@ -1,9 +1,9 @@
-! Normal phase spin diffusion
+!H> Transport properties in normal He-3
 
-! Crossections
+!H> Crossections
 
 ! Ti, Si parameters (for using in <W> calculations)
-! Einzel & Wolfle JLTP32 (1987) page 34
+! Einzel & Wolfle JLTP32 (1978) page 34
       subroutine he3_s0s1t0t1(P, S0,S1,T0,T1)
         implicit none
         include 'he3.fh'
@@ -27,9 +27,8 @@
         T1 = A1s + A1a
       end
 
-! Scattering crossection
-! Einzel & Wolfle JLTP32 (1978) f.82
-      function he3_crsect_w(P)
+!> Scattering crossection <W>, Einzel & Wolfle JLTP32 (1978) f.82
+      function he3_crsect_w(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P, S0,S1,T0,T1
@@ -39,8 +38,8 @@
      .     + 1.5D0*T0**2 - T0*T1 + 7D0/10D0*T1**2)
       end
 
-! Einzel & Wolfle JLTP32 (1978) f.82
-      function he3_crsect_wi(P)
+!> Scattering crossection <Wi>, Einzel & Wolfle JLTP32 (1978) f.82
+      function he3_crsect_wi(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P, S0,S1,T0,T1
@@ -52,7 +51,9 @@
      .     + (84D0-120D0*dlog(2D0))*T0*T1
      .     + 5D0/21D0*(173D0-252D0*dlog(2D0))*T1**2)
       end
-      function he3_crsect_wd(P)
+
+!> Scattering crossection <Wd>, Einzel & Wolfle JLTP32 (1978) f.82
+      function he3_crsect_wd(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P, S0,S1,T0,T1
@@ -63,9 +64,10 @@
      .     + 8D0/63D0*S1*T1 + 29D0/30D0*T0**2
      .     - 19D0/35D0*T0*T1 + 33D0/70D0*T1**2)
       end
-! Einzel & Wolfle JLTP32 (1978) f.74
-! code from Samuli
-      function he3_crsect_wl(P)
+
+!> Scattering crossection <Wl>, Einzel & Wolfle JLTP32 (1978) f.74 ??
+!> code from Samuli
+      function he3_crsect_wl(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P, S0,S1,T0,T1
@@ -77,83 +79,88 @@
      .     + 8D0*S1*(-21D0*T0 + 19D0*T1))
       end
 
-! Scattering factors
-
-! Einzel & Wolfle JLTP32 (1978) f.74
-! As noticed in Einzel-91 p.350, \lambda_1^a can
-! be set to 0.
-      function He3_scatt_l1a(P)
+!> Scattering parameter l1a, Einzel & Wolfle JLTP32 (1978) f.74
+!> As noticed in Einzel-91 p.350, \lambda_1^a can be set to 0.
+!> See also VW2.48
+      function he3_scatt_l1a(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_scatt_l1a =
+        he3_scatt_l1a =
      .    he3_crsect_wl(P) / he3_crsect_w(P)
       end
-! Einzel & Wolfle JLTP32 (1978) f.66
-      function He3_scatt_g0(P)
+
+!> Scattering parameter g0, Einzel & Wolfle JLTP32 (1978) f.66
+      function he3_scatt_g0(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_scatt_g0 =
+        he3_scatt_g0 =
      .    he3_crsect_wi(P) / he3_crsect_w(P)
       end
-! Einzel & Wolfle JLTP32 (1978) f.67
-      function He3_scatt_d0(P)
+
+!> Scattering parameter d0, Einzel & Wolfle JLTP32 (1978) f.67
+      function he3_scatt_d0(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_scatt_d0 =
+        he3_scatt_d0 =
      .    he3_crsect_wd(P) / he3_crsect_w(P)
       end
-      function He3_scatt_w0(P)
+
+!> Scattering parameter w0
+      function he3_scatt_w0(P) !F>
         implicit none
         include 'he3.fh'
         real*8 P
-        He3_scatt_w0 = 1D0
-     .    - 2D0/3D0 * He3_scatt_g0(P)
-     .    + He3_scatt_d0(P)
+        he3_scatt_w0 = 1D0
+     .    - 2D0/3D0 * he3_scatt_g0(P)
+     .    + he3_scatt_d0(P)
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!H> Quasiparticle lifetimes
 
-! Normal state quasiparticle lifetime at the Fermi level
-! \tau_N(0,T)
-! Einzel JLTP32 (1978) p.28,34
-! Einzel JLTP84 (1991) f.4
-      function He3_tau_n0(ttc, p)
+!> Normal state quasiparticle lifetime at the Fermi level \tau_N(0,T)
+!> Einzel JLTP32 (1978) p.28,34
+!> Einzel JLTP84 (1991) f.4
+!> Also see VW2.38. tau_n0 is different by pi/4 factor?!
+      function he3_tau_n0(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 p,ttc
         real*8 S0,S1,T0,T1, W
         W = he3_crsect_w(p)
-        He3_tau_n0 = 32D0 *
+        he3_tau_n0 = 32D0 *
      .    he3_tfeff(P)*const_hbar/const_pi**2
      .    / W / const_kb / (1D-3*ttc*he3_tc(P))**2
       end
 
-! Thermal average of normal state quasiparticle lifetime
-! \bar\tau_N(T)
-! Einzel JLTP84 (1991) f.5
-      function He3_tau_n_av(ttc, p)
+!> Thermal average of normal state quasiparticle lifetime \bar\tau_N(T)
+!> Einzel JLTP84 (1991) f.5
+      function he3_tau_n_av(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 p,ttc
-        He3_tau_n_av = 0.75D0 * He3_tau_n0(ttc, p)
+        he3_tau_n_av = 0.75D0 * he3_tau_n0(ttc, p)
       end
 
-! Spin diffusion transport time for a normal Fermi-liquid, s
-! Einzel JLTP84 (1991) p.328
-      function He3_tau_nd(ttc, p)
+!> Spin diffusion transport time for a normal Fermi-liquid, s
+!> Einzel JLTP84 (1991) p.328
+      function he3_tau_nd(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 p,ttc
-        He3_tau_nd = 0.75D0 * He3_tau_n0(ttc, p)
+        he3_tau_nd = 0.75D0 * he3_tau_n0(ttc, p)
      .    / (1D0-he3_scatt_l1a(p))
       end
 
-! Hydrodynamic spin diffusion in normal liquid, cm2/s
-! Einzel JLTP84 (1991) f.23
-      function he3_diffn_hydr(ttc, p)
+!> Hydrodynamic spin diffusion in normal liquid, cm2/s
+!> Einzel JLTP84 (1991) f.23
+!> 1/3 * vf^2 * tau_n0 * (1+f0a) * 3/4 1/(1-L1)  # Einzel-1991
+!> 1/3 * vf^2 * tau_n0 * (1+f0a) * f_e(L1)        # VW 2.40 + 2.71
+!> Result is same if tau_n0 is different by pi/4 factor
+      function he3_diffn_hydr(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -164,9 +171,9 @@
         he3_diffn_hydr = vf**2 / 3D0 * (1D0+f0a) * tau
       end
 
-! Spin diffusion Dperp in normal liquid, cm2/s
-! Einzel JLTP84 (1991) f.22, Bunkov PRL65
-      function he3_diffn_perp(ttc, p, nu0)
+!> Frequency-dependent spin diffusion D_perp in normal liquid, cm2/s
+!> Einzel JLTP84 (1991) f.22, Bunkov PRL65
+      function he3_diffn_perp(ttc, p, nu0) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, nu0

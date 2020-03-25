@@ -1,10 +1,5 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! B phase in a strong magnetic field (B2 phase).
-
-!! B_ab [mk] vs P, ttc
-! Inseob Hahn PhD thesis, p79
-! see also https://doi.org/10.1016/0921-4526(94)90737-4
-! see also code at http://spindry.phys.northwestern.edu/he3.htm
+!H> B phase in strong magnetic field (B2 phase).
 
       ! function used to approximate pressure-dependent parameters
       function pfunc(p,a,n)
@@ -17,8 +12,11 @@
         pfunc = pfunc/(1D0+a(n)*p)
       end
 
-! critical field vs temperature and pressure
-      function He3_b2hcr(ttc,P)
+!> critical field B_ab [mk] vs ttc, P [bar]
+!> Inseob Hahn PhD thesis, p79
+!> see also https://doi.org/10.1016/0921-4526(94)90737-4
+!> see also code at http://spindry.phys.northwestern.edu/he3.htm
+      function he3_b2hcr(ttc,P) !F>
         implicit none
         include 'he3.fh'
         real*8 P,ttc, tc,tab
@@ -36,7 +34,7 @@
      .              7.639438D0, -2.379517D0, -0.537422D0/
 
         if (ttc.lt.0D0.or.ttc.gt.1D0) then
-          He3_b2hcr = NaN
+          he3_b2hcr = NaN
           return
         endif
 
@@ -77,8 +75,8 @@
         he3_b2hcr = dsqrt(1D0 - X2**2) * Bc
       end
 
-! inverse function: find Tab [mK] with known P [bar], H [G]
-      function He3_b2tab(P,H)
+!> inverse function: find Tab [mK] with known P [bar], H [G]
+      function he3_b2tab(P,H) !F>
         implicit none
         include 'he3.fh'
         real*8 P,H
@@ -89,27 +87,27 @@
         t2 = 0.5D0
         H1 = 0D0
         H2 = he3_b2hcr(t2,P)
-        He3_b2tab = t1
+        he3_b2tab = t1
         if (H.le.0D0) goto 103
 
         do i=1,100
-          He3_b2tab = t2 + (H2**2-H**2)/(H2**2-H1**2)*(t1-t2)
-          if (He3_b2tab.lt.0D0.or.He3_b2tab.gt.1D0) then
-            He3_b2tab=NaN;
+          he3_b2tab = t2 + (H2**2-H**2)/(H2**2-H1**2)*(t1-t2)
+          if (he3_b2tab.lt.0D0.or.he3_b2tab.gt.1D0) then
+            he3_b2tab=NaN;
             return
           endif
           t1=t2
           H1=H2
-          t2=He3_b2tab
+          t2=he3_b2tab
           H2=he3_b2hcr(t2,P)
           if (dabs(H-H2).lt.1D-10) goto 103
         enddo
-103      He3_b2tab = He3_b2tab * he3_tc(P)
+103      he3_b2tab = he3_b2tab * he3_tc(P)
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Calculation of B-phase gap distortion and spin polarization.
-! Based on Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
+!H> Calculation of B-phase gap distortion and spin polarization.
+!> Based on Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).
 
 ! Free energy derivatives: F1=dF/dGap1^2,  F2=dF/dGap1^2, F3=dF/we
       subroutine he3_b2_fder(ttc,gap, A,B,we,w0,f0a, F1,F2,F3)
@@ -243,15 +241,17 @@
         He = we*tc/(he3_gyro*const_hbar) ! Tc units -> G
       end
 
-! gap distortion
-      function he3_b2gap1(ttc,p,H)
+!> gap distortion
+      function he3_b2gap1(ttc,p,H) !F>
         implicit none
         real*8 ttc,p,H
         real*8 gap1,gap2,He, he3_b2gap1
         call he3_b2_fmin(ttc,p,H, gap1,gap2,He)
         he3_b2gap1 = gap1
       end
-      function he3_b2gap2(ttc,p,H)
+
+!> gap distortion
+      function he3_b2gap2(ttc,p,H) !F>
         implicit none
         real*8 ttc,p,H
         real*8 gap1,gap2,He, he3_b2gap2
@@ -259,8 +259,8 @@
         he3_b2gap2 = gap2
       end
 
-! effective field
-      function he3_b2heff(ttc,p,H)
+!> effective field
+      function he3_b2heff(ttc,p,H) !F>
         implicit none
         real*8 ttc,p,H
         real*8 gap1,gap2,He, he3_b2heff
@@ -268,8 +268,8 @@
         he3_b2heff = He
       end
 
-! magnetization
-      function he3_b2mag(ttc,p,H)
+!> magnetization
+      function he3_b2mag(ttc,p,H) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,H
@@ -339,15 +339,17 @@
         he3_b2rho_n_wr = r
       end
 
-! Normal fluid density vs T/Tc, p, H
-      function he3_b2rho_npar(ttc, p, H)
+!> He3-B normal fluid density vs T/Tc, p, H
+      function he3_b2rho_npar(ttc, p, H) !F>
         implicit none
         include 'he3.fh'
         real*8 he3_b2rho_n_wr
         real*8 ttc, p, H
         he3_b2rho_npar = he3_b2rho_n_wr(ttc, p, H,0)
       end
-      function he3_b2rho_nper(ttc, p, H)
+
+!> He3-B normal fluid density vs T/Tc, p, H
+      function he3_b2rho_nper(ttc, p, H) !F>
         implicit none
         include 'he3.fh'
         real*8 he3_b2rho_n_wr
@@ -355,8 +357,8 @@
         he3_b2rho_nper = he3_b2rho_n_wr(ttc, p, H,1)
       end
 
-! B-phase normal fluid density at the A-B boundary vs T/Tc, p
-      function he3_b2rhoab_npar(ttc, p)
+!> He3-B normal fluid density at the A-B boundary vs T/Tc, p
+      function he3_b2rhoab_npar(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 he3_b2rho_n_wr
@@ -364,7 +366,9 @@
         H = he3_b2hcr(ttc,p)
         he3_b2rhoab_npar = he3_b2rho_n_wr(ttc, p, H,0)
       end
-      function he3_b2rhoab_nper(ttc, p)
+
+!> He3-B normal fluid density at the A-B boundary vs T/Tc, p
+      function he3_b2rhoab_nper(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 he3_b2rho_n_wr
@@ -372,8 +376,9 @@
         H = he3_b2hcr(ttc,p)
         he3_b2rhoab_nper = he3_b2rho_n_wr(ttc, p, H,1)
       end
-! magnetization at the A-B boundary
-      function he3_b2magab(ttc, p)
+
+!> magnetization at the A-B boundary
+      function he3_b2magab(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, H

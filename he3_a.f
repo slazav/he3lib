@@ -1,11 +1,10 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! A phase
+!H> A phase
 
-! Legget frequency nu_a [Hz] vs P, ttc
-! Interpolation formula by A.Yudin based on Halperin and ROTA data
-! There is no check that t > t_ab
-
-      function he3_nu_a(ttc, p)
+!> Legget frequency nu_a [Hz] vs P, ttc
+!> Interpolation formula by A.Yudin based on Halperin and ROTA data
+!> There is no check that t > t_ab
+      function he3_nu_a(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p

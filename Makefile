@@ -31,21 +31,24 @@ all: headers\
 
 ###################################
 
-# header files for C/F77/F90 are created from he3.def
-headers: he3.f90h he3.fh he3.h he3tab.h
-he3.f90h he3.fh he3.h he3tab.h octave/he3.tab: he3.def make_inc
-	./make_inc
-
-LIBNAME=libhe3
-library: $(LIBNAME).a $(LIBNAME).so
-
 # he3 constants and functions (see src/)
 LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
         he3_math he3_gap he3_dipole he3_grad he3_text\
         he3_transp_n he3_transp_b he3_b2 he3_other he3_polar\
         he3_rota he3_bspec he3_a he4 he3_wire he34
 OBJS= $(patsubst %,%.o,$(LIBOBJS))
+SRCS= $(patsubst %,%.f,$(LIBOBJS))
+
 $(OBJS): he3.fh
+
+###################################
+
+# header files for C/F77/F90 are created from source files
+he3.f90h he3.fh he3.h he3tab.h octave/he3.tab: $(SRCS) make_inc
+	./make_inc
+
+LIBNAME=libhe3
+library: $(LIBNAME).a $(LIBNAME).so
 
 $(LIBNAME).a: $(OBJS)
 	ar rs $@ $+

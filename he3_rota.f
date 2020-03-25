@@ -1,8 +1,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!! ROTA specific functions
+!H> ROTA specific functions
 
-! Nuclear stage heat capacity [J/K] vs T[K] and I[A]
-      function rota_c_ns(t, i)
+!> Nuclear stage heat capacity [J/K] vs T[K] and I[A]
+      function rota_c_ns(t, i) !F>
         implicit none
         include 'he3.fh'
         real*8 t, i, k, kmag
@@ -11,8 +11,8 @@
         rota_c_ns = k * (kmag * i/t)**2
       end
 
-! Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
-      function rota_fork_cal(w, p, n)
+!> Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
+      function rota_fork_cal(w, p, n) !F>
         implicit none
         include 'he3.fh'
         real*8 w,p,n,a, ttc,ttc1,e
@@ -33,16 +33,16 @@
         rota_fork_cal=ttc
       end
 
-! Q value of the nmrA spectrometer vs frequency (measured)
-      function rota_nmra_q(f0)
+!> Q value of the nmrA spectrometer vs frequency (measured)
+      function rota_nmra_q(f0) !F>
         implicit none
         include 'he3.fh'
         real*8 f0
         rota_nmra_q = 31.796D-6*f0 + 110.03979D0
       end
 
-! frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)
-      function rota_nmra_f(n)
+!> ROTA: frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)
+      function rota_nmra_f(n) !F>
         implicit none
         include 'he3.fh'
         real*8 n
@@ -56,8 +56,8 @@
         endif
       end
 
-! Bz field profile of the A spectrometer
-      function rota_bza(I, Imin, r, z)
+!> ROTA: Bz field profile of the A spectrometer
+      function rota_bza(I, Imin, r, z) !F>
         implicit none
         include 'he3.fh'
         real*8 I,Imin,r,z
@@ -77,11 +77,8 @@
      .   - (Imin+Imin0)*Bmin ! field of the pinch coil
       end
 
-      function rota_bza_xyz(I, Imin, x,y,z)
-      end
-
-! normal phase spectrum
-      function rota_nspeca(f0, I, Imin)
+!> ROTA: normal phase spectrum
+      function rota_nspeca(f0, I, Imin) !F>
         implicit none
         include 'he3.fh'
         real*8 f0,I,Imin
@@ -153,11 +150,10 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!! Q-balls in the zero temperature limit
+!H> Q-balls in the zero temperature limit
 
-! Derivative of the textural angle beta_N in the center
-!  of the cell (rota-specific, measured), [rad/cm]
-      function rota_qball_dbetan(p, f0)
+!> ROTA: Derivative of the textural angle beta_N in the center of the cell (rota-specific, measured), [rad/cm]
+      function rota_qball_dbetan(p, f0) !F>
         implicit none
         include 'he3.fh'
         real*8 p, f0, A,B,C, cOb
@@ -172,8 +168,8 @@
      .     (const_2pi*he3_nu_b(0D0,p)*he3_cperp(0D0,p))
       end
 
-! nu_z (1/2 of distance between visible axial levels) (no rotation, rota-specific, measured), [Hz]
-      function rota_qball_fz0(p,f0,imin)
+!> ROTA: nu_z (1/2 of distance between visible axial levels) (no rotation, rota-specific, measured), [Hz]
+      function rota_qball_fz0(p,f0,imin) !F>
         implicit none
         include 'he3.fh'
         real*8 p,f0,imin,w0,imin1
@@ -183,8 +179,8 @@
      .           * sqrt( 8D0*he3_gyro*rota_hmina_mr*imin1/w0)
       end
 
-! nu_r (1/2 of distance between visible radial levels) (no rotation, rota-specific, measured), [Hz]
-      function rota_qball_fr0(p,f0,imin)
+!> ROTA: nu_r (1/2 of distance between visible radial levels) (no rotation, rota-specific, measured), [Hz]
+      function rota_qball_fr0(p,f0,imin) !F>
         implicit none
         include 'he3.fh'
         real*8 p,f0,imin,w0,imin1
@@ -195,8 +191,8 @@
      .             - 4D0*he3_gyro*rota_hmina_mr*imin1/w0)
       end
 
-! z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
-      function rota_qball_az0(P,f0,imin)
+!> ROTA: z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+      function rota_qball_az0(P,f0,imin) !F>
         implicit none
         include 'he3.fh'
         real*8 P,f0,imin
@@ -204,8 +200,8 @@
      .           * sqrt(2D0/rota_qball_fz0(P,f0,imin)/f0)
       end
 
-! r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
-      function rota_qball_ar0(P,f0,imin)
+!> ROTA: r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+      function rota_qball_ar0(P,f0,imin) !F>
         implicit none
         include 'he3.fh'
         real*8 P,f0,imin
@@ -213,8 +209,8 @@
      .           * sqrt(2D0/rota_qball_fr0(P,f0,imin)/f0)
       end
 
-!  tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
-      function rota_qball_trd(P, f0,  fr, fz)
+!> ROTA: tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
+      function rota_qball_trd(P, f0,  fr, fz) !F>
         implicit none
         include 'he3.fh'
         real*8 P,f0, fr,fz,ar,az, krd,chi,oB,H
@@ -229,8 +225,8 @@
         rota_qball_trd = rota_rrda / krd
       end
 
-!  tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
-      function rota_qball_trd0(P,f0,imin)
+!> ROTA: tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
+      function rota_qball_trd0(P,f0,imin) !F>
         implicit none
         include 'he3.fh'
         real*8 P,f0, imin, fr,fz

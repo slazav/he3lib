@@ -1,17 +1,18 @@
+!H> He3 Dipole energy and Leggett frequency
 
-! Dipole coefficient g_d, 1/(erg cm^3)
-! restored from experimental data.
-! From ROTA texture library.
-      function he3_gd(p)
+!> Dipole coefficient g_d, 1/(erg cm^3)
+!> restored from experimental data by E.Thuneberg.
+!> From ROTA texture library.
+      function he3_gd(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p
         he3_gd = 1D32 * (0.27733D0 + p*(5.8087D-4 + 2.515D-4*p))
       end
 
-! Dipole coefficient lambda_d, erg/cm^3
-! See Thuneberg-2001 f.5 and f.24
-      function he3_ld(ttc, p)
+!> Dipole coefficient lambda_d, erg/cm^3
+!> See Thuneberg-2001 f.5 and f.24
+      function he3_ld(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 p,ttc
@@ -19,9 +20,9 @@
      .        * const_kb * 1D-3 * he3_tc(p))**2
       end
 
-! B-phase Leggett freq, Hz
-! See Thuneberg-2001 f.47
-      function he3_nu_b(ttc, p)
+!> B-phase Leggett freq, Hz
+!> See Thuneberg-2001 f.47
+      function he3_nu_b(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -31,9 +32,9 @@
      .   / const_2pi ! rad/s->Hz
       end
 
-! B-phase Leggett freq, Hz
-! less accurate formula without using of g_d
-      function he3_nu_b1(ttc, p)
+!> B-phase Leggett freq, Hz (less accurate formula)
+!> less accurate formula without using of g_d
+      function he3_nu_b1(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,gap

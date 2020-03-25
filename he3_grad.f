@@ -1,20 +1,20 @@
-!!! He3 gradient energy and spin wave velocity
+!H> He3 gradient energy and spin wave velocities
 
-! K1=K2=K3 in a simple approximation, see VW 7.23m
-      function he3_grad_K0(ttc, p)
+!> K1=K2=K3 in a simple approximation, see VW 7.23m
+      function he3_grad_k0(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, Y0, gape
         gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         gape = gap*const_kb*1D-3*he3_tc(p)
-        he3_grad_K0 = 1D0/(5D0*gape**2)
+        he3_grad_k0 = 1D0/(5D0*gape**2)
      .     * (const_hbar/2D0/he3_amass)**2
      .     * (1D0-Y0) * he3_rho(p)
       end
 
-! c parameter, see VW 7.25
-      function he3_grad_c(ttc, p)
+!> gradient energy c parameter, see VW 7.25
+      function he3_grad_c(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p, gap, y0,f1a,f1s
@@ -27,8 +27,8 @@
      .    (1D0 + f1a*(2D0+3D0*y0)/15D0)
       end
 
-! delta parameter, see VW 7.25
-      function he3_grad_delta(ttc, p)
+!> gradient energy delta parameter, see VW 7.25
+      function he3_grad_delta(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap, Y0, f1a
@@ -38,52 +38,52 @@
         he3_grad_delta = f1a*(1D0-Y0)/(3D0+f1a*Y0)
       end
 
-! K1=K2 with Fermi-liquid corrections
-      function he3_grad_K12(ttc, p)
+!> K1=K2 with Fermi-liquid corrections
+      function he3_grad_k12(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
         gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
-        he3_grad_K12 = - 2D0/gap**2
+        he3_grad_k12 = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * he3_grad_c(ttc, p)
       end
 
-! K3 with Fermi-liquid corrections
-      function he3_grad_K3(ttc, p)
+!> K3 with Fermi-liquid corrections
+      function he3_grad_k3(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
         gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
-        he3_grad_K3 = - 2D0/gap**2
+        he3_grad_k3 = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (1D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
       end
 
-! K = 2K1+K2+K3
-      function he3_grad_K(ttc, p)
+!> K = 2K1+K2+K3
+      function he3_grad_k(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
         gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
-        he3_grad_K = - 2D0/gap**2
+        he3_grad_k = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (4D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
       end
 
-! K' = K2+K3
-      function he3_grad_Kp(ttc, p)
+!> K' = K2+K3
+      function he3_grad_kp(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap
         gap = he3_gap(ttc, p)*const_kb*1D-3*he3_tc(p)
-        he3_grad_Kp = - 2D0/gap**2
+        he3_grad_kp = - 2D0/gap**2
      .    * (const_hbar/2D0/he3_amass)**2
      .    * (2D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
       end
 
-! lambda_G1 = Delta^2/2 (K2+K3)
-      function he3_grad_lg1(ttc, p)
+!> lambda_G1 = Delta^2/2 (K2+K3)
+      function he3_grad_lg1(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -91,8 +91,9 @@
      .    - (const_hbar/2D0/he3_amass)**2
      .    * (2D0 + he3_grad_delta(ttc, p)) * he3_grad_c(ttc, p)
       end
-! lambda_G2 = Delta^2/2 K1
-      function he3_grad_lg2(ttc, p)
+
+!> lambda_G2 = Delta^2/2 K1
+      function he3_grad_lg2(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -101,8 +102,8 @@
      .    * he3_grad_c(ttc, p)
       end
 
-! lambda_SG^b = Delta^2 K2
-      function he3_grad_lsgb(ttc, p)
+!> lambda_SG^b = Delta^2 K2
+      function he3_grad_lsgb(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -111,8 +112,8 @@
      .    * he3_grad_c(ttc, p)
       end
 
-! Fomin's spin wave velocities (Fomin-1980 f.51)
-      function he3_cpar(ttc, p)
+!> Fomin's spin wave velocity c_par (Fomin-1980 f.51)
+      function he3_cpar(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, chi, ret
@@ -129,7 +130,9 @@
         endif
         he3_cpar = ret
       end
-      function he3_cperp(ttc, p)
+
+!> Fomin's spin wave velocity c_perp (Fomin-1980 f.51)
+      function he3_cperp(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, chi, ret
@@ -147,8 +150,8 @@
         he3_cperp = ret
       end
 
-! Leggett's spin wave velocities (Leggett-1975 XII.B)
-      function he3_clpar(ttc, p)
+!> Leggett's spin wave velocity c_par (Leggett-1975 XII.B)
+      function he3_clpar(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, chi, ret
@@ -165,7 +168,9 @@
         endif
         he3_clpar = ret
       end
-      function he3_clperp(ttc, p)
+
+!> Leggett's spin wave velocity c_perp (Leggett-1975 XII.B)
+      function he3_clperp(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, chi, ret
@@ -184,11 +189,10 @@
       end
 
 
-! test functions for F1a+F3a gradient energy parameters
-! Dorfle, PRB23 3267 (1981)
-! K1 = K2 = rho_s/40m* Rl
-!      K3 = rho_s/40m* (4Rt-3Rl)
-      function he3_dorfle_rl(ttc, p, f1a, f3a)
+!> Test function Rl for F1a+F3a gradient energy parameters Dorfle, PRB23 3267 (1981)
+!> K1 = K2 = rho_s/40m* Rl
+!>      K3 = rho_s/40m* (4Rt-3Rl)
+      function he3_dorfle_rl(ttc, p, f1a, f3a) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, f1a, f3a
@@ -202,7 +206,11 @@
      .   (1D0 + f1/3D0)*(1D0 + f3/7D0)/
      .      (1D0 + 2D0/15D0*f1 + 3D0/35D0*f3)
       end
-      function he3_dorfle_rt(ttc, p, f1a, f3a)
+
+!> Test function Rt for F1a+F3a gradient energy parameters Dorfle, PRB23 3267 (1981)
+!> K1 = K2 = rho_s/40m* Rl
+!>      K3 = rho_s/40m* (4Rt-3Rl)
+      function he3_dorfle_rt(ttc, p, f1a, f3a) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, f1a, f3a

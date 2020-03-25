@@ -1,9 +1,9 @@
-! Original wire calibration programs from Lancaster ULT
+!H> Original wire calibration programs from Lancaster ULT
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!     Mixing chamber calibration, mixture (original Lancaster version)
-!     arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-!     complex version f + i*df
+!Mixing chamber calibration, mixture (original Lancaster version)
+!arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+!output:    complex version f + i*df
       function he3_wire_mix_c(t, rho, diam, fre)
         implicit none
         include 'he3.fh'
@@ -62,9 +62,9 @@
         he3_wire_mix_c = dcmplx(ff, df)
       end
 
-!     Mixing chamber calibration, frequency vs temperatere
-!     arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_mix_f(t, rho, diam, fre)
+!> Mixing chamber calibration, frequency vs temperatere
+!> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_mix_f(t, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, rho, diam, fre
@@ -72,9 +72,9 @@
         he3_wire_mix_f = real(he3_wire_mix_c(t, rho, diam, fre))
       end
 
-!     Mixing chamber calibration, width vs temperatere
-!     arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_mix_w(t, rho, diam, fre)
+!> Mixing chamber calibration, width vs temperatere
+!> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_mix_w(t, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, rho, diam, fre
@@ -127,7 +127,6 @@
         endif
       end
 
-
       function visc(t, p)
         implicit none
         real*8 t, p, visc
@@ -179,9 +178,9 @@
         visc=1D0/(visca*t**2 + viscb)
       end
 
-!     Superfluid He3-B calibration (original Lancaster version)
-!     arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-!     complex version f + i*df
+! Superfluid He3-B calibration (original Lancaster version)
+! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+! complex version f + i*df
       function he3_wire_bphase_c(t, p, rho, diam, fre)
         implicit none
         include 'he3.fh'
@@ -278,9 +277,9 @@
         he3_wire_bphase_c = dcmplx(ff, df)
       end
 
-!     Superfluid He3-B calibration, frequency vs temperatere
-!     arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_bphase_f(t, p, rho, diam, fre)
+!> Superfluid He3-B calibration, frequency vs temperatere
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_bphase_f(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
@@ -289,9 +288,9 @@
      .    real(he3_wire_bphase_c(t, p, rho, diam, fre))
       end
 
-!     Superfluid He3-B calibration, width vs temperatere
-!     arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_bphase_w(t, p, rho, diam, fre)
+!> Superfluid He3-B calibration, width vs temperatere
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_bphase_w(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre

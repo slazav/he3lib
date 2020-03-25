@@ -1,9 +1,11 @@
-! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
-! Newton iteration based on a note by EVT & RH
-! From ROTA texture library
-! see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
-!      http://ltl.tkk.fi/research/theory/qc/bcsgap.pdf
-      function he3_bcsgap(ttc)
+!H> BCS gap + strong coupling corrections for He3-B
+
+!> BCS energy gap/(kBTc) vs T/Tc
+!> Newton iteration based on a note by E.Thuneberg and R.Hanninen
+!> From ROTA texture library
+!> see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+!>      http://ltl.tkk.fi/research/theory/qc/bcsgap.pdf
+      function he3_bcsgap(ttc) !F>
         implicit none
         include 'he3.fh'
         integer n, m
@@ -37,9 +39,9 @@
         he3_bcsgap = const_2pi*ynew
       end
 
-!     Derivative of BCS energy gap, d(Delta^2)/d(T/Tc)
-!     V.Zavjalov, 2020
-      function he3_bcsdgap2(ttc)
+!> Derivative of BCS energy gap, d(Delta^2)/d(T/Tc)
+!> Same method as in BCS gap calculation, V.Zavjalov, 2020
+      function he3_bcsdgap2(ttc) !F>
         implicit none
         include 'he3.fh'
         integer n, m
@@ -78,12 +80,11 @@
         he3_bcsdgap2 = -g1/g2 * const_2pi**2
       end
 
-
-! BCS gap / (kB Tc) for pure 3He-B, t = T / Tc
-! Einzel approximation (D.Einzel JLTP 84 (1991) f.68)
-! <0.5% accuracy in the whole temperature range
-! 70 times faster
-      function he3_bcsgap_fast(ttc)
+!> BCS gap/(kBTc) vs T/Tc
+!> Einzel approximation (D.Einzel JLTP 84 (1991) f.68)
+!> <0.5% accuracy in the whole temperature range
+!> 70 times faster then he3_bcsgap
+      function he3_bcsgap_fast(ttc) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, dsc, ccn, c1,c2
@@ -101,33 +102,31 @@
      .          (1D0+0.1916D0*(1D0-ttc) + 0.2065D0*(1D0-ttc)**2)))
       end
 
-! Heat capacity jump for He3-B, DeltaCb/Cn
-! Greywall-1986, Fig.19
-      function he3_dcbcn(p)
+!> Heat capacity jump for He3-B, DeltaCb/Cn, experimental data
+!> Greywall-1986, Fig.19
+      function he3_dcbcn(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p
         he3_dcbcn = 41.9D0 / he3_vm(p) + 0.322D0
       end
 
-! Heat capacity jump for He3-A, DeltaCa/Cn
-! Greywall-1986, Fig.19
-      function he3_dcacn(p)
+!> Heat capacity jump for He3-A, DeltaCa/Cn
+!> Greywall-1986, Fig.19
+      function he3_dcacn(p) !F>
         implicit none
         include 'he3.fh'
         real*8 p
         he3_dcacn = 94.2D0 / he3_vm(p) - 1.58D0
       end
 
-! Trivial strong-coupling correction (WCP) to the BCS energy gap.
-! Approximation of Serene,Rainer-1983 corrections
-! (Phys. Rep. 101, 221), table 4
-! Note that derivative of
-! the gap squared in $T_c$ is not strictly proportional to the heat capacity jump.
-! This probably shows that exact heat capacity calculation requires WCP energy terms,
-! not just BCS calculations with modified gap...
-
-      function he3_trivgap(ttc,p)
+!> Trivial strong-coupling correction (WCP) to the BCS energy gap.
+!> Approximation of Serene,Rainer-1983 corrections (Phys.Rep. 101, 221), table 4
+!> Note that derivative of
+!> the gap squared in $T_c$ is not strictly proportional to the heat capacity jump.
+!> This probably shows that exact heat capacity calculation requires WCP energy terms,
+!> not just BCS calculations with modified gap...
+      function he3_trivgap(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -151,8 +150,8 @@
         he3_trivgap = dsqrt(k)*he3_bcsgap(ttc)
       end
 
-! Derivative of the trivial strong-coupling (WCP) gap: d(Delta^2)/d(T/Tc)
-      function he3_trivdgap2(ttc,p)
+!> Derivative of the trivial strong-coupling (WCP) gap: d(Delta^2)/d(T/Tc)
+      function he3_trivdgap2(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -180,10 +179,11 @@
      .                + he3_bcsgap(ttc)**2 * dk
       end
 
-! delta(0)/Tc for 3He versus pressure, bar
-! linear interpolation in density between BCS value at zero bar
-! and Todoschenko's value 1.99 at melting pressure
-      function he3_todogap(ttc,p)
+!> Gap corrected to Todoschenko's value 1.99 at T=0
+!> delta(0)/Tc for 3He versus pressure, bar
+!> linear interpolation in density between BCS value at zero bar
+!> and Todoschenko's value 1.99 at melting pressure
+      function he3_todogap(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p, gap0, gap1
@@ -197,8 +197,8 @@
      .                 he3_trivgap(ttc,p)/he3_trivgap(0D0,p)
       end
 
-! wrapper function which should be used everywhere in the lib
-      function he3_gap(ttc,p)
+!> Wrapper function which should be used everywhere in the lib
+      function he3_gap(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -209,8 +209,8 @@
         !he3_gap = he3_todogap(ttc,p)
       end
 
-! he3_gap expressed in energy units [erg] rather then $T_c$
-      function he3_egap(ttc,p)
+!> he3_gap expressed in energy units [erg] rather then $T_c$
+      function he3_egap(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
@@ -241,9 +241,9 @@
       end
 
 
-! Yosida function vs T/Tc, gap
-! See D.Einzel JLTP 84
-      function he3_yosida(ttc, gap, n)
+!> Yosida function of order n vs T/Tc, gap
+!> See D.Einzel JLTP 84
+      function he3_yosida(ttc, gap, n) !F>
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -292,9 +292,9 @@
      .     * C / (1D0-x**2)
       end
 
-! Entropy Yosida function vs T/Tc, gap
-! See Einzel-2004
-      function he3_yosida_s(ttc, gap)
+!> Entropy Yosida function vs T/Tc, gap
+!> See Einzel-2004
+      function he3_yosida_s(ttc, gap) !F>
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -343,9 +343,9 @@
      .     * C / (1D0-x**2)
       end
 
-! Heat Capacity Yosida function vs T/Tc, gap, dgap2
-! See D.Einzel-2003
-      function he3_yosida_c(ttc, gap, dgap2)
+!> Heat Capacity Yosida function vs T/Tc, gap, dgap2
+!> See D.Einzel-2003
+      function he3_yosida_c(ttc, gap, dgap2) !F>
         implicit none
         include 'he3.fh'
         include 'he3_math.fh'
@@ -376,8 +376,8 @@
       end
 
 
-! Eizel-1991 f.90
-      function he3_yosida_par(ttc, gap)
+!> Eizel-1991 f.90
+      function he3_yosida_par(ttc, gap) !F>
         implicit none
         real*8 ttc,gap
         include 'he3.fh'
@@ -387,8 +387,8 @@
      .    )/5D0
       end
 
-! Eizel-1991 f.90
-      function he3_yosida_perp(ttc, gap)
+!> Eizel-1991 f.90
+      function he3_yosida_perp(ttc, gap) !F>
         implicit none
         real*8 ttc,gap
         include 'he3.fh'
@@ -398,11 +398,14 @@
      .    )/5D0
       end
 
-! Z3,Z5,Z7, lambda
-! Code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
-! Original nsplit=10 is too small for (z3 - 0.9*z5 + 0.9*z5.^2./z3 - 1.5*z7)
-! combination in he3_text_lhv
-      function he3_z3(ttc,gap)
+!H> Z3,Z5,Z7, and lambda functions
+!> Code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+!> Original nsplit=10 is too small for (z3 - 0.9*z5 + 0.9*z5.^2./z3 - 1.5*z7)
+!> combination in he3_text_lhv
+
+
+!> Z3 function
+      function he3_z3(ttc,gap) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,gap
@@ -427,7 +430,8 @@
         he3_z3 = he3_z3 / const_2pi**2 * gap*gap
       end
 
-      function he3_z5(ttc,gap)
+!> Z5 function
+      function he3_z5(ttc,gap) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,gap
@@ -453,7 +457,8 @@
         he3_z5 = he3_z5 * xs/const_2pi**2 * gap*gap
       end
 
-      function he3_z7(ttc,gap)
+!> Z7 function
+      function he3_z7(ttc,gap) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,gap
@@ -480,7 +485,8 @@
         he3_z7 = he3_z7 * xs**2/const_2pi**2 * gap*gap
       end
 
-      function he3_lambda(ttc,gap)
+!> Lambda function
+      function he3_lambda(ttc,gap) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,gap
@@ -505,50 +511,50 @@
         enddo
       end
 
-! B-phase Normal component density \rho_n^B/\rho_0
-! VW book f.3.92
-      function he3_rho_nb(ttc, p)
+!> B-phase Normal component density \rho_n^B/\rho_0
+!> VW book f.3.92
+      function he3_rho_nb(ttc, p) !F>
         implicit none
         real*8 ttc,p,gap,f1s,Y0
         include 'he3.fh'
-        f1s = He3_f1s(p)
+        f1s = he3_f1s(p)
         gap = he3_gap(ttc,p)
-        Y0  = He3_yosida(ttc, gap, 0D0)
+        Y0  = he3_yosida(ttc, gap, 0D0)
         he3_rho_nb = (3D0+f1s)*Y0/(3D0+f1s*Y0)
       end
 
-! He3-B susceptibility chi_b / chi_0
-! see VW book ch.10 p.449; ch2 p.90
-! see Wheatley-75 f 3.7
-! There is also additional term to 3*chi0
-!  + 2/5 F2a (1-Y0)^2
-      function He3_chi_b(ttc, p)
+!> He3-B susceptibility chi_b/chi_0
+!> see VW book ch.10 p.449; ch2 p.90
+!> see Wheatley-75 f 3.7
+!> There is also additional term to 3*chi0
+!>  + 2/5 F2a (1-Y0)^2
+      function he3_chi_b(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,gap,f0a,Y0
-        f0a = He3_f0a(p)
+        f0a = he3_f0a(p)
         gap = he3_gap(ttc,p)
-        Y0  = He3_yosida(ttc, gap, 0D0)
-        He3_chi_b =
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        he3_chi_b =
      .    (1D0 + f0a) * (2D0+Y0) /
      .    (3D0 + f0a * (2D0+Y0))
       end
 
-! He3-B Cooper pair susceptibility ratio chi_bp / chi_b
-! see Leggett-Takagi 1975, f.12
-      function He3_chi_bp(ttc, p)
+!> He3-B Cooper pair susceptibility ratio chi_bp/chi_b
+!> see Leggett-Takagi 1975, f.12
+      function he3_chi_bp(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,gap,Y0,Y2
         gap = he3_gap(ttc,p)
-        Y0  = He3_yosida(ttc, gap, 0D0)
-        Y2  = He3_yosida(ttc, gap, 2D0)
-        He3_chi_bp =
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+        he3_chi_bp =
      .    2D0*(1D0 - Y2) / (2D0+Y0)
       end
 
-! He3-B heat capacity (C/R)
-      function he3_c_b(ttc,P)
+!> He3-B heat capacity (C/R)
+      function he3_c_b(ttc,P) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,P

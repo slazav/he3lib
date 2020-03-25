@@ -1,8 +1,8 @@
-!!! He3 other textural parameters
+!H> He3 other textural parameters
 
-! Textural parameter a, erg/cm^3 1/G^2
-! See Thuneberg-2001 f.25 and f.6
-      function he3_text_a(ttc, p)
+!> Textural parameter a, erg/cm^3 1/G^2
+!> See Thuneberg-2001 f.25 and f.6
+      function he3_text_a(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -27,9 +27,9 @@
         endif
       end
 
-! Textural parameter lambda_{DV}, erg/cm^3 1/(cm/s)^2
-! See Thuneberg-2001 f.26 and f.7
-      function he3_text_ldv(ttc, p)
+!> Textural parameter lambda_{DV}, erg/cm^3 1/(cm/s)^2
+!> See Thuneberg-2001 f.26 and f.7
+      function he3_text_ldv(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -52,9 +52,9 @@
         endif
       end
 
-! Textural parameter lambda_{HV}, g/(cm^3 Gauss^2)
-! See Thuneberg-2001 f.27 and f.8
-      function he3_text_lhv(ttc, p)
+!> Textural parameter lambda_{HV}, g/(cm^3 Gauss^2)
+!> See Thuneberg-2001 f.27 and f.8
+      function he3_text_lhv(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -89,10 +89,10 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Surface energy coefficient d, erg/(cm^2 Gauss^2)
-! Came from ROTA texture library.
-! Some G-L extrapolation is used
-      function he3_text_d(ttc,p)
+!> Surface energy coefficient d, erg/(cm^2 Gauss^2)
+!> Came from ROTA texture library.
+!> Some G-L extrapolation is used
+      function he3_text_d(ttc,p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -114,11 +114,11 @@
         endif
       end
 
-! Vortex energy coefficient \lambda_{LH}
-! Came from ROTA texture library. (difference: 5/2a)
-! See Thuneberg-2001 f.30 and Kopu-2007 f.5
-! Some G-L extrapolation is used
-      function he3_text_llh(ttc,p, omega)
+!> Vortex energy coefficient \lambda_{LH}
+!> Came from ROTA texture library. (difference: 5/2a)
+!> See Thuneberg-2001 f.30 and Kopu-2007 f.5
+!> Some G-L extrapolation is used
+      function he3_text_llh(ttc,p, omega) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,omega
@@ -131,8 +131,8 @@
      .    * he3_text_lhv(ttc,p)
       end
 
-! lambda/omega value used in texture library
-      function he3_text_lo(ttc,p, omega)
+!> lambda/omega value used in texture library
+      function he3_text_lo(ttc,p, omega) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,omega
@@ -142,9 +142,9 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! Magnetic length, cm
-! see Thuneberg-2001, p.662
-      function he3_text_xih(ttc, p, h)
+!> Magnetic length, cm
+!> see Thuneberg-2001, p.662
+      function he3_text_xih(ttc, p, h) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p,h
@@ -157,9 +157,9 @@
         endif
       end
 
-! Dipole length, cm
-! see Thuneberg-2001, p.662
-      function he3_text_xid(ttc, p)
+!> Dipole length, cm
+!> see Thuneberg-2001, p.662
+      function he3_text_xid(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
@@ -167,8 +167,8 @@
      .    dsqrt(13D0/12D0 * he3_grad_lg2(ttc, p)/he3_ld(ttc, p))
       end
 
-! Dipole velocity vd in cm/s
-      function he3_text_vd(ttc, p)
+!> Dipole velocity vd in cm/s
+      function he3_text_vd(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc,p
