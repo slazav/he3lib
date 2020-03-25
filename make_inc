@@ -97,10 +97,10 @@ foreach my $fname (@files) {
     }
 
     # headers
-    elsif (/^\!H>\s*(.*)/){
+    elsif (/^\!(HH?)>\s*(.*)/){
       push @data, {
-        type=>"head",
-        text=>$1
+        type=>$1,
+        text=>$2
       };
     }
 
@@ -184,10 +184,15 @@ foreach my $d (@data) {
     print OUT_F90 "\n!", '-'x50, "\n! Source file: $d->{fname}\n";
   }
 
-  if ($d->{type} eq 'head') {
+  if ($d->{type} eq 'H') {
     printf OUT_C  "\n/* %s */\n", quote_c_comm($d->{text});
     print OUT_F77 "\n! $d->{text}\n";
     print OUT_F90 "\n! $d->{text}\n";
+  }
+  if ($d->{type} eq 'HH') {
+    printf OUT_C  "/* %s */\n", quote_c_comm($d->{text});
+    print OUT_F77 "! $d->{text}\n";
+    print OUT_F90 "! $d->{text}\n";
   }
 
   if ($d->{type} eq 'func') {

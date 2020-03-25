@@ -1,5 +1,4 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> B phase in strong magnetic field (B2 phase).
+!HH> B phase in strong magnetic field (B2 phase).
 
       ! function used to approximate pressure-dependent parameters
       function pfunc(p,a,n)

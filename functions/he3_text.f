@@ -1,4 +1,4 @@
-!H> He3 other textural parameters
+!HH> He3b other textural parameters
 
 !> Textural parameter a, erg/cm^3 1/G^2
 !> See Thuneberg-2001 f.25 and f.6

@@ -1,4 +1,4 @@
-!H> Helium-3 as a normal fermi-liquid
+!HH> Helium-3 as a normal fermi-liquid
 
 !> See Wheatley, Rev.Mod.Phys. 47, 415(1975) /tables at p.467/
 

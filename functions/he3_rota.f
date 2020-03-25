@@ -1,5 +1,4 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> ROTA specific functions
+!HH> ROTA-specific functions
 
 !> Nuclear stage heat capacity [J/K] vs T[K] and I[A]
       function rota_c_ns(t, i) !F>

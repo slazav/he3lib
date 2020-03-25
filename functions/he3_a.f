@@ -1,5 +1,4 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> A phase
+!HH> A phase
 
 !> Legget frequency nu_a [Hz] vs P, ttc
 !> Interpolation formula by A.Yudin based on Halperin and ROTA data

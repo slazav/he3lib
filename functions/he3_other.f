@@ -1,3 +1,5 @@
+!HH> Misc. functions for superfluid He3-B
+
 !> Extrapolated GL coherence length, cm
 !> see Thuneberg-2001, p.667
 !> No strong coupling corrections are needed!

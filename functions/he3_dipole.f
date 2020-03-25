@@ -1,4 +1,4 @@
-!H> He3 Dipole energy and Leggett frequency
+!HH> He3 Dipole energy and Leggett frequency
 
 !> Dipole coefficient g_d, 1/(erg cm^3)
 !> restored from experimental data by E.Thuneberg.

@@ -1,4 +1,4 @@
-!H> Original wire calibration programs from Lancaster ULT
+!H> Vibrating wire calibration programs from Lancaster ULT (original version)
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !Mixing chamber calibration, mixture (original Lancaster version)

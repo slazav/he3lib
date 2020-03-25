@@ -1,4 +1,4 @@
-!H> Transport properties in normal He-3
+!HH> Normal He3 transport properties
 
 !H> Crossections
 

@@ -1,4 +1,4 @@
-!H> Constants
+!HH> Constants
 
       block data he3_const_block
         implicit none

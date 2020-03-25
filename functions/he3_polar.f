@@ -1,3 +1,5 @@
+!HH> He3 Polar phase
+
 !> susceptibility component along d vector chi_par / chi_n
 !> chi_perp/chi_0 = 1
 !> see Leggett-1975, VIIID f.7.53 and f.7.54

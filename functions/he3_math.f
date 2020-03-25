@@ -1,4 +1,4 @@
-!H> Mathematics
+!HH> Mathematics
 
 ! Integration of a real*8 function
 ! from xmin to xmax using imax points

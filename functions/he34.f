@@ -1,6 +1,6 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> 3He-4He mixtures
+!HH> 3He-4He mixtures
 
+!H>  Constants
       block data he34_const_block
         implicit none
         include 'he3.fh'

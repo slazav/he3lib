@@ -1,4 +1,4 @@
-!H> B phase transport properties
+!HH> He3-B transport properties
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Collision integral for Bogoliubov quasiparticles

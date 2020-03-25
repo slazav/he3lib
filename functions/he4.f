@@ -1,7 +1,6 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!> Helium-4 parameters
+!HH> Helium-4 parameters
 
-!H4> Constants
+!H> Constants
 
       block data he4_const_block
         implicit none

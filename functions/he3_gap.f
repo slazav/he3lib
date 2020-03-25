@@ -1,4 +1,4 @@
-!H> BCS gap + strong coupling corrections for He3-B
+!HH> BCS gap + strong coupling corrections for He3-B
 
 !> BCS energy gap/(kBTc) vs T/Tc
 !> Newton iteration based on a note by E.Thuneberg and R.Hanninen

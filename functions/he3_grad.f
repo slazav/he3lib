@@ -1,4 +1,4 @@
-!H> He3 gradient energy and spin wave velocities
+!HH> He3 gradient energy and spin wave velocities
 
 !> K1=K2=K3 in a simple approximation, see VW 7.23m
       function he3_grad_k0(ttc, p) !F>
