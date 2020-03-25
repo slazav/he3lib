@@ -59,9 +59,15 @@ foreach my $fname (@files) {
       my $args = $2;
       my $title = $3;
       if (!$title){
-        $title = $text;
-        $title =~ s/\n.*//s;
-        $text =~ s/.*\n//s;
+        my $i = index($text, "\n");
+        if ($i>0){
+          $title = substr($text, 0, $i);
+          $text  = substr($text, $i, -1);
+        }
+        else {
+          $title = $text;
+          $text = '';
+        }
       }
       $args =~ s/\s+//g;
       my $narg = scalar(split ',', $args);
@@ -100,7 +106,8 @@ foreach my $fname (@files) {
     elsif (/^\!(HH?)>\s*(.*)/){
       push @data, {
         type=>$1,
-        text=>$2
+        text=>$2,
+        fname=>$fname
       };
     }
 
@@ -236,37 +243,60 @@ close OUT_TAB;
 #############################################
 # write documentation
 
-__END__
-my $newfile = -1;
-foreach my $d (@data) {
+open(OUT_HTM, '> he3.htm') or die 'Can not open he3.htm: $!';
+print OUT_HTM qq*<html>
+<head>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['\$','\$']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+<h1>He\$^3\$ library</h1>
+*;
 
-  ## new file
-  if ($d->{type} eq 'file'){
-    print "> $d->{fname}\n";
-    $newfile = 1;
-    next;
+# table of contents
+print OUT_HTM "<ul>\n";
+my $ihh=0; # HH header counter;
+foreach my $d (@data) {
+  next unless ($d->{type} eq 'HH');
+  $ihh++;
+  print OUT_HTM "<li><a href='#hh$ihh'>$d->{text}</a>\n";
+}
+print OUT_HTM "</ul>\n";
+
+$ihh=0;
+foreach my $d (@data) {
+  ## file header
+  if ($d->{type} eq 'HH'){
+      $ihh++;
+      print OUT_HTM "<hr><a name='hh$ihh'></a><h2>$d->{text}</h2>\n";
   }
 
   ## text
-  if ($d->{type} eq 'file'){
-      print "$d->{text}\n";
+  if ($d->{type} eq 'text'){
+      print OUT_HTM "<p>$d->{text}</p>\n";
   }
 
   ## function
   elsif ($d->{type} eq 'func'){
-    print "$d->{name}($d->{args}) -- $d->{title}\n";
-    print "  <<$_>>\n" foreach (split "\n", $d->{text});
-    print "\n";
+    print OUT_HTM "<p><b>$d->{name}($d->{args})</b> -- $d->{title}\n";
+    print OUT_HTM "<p>$d->{text}\n";
+    print OUT_HTM "\n";
   }
 
   ## constant
   elsif ($d->{type} eq 'const'){
-    print "$d->{name} -- $d->{value} -- $d->{title}\n";
+    print OUT_HTM "<p><b>$d->{name} = $d->{value}</b> -- $d->{title}\n";
   }
-
-  # data array should start with a new file
-  die "new file expected" if $newfile < 0;
-  $newfile = 0;
 }
 
+print OUT_HTM qq*
+</body></html>
+*;
 
