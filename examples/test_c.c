@@ -1,7 +1,9 @@
 #include "../he3.h"
 #include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 
+int
 main(){
   double ttc=0.2; /* T/Tc */
   double p=10;    /* P, bar */
