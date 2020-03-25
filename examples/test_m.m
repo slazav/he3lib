@@ -1,5 +1,5 @@
-#!/usr/bin/octave
-  addpath ../matlab
+#!/usr/bin/octave-cli
+
   ttc=0.1:0.1:1;
   p=10;
 
