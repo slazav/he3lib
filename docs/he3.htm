@@ -1,0 +1,847 @@
+<html>
+<head>
+<script type="text/javascript"
+  async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+   tex2jax: {inlineMath: [['$','$']]},
+   "HTML-CSS": {scale: 40}
+   });
+</script>
+<link rel="stylesheet" type="text/css" href="he3.css">
+<meta charset="utf-8">
+</head>
+<body>
+<h1>He$^3$ library</h1>
+<ul>
+<li><a href='#hh1'>Constants</a>
+<li><a href='#hh2'>He3 phase diagram</a>
+<li><a href='#hh3'>Helium-3 as a normal fermi-liquid</a>
+<li><a href='#hh4'>BCS gap + strong coupling corrections for He3-B</a>
+<li><a href='#hh5'>He3 Dipole energy and Leggett frequency</a>
+<li><a href='#hh6'>He3 gradient energy and spin wave velocities</a>
+<li><a href='#hh7'>He3b other textural parameters</a>
+<li><a href='#hh8'>Normal He3 transport properties</a>
+<li><a href='#hh9'>He3-B transport properties</a>
+<li><a href='#hh10'>B phase in strong magnetic field (B2 phase).</a>
+<li><a href='#hh11'>Misc. functions for superfluid He3-B</a>
+<li><a href='#hh12'>Normal 3He liquid parameters beyond zero-temperature limit</a>
+<li><a href='#hh13'>A phase</a>
+<li><a href='#hh14'>He3 Polar phase</a>
+<li><a href='#hh15'>ROTA-specific functions</a>
+<li><a href='#hh16'>B phase magnon spectra.</a>
+<li><a href='#hh17'>Mathematics</a>
+<li><a href='#hh18'>Helium-4 parameters</a>
+<li><a href='#hh19'>3He-4He mixtures</a>
+</ul>
+<hr><a name='hh1'></a><h2>Constants</h2>
+<h3>Mathematical constants</h3>
+<p><b>const_e = 2.7182818284590452</b> -- e
+<p><b>const_pi = 3.1415926535897932</b> -- pi
+<p><b>const_2pi = 6.2831853071795864</b> -- 2*pi
+<p><b>const_euler = 0.5772156649015329</b> -- Euler's constant
+<p><b>const_z2 = 1.6449340668482264</b> -- zeta(2)
+<p><b>const_z3 = 1.2020569031595943</b> -- zeta(3)
+<p><b>const_z4 = 1.0823232337111382</b> -- zeta(4)
+<p><b>const_z5 = 1.0369277551433699</b> -- zeta(5)
+<h3>Physical constants</h3>
+<p><b>const_na = 6.02214129e+23</b> -- Avogadro constant, [1/mole]
+<p><b>const_kb = 1.3806488e-16</b> -- Boltzmann constant, [erg/K]
+<p><b>const_r = 8.314472e+7</b> -- R-gas constant, kb*na, [erg/K/mol]
+<p><b>const_h = 6.62606957e-27</b> -- Planck constant, [g*cm2/s]
+<p><b>const_hbar = 1.054571726e-27</b> -- reduced Planck constant, [g*cm2/s]
+<p><b>const_mu0 = 1.2566370614</b> -- vacuum permeability [G*cm/A]
+<p><b>const_ev = 1.602176634e-12</b> -- electronvolt [erg]
+<p><b>h1_gyro = 26752.218744</b> -- H1 g-factor, [rad/s/G]
+<p><b>h2_gyro = 4106.5</b> -- H2 g-factor, [rad/s/G]
+<p><b>h_amass = 1.67355755e-24</b> -- H molar mass, [g/mol]
+<p><b>h_mmass = 1.00784</b> -- H molar mass, [g/mol]
+<p><b>he3_gyro = 20378.9</b> -- He3 g-factor, [rad/s/G]
+<p><b>he3_amass = 5.00789994e-24</b> -- He3 atom mass, [g]
+<p><b>he3_mmass = 3.0158281</b> -- He3 molar mass, [g/mol]
+<p><b>he4_amass = 6.64647641e-24</b> -- He4 atom mass, [g]
+<p><b>he4_mmass = 4.002602</b> -- He4 molar mass, [g/mol]
+<hr><a name='hh4'></a><h2>He3 phase diagram</h2>
+<h3>Helium-3 phase diagram constants</h3>
+<p><b>he3_pcr = 1.16317</b> -- He3: critical pressure [bar]
+<p><b>he3_tcr = 3.324</b> -- He3: critical temperature [K]
+<p><b>he3_pabn = 21.22</b> -- He3: A-B-Normal tricritical pressure [bar]
+<p><b>he3_tabn = 2.273</b> -- He3: A-B-Normal tricritical temperature [mK]
+<p><b>he3_pm = 29.3113</b> -- He3: Melting curve minimum [bar] (PLTS2000)
+<p><b>he3_tm = 0.31524</b> -- He3: Melting curve minimum [K]   (PLTS2000)
+<p><b>he3_pa = 34.3380</b> -- He3: A-N-Solid crit.pt, bar (Greywall-86)
+<p><b>he3_ta = 2.491</b> -- He3: A-N-Solid crit.pt, mK  (Greywall-86)
+<p><b>he3_pb = 34.3580</b> -- He3: A-B-Solid crit.pt, bar (Greywall-86)
+<p><b>he3_tb = 1.932</b> -- He3: A-B-Solid crit.pt, mK  (Greywall-86)
+<p><b>he3_ps = 34.3905</b> -- Solid He3: AFM transition at melting curve [bar] (Greywall-86)
+<p><b>he3_ts = 0.9291</b> -- Solid He3: AFM transition at melting curve [mK]  (Greywall-86)
+<h3>Helium-3 phase diagram constants (PLTS2000)</h3>
+<p><b>he3_pa_plts = 34.3407</b> -- He3: A-N-Solid crit.pt, bar (PLTS2000)
+<p><b>he3_ta_plts = 2.444</b> -- He3: A-N-Solid crit.pt, mK  (PLTS2000)
+<p><b>he3_pb_plts = 34.3609</b> -- He3: A-B-Solid crit.pt, bar (PLTS2000)
+<p><b>he3_tb_plts = 1.896</b> -- He3: A-B-Solid crit.pt, mK  (PLTS2000)
+<p><b>he3_ps_plts = 34.3934</b> -- He3: AFM transition in solid He3, bar (PLTS2000)
+<p><b>he3_ts_plts = 0.902</b> -- He3: AFM transition in solid He3, mK  (PLTS2000)
+<p><b>he3_pabn_plts = 21.222</b> -- He3: A-B-Normal pt., Greywall->PLTS, bar
+<p><b>he3_tabn_plts = 2.2315</b> -- He3: A-B-Normal pt., Greywall->PLTS, mK
+<p><b>he3_pvap(T)</b> -- Vapor pressure [bars] vs T [K] (1962 temperature scale)
+<p>
+Sherman, R.H.; Sydoriak, S.G.; Roberts, T.R.
+The 1962 He3 scale of temperatures
+http://archive.org/details/jresv68An6p57
+
+<p><b>he3_pmelt_plts(T)</b> -- He3 melting pressure [bar] vs T[K],T = 0 .. 31 K, PLTS-2000
+<p>
+
+<p><b>he3_pmelt(T)</b> -- He3 melting pressure [bar] vs T[K], T = 0 .. 31 K, Greywall-86
+<p>
+
+<p><b>he3_tc(P)</b> -- T_c [mK] vs P [bar]
+<p>
+Arg: P = 0 .. Pa [bar]
+Ref: Greywall. PRB33 (1986) f.
+
+<p><b>he3_tab(P)</b> -- T_ab [mK] vs P [bar]
+<p>
+Arg: P = 0 .. Pmelt [bar]
+Ref: Greywall. PRB33 (1986) f.15
+Note: Pabn=21.22 bar, Tabn = 2.273 m
+
+<p><b>he3_tc_plts(P)</b> -- T_c scaled from Greywall to PLTS, [mK] vs p [bar]
+<p>
+Greywall -> PLTS2000 conversion T [mK] vs T [mK]
+see tests/phase/gr2plts.m
+t2 = (1D0 - 5.14809D-2 + 3.05134D-2*t1 - 6.9936D-3*t1**2)*t1
+p2 = (1D0 + 8.2454D-05)*p1
+c = (-1.2297e-02, -4.2958e-04, 8.2456e-05)
+
+<p><b>he3_tab_plts(P)</b> -- Tab scaled from Greywall to PLTS, [mK] vs p [bar]
+<p>
+
+<hr><a name='hh7'></a><h2>Helium-3 as a normal fermi-liquid</h2>
+<p>See Wheatley, Rev.Mod.Phys. 47, 415(1975) /tables at p.467/</p>
+<h3>Molar volume and specific heat</h3>
+<p><b>he3_vm(P)</b> -- He3 molar volume [cm^3/mole] (exp data, Greywall-86)
+<p>
+
+<p><b>he3_gammaf(P)</b> -- He3 specific heat Cv/RT  [1/K], (exp data, Greywall-86)
+<p>
+see also Alvesalo PRL44 1076 (1980) - they have different values
+
+<h3>derived values</h3>
+<p><b>he3_c_n(T,P)</b> -- He3 heat capacity (C/R) vs T(K) and P(bar)
+<p>
+
+<p><b>he3_rho(P)</b> -- He3 density [g/cm^3]
+<p>
+
+<p><b>he3_2n0(P)</b> -- 2N0 [1/erg/cm^3]
+<p>
+
+<p><b>he3_pf(P)</b> -- He3 Fermi momentum [g cm/s] vs P [bar]
+<p>
+
+<p><b>he3_vf(P)</b> -- He3 Fermi velocity [cm/s] vs P [bar]
+<p>
+
+<p><b>he3_mm(P)</b> -- He3 effective mass m_eff/m_3 vs P [bar]
+<p>
+
+<p><b>he3_meff(P)</b> -- He3 effective mass [g] vs P [bar].
+<p>
+
+<p><b>he3_f1s(P)</b> -- He3 F1s fermi-liquid parameter
+<p>
+
+<p><b>he3_a(P)</b> -- He3 average atomic spacing [angstr]
+<p>
+
+<p><b>he3_gdk(P)</b> -- He3 average dipolar coupling energy, K
+<p>
+
+<p><b>he3_tfeff(P)</b> -- He3 effective Fermi temperature, K
+<p>
+
+<h3>Sound velocity and F0s parameter</h3>
+<p><b>he3_c1(P)</b> -- First sound velocity c1 (exp data), m/s, from Wheatley-75
+<p>
+
+<p><b>he3_f0s(P)</b> -- He3 F0s fermi-liquid parameter
+<p>
+
+<h3>Susceptibility and F0a parameter</h3>
+<p><b>he3_f0a(P)</b> -- He3 F0a fermi-liquid parameter (same as Z0/4)
+<p>
+Wheatley-75
+Ramm, JLTP 2 539 (1970)
++ Hensley, JLTP89 501 (1992), JLTP90 149 (1993
+
+<p><b>he3_chi_n(P)</b> -- Susceptibility [sgs] vs P [bar], T [mK]
+<p>
+see Einzel-1991 f.1
+
+<h3>Other fermi-liquid parameters</h3>
+<p><b>he3_f1a(P)</b> -- He3 F1a fermi-liquid parameter (Zavjalov-2015, from spin-wave velocities)
+<p>
+Corruccini PRL27 650 (1971) -- Leggett-Rice effect in 3He-N, not accurate
+Osheroff PhB90 20 (1977) -- Spin-wave velocity in 3He-B, not accurate
+Greywall-1983 -- high temperature Cv
+Zavjalov-2015 -- Spin-wave velocity in 3He-B
+theory, spin waves: Dorfle PRB23 3267 (1981) + F3s
+theory, spin waves: Cross JLTP 21 525 (1975
+
+<p><b>he3_f2a(P)</b> -- He3 F2a fermi-liquid parameter (zero at the moment)
+<p>
+Halperin??
+
+<p><b>he3_f2s(P)</b> -- He3 F2s fermi-liquid parameter (zero at the moment)
+<p>
+Engel, Ihas, Phys. Rev. Lett. 55, 955958 (1985)
+Hamot, Lee, ... Halperin, JLTP 99 p651 (1995)
+Mastumoto et al. JLTP 102 p227 (1996
+
+<hr><a name='hh13'></a><h2>BCS gap + strong coupling corrections for He3-B</h2>
+<p><b>he3_bcsgap(ttc)</b> -- BCS energy gap/(kBTc) vs T/Tc
+<p>
+Newton iteration based on a note by E.Thuneberg and R.Hanninen
+From ROTA texture library
+see: http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+http://ltl.tkk.fi/research/theory/qc/bcsgap.pd
+
+<p><b>he3_bcsdgap2(ttc)</b> -- Derivative of BCS energy gap, d(Delta^2)/d(T/Tc)
+<p>
+Same method as in BCS gap calculation, V.Zavjalov, 202
+
+<p><b>he3_bcsgap_fast(ttc)</b> -- BCS gap/(kBTc) vs T/Tc
+<p>
+Einzel approximation (D.Einzel JLTP 84 (1991) f.68)
+<0.5% accuracy in the whole temperature range
+70 times faster then he3_bcsga
+
+<p><b>he3_dcbcn(p)</b> -- Heat capacity jump for He3-B, DeltaCb/Cn, experimental data
+<p>
+Greywall-1986, Fig.1
+
+<p><b>he3_dcacn(p)</b> -- Heat capacity jump for He3-A, DeltaCa/Cn
+<p>
+Greywall-1986, Fig.1
+
+<p><b>he3_trivgap(ttc,p)</b> -- Trivial strong-coupling correction (WCP) to the BCS energy gap.
+<p>
+Approximation of Serene,Rainer-1983 corrections (Phys.Rep. 101, 221), table 4
+Note that derivative of
+the gap squared in $T_c$ is not strictly proportional to the heat capacity jump.
+This probably shows that exact heat capacity calculation requires WCP energy terms,
+not just BCS calculations with modified gap..
+
+<p><b>he3_trivdgap2(ttc,p)</b> -- Derivative of the trivial strong-coupling (WCP) gap: d(Delta^2)/d(T/Tc)
+<p>
+
+<p><b>he3_todogap(ttc,p)</b> -- Gap corrected to Todoschenko's value 1.99 at T=0
+<p>
+delta(0)/Tc for 3He versus pressure, bar
+linear interpolation in density between BCS value at zero bar
+and Todoschenko's value 1.99 at melting pressur
+
+<p><b>he3_gap(ttc,p)</b> -- Wrapper function which should be used everywhere in the lib
+<p>
+
+<p><b>he3_egap(ttc,p)</b> -- he3_gap expressed in energy units [erg] rather then $T_c$
+<p>
+
+<p><b>he3_yosida(ttc,gap,n)</b> -- Yosida function of order n vs T/Tc, gap
+<p>
+See D.Einzel JLTP 8
+
+<p><b>he3_yosida_s(ttc,gap)</b> -- Entropy Yosida function vs T/Tc, gap
+<p>
+See Einzel-200
+
+<p><b>he3_yosida_c(ttc,gap,dgap2)</b> -- Heat Capacity Yosida function vs T/Tc, gap, dgap2
+<p>
+See D.Einzel-200
+
+<p><b>he3_yosida_par(ttc,gap)</b> -- Eizel-1991 f.90
+<p>
+
+<p><b>he3_yosida_perp(ttc,gap)</b> -- Eizel-1991 f.90
+<p>
+
+<h3>Z3,Z5,Z7, and lambda functions</h3>
+<p>Code from http://ltl.tkk.fi/research/theory/qc/bcsgap.html
+Original nsplit=10 is too small for (z3 - 0.9*z5 + 0.9*z5.^2./z3 - 1.5*z7)
+combination in he3_text_lhv</p>
+<p><b>he3_z3(ttc,gap)</b> -- Z3 function
+<p>
+
+<p><b>he3_z5(ttc,gap)</b> -- Z5 function
+<p>
+
+<p><b>he3_z7(ttc,gap)</b> -- Z7 function
+<p>
+
+<p><b>he3_lambda(ttc,gap)</b> -- Lambda function
+<p>
+
+<p><b>he3_rho_nb(ttc,p)</b> -- B-phase Normal component density \rho_n^B/\rho_0
+<p>
+VW book f.3.9
+
+<p><b>he3_chi_b(ttc,p)</b> -- He3-B susceptibility chi_b/chi_0
+<p>
+see VW book ch.10 p.449; ch2 p.90
+see Wheatley-75 f 3.7
+There is also additional term to 3*chi0
++ 2/5 F2a (1-Y0)^
+
+<p><b>he3_chi_bp(ttc,p)</b> -- He3-B Cooper pair susceptibility ratio chi_bp/chi_b
+<p>
+see Leggett-Takagi 1975, f.1
+
+<p><b>he3_c_b(ttc,P)</b> -- He3-B heat capacity (C/R)
+<p>
+
+<hr><a name='hh15'></a><h2>He3 Dipole energy and Leggett frequency</h2>
+<p><b>he3_gd(p)</b> -- Dipole coefficient g_d, 1/(erg cm^3)
+<p>
+restored from experimental data by E.Thuneberg.
+From ROTA texture library
+
+<p><b>he3_ld(ttc,p)</b> -- Dipole coefficient lambda_d, erg/cm^3
+<p>
+See Thuneberg-2001 f.5 and f.2
+
+<p><b>he3_nu_b(ttc,p)</b> -- B-phase Leggett freq, Hz
+<p>
+See Thuneberg-2001 f.4
+
+<p><b>he3_nu_b1(ttc,p)</b> -- B-phase Leggett freq, Hz (less accurate formula)
+<p>
+less accurate formula without using of g_
+
+<hr><a name='hh16'></a><h2>He3 gradient energy and spin wave velocities</h2>
+<p><b>he3_grad_k0(ttc,p)</b> -- K1=K2=K3 in a simple approximation, see VW 7.23m
+<p>
+
+<p><b>he3_grad_c(ttc,p)</b> -- gradient energy c parameter, see VW 7.25
+<p>
+
+<p><b>he3_grad_delta(ttc,p)</b> -- gradient energy delta parameter, see VW 7.25
+<p>
+
+<p><b>he3_grad_k12(ttc,p)</b> -- K1=K2 with Fermi-liquid corrections
+<p>
+
+<p><b>he3_grad_k3(ttc,p)</b> -- K3 with Fermi-liquid corrections
+<p>
+
+<p><b>he3_grad_k(ttc,p)</b> -- K = 2K1+K2+K3
+<p>
+
+<p><b>he3_grad_kp(ttc,p)</b> -- K' = K2+K3
+<p>
+
+<p><b>he3_grad_lg1(ttc,p)</b> -- lambda_G1 = Delta^2/2 (K2+K3)
+<p>
+
+<p><b>he3_grad_lg2(ttc,p)</b> -- lambda_G2 = Delta^2/2 K1
+<p>
+
+<p><b>he3_grad_lsgb(ttc,p)</b> -- lambda_SG^b = Delta^2 K2
+<p>
+
+<p><b>he3_cpar(ttc,p)</b> -- Fomin's spin wave velocity c_par (Fomin-1980 f.51)
+<p>
+
+<p><b>he3_cperp(ttc,p)</b> -- Fomin's spin wave velocity c_perp (Fomin-1980 f.51)
+<p>
+
+<p><b>he3_clpar(ttc,p)</b> -- Leggett's spin wave velocity c_par (Leggett-1975 XII.B)
+<p>
+
+<p><b>he3_clperp(ttc,p)</b> -- Leggett's spin wave velocity c_perp (Leggett-1975 XII.B)
+<p>
+
+<p><b>he3_dorfle_rl(ttc,p,f1a,f3a)</b> -- Test function Rl for F1a+F3a gradient energy parameters Dorfle, PRB23 3267 (1981)
+<p>
+K1 = K2 = rho_s/40m* Rl
+K3 = rho_s/40m* (4Rt-3Rl
+
+<p><b>he3_dorfle_rt(ttc,p,f1a,f3a)</b> -- Test function Rt for F1a+F3a gradient energy parameters Dorfle, PRB23 3267 (1981)
+<p>
+K1 = K2 = rho_s/40m* Rl
+K3 = rho_s/40m* (4Rt-3Rl
+
+<hr><a name='hh17'></a><h2>He3b other textural parameters</h2>
+<p><b>he3_text_a(ttc,p)</b> -- Textural parameter a, erg/cm^3 1/G^2
+<p>
+See Thuneberg-2001 f.25 and f.
+
+<p><b>he3_text_ldv(ttc,p)</b> -- Textural parameter lambda_{DV}, erg/cm^3 1/(cm/s)^2
+<p>
+See Thuneberg-2001 f.26 and f.
+
+<p><b>he3_text_lhv(ttc,p)</b> -- Textural parameter lambda_{HV}, g/(cm^3 Gauss^2)
+<p>
+See Thuneberg-2001 f.27 and f.
+
+<p><b>he3_text_d(ttc,p)</b> -- Surface energy coefficient d, erg/(cm^2 Gauss^2)
+<p>
+Came from ROTA texture library.
+Some G-L extrapolation is use
+
+<p><b>he3_text_llh(ttc,p,omega)</b> -- Vortex energy coefficient \lambda_{LH}
+<p>
+Came from ROTA texture library. (difference: 5/2a)
+See Thuneberg-2001 f.30 and Kopu-2007 f.5
+Some G-L extrapolation is use
+
+<p><b>he3_text_lo(ttc,p,omega)</b> -- lambda/omega value used in texture library
+<p>
+
+<p><b>he3_text_xih(ttc,p,h)</b> -- Magnetic length, cm
+<p>
+see Thuneberg-2001, p.66
+
+<p><b>he3_text_xid(ttc,p)</b> -- Dipole length, cm
+<p>
+see Thuneberg-2001, p.66
+
+<p><b>he3_text_vd(ttc,p)</b> -- Dipole velocity vd in cm/s
+<p>
+
+<hr><a name='hh18'></a><h2>Normal He3 transport properties</h2>
+<h3>Crossections</h3>
+<p><b>he3_crsect_w(P)</b> -- Scattering crossection <W>, Einzel & Wolfle JLTP32 (1978) f.82
+<p>
+
+<p><b>he3_crsect_wi(P)</b> -- Scattering crossection <Wi>, Einzel & Wolfle JLTP32 (1978) f.82
+<p>
+
+<p><b>he3_crsect_wd(P)</b> -- Scattering crossection <Wd>, Einzel & Wolfle JLTP32 (1978) f.82
+<p>
+
+<p><b>he3_crsect_wl(P)</b> -- Scattering crossection <Wl>, Einzel & Wolfle JLTP32 (1978) f.74 ??
+<p>
+code from Samul
+
+<p><b>he3_scatt_l1a(P)</b> -- Scattering parameter l1a, Einzel & Wolfle JLTP32 (1978) f.74
+<p>
+As noticed in Einzel-91 p.350, \lambda_1^a can be set to 0.
+See also VW2.4
+
+<p><b>he3_scatt_g0(P)</b> -- Scattering parameter g0, Einzel & Wolfle JLTP32 (1978) f.66
+<p>
+
+<p><b>he3_scatt_d0(P)</b> -- Scattering parameter d0, Einzel & Wolfle JLTP32 (1978) f.67
+<p>
+
+<p><b>he3_scatt_w0(P)</b> -- Scattering parameter w0
+<p>
+
+<h3>Quasiparticle lifetimes</h3>
+<p><b>he3_tau_n0(ttc,p)</b> -- Normal state quasiparticle lifetime at the Fermi level \tau_N(0,T)
+<p>
+Einzel JLTP32 (1978) p.28,34
+Einzel JLTP84 (1991) f.4
+Also see VW2.38. tau_n0 is different by pi/4 factor?
+
+<p><b>he3_tau_n_av(ttc,p)</b> -- Thermal average of normal state quasiparticle lifetime \bar\tau_N(T)
+<p>
+Einzel JLTP84 (1991) f.
+
+<p><b>he3_tau_nd(ttc,p)</b> -- Spin diffusion transport time for a normal Fermi-liquid, s
+<p>
+Einzel JLTP84 (1991) p.32
+
+<p><b>he3_diffn_hydr(ttc,p)</b> -- Hydrodynamic spin diffusion in normal liquid, cm2/s
+<p>
+Einzel JLTP84 (1991) f.23
+1/3 * vf^2 * tau_n0 * (1+f0a) * 3/4 1/(1-L1)  # Einzel-1991
+1/3 * vf^2 * tau_n0 * (1+f0a) * f_e(L1)        # VW 2.40 + 2.71
+Result is same if tau_n0 is different by pi/4 facto
+
+<p><b>he3_diffn_perp(ttc,p,nu0)</b> -- Frequency-dependent spin diffusion D_perp in normal liquid, cm2/s
+<p>
+Einzel JLTP84 (1991) f.22, Bunkov PRL6
+
+<hr><a name='hh21'></a><h2>He3-B transport properties</h2>
+<h3>Collision integral for Bogoliubov quasiparticles</h3>
+<p><b>he3_coll_int(xi,ttc,gap,g0,d0)</b> -- Collision integral in Einzel approximation
+<p>
+Einzel, Wolfle, Hirschfeld, JLTP80 (1990), Appendix, p.66
++ my small fixe
+
+<p><b>he3_coll_int_lt(xi,ttc,gap,g0,d0)</b> -- Collision integral for low temp (good for < 0.7Tc)
+<p>
+Einzel, JLTP84 (1991), p.34
+
+<p><b>he3_coll_int_ht(xi,ttc,gap,g0,d0)</b> -- Collision integral for high temp (good above 0.95 Tc)
+<p>
+Einzel, JLTP84 (1991), p.345
+Einzel, JLTP32 (1978), f.80 - first (gap/ttc)^2 ter
+
+<h3>Quasiparticle lifetime, mean free path</h3>
+<p><b>he3_tau0(ttc,p)</b> -- Quasiparticle lifetime at Fermi level
+<p>
+Einzel JLTP84 (1991) p.34
+
+<p><b>he3_tau0lt(ttc,p)</b> -- Quasiparticle lifetime at low temp limit (no Ek dep)
+<p>
+Einzel-1978 f.7
+
+<p><b>he3_tau_av(ttc,p)</b> -- Averaged quasiparticle lifetime
+<p>
+Einzel JLTP84 (1991) p.34
+
+<p><b>he3_fpath(ttc,p)</b> -- Mean free path of Bogoliubov quasiparticles [cm]
+<p>
+Einzel JLTP32 (1978) f.8
+
+<p><b>he3_rmsv(ttc,p)</b> -- Rms velosity of Bogoliubov quasiparticles [cm/s]
+<p>
+Einzel JLTP32 (1990) f.28 and belo
+
+<h3>Viscosity</h3>
+<p><b>he3_visc_fpath(ttc,p)</b> -- Viscous free path of Bogoliubov quasiparticles [cm]
+<p>
+Einzel 1990 Eq.2
+
+<p><b>he3_hvisc(ttc,p)</b> -- Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]
+<p>
+Einzel 1990 Eq.2
+
+<h3>Spin diffusion</h3>
+<p><b>he3_tau_dperp(ttc,p)</b> -- Spin diffusion perpendicular transport time, s
+<p>
+Einzel JLTP84 (1991) f.90,9
+
+<p><b>he3_tau_dpar(ttc,p)</b> -- Spin diffusion parallel transport time, s
+<p>
+Einzel JLTP84 (1991) f.90,9
+
+<p><b>he3_diff_hperp_zz(ttc,p)</b> -- Hydrodynamic spin diffusion D_perp, cm2/s
+<p>
+Einzel JLTP84 (1991) f.10
+
+<p><b>he3_diff_hpar_zz(ttc,p)</b> -- Hydrodynamic spin diffusion D_par, cm2/s
+<p>
+Einzel JLTP84 (1991) f.10
+
+<p><b>he3_diff_perp_xx(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_xx [cm2/s]
+<p>
+
+<p><b>he3_diff_perp_xx_im(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_xx_im [cm2/s]
+<p>
+
+<p><b>he3_diff_perp_zz(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_zz [cm2/s]
+<p>
+
+<p><b>he3_diff_perp_zz_im(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_zz_im [cm2/s]
+<p>
+
+<p><b>he3_diff_par_xx(ttc,p,nu0)</b> -- Spin diffusion coefficient D_par_xx [cm2/s]
+<p>
+
+<p><b>he3_diff_par_zz(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_zz [cm2/s]
+<p>
+
+<hr><a name='hh26'></a><h2>B phase in strong magnetic field (B2 phase).</h2>
+<p><b>he3_b2hcr(ttc,P)</b> -- critical field B_ab [mk] vs ttc, P [bar]
+<p>
+Inseob Hahn PhD thesis, p79
+see also https://doi.org/10.1016/0921-4526(94)90737-4
+see also code at http://spindry.phys.northwestern.edu/he3.ht
+
+<p><b>he3_b2tab(P,H)</b> -- inverse function: find Tab [mK] with known P [bar], H [G]
+<p>
+
+<h3>Calculation of B-phase gap distortion and spin polarization.</h3>
+<p>Based on Ashida and Nagai paper (Progr.Theor.Phys. 74 949 (1985)).</p>
+<p><b>he3_b2gap1(ttc,p,H)</b> -- gap distortion
+<p>
+
+<p><b>he3_b2gap2(ttc,p,H)</b> -- gap distortion
+<p>
+
+<p><b>he3_b2heff(ttc,p,H)</b> -- effective field
+<p>
+
+<p><b>he3_b2mag(ttc,p,H)</b> -- magnetization
+<p>
+
+<p><b>he3_b2rho_npar(ttc,p,H)</b> -- He3-B normal fluid density vs T/Tc, p, H
+<p>
+
+<p><b>he3_b2rho_nper(ttc,p,H)</b> -- He3-B normal fluid density vs T/Tc, p, H
+<p>
+
+<p><b>he3_b2rhoab_npar(ttc,p)</b> -- He3-B normal fluid density at the A-B boundary vs T/Tc, p
+<p>
+
+<p><b>he3_b2rhoab_nper(ttc,p)</b> -- He3-B normal fluid density at the A-B boundary vs T/Tc, p
+<p>
+
+<p><b>he3_b2magab(ttc,p)</b> -- magnetization at the A-B boundary
+<p>
+
+<hr><a name='hh28'></a><h2>Misc. functions for superfluid He3-B</h2>
+<p><b>he3_xigl(ttc,p)</b> -- Extrapolated GL coherence length, cm
+<p>
+see Thuneberg-2001, p.667
+No strong coupling corrections are needed
+
+<p><b>he3_vneq(ttc,p,omega,r)</b> -- Equilibrium vortex number
+<p>
+
+<p><b>he3_tau_r(ttc)</b> -- Leggett-Takagi tau_r [s] vs T/Tc, 20bar
+<p>
+Ref: WV pic.10.5 20ba
+
+<p><b>he3_tau_f(ttc)</b> -- Leggett-Takagi tau_f [s] vs T/Tc, 20bar
+<p>
+
+<hr><a name='hh29'></a><h2>Normal 3He liquid parameters beyond zero-temperature limit</h2>
+<p><b>he3_cv_n(t,v)</b> -- Heat capacity, Cv/R vs T [K], Vm [cm^3/mol]
+<p>
+Original formula from Greywall-1983.
+Note that Cv = Cp up to terms (T/Tf)^3
+
+<p><b>he3_tcond_n(t,p)</b> -- He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [par].
+<p>
+
+Dyugaev-1985. Measurements from Greywall-1984 (7mK-1K) and
+Kerrisk,Keller-1969 (1.5K-Tcr) are used to obtain some semi-theoretical
+model for thermal conductivity and viscosity (see below).
+
+<img src="img/1984_greywall_tcond.png">
+
+<p><b>he3_visc_n(t,p)</b> -- He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+<p>
+
+Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
+Very good agreement with Betts-1963,1965 at high temperatures and with
+with low-temperature data from Parpia-1978.
+Reasonably good agreeement with other low temperature data (Carless-1983, Archie)
+(temperature scale correction maybe needed).
+
+<p><img src="img/1965_betts_visc_fig1.png">
+<p><img src="img/1983_carless_visc_fig6.png">
+
+<p> Note that in this function effect of fluctuations near Tc (Emery-1976,Nakagawa-1996)
+is not taken into accout (TODO?).
+
+<p> There is also a complete viscosity model in Huang-2012, but for me it does
+not look any better then Dyugaev's one.
+
+<hr><a name='hh30'></a><h2>A phase</h2>
+<p><b>he3_nu_a(ttc,p)</b> -- Legget frequency nu_a [Hz] vs P, ttc
+<p>
+Interpolation formula by A.Yudin based on Halperin and ROTA data
+There is no check that t > t_a
+
+<hr><a name='hh31'></a><h2>He3 Polar phase</h2>
+<p><b>he3p_chi_par(ttc,p)</b> -- susceptibility component along d vector chi_par / chi_n
+<p>
+chi_perp/chi_0 = 1
+see Leggett-1975, VIIID f.7.53 and f.7.5
+
+<p><b>he3p_xid_perp(ttc,p)</b> -- dipolar length perpendicular to the l vector, 4g_d/K1
+<p>
+
+<p><b>he3p_xid_par(ttc,p)</b> -- dipolar length parallel to the l vector, 4g_d/(K1+K2+K3)
+<p>
+
+<p><b>he3p_xih_perp(ttc,p,h)</b> -- magnetic length perpendicular to the l vector (4g_d/K1)
+<p>
+
+<p><b>he3p_xih_par(ttc,p,h)</b> -- magnetic length parallel to the l vector (4g_d/(K1+K2+K3))
+<p>
+
+<hr><a name='hh32'></a><h2>ROTA-specific functions</h2>
+<h3>ROTA-specific constants</h3>
+<p><b>rota_rcell = 0.2925</b> -- ROTA: cell radius (2011-2014)
+<p><b>rota_nmra = 96.69139692</b> -- ROTA: field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)
+<p><b>rota_nmrb = 136.6058277</b> -- ROTA: field/current in nmrB solenoid [G/A] (normal phase measurements 2014-10-29, 2014-11-03: f0=1176586.91Hz I0=1907.345mA)
+<p><b>rota_hmina_r = 1.032</b> -- ROTA: effective radius of the HminA coil [cm]
+<p><b>rota_hmina_n = 4</b> -- ROTA: number of turns of the HminA coil
+<p><b>rota_hmina = 2.2305</b> -- ROTA: field/current in the center of HminA coil [G/A]
+<p><b>rota_hmina_mr = 1.652</b> -- ROTA: quadratic radial term of the HminA field, [G/A/cm^2]
+<p><b>rota_hmina_i0i = -0.02918</b> -- ROTA: effectve HminA coil current divided by NMR current
+<p><b>rota_hmina_i0f = -9.3050e-08</b> -- ROTA: effectve HminA coil current divided by NMR frequency, rota_hmina_i0i = rota_hmina_i0f * he3_gyro/2/pi * rota_nmra
+<p><b>rota_rrda = 1.01e-4</b> -- ROTA: radiation damping constant for the nmrA spectrometer
+<p><b>rota_c_ns(t,i)</b> -- Nuclear stage heat capacity [J/K] vs T[K] and I[A]
+<p>
+
+<p><b>rota_fork_cal(w,p,n)</b> -- Calibration of fork N, T/Tc, vs width (Hz) and P (bar)
+<p>
+
+<p><b>rota_nmra_q(f0)</b> -- Q value of the nmrA spectrometer vs frequency (measured)
+<p>
+
+<p><b>rota_nmra_f(n)</b> -- ROTA: frequencies of nmrA spectrometer,kHz for n=1..8 (use real*8 n!)
+<p>
+
+<p><b>rota_bza(I,Imin,r,z)</b> -- ROTA: Bz field profile of the A spectrometer
+<p>
+
+<p><b>rota_nspeca(f0,I,Imin)</b> -- ROTA: normal phase spectrum
+<p>
+
+<h3>Q-balls in the zero temperature limit</h3>
+<p><b>rota_qball_dbetan(p,f0)</b> -- ROTA: Derivative of the textural angle beta_N in the center of the cell (rota-specific, measured), [rad/cm]
+<p>
+
+<p><b>rota_qball_fz0(p,f0,imin)</b> -- ROTA: nu_z (1/2 of distance between visible axial levels) (no rotation, rota-specific, measured), [Hz]
+<p>
+
+<p><b>rota_qball_fr0(p,f0,imin)</b> -- ROTA: nu_r (1/2 of distance between visible radial levels) (no rotation, rota-specific, measured), [Hz]
+<p>
+
+<p><b>rota_qball_az0(P,f0,imin)</b> -- ROTA: z size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+<p>
+
+<p><b>rota_qball_ar0(P,f0,imin)</b> -- ROTA: r size of the magnon condensate (no rotation, rota-specific, measured), [cm]
+<p>
+
+<p><b>rota_qball_trd(P,f0,fr,fz)</b> -- ROTA: tau_RD for the magnon condensate with given radial and axial frequencies (rota-specific, measured) [s]
+<p>
+
+<p><b>rota_qball_trd0(P,f0,imin)</b> -- ROTA: tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
+<p>
+
+<hr><a name='hh35'></a><h2>B phase magnon spectra.</h2>
+<p><b>he3b_spec1s(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B acoustic magnon spectrum, simple formula
+<p>
+
+<p><b>he3b_spec2s(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B optical magnon spectrum, simple formula
+<p>
+
+<p><b>he3b_spec3s(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B longitudinal magnon spectrum, simple formula
+<p>
+
+<p><b>he3b_spec1(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B magnon spectrum, full formula, lowest mode
+<p>
+
+<p><b>he3b_spec2(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B magnon spectrum, full formula, middle mode
+<p>
+
+<p><b>he3b_spec3(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B magnon spectrum, full formula, highest mode
+<p>
+
+<p><b>he3b_spec_kx2a(ttc,P,H,w,an,bn)</b> -- He3-B magnon spectrum, kx^2(w), lowest mode
+<p>
+
+<p><b>he3b_spec_kx2b(ttc,P,H,w,an,bn)</b> -- He3-B magnon spectrum, kx^2(w), middle mode
+<p>
+
+<p><b>he3b_spec_kx2c(ttc,P,H,w,an,bn)</b> -- He3-B magnon spectrum, kx^2(w), highest mode
+<p>
+
+<hr><a name='hh36'></a><h2>Mathematics</h2>
+<p><b>math_ele(x)</b> -- complete elliptic integral E(x)
+<p>
+from IMSL librar
+
+<p><b>math_elk(x)</b> -- complete elliptic integral K(x)
+<p>
+from IMSL librar
+
+<p><b>loop_bz(Rl,r,z)</b> -- magnetic field Bz of a current loop
+<p>
+
+<p><b>loop_br(Rl,r,z)</b> -- magnetic field Bz of a current loop
+<p>
+
+<p><b>math_stokes_k(g)</b> -- Stokes K function
+<p>
+
+<p><b>math_stokes_kp(g)</b> -- Stokes K' function
+<p>
+
+<hr><a name='hh37'></a><h2>Helium-4 parameters</h2>
+<h3>Constants</h3>
+<p><b>he4_tcv = 2.1720</b> -- He4 superfluid transition temperature at vapor pressure [K] (1958 temperature scale)
+<p><b>he4_pcv = 0.050396</b> -- He4 vapor pressure at superfluid transition [bar] (1958 temperature scale)
+<p><b>he4_tcm = 1.750</b> -- He4 superfluid transition temperature at melting curve [K] (Swenson-1952, shifted)
+<p><b>he4_pcm = 30.033</b> -- He4 superfluid transition pressure at melting curve [bar] (Swenson-1952)
+<p><b>he4_tcr = 5.1994</b> -- He4 critical temperature [K] (1958 temperature scale)
+<p><b>he4_pcr = 2.2905</b> -- He4 critical pressure [bar] (1958 temperature scale)
+<p><b>he4_tc(p)</b> -- He4 superfluid transition temperature [K] vs pressure [bar].
+<p>
+Data from [[Swenson-1952]], shifted by -0.014K to
+have Tc(Pvap) = 2.1720K (according to 1958 temperature scale)
+
+<p><b>he4_pmelt(t)</b> -- He4 Melting pressure [bar] vs temperature [K], 0..4K
+<p>
+[[Swenson-1950,1951]
+
+<p><b>he4_pvap(t)</b> -- He4 Vapor pressure [bar] vs temperature [K], 0..tcr
+<p>
+Fit of 1958 temperature scale (~1.5% accuracy
+
+<p><b>he4_vm(t)</b> -- He4 molar volume at saturated vapor pressure [cm^3/mol] vs T [K]
+<p>
+[[Kerr,Taylor-1964]
+
+<hr><a name='hh39'></a><h2>3He-4He mixtures</h2>
+<h3>Constants</h3>
+<p><b>he34_xcr = 0.674</b> -- critical point at saturated pressure, concentration of He3
+<p><b>he34_tcr = 0.867</b> -- critical point at saturated pressure, temperature [K]
+<p>Phase diagram functions are from Chaudhry PhD thesis (Massachusetts, 2009)</p>
+<h3>Phase diagram at saturated vapor pressure</h3>
+<p><b>he34_xdil(t)</b> -- Dilute phase-separation curve, concentration vs temperature [K]
+<p>
+(0.08014 < x < 0.674; 0.15 K < T < 0.867 K):
+Chaudhry PhD thesis (Massachusetts, 2009)
+Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.2
+
+<p><b>he34_xcon(t)</b> -- Concentrated phase-separation curve, concentration vs temperature [K]
+<p>
+(0.674 < x < 1; 0.15 K < T < 0.867 K).
+Chaudhry PhD thesis (Massachusetts, 2009)
+Below 0.15 K: Edwards, Ifft, Sarwinski, Phys.Rev. 177, 380 (1969) Eq.25
+
+<p><b>he34_tlambda(x)</b> -- Lambda curve, temperature [K] vs concentration
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<h3>phase diagram at pressures 0..10bar</h3>
+<p><b>he34_tcr_p(p)</b> -- Tricritical line vs pressure [bar], 0..10 bar
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<p><b>he34_xcr_p(p)</b> -- Concentration along the tricritical line vs pressure [bar]:
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<p><b>he34_xdil_p(t,p)</b> -- Dilute phase-separation curve, x vs t[K] and p[bar]
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<p><b>he34_xcon_p(t,p)</b> -- Concentrated phase-separation curve, x vs t[K] and p[bar]
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<p><b>he34_tlambda_p(x,p)</b> -- Lambda curve, t[K] vs x and p[bar]
+<p>
+Chaudhry PhD thesis (Massachusetts, 2009
+
+<h3>Vibrating wire calibration programs from Lancaster ULT (original version)</h3>
+<p><b>he3_wire_mix_f(t,rho,diam,fre)</b> -- Mixing chamber calibration, frequency vs temperatere
+<p>
+arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz
+
+<p><b>he3_wire_mix_w(t,rho,diam,fre)</b> -- Mixing chamber calibration, width vs temperatere
+<p>
+arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz
+
+<p><b>he3_wire_bphase_f(t,p,rho,diam,fre)</b> -- Superfluid He3-B calibration, frequency vs temperatere
+<p>
+arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz
+
+<p><b>he3_wire_bphase_w(t,p,rho,diam,fre)</b> -- Superfluid He3-B calibration, width vs temperatere
+<p>
+arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz
+
+
+</body></html>

@@ -5,8 +5,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !> Heat capacity, Cv/R vs T [K], Vm [cm^3/mol]
-!> (Cv = Cp up to terms (T/Tf)^3)
-!> Greywall-1983
+!> Original formula from Greywall-1983.
+!> Note that Cv = Cp up to terms (T/Tf)^3.
       function he3_cv_n(t, v) !F>
         implicit none
         include 'he3.fh'
@@ -98,9 +98,9 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!> Heat conductivity, K [erg/s cm K] vs T [K] and Vm [cm^3/mol]
-!> Original formula from Greywall-1984 paper
-      function he3_tcond_n_greywall(t, vm) !F>
+! Heat conductivity, K [erg/s cm K] vs T [K] and Vm [cm^3/mol]
+! Original formula from Greywall-1984 paper
+      function he3_tcond_n_greywall(t, vm)
         implicit none
         include 'he3.fh'
         real*8 t,vm
@@ -143,8 +143,13 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !> He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [par].
-!> Model from Dyugaev-1985, it combins measurements from Greywall-1984 (7mK-1K) and
-!> Kerrisk,Keller-1969 (1.5K-Tcr)
+!>
+!> Dyugaev-1985. Measurements from Greywall-1984 (7mK-1K) and
+!> Kerrisk,Keller-1969 (1.5K-Tcr) are used to obtain some semi-theoretical
+!> model for thermal conductivity and viscosity (see below).
+!>
+!> <img src="img/1984_greywall_tcond.png">
+!>
       function he3_tcond_n(t, p) !F>
         implicit none
         include 'he3.fh'
@@ -165,8 +170,23 @@
         endif
       end
 
-!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol]
-!> Model from Dyugaev-1985, it fits data of Betts-1963
+!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+!>
+!> Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
+!> Very good agreement with Betts-1963,1965 at high temperatures and with
+!> with low-temperature data from Parpia-1978.
+!> Reasonably good agreeement with other low temperature data (Carless-1983, Archie)
+!> (temperature scale correction maybe needed).
+!>
+!> <p><img src="img/1965_betts_visc_fig1.png">
+!> <p><img src="img/1983_carless_visc_fig6.png">
+!>
+!> <p> Note that in this function effect of fluctuations near Tc (Emery-1976,Nakagawa-1996)
+!> is not taken into accout (TODO?).
+!>
+!> <p> There is also a complete viscosity model in Huang-2012, but for me it does
+!> not look any better then Dyugaev's one.
+!>
       function he3_visc_n(t, p) !F>
         implicit none
         include 'he3.fh'

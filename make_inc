@@ -243,7 +243,7 @@ close OUT_TAB;
 #############################################
 # write documentation
 
-open(OUT_HTM, '> he3.htm') or die 'Can not open he3.htm: $!';
+open(OUT_HTM, '> docs/he3.htm') or die 'Can not open he3.htm: $!';
 print OUT_HTM qq*<html>
 <head>
 <script type="text/javascript"
