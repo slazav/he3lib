@@ -1,0 +1,9 @@
+#!/usr/bin/gnuplot
+
+f(x) = a
+fit f(x) "tc_corr" using 1:($3/$2) via a
+
+set nokey
+plot "tc_corr" using 1:($3/$2) pt 7, f(x)
+
+pause -1

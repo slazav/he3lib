@@ -1,0 +1,24 @@
+#!/usr/bin/gnuplot
+
+k = 0.985 # see tc_corr
+
+set title "viscosity of normal he3 at Tc"
+set xlabel "pressure, bar"
+set ylabel "eta*T^2 [P*mK^2]"
+
+plot [0:34]\
+ "fig6_1.txt" using 1:($2*k**2) pt 7 title "Carless-83, 1/A",\
+ "fig6_2.txt" using 1:($2*k**2) pt 7 title "Carless-83, value at Tc",\
+ "fig6_3.txt" pt 7 title "Archie, vibr.wire",\
+ "fig6_4.txt" pt 7 title "Archie, tors.osc.",\
+ "fig6_5.txt" pt 7 lc 6 title "Parpia-78",\
+  "< ../../he3 he3_visc_n 0.001 0:34" using 2:3 with lines lc 8 title "he3lib",\
+
+# "fig6_6.txt" title "Dy,Pethick, theory",\
+
+pause -1
+
+set terminal png
+set output "../../docs/img/1983_carless_visc_fig6.png"
+
+replot

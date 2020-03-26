@@ -20,6 +20,13 @@ plot [2.15:2.22]\
 
 pause -1
 
+plot [2.15:2.22]\
+  '1964_kerr.dat' using 1:(1-$2/f1($1)) pt 6,\
+  '1964_kerr.dat' using 1:(1-$2/f2($1)) pt 6, 0
+
+pause -1
+
+
 ##################
 # High T: 2.22-4.4K
 # In the paper there is another expression which uses he3_pvap
@@ -33,6 +40,11 @@ fit [2.22:] fu(x) '1964_kerr.dat' using 1:2 via Bu,Cu
 
 plot [2.22:]\
   '1964_kerr.dat' using 1:2 pt 6, fu(x)
+
+pause -1
+
+plot [2.22:]\
+  '1964_kerr.dat' using 1:(1-$2/fu($1)) pt 6, 0
 
 pause -1
 
@@ -54,3 +66,9 @@ plot [0:2.15]\
   '1964_kerr.dat' using 1:2 pt 6, fl(x)
 
 pause -1
+
+plot [0:2.15]\
+  '1964_kerr.dat' using 1:(1-$2/fl($1)) pt 6, 0
+
+pause -1
+
