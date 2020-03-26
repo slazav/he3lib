@@ -4,9 +4,9 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!>     heat capacity, Cv/R vs T [K], Vm [cm^3/mol]
-!>     (Cv = Cp up to terms (T/Tf)^3)
-!>     Greywall-1983
+!> Heat capacity, Cv/R vs T [K], Vm [cm^3/mol]
+!> (Cv = Cp up to terms (T/Tf)^3)
+!> Greywall-1983
       function he3_cv_n(t, v) !F>
         implicit none
         include 'he3.fh'
@@ -97,3 +97,88 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!> Heat conductivity, K [erg/s cm K] vs T [K] and Vm [cm^3/mol]
+!> Original formula from Greywall-1984 paper
+      function he3_tcond_n_greywall(t, vm) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t,vm
+
+        if (t.lt.0.05D0) then
+          he3_tcond_n_greywall = 1D0/t/(
+     .      1D0/(- 4.1884746D1
+     .           + 1.9262839D0 * vm)
+     .      + t/(- 1.8546379D0
+     .           + 2.3695190D-1 *vm
+     .           - 6.8284756D-3 *vm**2)
+     .   + t**2/(+ 4.3617792D-1
+     .           - 4.2101673D-2 *vm
+     .           + 1.0050221D-3 *vm**2)
+     .   + t**3/(- 9.4328296D-2
+     .           + 8.9196267D-3 *vm
+     .           - 2.0903165D-4 *vm**2))
+        elseif (t.le.1.3D0) then
+          he3_tcond_n_greywall =
+     .      + 2.5498997D0  /t**2
+     .      - 1.1861905D-1 /t**2 * vm
+     .      + 1.7187787D-3 /t**2 * vm**2
+     .      - 1.4861472D2  /t
+     .      + 7.2176329D0  /t * vm
+     .      - 7.5439157D-2 /t * vm**2
+     .      + 1.0311239D3
+     .      - 4.1084636D1  *vm
+     .      + 6.8188534D-1 *vm**2
+     .      - 3.3746517D3  *t
+     .      + 2.2612612D2  *t *vm
+     .      - 3.4207801D0  *t *vm**2
+     .      + 2.5913792D3  *t**2
+     .      - 1.4574998D2  *t**2 *vm
+     .      + 2.1389643D0  *t**2 *vm**2
+        else
+          he3_tcond_n_greywall = NaN
+        endif
+      end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!> He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [par].
+!> Model from Dyugaev-1985, it combins measurements from Greywall-1984 (7mK-1K) and
+!> Kerrisk,Keller-1969 (1.5K-Tcr)
+      function he3_tcond_n(t, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t,p
+        real*8 tk, k0, dk0
+
+        tk = 0.121830D0 - p*1.459840D-3 + 1.321430D0/(p+10.23327D0)
+        k0 = 77.37037D0 - p*0.489282D0 + 623.451D0/(p+16.32097D0)
+        dk0 = 3.103759D0 + p*0.0249499D0
+     .      - p**2*1.82331D-3 + p**3*4.035088D-5
+!        dki = 2.797180D0 - p*0.0107957D0
+!     .      + p**2*3.24248D-3 - p**3*1.219298D-4
+
+        if (t.lt.he3_tcr) then
+          he3_tcond_n = k0* (tk/t + t/tk + dk0)
+        else
+          he3_tcond_n = NaN
+        endif
+      end
+
+!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol]
+!> Model from Dyugaev-1985, it fits data of Betts-1963
+      function he3_visc_n(t, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t,p
+        real*8 te, e0
+
+        te = 0.064795D0 + p*2.949606D-5 + 5.351244D0/(p+16.87556D0)
+        e0 = 22.3125D0  + p*0.375D0 - 36.09375D0/(p+7.5D0)
+
+        if (t.lt.he3_tcr) then
+          he3_visc_n = 1D-6*e0* ((te/t)**2 + 1.41D0*te/t + 1D0)
+        else
+          he3_visc_n = NaN
+        endif
+      end
