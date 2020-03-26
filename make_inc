@@ -278,6 +278,12 @@ foreach my $d (@data) {
       print OUT_HTM "<hr><a name='hh$ihh'></a><h2>$d->{text}</h2>\n";
   }
 
+  ## header
+  if ($d->{type} eq 'H'){
+      $ihh++;
+      print OUT_HTM "<h3>$d->{text}</h3>\n";
+  }
+
   ## text
   if ($d->{type} eq 'text'){
       print OUT_HTM "<p>$d->{text}</p>\n";
