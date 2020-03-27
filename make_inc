@@ -290,14 +290,14 @@ foreach my $d (@data) {
 
   ## function
   elsif ($d->{type} eq 'func'){
-    print OUT_HTM "<p><b>$d->{name}($d->{args})</b> -- $d->{title}\n";
+    print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title}\n";
     print OUT_HTM "<p>$d->{text}\n";
     print OUT_HTM "\n";
   }
 
   ## constant
   elsif ($d->{type} eq 'const'){
-    print OUT_HTM "<p><b>$d->{name} = $d->{value}</b> -- $d->{title}\n";
+    print OUT_HTM "<p><tt>$d->{name} = $d->{value}</tt> -- $d->{title}\n";
   }
 }
 

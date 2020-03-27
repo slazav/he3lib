@@ -171,24 +171,42 @@
         endif
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!> Emery factor vs T [K] and P [par].
+!>
+!> <p>In normal He3 transport properties (viscosity, spin diffusion, thermal conductivity?)
+!> are suppressed just above Tc because of some fluctuation effects (Emery-1978).
+!> This is clearly seen at viscosity measurements (Parpia-1978, Carless-1983, Nakagawa-1996).
+!> The factor has form 1 - $G(1 - \theta/\alpha\mbox{atan}(\alpha/\theta))$, where $\theta = \sqrt{T/T_c - 1}$.
+!>
+!> <p>Values of $G$ (pressure independent) and $\alpha$ were obtained by fitting
+!> viscosity data from Carless-1983 and Nakagawa-1996 in assumption that at high
+!> temperatures they should follow Dyugaev-1985 model.
+!>
+!> <p>Note that in Carless-1983 temperature scale Alvesalo-80 is used. To convert
+!> it to Greywall-86 scale one should multiply temperature by $k=0.893$.
+      function he3_emery_factor(ttc, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 ttc,p, A,G,th
+
+        if (ttc.lt.1D0) then
+          he3_emery_factor = NaN
+        else
+          ! Fitting done in data/1983_carless_visc/process_data.m
+          G = 2.318858D-1
+          A = -4.067317D-2 + 4.841729D1/(6.0755 + p)
+          th = dsqrt(ttc-1D0)
+          he3_emery_factor  = 1D0 - G*(1D0 - th/A*datan(A/th));
+        endif
+      end
+
+
 !> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+!> Pure Dyugaev-1985 model without Emery effect. See function <tt>he3_visc_n</tt> below.
 !>
-!> Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
-!> Very good agreement with Betts-1963,1965 at high temperatures and with
-!> with low-temperature data from Parpia-1978.
-!> Reasonably good agreeement with other low temperature data (Carless-1983, Archie)
-!> (temperature scale correction maybe needed).
-!>
-!> <p><img src="img/1965_betts_visc_fig1.png">
-!> <p><img src="img/1983_carless_visc_fig6.png">
-!>
-!> <p> Note that in this function effect of fluctuations near Tc (Emery-1976,Nakagawa-1996)
-!> is not taken into accout (TODO?).
-!>
-!> <p> There is also a complete viscosity model in Huang-2012, but for me it does
-!> not look any better then Dyugaev's one.
-!>
-      function he3_visc_n(t, p) !F>
+      function he3_visc_n0(t, p) !F>
         implicit none
         include 'he3.fh'
         real*8 t,p
@@ -198,8 +216,30 @@
         e0 = 22.3125D0  + p*0.375D0 - 36.09375D0/(p+7.5D0)
 
         if (t.lt.he3_tcr) then
-          he3_visc_n = 1D-6*e0* ((te/t)**2 + 1.41D0*te/t + 1D0)
+          he3_visc_n0 = 1D-6*e0* ((te/t)**2 + 1.41D0*te/t + 1D0)
         else
-          he3_visc_n = NaN
+          he3_visc_n0 = NaN
         endif
+      end
+
+!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+!>
+!> Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
+!> At low temperature Emery effect, reduction of viscosity close to $T_c$ due to fluctuation
+!> effects, is taken into account.
+!> Very good agreement with Betts-1963,1965 at high temperatures, and with Carless-1983, Nakagawa-1996
+!> at low tempeatures (temperature scale correction for Carless-1983 is needed).
+!>
+!> <p><img src="img/1965_betts_visc_fig1.png">
+!> <p><img src="img/1983_carless_visc_fig4.png">
+!>
+!> <p> There is also a complete viscosity model in Huang-2012, but for me it does
+!> not look as good as this one.
+!>
+      function he3_visc_n(t, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t,p
+        he3_visc_n = he3_visc_n0(t,p)
+     .             * he3_emery_factor(t*1D3/he3_tc(p),p)
       end
