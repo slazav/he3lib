@@ -60,7 +60,7 @@
 <p><b>he3_mmass = 3.0158281</b> -- He3 molar mass, [g/mol]
 <p><b>he4_amass = 6.64647641e-24</b> -- He4 atom mass, [g]
 <p><b>he4_mmass = 4.002602</b> -- He4 molar mass, [g/mol]
-<hr><a name='hh4'></a><h2>He3 phase diagram</h2>
+<hr><a name='hh2'></a><h2>He3 phase diagram</h2>
 <h3>Helium-3 phase diagram constants</h3>
 <p><b>he3_pcr = 1.16317</b> -- He3: critical pressure [bar]
 <p><b>he3_tcr = 3.324</b> -- He3: critical temperature [K]
@@ -95,10 +95,11 @@ http://archive.org/details/jresv68An6p57
 <p><b>he3_pmelt(T)</b> -- He3 melting pressure [bar] vs T[K], T = 0 .. 31 K, Greywall-86
 <p>
 
-<p><b>he3_tc(P)</b> -- T_c [mK] vs P [bar]
+<p>Superfluid transition temperature, T_c [mK] vs P [bar]
+Greywall. PRB33 (1986) f.5.
+Alvesalo scale should be multiplied by 0.893 to convert temperature.</p>
+<p><b>he3_tc(P)</b> -- 
 <p>
-Arg: P = 0 .. Pa [bar]
-Ref: Greywall. PRB33 (1986) f.
 
 <p><b>he3_tab(P)</b> -- T_ab [mK] vs P [bar]
 <p>
@@ -117,7 +118,7 @@ c = (-1.2297e-02, -4.2958e-04, 8.2456e-05)
 <p><b>he3_tab_plts(P)</b> -- Tab scaled from Greywall to PLTS, [mK] vs p [bar]
 <p>
 
-<hr><a name='hh7'></a><h2>Helium-3 as a normal fermi-liquid</h2>
+<hr><a name='hh3'></a><h2>Helium-3 as a normal fermi-liquid</h2>
 <p>See Wheatley, Rev.Mod.Phys. 47, 415(1975) /tables at p.467/</p>
 <h3>Molar volume and specific heat</h3>
 <p><b>he3_vm(P)</b> -- He3 molar volume [cm^3/mole] (exp data, Greywall-86)
@@ -199,7 +200,7 @@ Engel, Ihas, Phys. Rev. Lett. 55, 955958 (1985)
 Hamot, Lee, ... Halperin, JLTP 99 p651 (1995)
 Mastumoto et al. JLTP 102 p227 (1996
 
-<hr><a name='hh13'></a><h2>BCS gap + strong coupling corrections for He3-B</h2>
+<hr><a name='hh4'></a><h2>BCS gap + strong coupling corrections for He3-B</h2>
 <p><b>he3_bcsgap(ttc)</b> -- BCS energy gap/(kBTc) vs T/Tc
 <p>
 Newton iteration based on a note by E.Thuneberg and R.Hanninen
@@ -300,7 +301,7 @@ see Leggett-Takagi 1975, f.1
 <p><b>he3_c_b(ttc,P)</b> -- He3-B heat capacity (C/R)
 <p>
 
-<hr><a name='hh15'></a><h2>He3 Dipole energy and Leggett frequency</h2>
+<hr><a name='hh5'></a><h2>He3 Dipole energy and Leggett frequency</h2>
 <p><b>he3_gd(p)</b> -- Dipole coefficient g_d, 1/(erg cm^3)
 <p>
 restored from experimental data by E.Thuneberg.
@@ -318,7 +319,7 @@ See Thuneberg-2001 f.4
 <p>
 less accurate formula without using of g_
 
-<hr><a name='hh16'></a><h2>He3 gradient energy and spin wave velocities</h2>
+<hr><a name='hh6'></a><h2>He3 gradient energy and spin wave velocities</h2>
 <p><b>he3_grad_k0(ttc,p)</b> -- K1=K2=K3 in a simple approximation, see VW 7.23m
 <p>
 
@@ -371,7 +372,7 @@ K3 = rho_s/40m* (4Rt-3Rl
 K1 = K2 = rho_s/40m* Rl
 K3 = rho_s/40m* (4Rt-3Rl
 
-<hr><a name='hh17'></a><h2>He3b other textural parameters</h2>
+<hr><a name='hh7'></a><h2>He3b other textural parameters</h2>
 <p><b>he3_text_a(ttc,p)</b> -- Textural parameter a, erg/cm^3 1/G^2
 <p>
 See Thuneberg-2001 f.25 and f.
@@ -409,7 +410,7 @@ see Thuneberg-2001, p.66
 <p><b>he3_text_vd(ttc,p)</b> -- Dipole velocity vd in cm/s
 <p>
 
-<hr><a name='hh18'></a><h2>Normal He3 transport properties</h2>
+<hr><a name='hh8'></a><h2>Normal He3 transport properties</h2>
 <h3>Crossections</h3>
 <p><b>he3_crsect_w(P)</b> -- Scattering crossection <W>, Einzel & Wolfle JLTP32 (1978) f.82
 <p>
@@ -464,7 +465,7 @@ Result is same if tau_n0 is different by pi/4 facto
 <p>
 Einzel JLTP84 (1991) f.22, Bunkov PRL6
 
-<hr><a name='hh21'></a><h2>He3-B transport properties</h2>
+<hr><a name='hh9'></a><h2>He3-B transport properties</h2>
 <h3>Collision integral for Bogoliubov quasiparticles</h3>
 <p><b>he3_coll_int(xi,ttc,gap,g0,d0)</b> -- Collision integral in Einzel approximation
 <p>
@@ -545,7 +546,7 @@ Einzel JLTP84 (1991) f.10
 <p><b>he3_diff_par_zz(ttc,p,nu0)</b> -- Spin diffusion coefficient D_perp_zz [cm2/s]
 <p>
 
-<hr><a name='hh26'></a><h2>B phase in strong magnetic field (B2 phase).</h2>
+<hr><a name='hh10'></a><h2>B phase in strong magnetic field (B2 phase).</h2>
 <p><b>he3_b2hcr(ttc,P)</b> -- critical field B_ab [mk] vs ttc, P [bar]
 <p>
 Inseob Hahn PhD thesis, p79
@@ -584,7 +585,7 @@ see also code at http://spindry.phys.northwestern.edu/he3.ht
 <p><b>he3_b2magab(ttc,p)</b> -- magnetization at the A-B boundary
 <p>
 
-<hr><a name='hh28'></a><h2>Misc. functions for superfluid He3-B</h2>
+<hr><a name='hh11'></a><h2>Misc. functions for superfluid He3-B</h2>
 <p><b>he3_xigl(ttc,p)</b> -- Extrapolated GL coherence length, cm
 <p>
 see Thuneberg-2001, p.667
@@ -600,7 +601,7 @@ Ref: WV pic.10.5 20ba
 <p><b>he3_tau_f(ttc)</b> -- Leggett-Takagi tau_f [s] vs T/Tc, 20bar
 <p>
 
-<hr><a name='hh29'></a><h2>Normal 3He liquid parameters beyond zero-temperature limit</h2>
+<hr><a name='hh12'></a><h2>Normal 3He liquid parameters beyond zero-temperature limit</h2>
 <p><b>he3_cv_n(t,v)</b> -- Heat capacity, Cv/R vs T [K], Vm [cm^3/mol]
 <p>
 Original formula from Greywall-1983.
@@ -615,31 +616,47 @@ model for thermal conductivity and viscosity (see below).
 
 <img src="img/1984_greywall_tcond.png">
 
+<p><b>he3_emery_factor(ttc,p)</b> -- Emery factor vs T [K] and P [par].
+<p>
+
+<p>In normal He3 transport properties (viscosity, spin diffusion, thermal conductivity?)
+are suppressed just above Tc because of some fluctuation effects (Emery-1978).
+This is clearly seen at viscosity measurements (Parpia-1978, Carless-1983, Nakagawa-1996).
+The factor has form 1 - $G(1 - \theta/\alpha*\atan(\altha/\theta))$, where $\theta = \sqrt{T/T_c - 1}$.
+
+<p>Values of $G$ (pressure independent) and $\alpha$ were obtained by fitting
+viscosity data from Carless-1983 and Nakagawa-1996 in assumption that at high
+temperatures they should follow Dyugaev-1985 model.
+
+<p>Note that in Carless-1983 temperature scale Alvesalo-80 is used. To convert
+it to Greywall-86 scale one should multiply temperature by $k=0.893$
+
+<p><b>he3_visc_n0(t,p)</b> -- He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+<p>
+Pure Dyugaev-1985 model without Emery effect. See function <tt>he3_visc_n</tt> below.
+
 <p><b>he3_visc_n(t,p)</b> -- He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
 <p>
 
 Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
-Very good agreement with Betts-1963,1965 at high temperatures and with
-with low-temperature data from Parpia-1978.
-Reasonably good agreeement with other low temperature data (Carless-1983, Archie)
-(temperature scale correction maybe needed).
+At low temperature Emery effect, reduction of viscosity close to $T_c$ due to fluctuation
+effects, is taken into account.
+Very good agreement with Betts-1963,1965 at high temperatures, and with Carless-1983, Nakagawa-1996
+at low tempeatures (temperature scale correction for Carless-1983 is needed).
 
 <p><img src="img/1965_betts_visc_fig1.png">
-<p><img src="img/1983_carless_visc_fig6.png">
-
-<p> Note that in this function effect of fluctuations near Tc (Emery-1976,Nakagawa-1996)
-is not taken into accout (TODO?).
+<p><img src="img/1983_carless_visc_fig4.png">
 
 <p> There is also a complete viscosity model in Huang-2012, but for me it does
-not look any better then Dyugaev's one.
+not look as good as this one.
 
-<hr><a name='hh30'></a><h2>A phase</h2>
+<hr><a name='hh13'></a><h2>A phase</h2>
 <p><b>he3_nu_a(ttc,p)</b> -- Legget frequency nu_a [Hz] vs P, ttc
 <p>
 Interpolation formula by A.Yudin based on Halperin and ROTA data
 There is no check that t > t_a
 
-<hr><a name='hh31'></a><h2>He3 Polar phase</h2>
+<hr><a name='hh14'></a><h2>He3 Polar phase</h2>
 <p><b>he3p_chi_par(ttc,p)</b> -- susceptibility component along d vector chi_par / chi_n
 <p>
 chi_perp/chi_0 = 1
@@ -657,7 +674,7 @@ see Leggett-1975, VIIID f.7.53 and f.7.5
 <p><b>he3p_xih_par(ttc,p,h)</b> -- magnetic length parallel to the l vector (4g_d/(K1+K2+K3))
 <p>
 
-<hr><a name='hh32'></a><h2>ROTA-specific functions</h2>
+<hr><a name='hh15'></a><h2>ROTA-specific functions</h2>
 <h3>ROTA-specific constants</h3>
 <p><b>rota_rcell = 0.2925</b> -- ROTA: cell radius (2011-2014)
 <p><b>rota_nmra = 96.69139692</b> -- ROTA: field/current in nmrA solenoid [G/A] (normal phase measurements 2014-10-10: f0=832803.65Hz I0=2655.663813mA)
@@ -709,7 +726,7 @@ see Leggett-1975, VIIID f.7.53 and f.7.5
 <p><b>rota_qball_trd0(P,f0,imin)</b> -- ROTA: tau_RD for the magnon condensate (no rotation, rota-specific, measured) [s]
 <p>
 
-<hr><a name='hh35'></a><h2>B phase magnon spectra.</h2>
+<hr><a name='hh16'></a><h2>B phase magnon spectra.</h2>
 <p><b>he3b_spec1s(ttc,P,H,kv,ak,bk,an,bn)</b> -- He3-B acoustic magnon spectrum, simple formula
 <p>
 
@@ -737,7 +754,7 @@ see Leggett-1975, VIIID f.7.53 and f.7.5
 <p><b>he3b_spec_kx2c(ttc,P,H,w,an,bn)</b> -- He3-B magnon spectrum, kx^2(w), highest mode
 <p>
 
-<hr><a name='hh36'></a><h2>Mathematics</h2>
+<hr><a name='hh17'></a><h2>Mathematics</h2>
 <p><b>math_ele(x)</b> -- complete elliptic integral E(x)
 <p>
 from IMSL librar
@@ -758,7 +775,7 @@ from IMSL librar
 <p><b>math_stokes_kp(g)</b> -- Stokes K' function
 <p>
 
-<hr><a name='hh37'></a><h2>Helium-4 parameters</h2>
+<hr><a name='hh18'></a><h2>Helium-4 parameters</h2>
 <h3>Constants</h3>
 <p><b>he4_tcv = 2.1720</b> -- He4 superfluid transition temperature at vapor pressure [K] (1958 temperature scale)
 <p><b>he4_pcv = 0.050396</b> -- He4 vapor pressure at superfluid transition [bar] (1958 temperature scale)
@@ -783,7 +800,7 @@ Fit of 1958 temperature scale (~1.5% accuracy
 <p>
 [[Kerr,Taylor-1964]
 
-<hr><a name='hh39'></a><h2>3He-4He mixtures</h2>
+<hr><a name='hh19'></a><h2>3He-4He mixtures</h2>
 <h3>Constants</h3>
 <p><b>he34_xcr = 0.674</b> -- critical point at saturated pressure, concentration of He3
 <p><b>he34_tcr = 0.867</b> -- critical point at saturated pressure, temperature [K]
