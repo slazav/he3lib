@@ -12,13 +12,8 @@ plot [0:34]\
  "fig6_3.txt" pt 7 title "Archie, vibr.wire",\
  "fig6_4.txt" pt 7 title "Archie, tors.osc.",\
  "fig6_5.txt" pt 7 lc 6 title "Parpia-78",\
-  "< ../../he3 he3_visc_n 0.001 0:34" using 2:3 with lines lc 8 title "he3lib",\
+ "< ../../he3 he3_visc_n0 0.001 0:33"  using 2:3 with lines notitle lc 1,\
 
 # "fig6_6.txt" title "Dy,Pethick, theory",\
 
 pause -1
-
-set terminal png
-set output "../../docs/img/1983_carless_visc_fig6.png"
-
-replot
