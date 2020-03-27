@@ -280,7 +280,6 @@ foreach my $d (@data) {
 
   ## header
   if ($d->{type} eq 'H'){
-      $ihh++;
       print OUT_HTM "<h3>$d->{text}</h3>\n";
   }
 
