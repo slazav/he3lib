@@ -102,6 +102,7 @@
 ! Original formula from Greywall-1984 paper
       function he3_tcond_n_greywall(t, vm)
         implicit none
+        real*8 he3_tcond_n_greywall
         include 'he3.fh'
         real*8 t,vm
 
