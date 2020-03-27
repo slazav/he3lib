@@ -1,6 +1,6 @@
 #!/usr/bin/gnuplot
 
-k = 0.985 # see tc_corr
+k = 0.893 # Alvesalo -> Greywall temperature scale
 
 set title "viscosity of normal he3 at Tc"
 set xlabel "pressure, bar"

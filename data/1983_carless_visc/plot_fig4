@@ -5,7 +5,7 @@ set key left bottom
 Ta = 0.4
 f(T) = A/(1-T/Ta)
 
-k = 0.985 # see tc_corr
+k = 0.893 # Alvesalo -> Greywall temperature scale
 
 fit [1.5:] f(x) "fig4_02.10.txt" via A,Ta
 #fit [2.0:] f(x) "fig1_05.txt" via A,Ta

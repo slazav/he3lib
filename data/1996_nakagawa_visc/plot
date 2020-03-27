@@ -2,24 +2,18 @@
 
 set key left bottom
 
-Ta = 0.4
-f(T) = A/(1-T/Ta)
-
-fit [1.5:] f(x) "fig1_00.txt" via A,Ta
-fit [2.0:] f(x) "fig1_05.txt" via A,Ta
-fit [3.0:] f(x) "fig1_21.txt" via A,Ta
-fit [3.0:] f(x) "fig1_29.txt" via A,Ta
+# Temperature correction (see tc_corr_fit)
+# To get correct values we need to multiply temperature by k and viscosity by k^2
+k = 0.9879
 
 plot [:5]\
-  "fig1_00.txt" using 1:2 w p pt 6 title "0 bar",\
-  "fig1_05.txt" using 1:2 w p pt 6 title "5 bar",\
-  "fig1_21.txt" using 1:2 w p pt 6 title "21 bar",\
-  "fig1_29.txt" using 1:2 w p pt 6 title "29 bar",\
+  "fig1_00.txt" using ($1*k):($2*k**2) w p pt 6 title "0 bar",\
+  "fig1_05.txt" using ($1*k):($2*k**2) w p pt 6 title "5 bar",\
+  "fig1_21.txt" using ($1*k):($2*k**2) w p pt 6 title "21 bar",\
+  "fig1_29.txt" using ($1*k):($2*k**2) w p pt 6 title "29 bar",\
   "< ../../he3 he3_visc_n 0.0005:0.0001:0.005 0"  using ($1*1000):(1e6*$3*$1**2) with lines notitle lc 1,\
   "< ../../he3 he3_visc_n 0.0005:0.0001:0.005 5"  using ($1*1000):(1e6*$3*$1**2) with lines notitle lc 2,\
   "< ../../he3 he3_visc_n 0.0005:0.0001:0.005 21" using ($1*1000):(1e6*$3*$1**2) with lines notitle lc 3,\
   "< ../../he3 he3_visc_n 0.0005:0.0001:0.005 29" using ($1*1000):(1e6*$3*$1**2) with lines notitle lc 4,\
-
-#  f(x) lw 2
 
 pause -1

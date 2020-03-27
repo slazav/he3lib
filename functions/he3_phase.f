@@ -175,9 +175,10 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!> T_c [mK] vs P [bar]
-!> Arg: P = 0 .. Pa [bar]
-!> Ref: Greywall. PRB33 (1986) f.5
+!> Superfluid transition temperature, T_c [mK] vs P [bar]
+!> Greywall. PRB33 (1986) f.5.
+!> Alvesalo scale should be multiplied by 0.893 to convert temperature.
+
       function he3_tc(P) !F>
         implicit none
         include 'he3.fh'

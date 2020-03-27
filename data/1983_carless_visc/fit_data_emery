@@ -1,0 +1,52 @@
+#!/usr/bin/gnuplot
+
+set key left bottom
+
+# Temperature correction (see tc_corr_fit)
+# To get correct values we need to multiply temperature by k and viscosity by k^2
+ktemp = 0.9804**2
+
+k = 0.893 # Alvesalo -> Greywall temperature scale
+
+# Emery effect (Emery-1976)
+# f.2 and 5.
+emery(ttc,K,a) = 1 - K * (a - sqrt(abs(ttc-1))*atan(a/sqrt(abs(ttc-1))))
+
+# Greywall -> Alvesalo
+Tc1 =  1.1923/k
+Tc2 =  1.4476/k
+Tc3 =  1.8217/k
+Tc4 =  2.2360/k
+Tc5 =  2.4297/k
+
+f1(T) = A1 * emery(T/Tc1, K1, a1)
+f2(T) = A2 * emery(T/Tc2, K2, a2)
+f3(T) = A3 * emery(T/Tc3, K3, a3)
+f4(T) = A4 * emery(T/Tc4, K4, a4)
+f5(T) = A5 * emery(T/Tc5, K5, a5)
+
+fit f1(x) "fig4_02.10.txt" via A1,K1,a1
+fit f2(x) "fig4_04.65.txt" via A2,K2,a2
+fit f3(x) "fig4_09.89.txt" via A3,K3,a3
+fit f4(x) "fig4_19.89.txt" via A4,K4,a4
+fit f5(x) "fig4_29.34.txt" via A5,K5,a5
+
+plot [:5]\
+  "fig4_02.10.txt" using 1:2 w p pt 6 title "0 bar",\
+  "fig4_04.65.txt" using 1:2 w p pt 6 title "5 bar",\
+  "fig4_09.89.txt" using 1:2 w p pt 6 title "21 bar",\
+  "fig4_19.89.txt" using 1:2 w p pt 6 title "29 bar",\
+  "fig4_29.34.txt" using 1:2 w p pt 6 title "29 bar",\
+  x>Tc1 ? f1(x): 1/0 lc 1 notitle,\
+  x>Tc2 ? f2(x): 1/0 lc 2 notitle,\
+  x>Tc3 ? f3(x): 1/0 lc 3 notitle,\
+  x>Tc4 ? f4(x): 1/0 lc 4 notitle,\
+  x>Tc5 ? f5(x): 1/0 lc 5 notitle
+
+print Tc1,A1,K1,a1
+print Tc2,A2,K2,a2
+print Tc3,A3,K3,a3
+print Tc4,A4,K4,a4
+print Tc5,A5,K5,a5
+
+pause -1

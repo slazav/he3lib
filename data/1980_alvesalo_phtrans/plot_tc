@@ -1,0 +1,11 @@
+#!/usr/bin/gnuplot
+
+k= 0.893
+
+set nokey
+plot\
+ "table1_tc" using 1:($2*k) w lp pt 7,\
+ "< ../../he3 he3_tc 0:0.1:30" w l
+
+
+pause -1
