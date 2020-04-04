@@ -3,7 +3,7 @@ all: he3lib.pdf
 he3lib.dvi: ptable.tex he3lib.tex
 
 ptable.tex: ptable.m
-	octave -q $< || rm -f ptable.tex
+	octave-cli -q $< || rm -f ptable.tex
 
 %.pdf: %.ps
 	ps2pdf $<

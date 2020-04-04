@@ -1,6 +1,5 @@
 #!/usr/bin/octave -qf
 
-  addpath ../../matlab
   graphics_toolkit("gnuplot")
   figure; hold on;
 

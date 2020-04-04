@@ -1,7 +1,6 @@
 #!/usr/bin/octave -qf
 
   % collect and fit all experimental data
-  addpath ../../matlab
   graphics_toolkit("gnuplot")
   figure; clf; hold on;
 
@@ -12,11 +11,11 @@
     col='rgbm';
     leg={};
     for i=1:length(P)
-      plot(f0, qball_fz0(P(i),f0*1000,Imin), [ col(i) '-' ], 'linewidth', 2)
+      plot(f0, rota_qball_fz0(P(i),f0*1000,Imin), [ col(i) '-' ], 'linewidth', 2)
       leg{end+1} = sprintf('P=%d bar', P(i));
     end
     for i=1:length(P)
-      plot(f0, qball_fr0(P(i),f0*1000,Imin), [ col(i) '--' ], 'linewidth', 2)
+      plot(f0, rota_qball_fr0(P(i),f0*1000,Imin), [ col(i) '--' ], 'linewidth', 2)
     end
     legend(leg, 'location', 'northeast')
     xlabel('f_0, kHz');
@@ -31,11 +30,11 @@
     col='rgbm';
     leg={};
     for i=1:length(P)
-      plot(f0, qball_az0(P(i),f0*1000,Imin), [ col(i) '-' ], 'linewidth', 2)
+      plot(f0, rota_qball_az0(P(i),f0*1000,Imin), [ col(i) '-' ], 'linewidth', 2)
       leg{i} = sprintf('P=%d bar', P(i));
     end
     for i=1:length(P)
-      plot(f0, qball_ar0(P(i),f0*1000,Imin), [ col(i) '--' ], 'linewidth', 2)
+      plot(f0, rota_qball_ar0(P(i),f0*1000,Imin), [ col(i) '--' ], 'linewidth', 2)
       leg{i} = sprintf('P=%d bar', P(i));
     end
     legend(leg, 'location', 'northeast')

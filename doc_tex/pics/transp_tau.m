@@ -1,7 +1,5 @@
 #!/usr/bin/octave -qf
 
-  addpath ../../matlab
-
   figure; clf; hold on;
   ttc = 0.4:0.01:1.1;
   p=0;

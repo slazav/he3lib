@@ -6,7 +6,7 @@ all: phase1.eps phase2.eps\
      qball.eps
 
 %.eps: %.m
-	octave -q $<
+	octave-cli -q $<
 	touch st
 
 clean:

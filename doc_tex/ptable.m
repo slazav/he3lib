@@ -1,4 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
+
+graphics_toolkit("gnuplot")
 
 function p1(f, x, t, fmt)
   fprintf(f, t)
@@ -11,9 +13,6 @@ function p1(f, x, t, fmt)
   end;
   fprintf(f, '\\\\\n');
 end
-
-addpath ../matlab
-graphics_toolkit("gnuplot")
 
 f=fopen('ptable.tex','w');
 press=[0:3:33];
