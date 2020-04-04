@@ -104,10 +104,10 @@ he3lib.mex: he3lib_mex.c he3.h he3tab.h
 	mkoctfile $< -mex -lhe3 -L. -W -s -v -o $@
 
 he3lib.mexglx: he3lib_mex.c he3.h he3tab.h
-	matlab -nojvm -nosplash -r "mex -output $@ -lhe3 $<"
+	matlab -nojvm -nosplash -r "mex -output $@ libhe3.so $<"
 
 he3lib.mexa64: he3lib_mex.c he3.h he3tab.h
-	matlab64 -nojvm -nosplash -r "mex -output $@ -lhe3 $<"
+	matlab64 -nojvm -nosplash -r "mex -output $@ libhe3.so $<"
 
 doc: octave
 	make -C doc
