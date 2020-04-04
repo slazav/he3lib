@@ -1,11 +1,4 @@
-
-#FFLAGS= -Werror -Wconversion\
-#  -Wintrinsic-shadow -Wline-truncation\
-#  -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
-#  -Wline-truncation -Wintrinsics-std -Wsurprising -Wno-tabs -Wunderflow\
-#  -Wno-unused-parameter -Wno-align-commons -fno-range-check
-
-# gfortran parameters
+# fortran compiler parameters
 FFLAGS= -Werror -Wconversion -I.\
   -Wline-truncation\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
@@ -17,6 +10,9 @@ FFLAGS= -Werror -Wconversion -I.\
 # -std=legacy -- to allow blas.f compilation
 # -fno-range-check -- to allow NaN values
 
+# fortran compiler
+#FC=gfortran
+
 all: headers\
      library\
      cmdline
@@ -27,7 +23,6 @@ all: headers\
 
 .PHONY: octave matlab octave-mex matlab64 headers library cmdline doc
 
-#FC=gfortran
 
 ###################################
 
@@ -44,14 +39,11 @@ $(OBJS): he3.fh
 ###################################
 
 # header files for C/F77/F90 are created from source files
-he3.f90h he3.fh he3.h he3tab.h octave/he3.tab: $(SRCS) make_inc
+he3.f90h he3.fh he3.h he3tab.h: $(SRCS) make_inc
 	./make_inc
 
 LIBNAME=libhe3
-library: $(LIBNAME).a $(LIBNAME).so
-
-$(LIBNAME).a: $(OBJS)
-	ar rs $@ $+
+library: $(LIBNAME).so
 
 $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
@@ -110,11 +102,9 @@ he3lib.mexa64: he3lib_mex.c he3.h he3tab.h
 	matlab64 -nojvm -nosplash -r "mex -output $@ libhe3.so $<"
 
 doc: octave
-	make -C doc
+	make -C doc_misc
 	make -C doc_tex
 
 ###################################
 clean:
 	rm -f *.a *.so *.o *.oct m/*.m he3.f90h he3.fh he3.h he3 he3tab.h functions/*.o
-#	make -C matlab clean
-#	make -C doc clean
