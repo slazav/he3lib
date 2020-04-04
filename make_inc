@@ -217,9 +217,10 @@ foreach my $d (@data) {
     print  OUT_F77 "      real*8 $d->{name}\n";
     print  OUT_F90 "      real*8 $d->{name}\n";
 
-    # create octave wrapper functions
+    # create octave/matlab wrapper functions
     open(OCT_F, "> m/$d->{name}.m") or die "can't open m/$d->{name}.m: $!";
-    print OCT_F "function v=$d->{name}(varargin) v=he3lib(\"$d->{name}\", varargin{:}); end";
+    print OCT_F "function v=$d->{name}(varargin)\n v=he3lib(\'$d->{name}\', varargin{:}); end";
+
     close(OCT_F);
 
     # TAB-file
