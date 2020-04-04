@@ -1,0 +1,20 @@
+#!/usr/bin/gnuplot
+
+set log
+
+plot [0.01:2.0] [1e4:1e7]\
+ "fig8_cu1.txt"   w l title "Cu, 1psi",\
+ "fig8_cu395.txt" w l title "Cu, 96psi",\
+ "fig8_cu96.txt"  w l title "Cu, 395psi",\
+ "fig8_cu_i.txt"  w l title "solid He3",\
+ "fig8_ep.txt"    w l title "insulated Cu",\
+ "fig8_cu_s.txt"  w l title "Epibond",\
+
+pause -1
+
+plot [0.1:2.0] [1e2:1e4]\
+ "fig8_cu1.txt"   w l title "Cu, 1psi",\
+ "fig8_cu395.txt" w l title "Cu, 96psi",\
+ "fig8_cu_s.txt"  w l title "Epibond",\
+
+pause -1
