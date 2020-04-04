@@ -27,7 +27,7 @@ mexFunction(int nlhs, mxArray *plhs[],
   // first argument - a string is a function name
   if (nrhs < 1)
     mexErrMsgTxt("name of function expected");
-  if (!mxIsString(prhs[0]))
+  if (!mxIsChar(prhs[0]))
     mexErrMsgTxt("name of function in the first argument should be a string");
   if (mxGetString(prhs[0], fn, sizeof(fn))!=0)
     mexErrMsgTxt("can't convert string value");
