@@ -1,0 +1,79 @@
+#!/usr/bin/python3
+
+# Get data fig{1,2,3}.txt
+# and restore Tl, Ts vs Q
+# Save result to fig{1,2,3}t.txt
+
+import numpy
+import matplotlib.pyplot as plt
+import scipy.optimize
+
+#########################
+# for each point we have two variables, Tl, Ts
+def minfunc(t, dt2,dt3,dt4):
+  i = int(t.size/2)
+  tl = t[0:i]
+  ts = t[i:2*i]
+  s = 0
+  if dt2.size > 0:
+    diff = tl**2 - ts**2 - dt2
+    s += numpy.sum(diff**2)/diff.size
+  if dt3.size > 0:
+    diff = tl**3 - ts**3 - dt3
+    s += numpy.sum(diff**2)/diff.size
+  if dt4.size > 0:
+    diff = tl**4 - ts**4 - dt4
+    s += numpy.sum(diff**2)/diff.size
+  return numpy.sqrt(s)
+
+########################
+
+def process_file(nf, infile, outfile, pngfile):
+
+  if nf == 3:
+    q1,dt1,q2,dt2,q3,dt3 = numpy.loadtxt(infile, unpack=True)
+    Q  = (q1+q2+q3)/3
+  else:
+    q2,dt2,q3,dt3 = numpy.loadtxt(infile, unpack=True)
+    q1 = numpy.array([])
+    dt1 = numpy.array([])
+    Q  = (q2+q3)/2
+  dt1 *= 1e-3  # K -> mK
+  dt2 *= 1e-3
+  dt3 *= 1e-3
+
+  T  = numpy.ones(q2.size * 2) * 0.1
+  res = scipy.optimize.minimize(minfunc, T, (dt1,dt2,dt3),
+     options={'disp': True, 'maxiter': 10000})
+  scales = numpy.array(res.x)
+  T = res.x
+
+  i = int(T.size/2)
+  Tl = T[0:i]
+  Ts = T[i:2*i]
+  print(Tl)
+  print(Ts)
+  numpy.savetxt(outfile,
+     numpy.transpose([Q,Tl,Ts]), fmt="%f %f %f",
+     header='Q[pW] -- Tl[mK] -- Ts[mK]')
+
+  plt.clf()
+  if q1.size>0:
+    plt.plot(q1,dt1, 'r*')
+    plt.plot(Q,Tl**2-Ts**2, 'k.')
+  if q2.size>0:
+    plt.plot(q2,dt2, 'g*')
+    plt.plot(Q,Tl**3-Ts**3, 'k.')
+  if q3.size>0:
+    plt.plot(q3,dt3, 'b*')
+    plt.plot(Q,Tl**4-Ts**4, 'k.')
+
+  plt.xlabel('dQ/dT, pW')
+  plt.ylabel('Tl^n - Ts^n, mK^n')
+  plt.savefig(pngfile)
+
+########################
+
+process_file(3, 'fig2.txt', 'fig2t.txt', 'fig2_fit.png')
+process_file(2, 'fig3.txt', 'fig3t.txt', 'fig3_fit.png')
+process_file(2, 'fig4.txt', 'fig4t.txt', 'fig4_fit.png')
