@@ -43,7 +43,10 @@ he3.f90h he3.fh he3.h he3tab.h: $(SRCS) make_inc
 	./make_inc
 
 LIBNAME=libhe3
-library: $(LIBNAME).so
+library: $(LIBNAME).a $(LIBNAME).so
+
+$(LIBNAME).a: $(OBJS)
+	ar rs $@ $+
 
 $(LIBNAME).so: $(OBJS)
 	$(FC) --shared -fPIC -o $@ $+
@@ -52,7 +55,7 @@ $(LIBNAME).so: $(OBJS)
 cmdline: he3
 he3.o: he3.c he3tab.h
 	$(CC) -c he3.c -o he3.o
-he3: he3.o libhe3.a
+he3: he3.o $(LIBNAME).a
 	$(FC) $+ -o $@
 
 ###################################
@@ -68,7 +71,7 @@ install_headers: he3.f90h he3.fh he3.h
 	mkdir -p ${includedir}
 	install -m0644 $+  ${includedir}
 
-install_library: $(LIBNAME).a $(LIBNAME).so
+install_library: $(LIBNAME).so
 	mkdir -p ${libdir}
 	install -m0644 $+ ${libdir}
 
