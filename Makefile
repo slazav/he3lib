@@ -4,11 +4,12 @@ FFLAGS= -Werror -Wconversion -I.\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
   -Wno-unused-parameter -fPIC -fno-range-check -O\
-  -std=legacy
+  -std=legacy -frecursive
 
 # important flags:
 # -std=legacy -- to allow blas.f compilation
 # -fno-range-check -- to allow NaN values
+# -frecursive -- to allocate all arrays on the stack
 
 # fortran compiler
 #FC=gfortran
