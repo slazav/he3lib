@@ -1,6 +1,7 @@
 *.o
 *.a
 *.so
+*.dll
 *.mexglx
 *.mex
 *.oct
@@ -9,3 +10,6 @@ he3.fh
 he3.h
 he3tab.h
 he3
+*.tgz
+__pycache__
+octave-workspace
