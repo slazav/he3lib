@@ -120,10 +120,10 @@ install_cmdline: he3
 	install -m0755 $+ ${bindir}
 
 install_octave_local: octave-he3lib.tgz
-	octave-cli --eval "pkg pkg install -local $<"
+	octave-cli --eval "pkg install -local $<"
 
 install_octave_global: octave-he3lib.tgz
-	octave-cli --eval "pkg pkg install -global $<"
+	octave-cli --eval "pkg install -global $<"
 
 ###################################
 
