@@ -143,7 +143,7 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!> He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [par].
+!> He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [bar].
 !>
 !> Dyugaev-1985. Measurements from Greywall-1984 (7mK-1K) and
 !> Kerrisk,Keller-1969 (1.5K-Tcr) are used to obtain some semi-theoretical
@@ -173,7 +173,7 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!> Emery factor vs T/Tc and P [par].
+!> Emery factor vs T/Tc and P [bar].
 !>
 !> <p>In normal He3 transport properties (viscosity, spin diffusion, thermal conductivity?)
 !> are suppressed just above Tc because of some fluctuation effects (Emery-1976).
@@ -203,7 +203,7 @@
       end
 
 
-!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+!> He3-n viscosity, eta [poise] vs T [K] and P [bar].
 !> Pure Dyugaev-1985 model without Emery effect. See function <tt>he3_visc_n</tt> below.
 !>
       function he3_visc_n0(t, p) !F>
@@ -222,7 +222,7 @@
         endif
       end
 
-!> He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+!> He3-n viscosity, eta [poise] vs T [K] and P [bar].
 !>
 !> Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
 !> At low temperature Emery effect, reduction of viscosity close to $T_c$ due to fluctuation

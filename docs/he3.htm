@@ -607,7 +607,7 @@ Ref: WV pic.10.5 20ba
 Original formula from Greywall-1983.
 Note that Cv = Cp up to terms (T/Tf)^3
 
-<p><tt>he3_tcond_n(t,p)</tt> -- He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [par].
+<p><tt>he3_tcond_n(t,p)</tt> -- He3-n thermal conductivity, K [erg/s cm K] vs T [K] and P [bar].
 <p>
 
 Dyugaev-1985. Measurements from Greywall-1984 (7mK-1K) and
@@ -616,7 +616,7 @@ model for thermal conductivity and viscosity (see below).
 
 <img src="img/1984_greywall_tcond.png">
 
-<p><tt>he3_emery_factor(ttc,p)</tt> -- Emery factor vs T/Tc and P [par].
+<p><tt>he3_emery_factor(ttc,p)</tt> -- Emery factor vs T/Tc and P [bar].
 <p>
 
 <p>In normal He3 transport properties (viscosity, spin diffusion, thermal conductivity?)
@@ -631,11 +631,11 @@ temperatures they should follow Dyugaev-1985 model.
 <p>Note that in Carless-1983 temperature scale Alvesalo-80 is used. To convert
 it to Greywall-86 scale one should multiply temperature by $k=0.893$
 
-<p><tt>he3_visc_n0(t,p)</tt> -- He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+<p><tt>he3_visc_n0(t,p)</tt> -- He3-n viscosity, eta [poise] vs T [K] and P [bar].
 <p>
 Pure Dyugaev-1985 model without Emery effect. See function <tt>he3_visc_n</tt> below.
 
-<p><tt>he3_visc_n(t,p)</tt> -- He3-n viscosity, eta [poise] vs T [K] and Vm [cm^3/mol].
+<p><tt>he3_visc_n(t,p)</tt> -- He3-n viscosity, eta [poise] vs T [K] and P [bar].
 <p>
 
 Model from Dyugaev-1985, it uses thermal conductivity experimental data to get viscosity.
