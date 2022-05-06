@@ -173,10 +173,10 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!> Emery factor vs T [K] and P [par].
+!> Emery factor vs T/Tc and P [par].
 !>
 !> <p>In normal He3 transport properties (viscosity, spin diffusion, thermal conductivity?)
-!> are suppressed just above Tc because of some fluctuation effects (Emery-1978).
+!> are suppressed just above Tc because of some fluctuation effects (Emery-1976).
 !> This is clearly seen at viscosity measurements (Parpia-1978, Carless-1983, Nakagawa-1996).
 !> The factor has form 1 - $G(1 - \theta/\alpha\mbox{atan}(\alpha/\theta))$, where $\theta = \sqrt{T/T_c - 1}$.
 !>
