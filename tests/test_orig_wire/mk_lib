@@ -1,0 +1,7 @@
+he3=../../he3
+
+for x in f w; do
+  $he3 he3_wire_n_$x      0.00093:0.00001:0.2      0 16.7 124 1715 > w0ta_0bar_c_l$x.dat
+  $he3 he3_wire_bphase_$x 0.00014:0.00001:0.000924 0 16.7 124 1715 > w0ta_0bar_sf_l$x.dat
+  $he3 he3_wire_mix_$x    0.002:0.0001:0.090         16.7 124 1097 > mcta_l$x.dat
+done
