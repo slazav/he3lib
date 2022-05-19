@@ -8,7 +8,7 @@ my @files = split /\s+/,
  'he3_dipole.f he3_grad.f he3_text.f ' .
  'he3_transp_n.f he3_transp_b.f ' .
  'he3_b2.f he3_other.f he3_normal.f he3_a.f he3_polar.f ' .
- 'he3_rota.f he3_bspec.f he3_math.f he4.f he34.f he3_wire.f'
+ 'he3_rota.f he3_bspec.f he3_math.f he4.f he34.f he3_wire_orig.f'
 ;
 
 # quote text for putting it into c-string

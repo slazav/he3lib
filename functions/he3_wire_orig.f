@@ -1,16 +1,16 @@
 !H> Vibrating wire calibration programs from Lancaster ULT (original version)
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!Mixing chamber calibration, mixture (original Lancaster version)
-!arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-!output:    complex version f + i*df
-      function he3_wire_mix_c(t, rho, diam, fre)
+!Mixing chamber calibration, diluted phase (original Lancaster version)
+!Arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+!Output:    complex version f + i*df
+      function he3_lancwire_d_c(t, rho, diam, fre)
         implicit none
         include 'he3.fh'
         real*8 t, rho, diam, fre
         real*8 alpha, ee, rad, vol, vol3, mstar
         real*8 conc, cratio, rho3, rratio, eta, pend
-        complex*16 he3_wire_mix_c
+        complex*16 he3_lancwire_d_c
         real*8 G,L, k,kp, b, k2,k3
         real*8 ff,df
 
@@ -59,27 +59,27 @@
 
         df = fre * rratio * k3 * (1D0-1.14D0*rratio*k2)
         ff = fre * rratio * 0.5D0 * k2 * (1D0-0.75*rratio*k2)
-        he3_wire_mix_c = dcmplx(ff, df)
+        he3_lancwire_d_c = dcmplx(ff, df)
       end
 
 !> Mixing chamber calibration, frequency vs temperatere
 !> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_mix_f(t, rho, diam, fre) !F>
+      function he3_lancwire_d_f(t, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, rho, diam, fre
-        complex*16 he3_wire_mix_c
-        he3_wire_mix_f = real(he3_wire_mix_c(t, rho, diam, fre))
+        complex*16 he3_lancwire_d_c
+        he3_lancwire_d_f = real(he3_lancwire_d_c(t, rho, diam, fre))
       end
 
 !> Mixing chamber calibration, width vs temperatere
 !> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_mix_w(t, rho, diam, fre) !F>
+      function he3_lancwire_d_w(t, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, rho, diam, fre
-        complex*16 he3_wire_mix_c
-        he3_wire_mix_w = imag(he3_wire_mix_c(t, rho, diam, fre))
+        complex*16 he3_lancwire_d_c
+        he3_lancwire_d_w = imag(he3_lancwire_d_c(t, rho, diam, fre))
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -182,7 +182,7 @@
 ! Superfluid He3-B calibration (original Lancaster version)
 ! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 ! complex version f + i*df
-      function he3_wire_bphase_c(t, p, rho, diam, fre)
+      function he3_lancwire_b_c(t, p, rho, diam, fre)
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
@@ -191,7 +191,7 @@
         real*8 vistc,vis, eovl
         real*8 ttc, gap, y0,y1,y2,y3,y5,y6, ts
         real*8 pend, zeta
-        complex*16 he3_wire_bphase_c
+        complex*16 he3_lancwire_b_c
         real*8 G,L, k,kp, b, k2,k3
         real*8 ff,df
         real*8 lanc_redvis, lanc_visc
@@ -275,29 +275,29 @@
         df = fre * rratio * k3 ! * (1D0-1.14D0*rratio*k2)
         ff = fre * rratio * 0.5D0 * k2 ! * (1D0-0.75*rratio*k2)
 
-        he3_wire_bphase_c = dcmplx(ff, df)
+        he3_lancwire_b_c = dcmplx(ff, df)
       end
 
 !> Superfluid He3-B calibration, frequency vs temperatere
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_bphase_f(t, p, rho, diam, fre) !F>
+      function he3_lancwire_b_f(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
-        complex*16 he3_wire_bphase_c
-        he3_wire_bphase_f =
-     .    real(he3_wire_bphase_c(t, p, rho, diam, fre))
+        complex*16 he3_lancwire_b_c
+        he3_lancwire_b_f =
+     .    real(he3_lancwire_b_c(t, p, rho, diam, fre))
       end
 
 !> Superfluid He3-B calibration, width vs temperatere
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_bphase_w(t, p, rho, diam, fre) !F>
+      function he3_lancwire_b_w(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
-        complex*16 he3_wire_bphase_c
-        he3_wire_bphase_w =
-     .    imag(he3_wire_bphase_c(t, p, rho, diam, fre))
+        complex*16 he3_lancwire_b_c
+        he3_lancwire_b_w =
+     .    imag(he3_lancwire_b_c(t, p, rho, diam, fre))
       end
 
 
@@ -306,10 +306,10 @@
 ! Cylinder programme using wide line treatment and slip fudge.
 ! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 ! complex version f + i*df
-      function he3_wire_n_c(t, p, rho, diam, fre)
+      function he3_lancwire_n_c(t, p, rho, diam, fre)
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
-        complex*16 he3_wire_n_c
+        complex*16 he3_lancwire_n_c
         real*8 alpha,rad,ee,vol,eovl,vis,rho_h,rhorat,pen
         real*8 G,L,b,k,kp,k2,k3
         real*8 ff,df,sq1,sq2
@@ -358,32 +358,32 @@
         sq2=ff*dsqrt((rhorat*(k3-k2))**2 + 4D0)
 
         df= df + sq1 - sq2  !exact width
-        he3_wire_n_c = dcmplx(ff, df)
+        he3_lancwire_n_c = dcmplx(ff, df)
 
       end
 
 !> Normal He3-B calibration (original Lancaster version), freq
 !> Cylinder programme using wide line treatment and slip fudge.
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_n_f(t, p, rho, diam, fre) !F>
+      function he3_lancwire_n_f(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
-        complex*16 he3_wire_n_c
-        he3_wire_n_f =
-     .    real(he3_wire_n_c(t, p, rho, diam, fre))
+        complex*16 he3_lancwire_n_c
+        he3_lancwire_n_f =
+     .    real(he3_lancwire_n_c(t, p, rho, diam, fre))
       end
 
 !> Normal He3-B calibration (original Lancaster version), width
 !> Cylinder programme using wide line treatment and slip fudge.
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-      function he3_wire_n_w(t, p, rho, diam, fre) !F>
+      function he3_lancwire_n_w(t, p, rho, diam, fre) !F>
         implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
-        complex*16 he3_wire_n_c
-        he3_wire_n_w =
-     .    imag(he3_wire_n_c(t, p, rho, diam, fre))
+        complex*16 he3_lancwire_n_c
+        he3_lancwire_n_w =
+     .    imag(he3_lancwire_n_c(t, p, rho, diam, fre))
       end
 
 
