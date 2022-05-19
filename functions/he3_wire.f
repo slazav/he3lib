@@ -208,7 +208,7 @@
 
         vistc=visc(tc,p)
         ttc = t/tc    !reduced temperature
-        L = he3_visc_fpath(ttc,p) !mean free path
+!        L = he3_visc_fpath(ttc,p) !mean free path
 
         vis=vistc*redvis(ttc) ! fudged effective viscosity from CHH
 
@@ -257,7 +257,7 @@
 
         pend = dsqrt(vis/(2000D0*const_pi*rho3*fre)) ! penetration depth
         zeta=0.5D0*y5*vis/eovl                       ! effective slip length
-!         L=vis/(eovl*y6)                         ! mean free path
+        L=vis/(eovl*y6)                         ! mean free path
         alpha = 1.156D0*alpha/(y5*y6)                ! effective alpha
         G = rad/pend                                 ! gamma for Stokes
 
@@ -298,3 +298,4 @@
         he3_wire_bphase_w =
      .    imag(he3_wire_bphase_c(t, p, rho, diam, fre))
       end
+
