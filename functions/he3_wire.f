@@ -86,50 +86,50 @@
 
 ! a plot of CHH  reduced viscosity gives the following reasonable form.
 ! Basically, LOG(redvis) vz sqrt(1-T)^.5 reasonably slow
-      function redvis(ttc)
+      function lanc_redvis(ttc)
         implicit none
-        real*8 ttc, redvis, SLOPE, D0, N0
+        real*8 ttc, lanc_redvis, SLOPE, D0, N0
 
         if (ttc.lt.0.6D0) then
-          redvis=0.11D0
+          lanc_redvis=0.11D0
         elseif (ttc.lt.0.7D0) then
           SLOPE=-0.8562D0
           D0=0.4D0
           N0=-0.9586D0
-          redvis=10D0**(N0 + SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0 + SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         elseif (ttc.lt.0.8D0) then
           SLOPE=-0.6183D0
           D0=0.3D0
           N0=-0.8861D0
-          redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         elseif (ttc.lt.0.9D0) then
           SLOPE=-1.4172D0
           D0=0.2D0
           N0=-0.8239D0
-          redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         elseif (ttc.lt.0.95D0) then
           SLOPE=-1.7352D0
           D0=0.1D0
           N0=-0.6383D0
-          redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         elseif (ttc.lt.0.975D0) then
           SLOPE=-1.6177D0
           D0=0.05D0
           N0=-0.4776D0
-          redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         elseif (ttc.lt.1D0) then
           SLOPE=-2.3503D0
           D0=0.025D0
           N0=-0.3716D0
-          redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
+          lanc_redvis=10D0**(N0+SLOPE*(sqrt(1-ttc)-sqrt(D0)))
         else
-          redvis = 1D0
+          lanc_redvis = 1D0
         endif
       end
 
-      function visc(t, p)
+      function lanc_visc(t, p)
         implicit none
-        real*8 t, p, visc
+        real*8 t, p, lanc_visc
         real*8 visca, viscb
 
         ! normal state viscosity
@@ -175,9 +175,10 @@
         endif
         viscb = viscb*10D0
 
-        visc=1D0/(visca*t**2 + viscb)
+        lanc_visc=1D0/(visca*t**2 + viscb)
       end
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Superfluid He3-B calibration (original Lancaster version)
 ! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 ! complex version f + i*df
@@ -187,13 +188,13 @@
         real*8 t, p, rho, diam, fre
         real*8 alpha, ee, rad
         real*8 tc, vol, rho3, rratio, f1s
-        real*8 visc,vistc,vis, eovl
+        real*8 vistc,vis, eovl
         real*8 ttc, gap, y0,y1,y2,y3,y5,y6, ts
         real*8 pend, zeta
         complex*16 he3_wire_bphase_c
         real*8 G,L, k,kp, b, k2,k3
         real*8 ff,df
-        real*8 redvis
+        real*8 lanc_redvis, lanc_visc
 
         alpha=1.9D0     ! mfp fudge
         rad = diam/2D6  ! radius in m
@@ -206,11 +207,11 @@
         eovl = 0.2D0*(6.023D29/vol)**(4D0/3D0)
      .       * (3D0*9.8696D0)**(1D0/3D0)*1.0546D-34
 
-        vistc=visc(tc,p)
+        vistc=lanc_visc(tc,p)
         ttc = t/tc    !reduced temperature
 !        L = he3_visc_fpath(ttc,p) !mean free path
 
-        vis=vistc*redvis(ttc) ! fudged effective viscosity from CHH
+        vis=vistc*lanc_redvis(ttc) ! fudged effective viscosity from CHH
 
 !        gap = he3_gap(ttc,p)
 !        y0 = he3_yosida(ttc, gap, 0)
@@ -298,4 +299,92 @@
         he3_wire_bphase_w =
      .    imag(he3_wire_bphase_c(t, p, rho, diam, fre))
       end
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Normal He3-B calibration (original Lancaster version), complex: fre + 1i*width
+! Cylinder programme using wide line treatment and slip fudge.
+! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+! complex version f + i*df
+      function he3_wire_n_c(t, p, rho, diam, fre)
+        include 'he3.fh'
+        real*8 t, p, rho, diam, fre
+        complex*16 he3_wire_n_c
+        real*8 alpha,rad,ee,vol,eovl,vis,rho_h,rhorat,pen
+        real*8 G,L,b,k,kp,k2,k3
+        real*8 ff,df,sq1,sq2
+        real*8 lanc_visc
+
+        alpha=1.9D0     ! mfp fudge
+        rad = diam/2D6  ! radius in m
+        ee  = 1D0       ! ballistic switch
+
+        vol=he3_vm(p)   ! molar volume
+
+        eovl=0.2D0*(6.023D29/vol)**(4D0/3D0)*
+     .             (3D0*9.8696D0)**(1D0/3D0)*1.0546D-34
+
+        vis=lanc_visc(t,p)
+        rho_h=3.016D0/vol
+        rhorat=rho_h/rho
+
+        !! shift using approx formula for fork; remove this section for wires
+        !  x=dlog10(t*1000);
+        !  F1a=1990D0 - 2165D0*x + 1150D0*x**2 - 247D0*x**3 + 8.65D0*x**4 +2.57D0*x**5
+        !  f=fre-F1a
+
+        ff=fre
+
+        do k=1,6
+          pen=dsqrt(vis/(2000D0*const_pi*rho_h*ff))
+          G=rad/pen
+          L=vis/eovl
+          call math_stokes(G,k,kp)
+
+          b = 0.25D0 * 0.579D0 * L/rad
+          b = b*(1D0 + ee*alpha*L/rad) / (1D0 + ee*L/rad)
+
+          k2 = 1D0 + (k - 1D0) /
+     .         ((1D0 + G**2*b*kp)**2 + G**4*b**2*(k-1D0)**2)
+
+          k3 = (kp + G**2*b*((k-1D0)**2 + kp**2)) /
+     .         ((1D0 + G**2*b*kp)**2 + G**4*b**2*(k-1D0)**2)
+
+          ff=fre*(dsqrt(1D0+(rhorat*k2/2D0)**2)-rhorat*k2/2D0)
+        enddo
+
+        df=rhorat*k3*ff
+        sq1=ff*dsqrt((rhorat*(k3+k2))**2 + 4D0)
+        sq2=ff*dsqrt((rhorat*(k3-k2))**2 + 4D0)
+
+        df= df + sq1 - sq2  !exact width
+        he3_wire_n_c = dcmplx(ff, df)
+
+      end
+
+!> Normal He3-B calibration (original Lancaster version), freq
+!> Cylinder programme using wide line treatment and slip fudge.
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_n_f(t, p, rho, diam, fre) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t, p, rho, diam, fre
+        complex*16 he3_wire_n_c
+        he3_wire_n_f =
+     .    real(he3_wire_n_c(t, p, rho, diam, fre))
+      end
+
+!> Normal He3-B calibration (original Lancaster version), width
+!> Cylinder programme using wide line treatment and slip fudge.
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
+      function he3_wire_n_w(t, p, rho, diam, fre) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 t, p, rho, diam, fre
+        complex*16 he3_wire_n_c
+        he3_wire_n_w =
+     .    imag(he3_wire_n_c(t, p, rho, diam, fre))
+      end
+
+
 
