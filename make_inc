@@ -54,10 +54,11 @@ foreach my $fname (@files) {
     }
 
     # functions
-    elsif (/^\s*function\s+(\w+)\(([^\)]+)\)\s*\!F>\s*(.*)/){
+    elsif (/^\s*function\s+(\w+)\(([^\)]+)\)\s*\!F(C?)>\s*(.*)/){
       my $name = $1;
       my $args = $2;
-      my $title = $3;
+      my $cmpl = $3? 1:0;
+      my $title = $4;
       if (!$title){
         my $i = index($text, "\n");
         if ($i>0){
@@ -72,7 +73,8 @@ foreach my $fname (@files) {
       $args =~ s/\s+//g;
       my $narg = scalar(split ',', $args);
       push @data, {
-        type=>'func',
+        type=> $cmpl? 'CFUNC':'DFUNC',
+        cmpl=>$cmpl,
         name=>$name,
         args=>$args,
         narg=>$narg,
@@ -91,7 +93,7 @@ foreach my $fname (@files) {
       $value =~ s/D0+/D/i;
       $value =~ s/D/e/i;
       push @data, {
-        type=>'const',
+        type=>'CONST',
         name=>$name,
         args=>'',
         narg=>0,
@@ -144,6 +146,7 @@ print OUT_F77 "! $head\n\n";
 print OUT_F90 "! $head\n\n";
 
 print OUT_C   "#ifndef HE3_H\n#define HE3_H\n";
+print OUT_C   "typedef struct { double r,i; } complex;\n";
 
 print OUT_TAB qq|
 #include "he3.h"
@@ -157,10 +160,13 @@ typedef double (*fun6_t)(double*, double*, double*, double*, double*, double*);
 typedef double (*fun7_t)(double*, double*, double*, double*, double*, double*, double*);
 typedef double (*fun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
 
+typedef enum { CONST, DFUNC, CFUNC} ftype_t;
+
 struct tab_t {
   const char * name;
   const void * func;
   const int    narg;
+  const ftype_t type;
   const char * args;
   const char * comm;
 };
@@ -202,42 +208,48 @@ foreach my $d (@data) {
     print OUT_F90 "! $d->{text}\n";
   }
 
-  if ($d->{type} eq 'func') {
+  if ($d->{type} eq 'DFUNC') {
     my @args = split(/\s*,\s*/, $d->{args});
     my $cargs .= 'double *' . join(', double *', @args);
     print OUT_C   "double $d->{name}_($cargs);\n";
+    print OUT_F77 "      real*8 $d->{name}\n";
+    print OUT_F90 "      real*8 $d->{name}\n";
   }
-
-  if ($d->{type} eq 'const') {
+  if ($d->{type} eq 'CFUNC') {
+    my @args = split(/\s*,\s*/, $d->{args});
+    my $cargs .= 'double *' . join(', double *', @args);
+    print OUT_C   "void $d->{name}_(complex * ret, $cargs);\n";
+    print OUT_F77 "      complex*16 $d->{name}\n";
+    print OUT_F90 "      complex*16 $d->{name}\n";
+  }
+  if ($d->{type} eq 'CONST') {
     printf OUT_C   "extern double $d->{name}_;\n";
-    $cmn .= sprintf "      common %17s $d->{name}\n", "/$d->{name}/";
-  }
-
-  if ($d->{type} eq 'func' || $d->{type} eq 'const') {
     print  OUT_F77 "      real*8 $d->{name}\n";
     print  OUT_F90 "      real*8 $d->{name}\n";
+    $cmn.= sprintf "      common %17s $d->{name}\n", "/$d->{name}/";
+  }
 
+  if ($d->{type} eq 'CONST' || $d->{type} eq 'DFUNC' || $d->{type} eq 'CFUNC') {
     # create octave/matlab wrapper functions
     open(OCT_F, "> m/$d->{name}.m") or die "can't open m/$d->{name}.m: $!";
     print OCT_F "function v=$d->{name}(varargin)\n";
     print OCT_F "  # $d->{name}($d->{args}) -- $d->{title}\n";
     print OCT_F "  v=he3lib(\"$d->{name}\", varargin{:}); end";
-
     close(OCT_F);
 
     # TAB-file
     my $tcomm = $d->{title} || '';
     $tcomm =~ s/\"/\\\"/g;
-    printf OUT_TAB "{%-22s %-36s, %d, \"%s\", \"%s\"},\n",
+    printf OUT_TAB "{%-22s %-36s, %d, %s, \"%s\", \"%s\"},\n",
       "\"$d->{name}\",", "(const void*)&$d->{name}_",
-      $d->{narg}, $d->{args}, quote_c_str($d->{title});
+      $d->{narg}, $d->{type}, $d->{args}, quote_c_str($d->{title});
   }
 }
 
 print OUT_F77 $cmn, "\n";
 print OUT_F90 $cmn, "\n";
 
-print OUT_TAB "{NULL,NULL,0,NULL,NULL}};\n";
+print OUT_TAB "{NULL,NULL,0,CONST,NULL,NULL}};\n";
 print OUT_C "#endif\n";
 close OUT_F77;
 close OUT_F90;
@@ -282,24 +294,31 @@ foreach my $d (@data) {
   }
 
   ## header
-  if ($d->{type} eq 'H'){
+  elsif ($d->{type} eq 'H'){
       print OUT_HTM "<h3>$d->{text}</h3>\n";
   }
 
   ## text
-  if ($d->{type} eq 'text'){
+  elsif ($d->{type} eq 'text'){
       print OUT_HTM "<p>$d->{text}</p>\n";
   }
 
-  ## function
-  elsif ($d->{type} eq 'func'){
+  ## double function
+  elsif ($d->{type} eq 'DFUNC'){
+    print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title}\n";
+    print OUT_HTM "<p>$d->{text}\n";
+    print OUT_HTM "\n";
+  }
+
+  ## complex function
+  elsif ($d->{type} eq 'CFUNC'){
     print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title}\n";
     print OUT_HTM "<p>$d->{text}\n";
     print OUT_HTM "\n";
   }
 
   ## constant
-  elsif ($d->{type} eq 'const'){
+  elsif ($d->{type} eq 'CONST'){
     print OUT_HTM "<p><tt>$d->{name} = $d->{value}</tt> -- $d->{title}\n";
   }
 }
