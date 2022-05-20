@@ -658,22 +658,13 @@
       end
 
 
-!  evaluates the STOKES functions K and K'
-!
-!  uses the methods outlined in
-!
-!  STOKES--- Mathematical and physical papers Vol III.
-!
-!  for gamma>=3 use equations 113
-!            <3               103-105
-!
-!   G    : gamma
-!   K    : Stokes function K
-!   K1   : Stokes function K'
-!
-!   Code is taken from Lancaster ULT wire program
+!>  Evaluates complex Stokes function K + 1i*K'
+!>
+!>  Uses the methods outlined in STOKES - Mathematical and physical papers Vol III.
+!>  For G>=3 use eq.113, for G<3 eq.103-105.
+!>  Code is taken from Lancaster ULT wire calibration program.
 
-      subroutine math_stokes(g,k,k1)
+      function math_stokes(g)  !FC>
         implicit none
         include 'he3.fh'
         real*8 g, k, k1
@@ -715,22 +706,21 @@
           K  = 1D0 + 2D0*(A*C + B*D)/(G2*(C*C + D*D))
           K1 = 2D0*(B*C - A*D)/(G2*(C*C + D*D))
         endif
+        math_stokes = dcmplx(K,K1)
       end
 
-!> Stokes K function
+!> Stokes K function, real component of math_stokes(g).
       function math_stokes_k(g) !F>
         implicit none
         include 'he3.fh'
-        real*8 g,k,kp
-        call math_stokes(g,k,kp)
-        math_stokes_k = k
+        real*8 g
+        math_stokes_k = real(math_stokes(g))
       end
 
-!> Stokes K' function
+!> Stokes K' function, imag component of math_stokes(g).
       function math_stokes_kp(g) !F>
         implicit none
         include 'he3.fh'
-        real*8 g,k,kp
-        call math_stokes(g,k,kp)
-        math_stokes_kp = kp
+        real*8 g
+        math_stokes_kp = imag(math_stokes(g))
       end

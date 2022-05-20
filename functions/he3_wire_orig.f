@@ -10,7 +10,8 @@
         real*8 t, rho, diam, fre
         real*8 alpha, ee, rad, vol, vol3, mstar
         real*8 conc, cratio, rho3, rratio, eta, pend
-        real*8 G,L, k,kp, b, k2,k3
+        real*8 G,L, b, k,kp, k2,k3
+        complex*16 kk
         real*8 ff,df
 
         alpha = 2.2D0  ! mfp fudge
@@ -46,7 +47,9 @@
         G = rad/pend;
         L = eta/105.5302 * cratio**(4D0/3D0)
 
-        call math_stokes(G,k,kp)
+        kk = math_stokes(G)
+        k  = real(kk)
+        kp = imag(kk)
         b = 0.25D0 * 0.579D0 * L/rad
         b = b*(1D0 + ee*alpha*L/rad) / (1D0 + ee*L/rad)
 
@@ -189,6 +192,7 @@
         real*8 ttc, gap, y0,y1,y2,y3,y5,y6, ts
         real*8 pend, zeta
         real*8 G,L, k,kp, b, k2,k3
+        complex*16 kk
         real*8 ff,df
         real*8 lanc_redvis, lanc_visc
 
@@ -258,7 +262,9 @@
         alpha = 1.156D0*alpha/(y5*y6)                ! effective alpha
         G = rad/pend                                 ! gamma for Stokes
 
-        call math_stokes(G,k,kp)
+        kk=math_stokes(G)
+        k  = real(kk)
+        kp = imag(kk)
         b = 0.25D0 * zeta/rad
         b = b*(1D0 + ee*alpha*L/rad) / (1D0 + ee*L/rad)
 
@@ -301,12 +307,15 @@
 ! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 ! complex version f + i*df
       function he3_lancwire_n(t, p, rho, diam, fre) !FC>
+        implicit none
         include 'he3.fh'
         real*8 t, p, rho, diam, fre
         real*8 alpha,rad,ee,vol,eovl,vis,rho_h,rhorat,pen
         real*8 G,L,b,k,kp,k2,k3
+        complex*16 kk
         real*8 ff,df,sq1,sq2
         real*8 lanc_visc
+        integer j
 
         alpha=1.9D0     ! mfp fudge
         rad = diam/2D6  ! radius in m
@@ -328,11 +337,13 @@
 
         ff=fre
 
-        do k=1,6
+        do j=1,6
           pen=dsqrt(vis/(2000D0*const_pi*rho_h*ff))
           G=rad/pen
           L=vis/eovl
-          call math_stokes(G,k,kp)
+          kk=math_stokes(G)
+          k  = real(kk)
+          kp = imag(kk)
 
           b = 0.25D0 * 0.579D0 * L/rad
           b = b*(1D0 + ee*alpha*L/rad) / (1D0 + ee*L/rad)

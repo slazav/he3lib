@@ -769,10 +769,18 @@ from IMSL librar
 <p><tt>loop_br(Rl,r,z)</tt> -- magnetic field Bz of a current loop
 <p>
 
-<p><tt>math_stokes_k(g)</tt> -- Stokes K function
+<p>Evaluates complex Stokes function K + 1i*K'
+
+Uses the methods outlined in STOKES - Mathematical and physical papers Vol III.
+For G>=3 use eq.113, for G<3 eq.103-105.
+Code is taken from Lancaster ULT wire calibration program.</p>
+<p><tt>math_stokes(g)</tt> -- 
 <p>
 
-<p><tt>math_stokes_kp(g)</tt> -- Stokes K' function
+<p><tt>math_stokes_k(g)</tt> -- Stokes K function, real component of math_stokes(g).
+<p>
+
+<p><tt>math_stokes_kp(g)</tt> -- Stokes K' function, imag component of math_stokes(g).
 <p>
 
 <hr><a name='hh18'></a><h2>Helium-4 parameters</h2>
