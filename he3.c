@@ -69,8 +69,8 @@ call_func(struct tab_t * F, char *argv[], int is_cmpl){
   if (N>1){
     printf("# %s\n", F->comm);
     printf("# %s ", F->args);
-    if (is_cmpl) printf("%s\n", F->name);
-    else         printf("Re(%s) Im(%s)\n", F->name, F->name);
+    if (is_cmpl) printf("Re(%s) Im(%s)\n", F->name, F->name);
+    else         printf("%s\n", F->name);
   }
 
   /* call the function */
