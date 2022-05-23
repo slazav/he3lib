@@ -67,7 +67,7 @@ call_func(struct tab_t * F, char *argv[], int is_cmpl){
 
   /* print table header */
   if (N>1){
-    printf("# %s\n", F->comm);
+    printf("# %s -- %s\n", F->name, F->comm);
     printf("# %s ", F->args);
     if (is_cmpl) printf("Re(%s) Im(%s)\n", F->name, F->name);
     else         printf("%s\n", F->name);
@@ -150,7 +150,7 @@ main(int argc, char *argv[]){
     if (strcmp(F->name, cmd)!=0) continue;
     /* check number of arguments */
     if (argc-2!=F->narg){
-      printf("%s\n", F->comm);
+      printf("%s -- %s\n", F->name, F->comm);
       printf("Not enough argumnets (%d expected)\n", F->narg);
       printf("Usage: %s %s\n", F->name, F->args);
       exit(1);
