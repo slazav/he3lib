@@ -55,7 +55,7 @@ mexFunction(int nlhs, mxArray *plhs[],
   }
 
   /* Constants */
-  if (F->narg == 0){
+  if (F->type == CONST){
     double *out;
     plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
     out = (double*)mxGetPr(plhs[0]);
@@ -87,47 +87,50 @@ mexFunction(int nlhs, mxArray *plhs[],
       mexErrMsgTxt("dimensions of arguments must agree");
   }
 
-  /* allocate space for output data */
-  plhs[0] = mxCreateDoubleMatrix(maxm, maxn, mxREAL);
-  if (plhs[0] == NULL)
-    mexErrMsgTxt("can't allocate memory");
-  out = mxGetPr(plhs[0]);
+  if (F->type == DFUNC) {
+    /* allocate space for output data */
+    plhs[0] = mxCreateDoubleMatrix(maxm, maxn, mxREAL);
+    if (plhs[0] == NULL)
+      mexErrMsgTxt("can't allocate memory");
+    out = mxGetPr(plhs[0]);
 
-  /* calculate values */
-  double (*ff)() = F->func;
-  for (int i=0; i<maxm*maxn; i++){
-    switch(F->narg){
-      case 1: out[i] = ((fun1_t)ff)(in[0]+(s[0]?0:i));
-              break;
-      case 2: out[i] = ((fun2_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i));
-              break;
-      case 3: out[i] = ((fun3_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i));
-              break;
-      case 4: out[i] = ((fun4_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i), in[3]+(s[3]?0:i));
-              break;
-      case 5: out[i] = ((fun5_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                                    in[4]+(s[4]?0:i));
-              break;
-      case 6: out[i] = ((fun6_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                                    in[4]+(s[4]?0:i), in[5]+(s[5]?0:i));
-              break;
-      case 7: out[i] = ((fun7_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                                    in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
-                                    in[6]+(s[6]?0:i));
-              break;
-      case 8: out[i] = ((fun8_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
-                                    in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
-                                    in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
-                                    in[6]+(s[6]?0:i), in[7]+(s[7]?0:i));
-              break;
-      default:
-        mexErrMsgTxt("Error: unsupported function prototype\n");
+    /* calculate values */
+    double (*ff)() = F->func;
+    for (int i=0; i<maxm*maxn; i++){
+      switch(F->narg){
+        case 1: out[i] = ((dfun1_t)ff)(in[0]+(s[0]?0:i));
+                break;
+        case 2: out[i] = ((dfun2_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i));
+                break;
+        case 3: out[i] = ((dfun3_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i));
+                break;
+        case 4: out[i] = ((dfun4_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i), in[3]+(s[3]?0:i));
+                break;
+        case 5: out[i] = ((dfun5_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                      in[4]+(s[4]?0:i));
+                break;
+        case 6: out[i] = ((dfun6_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                      in[4]+(s[4]?0:i), in[5]+(s[5]?0:i));
+                break;
+        case 7: out[i] = ((dfun7_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                      in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                                      in[6]+(s[6]?0:i));
+                break;
+        case 8: out[i] = ((dfun8_t)ff)(in[0]+(s[0]?0:i), in[1]+(s[1]?0:i),
+                                      in[2]+(s[2]?0:i), in[3]+(s[3]?0:i),
+                                      in[4]+(s[4]?0:i), in[5]+(s[5]?0:i),
+                                      in[6]+(s[6]?0:i), in[7]+(s[7]?0:i));
+                break;
+        default:
+          mexErrMsgTxt("Error: unsupported function prototype\n");
+      }
     }
+    return;
   }
-  return;
+  mexErrMsgTxt("Error: unsupported function type\n");
 }

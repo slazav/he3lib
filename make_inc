@@ -151,14 +151,23 @@ print OUT_C   "typedef struct { double r,i; } complex;\n";
 print OUT_TAB qq|
 #include "he3.h"
 
-typedef double (*fun1_t)(double*);
-typedef double (*fun2_t)(double*, double*);
-typedef double (*fun3_t)(double*, double*, double*);
-typedef double (*fun4_t)(double*, double*, double*, double*);
-typedef double (*fun5_t)(double*, double*, double*, double*, double*);
-typedef double (*fun6_t)(double*, double*, double*, double*, double*, double*);
-typedef double (*fun7_t)(double*, double*, double*, double*, double*, double*, double*);
-typedef double (*fun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
+typedef double (*dfun1_t)(double*);
+typedef double (*dfun2_t)(double*, double*);
+typedef double (*dfun3_t)(double*, double*, double*);
+typedef double (*dfun4_t)(double*, double*, double*, double*);
+typedef double (*dfun5_t)(double*, double*, double*, double*, double*);
+typedef double (*dfun6_t)(double*, double*, double*, double*, double*, double*);
+typedef double (*dfun7_t)(double*, double*, double*, double*, double*, double*, double*);
+typedef double (*dfun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
+
+typedef complex (*cfun1_t)(double*);
+typedef complex (*cfun2_t)(double*, double*);
+typedef complex (*cfun3_t)(double*, double*, double*);
+typedef complex (*cfun4_t)(double*, double*, double*, double*);
+typedef complex (*cfun5_t)(double*, double*, double*, double*, double*);
+typedef complex (*cfun6_t)(double*, double*, double*, double*, double*, double*);
+typedef complex (*cfun7_t)(double*, double*, double*, double*, double*, double*, double*);
+typedef complex (*cfun8_t)(double*, double*, double*, double*, double*, double*, double*, double*);
 
 typedef enum { CONST, DFUNC, CFUNC} ftype_t;
 
