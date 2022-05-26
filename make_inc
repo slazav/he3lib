@@ -336,8 +336,8 @@ foreach my $d (@data) {
 
   ## complex function
   elsif ($d->{type} eq 'CFUNC'){
-    print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title}\n";
-    print OUT_HTM "<p>$d->{text}\n";
+    print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title} <b>(complex)</b>\n";
+    print OUT_HTM "<br>$d->{text}\n";
     print OUT_HTM "\n";
   }
 
