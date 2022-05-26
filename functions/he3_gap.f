@@ -564,3 +564,5 @@
      .          * he3_yosida_c(ttc,gap,dgap2)
       end
 
+!> <p>Some gap-related functions on the plot:
+!> <p><img src="img/he3_gap.png">
