@@ -11,6 +11,8 @@ my @files = split /\s+/,
  'he3_rota.f he3_bspec.f he3_math.f he4.f he34.f he3_wire_orig.f'
 ;
 
+my $code_prefix="https://raw.githubusercontent.com/slazav/he3lib/master/functions/";
+
 # quote text for putting it into c-string
 sub quote_c_str($){
   my $arg=shift || '';
@@ -303,7 +305,9 @@ foreach my $d (@data) {
   ## file header
   if ($d->{type} eq 'HH'){
       $ihh++;
-      print OUT_HTM "<hr><a name='hh$ihh'></a><h2>$d->{text}</h2>\n";
+      print OUT_HTM "<hr><a name='hh$ihh'></a><h2>$d->{text}\n";
+      print OUT_HTM "<a href=\"$code_prefix/$d->{fname}\">[code]</a>\n";
+      print OUT_HTM "</h2>\n";
   }
 
   ## header
@@ -319,7 +323,7 @@ foreach my $d (@data) {
   ## double function
   elsif ($d->{type} eq 'DFUNC'){
     print OUT_HTM "<p><tt>$d->{name}($d->{args})</tt> -- $d->{title}\n";
-    print OUT_HTM "<p>$d->{text}\n";
+    print OUT_HTM "<br>$d->{text}\n";
     print OUT_HTM "\n";
   }
 
