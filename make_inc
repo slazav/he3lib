@@ -133,6 +133,14 @@ foreach my $fname (@files) {
 
     $text = '';
   }
+
+  if ($text) {
+    push @data, {
+      type=>'text',
+      text=>$text
+    };
+  }
+
   close F;
 }
 
