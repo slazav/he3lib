@@ -1,6 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
-  graphics_toolkit("gnuplot")
+  pkg load he3lib
   figure; clf; hold on;
 
   %%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,5 +116,5 @@
 %   'Superfluid D_{perp} 10 kHz',...
   title('Spin diffusion at P=30 bar')
 
-  print transp.eps -depsc "-S500,250"
+  print transp.eps -deps "-S500,250" -color
 

@@ -1,5 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
+  pkg load he3lib
   figure; clf; hold on;
   ttc = 0.4:0.01:1.1;
   p=0;

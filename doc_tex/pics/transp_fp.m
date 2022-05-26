@@ -1,7 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
-  addpath ../../matlab
-
+  pkg load he3lib
   figure; clf; hold on;
   ttc = 0:0.01:1;
 

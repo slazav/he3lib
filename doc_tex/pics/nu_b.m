@@ -1,8 +1,8 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
   % collect and fit all experimental data
 
-  graphics_toolkit("gnuplot")
+  pkg load he3lib
 
 function do_fit(p, ttc, nub, c)
   xx=0.001:0.001:1;

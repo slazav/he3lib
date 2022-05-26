@@ -1,7 +1,7 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
   % collect and fit all experimental data
-  graphics_toolkit("gnuplot")
+  pkg load he3lib
   figure; clf; hold on;
 
   subplot(1,2,1); hold on;

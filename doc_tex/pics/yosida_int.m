@@ -1,6 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
-  graphics_toolkit("gnuplot")
+  pkg load he3lib
   figure; hold on;
 
 function int = integrand(x,sgap,TTc,n)

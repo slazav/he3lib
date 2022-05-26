@@ -1,13 +1,12 @@
-all: phase1.eps phase2.eps\
-     gap1.eps\
-     nu_b.eps text_pars.eps text_pars2.eps text_gr.eps\
-     yosida_int.eps\
-     transp.eps sdiff.eps\
-     qball.eps
+all: phase1.png gap1.png\
+     nu_b.png text_pars.png text_pars2.png text_gr.png\
+     yosida_int.png\
+     transp.png sdiff.png\
+     qball.png
 
-%.eps: %.m
+%.png: %.m
 	octave-cli -q $<
 	touch st
 
 clean:
-	rm -f st *.tex *.eps
+	rm -f st *.tex *.png

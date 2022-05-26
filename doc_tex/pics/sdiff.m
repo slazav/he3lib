@@ -1,6 +1,6 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
-  graphics_toolkit("gnuplot")
+  pkg load he3lib
   figure; clf; hold on;
 
   p=0;
@@ -47,4 +47,4 @@
   xlabel('T/T_c');
   ylabel('D_\perp');
 
-  print -deps -color sdiff.eps "-S500,250"
+  print -deps -color sdiff.eps "-S500,250" -color

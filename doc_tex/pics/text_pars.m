@@ -1,5 +1,6 @@
-#!/usr/bin/octave -qf
-  graphics_toolkit("gnuplot")
+#!/usr/bin/octave-cli -qf
+
+  pkg load he3lib
   figure; clf; hold on;
 
   subplot(3,2,1); hold on;

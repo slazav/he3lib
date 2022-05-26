@@ -1,9 +1,10 @@
-#!/usr/bin/octave -qf
+#!/usr/bin/octave-cli -qf
 
-  graphics_toolkit("gnuplot")
-
+  pkg load he3lib
   figure; clf; hold on;
   subplot(1,2,1); hold on;
+  xlabel "T/Tc"
+  title "Gap/Tc"
 
   ttc=[0.001:0.001:1.1];
 
@@ -17,11 +18,13 @@
   xlim([0 1]);
   ylim([0 2]);
   set(gca, 'yTick', 0:0.2:2);
-  legend('BCS gap', 'P=0', 'P=30', 'location', 'southwest')
+  legend('bcsgap', 'trivgap P=0', 'trivgap P=30', 'location', 'southwest')
 
   grid on;
 
   subplot(1,2,2); hold on;
+  xlabel "T/Tc"
+  title "Gap-related functions"
 
   plot(ttc, he3_yosida(ttc,gg00,0), 'r')
   plot(ttc, he3_yosida(ttc,gg00,2), 'color', [0 0.6 0] )
@@ -54,7 +57,7 @@
   text(0.70, 0.92, '\rho^n_B/\rho', 'fontsize', 8, 'color', 'b');
   text(0.10, 0.42, '\chi_B/\chi_N'   , 'fontsize', 8, 'color', 'k');
 
-  text(0.10, 1.05, 'Z_3'   , 'fontsize', 8, 'color', 'm');
+  text(0.10, 0.95, 'Z_3'   , 'fontsize', 8, 'color', 'm');
   text(0.10, 0.72, 'Z_5'   , 'fontsize', 8, 'color', [0.6 0.6 0]);
   text(0.10, 0.58, 'Z_7'   , 'fontsize', 8, 'color', [0 0.6 0.6]);
 

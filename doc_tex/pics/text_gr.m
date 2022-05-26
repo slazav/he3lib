@@ -1,5 +1,6 @@
-#!/usr/bin/octave -qf
-  graphics_toolkit("gnuplot")
+#!/usr/bin/octave-cli -qf
+
+  pkg load he3lib
   figure; clf; hold on;
 
   subplot(1,2,1); hold on;
@@ -16,4 +17,4 @@
   title('c_{parallel}, cm/s vs T/T_c');
   ylim([0 2600])
 
-  print text_gr.eps -depsc "-S500,200"
+  print text_gr.eps -deps "-S500,200"

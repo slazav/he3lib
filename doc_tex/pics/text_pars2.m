@@ -1,7 +1,6 @@
-#!/usr/bin/octave -qf
-  graphics_toolkit("gnuplot")
+#!/usr/bin/octave-cli -qf
+  pkg load he3lib
   figure; clf; hold on;
-
 
   subplot(2,2,1); hold on;
   plot_tpdep(@he3_text_xid);
