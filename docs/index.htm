@@ -972,37 +972,43 @@ Chaudhry PhD thesis (Massachusetts, 2009)
 <hr><a name='hh20'></a><h2>Vibrating wire calibration programs from Lancaster ULT (original version)
 <a href="https://raw.githubusercontent.com/slazav/he3lib/master/functions//he3_wire_orig.f">[he3_wire_orig.f]</a>
 </h2>
-<p><tt>he3_lancwire_d(t,rho,diam,fre)</tt> -- 
+<p>These functions produce same results as old Lancaster code, I do not plan to change them.
+I plan to do a separate version using functions from the library (Yosida functions, viscosity, etc.)</p>
+<p><tt>he3_lancwire_d(t,rho,diam,fre)</tt> -- Calibration of vibrating wire in mixing chamber (diluted phase), original Lancaster version, complex: freq + 1i*width
 <p>
+Arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_d_f(t,rho,diam,fre)</tt> -- Mixing chamber calibration, frequency vs temperatere
+<p><tt>he3_lancwire_d_f(t,rho,diam,fre)</tt> -- Calibration of vibrating wire in mixing chamber (diluted phase), frequency
 <br>
 arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_d_w(t,rho,diam,fre)</tt> -- Mixing chamber calibration, width vs temperatere
+<p><tt>he3_lancwire_d_w(t,rho,diam,fre)</tt> -- Calibration of vibrating wire in mixing chamber (diluted phase), width
 <br>
 arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_b(t,p,rho,diam,fre)</tt> -- 
+<p><tt>he3_lancwire_b(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in superfluid He3-B (original Lancaster version), complex: freq + 1i*width
 <p>
+arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz].
 
-<p><tt>he3_lancwire_b_f(t,p,rho,diam,fre)</tt> -- Superfluid He3-B calibration, frequency vs temperatere
+<p><tt>he3_lancwire_b_f(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in superfluid He3-B, frequency
 <br>
 arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_b_w(t,p,rho,diam,fre)</tt> -- Superfluid He3-B calibration, width vs temperatere
+<p><tt>he3_lancwire_b_w(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in superfluid He3-B, width
 <br>
 arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_n(t,p,rho,diam,fre)</tt> -- 
+<p><tt>he3_lancwire_n(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in normal He3 (original Lancaster version), complex: freq + 1i*width
 <p>
+Cylinder programme using wide line treatment and slip fudge.
+arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz].
 
-<p><tt>he3_lancwire_n_f(t,p,rho,diam,fre)</tt> -- Normal He3-B calibration (original Lancaster version), freq
+<p><tt>he3_lancwire_n_f(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in normal He3 (original Lancaster version), freq
 <br>
 Cylinder programme using wide line treatment and slip fudge.
 arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
-<p><tt>he3_lancwire_n_w(t,p,rho,diam,fre)</tt> -- Normal He3-B calibration (original Lancaster version), width
+<p><tt>he3_lancwire_n_w(t,p,rho,diam,fre)</tt> -- Calibration of vibrating wire in normal He3 (original Lancaster version), width
 <br>
 Cylinder programme using wide line treatment and slip fudge.
 arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]

@@ -1,9 +1,11 @@
 !HH> Vibrating wire calibration programs from Lancaster ULT (original version)
 
+!> These functions produce same results as old Lancaster code, I do not plan to change them.
+!> I plan to do a separate version using functions from the library (Yosida functions, viscosity, etc.)
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!Mixing chamber calibration, diluted phase (original Lancaster version)
-!Arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-!Output:    complex version f + i*df
+!> Calibration of vibrating wire in mixing chamber (diluted phase), original Lancaster version, complex: freq + 1i*width
+!> Arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_d(t, rho, diam, fre) !FC>
         implicit none
         include 'he3.fh'
@@ -64,7 +66,7 @@
         he3_lancwire_d = dcmplx(ff, df)
       end
 
-!> Mixing chamber calibration, frequency vs temperatere
+!> Calibration of vibrating wire in mixing chamber (diluted phase), frequency
 !> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_d_f(t, rho, diam, fre) !F>
         implicit none
@@ -73,7 +75,7 @@
         he3_lancwire_d_f = real(he3_lancwire_d(t, rho, diam, fre))
       end
 
-!> Mixing chamber calibration, width vs temperatere
+!> Calibration of vibrating wire in mixing chamber (diluted phase), width
 !> arguments: temperature [K], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_d_w(t, rho, diam, fre) !F>
         implicit none
@@ -179,9 +181,8 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Superfluid He3-B calibration (original Lancaster version)
-! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-! complex version f + i*df
+!> Calibration of vibrating wire in superfluid He3-B (original Lancaster version), complex: freq + 1i*width
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz].
       function he3_lancwire_b(t, p, rho, diam, fre) !FC>
         implicit none
         include 'he3.fh'
@@ -280,7 +281,7 @@
         he3_lancwire_b = dcmplx(ff, df)
       end
 
-!> Superfluid He3-B calibration, frequency vs temperatere
+!> Calibration of vibrating wire in superfluid He3-B, frequency
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_b_f(t, p, rho, diam, fre) !F>
         implicit none
@@ -290,7 +291,7 @@
      .    real(he3_lancwire_b(t, p, rho, diam, fre))
       end
 
-!> Superfluid He3-B calibration, width vs temperatere
+!> Calibration of vibrating wire in superfluid He3-B, width
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_b_w(t, p, rho, diam, fre) !F>
         implicit none
@@ -302,10 +303,9 @@
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Normal He3-B calibration (original Lancaster version), complex: fre + 1i*width
-! Cylinder programme using wide line treatment and slip fudge.
-! arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
-! complex version f + i*df
+!> Calibration of vibrating wire in normal He3 (original Lancaster version), complex: freq + 1i*width
+!> Cylinder programme using wide line treatment and slip fudge.
+!> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz].
       function he3_lancwire_n(t, p, rho, diam, fre) !FC>
         implicit none
         include 'he3.fh'
@@ -366,7 +366,7 @@
 
       end
 
-!> Normal He3-B calibration (original Lancaster version), freq
+!> Calibration of vibrating wire in normal He3 (original Lancaster version), freq
 !> Cylinder programme using wide line treatment and slip fudge.
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_n_f(t, p, rho, diam, fre) !F>
@@ -377,7 +377,7 @@
      .    real(he3_lancwire_n(t, p, rho, diam, fre))
       end
 
-!> Normal He3-B calibration (original Lancaster version), width
+!> Calibration of vibrating wire in normal He3 (original Lancaster version), width
 !> Cylinder programme using wide line treatment and slip fudge.
 !> arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
       function he3_lancwire_n_w(t, p, rho, diam, fre) !F>
