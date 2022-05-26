@@ -32,6 +32,9 @@ To build <tt>mex</tt> files you should run <tt>make octave</tt>, <tt>make
 matlab</tt> or <tt>make matlab64</tt>. Note, that fixed rpath is used
 for the library.
 
+<li><b>Python</b>. There is Python interface for the library, thanks to L.Levitin.
+See in <tt>python</tt> folder.
+
 <li><b>Command line.</b>You can use all the functions via a
 command-line program <tt>he3</tt>. To get a list of all functions run
 the program without arguments. To get information about specific

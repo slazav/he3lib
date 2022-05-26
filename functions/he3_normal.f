@@ -149,7 +149,7 @@
 !> Kerrisk,Keller-1969 (1.5K-Tcr) are used to obtain some semi-theoretical
 !> model for thermal conductivity and viscosity (see below).
 !>
-!> <img src="img/1984_greywall_tcond.png">
+!> <p><img src="img/1984_greywall_tcond.png">
 !>
       function he3_tcond_n(t, p) !F>
         implicit none
