@@ -29,11 +29,15 @@ sub quote_c_comm($){
 
 #############################################
 # Read source files, extract function profiles,
-# comments, etc.
+# data blocks, comments, headers.
 #
-# Comments should start with '!>'.
-# They will be attached to the following function (if any)
-# or become a block of text.
+# Special marks:
+#   !>    -- comments for a function
+#   !C>   -- constant
+#   !F>   -- double function
+#   !FC>  -- complex function
+#   !H>   -- small header
+#   !HH>  -- big header (one per file)
 my @data;
 my @dblocks;
 foreach my $fname (@files) {
