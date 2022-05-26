@@ -273,7 +273,7 @@ close OUT_TAB;
 #############################################
 # write documentation
 
-open(OUT_HTM, '> docs/he3.htm') or die 'Can not open he3.htm: $!';
+open(OUT_HTM, '> docs/index.htm') or die 'Can not open index.htm: $!';
 print OUT_HTM qq*<html>
 <head>
 <script type="text/javascript"
@@ -291,7 +291,8 @@ print OUT_HTM qq*<html>
 *;
 
 # table of contents
-print OUT_HTM "<ul>\n";
+print OUT_HTM "<hr><ul>\n";
+print OUT_HTM "<li><a href='#hh0'>About the library</a>\n";
 my $ihh=0; # HH header counter;
 foreach my $d (@data) {
   next unless ($d->{type} eq 'HH');
@@ -300,13 +301,19 @@ foreach my $d (@data) {
 }
 print OUT_HTM "</ul>\n";
 
+# docs/about.txt
+print OUT_HTM "<hr><a name='hh0'></a><h2>About the library</h2>\n";
+open F, "docs/about.txt" or die "can't open docs/about.txt: $!";
+print OUT_HTM foreach(<F>);
+close F;
+
 $ihh=0;
 foreach my $d (@data) {
   ## file header
   if ($d->{type} eq 'HH'){
       $ihh++;
       print OUT_HTM "<hr><a name='hh$ihh'></a><h2>$d->{text}\n";
-      print OUT_HTM "<a href=\"$code_prefix/$d->{fname}\">[code]</a>\n";
+      print OUT_HTM "<a href=\"$code_prefix/$d->{fname}\">[$d->{fname}]</a>\n";
       print OUT_HTM "</h2>\n";
   }
 

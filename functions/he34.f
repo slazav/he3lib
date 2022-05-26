@@ -75,7 +75,7 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> phase diagram at pressures 0..10bar
+!H> Phase diagram at pressures 0..10bar
 
 !> Tricritical line vs pressure [bar], 0..10 bar
 !> Chaudhry PhD thesis (Massachusetts, 2009)

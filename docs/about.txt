@@ -1,0 +1,63 @@
+<p>This library provides constant and functions for various $^3$He properties.
+Code can be found in <a href="https://github.com/slazav/he3lib">https://github.com/slazav/he3lib</a>
+
+
+<h3>Supported interfaces</h3>
+
+<p>The library can be used with different programming languages and via a
+command-line interface. Example programs and scripts can be found in the
+<tt>examples/</tt> folder.
+
+<ul>
+<li><b>Fortran-77.</b>
+You should use <tt>he3.fh</tt> include file and <tt>libhe3</tt> library for
+Fortran-77 programs. All functions and arguments are <tt>real*8</tt>.
+Use <tt>-fno-range-check</tt> compiler flag to allow <tt>NaN</tt> values.
+
+<li><b>Fortran-90.</b> Usage of the library in Fortran-90 programs is
+similar to that in Fortran-77, but you should use <tt>he3.f90h</tt> include
+file.
+
+<li><b>C.</b> You should use <tt>he3.h</tt> include file and <tt>libhe3</tt>
+library in C programs. Lowercase names with underscore should be used
+(like <tt>he3_pf_</tt>). Type of arguments is always <tt>double*</tt>,
+type of returned value is <tt>double</tt>.
+
+<li><b>Matlab, Octave.</b> <tt>mex</tt> files are located in the
+<tt>matlab</tt> folder. Lowercase names should be used. In function
+arguments you can mix numbers with arrays or matrices of the same size.
+For example the command "<tt>fB = he3_nu_b(0:0.1:1, 0);</tt>" will give
+you Leggett frequency vs temperature at zero pressure.
+To build <tt>mex</tt> files you should run <tt>make octave</tt>, <tt>make
+matlab</tt> or <tt>make matlab64</tt>. Note, that fixed rpath is used
+for the library.
+
+<li><b>Command line.</b>You can use all the functions via a
+command-line program <tt>he3</tt>. To get a list of all functions run
+the program without arguments. To get information about specific
+function, run the program with the function name as an argument. You can
+use matlab-style vectors "value1:step:value2" to get a table of values
+(if step is missing then 20 points will be printed): the command "<tt>he3
+he3_nu_b 0.1:0.1:1 0</tt>" will give you Leggett frequency vs
+temperature at zero pressure.
+
+<li><b>Web interface.</b> There is a simple web-server which runs
+the <tt>he3</tt> command-line program. For example try the following link
+to get s-wave BCS gap $\Delta_\mbox{bcs}/T_c$ as a function of $T/T_c$:
+<br><a href="http://slazav.xyz/cgi/he3?he3_bcsgap 0:0.05:1">
+http://slazav.xyz/cgi/he3?he3_bcsgap 0:0.05:1</a>
+</ul>
+
+<p>Old documentation (last updated 2016):
+<a href="http://slazav.github.io/he3lib/index_2016.htm">
+http://slazav.github.io/he3lib/index_2016.htm</a>
+
+<h3>Acknowledgements</h3>
+
+This library have been done in collaboration with my colleagues in Low
+temperature laboratory (Aalto University, Finland): P.Heikkinen, S.Autti,
+V.Eltsov, M.Krusius and G.Volovik. Other $^3$He programs and libraries
+have been used in the work: programs by V.Dmitriev (Kapitza institute,
+Moscow), S.Autti, $^3$He-B texture library by J.Kopu, <a
+href="http://ltl.tkk.fi/research/theory/qc/bcsgap.html">programs</a> by
+E.Thuneberg, Lancaster programs for vibrating wire calibrations.
