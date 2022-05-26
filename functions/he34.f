@@ -75,7 +75,7 @@
       end
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!H> Phase diagram at pressures 0..10bar
+!H> Phase diagram at pressures 0..10bar (T>0.15K)
 
 !> Tricritical line vs pressure [bar], 0..10 bar
 !> Chaudhry PhD thesis (Massachusetts, 2009)
@@ -165,3 +165,5 @@
         endif
       end
 
+!> <p>Phase diagram functions on the plot:
+!> <p><img src="img/he34_phase.png">
