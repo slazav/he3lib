@@ -67,7 +67,7 @@ foreach my $fname (@files) {
         my $i = index($text, "\n");
         if ($i>0){
           $title = substr($text, 0, $i);
-          $text  = substr($text, $i, -1);
+          $text  = substr($text, $i);
         }
         else {
           $title = $text;
