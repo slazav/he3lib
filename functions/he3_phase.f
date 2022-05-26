@@ -245,3 +245,6 @@
         he3_tab_plts =
      .    (1D0 - 5.14809D-2 + 3.05134D-2*T1 - 6.9936D-3*T1**2)*T1
       end
+
+!> Names of functions and constants on the plot:
+!> <p><img src="img/he3_phase.png">
