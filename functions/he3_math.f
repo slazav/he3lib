@@ -1,5 +1,13 @@
 !HH> Mathematics
 
+!> <p>This file contains mathematical functions and subroutines.
+!> Some of them are not included in the library public interface, but still
+!> can be used in fortran/C programs:  1D and 2D real and complex integration with
+!> Gauss-2pt and Gauss-7pt+Kronrod-15pt quadratures, error estimation,
+!> adaptive breakpoints; 2D integration of delta-function (f1*delta(f2));
+!> solving qubic equations.
+
+
 ! Integration of a real*8 function
 ! from xmin to xmax using imax points
 ! Gauss-2pt quadrature
@@ -506,7 +514,7 @@
         endif
       end
 
-!> magnetic field Bz of a current loop
+!> magnetic field Bz of a current loop [G/A] vs Rloop, r, z [cm]
       function loop_bz(Rl, r, z) !F>
         implicit none
         include 'he3.fh'
@@ -522,7 +530,7 @@
      .    (ele*(Rl**2-r**2-z**2)/((Rl-r)**2+z**2) + elk)
       end
 
-!> magnetic field Bz of a current loop
+!> magnetic field Br of a current loop [G/A] vs Rloop, r, z [cm]
       function loop_br(Rl, r, z) !F>
         implicit none
         include 'he3.fh'
