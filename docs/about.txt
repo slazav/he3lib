@@ -8,6 +8,10 @@ Code can be found in <a href="https://github.com/slazav/he3lib">https://github.c
 command-line interface. Example programs and scripts can be found in the
 <tt>examples/</tt> folder.
 
+<p>Old documentation (last updated 2016):
+<a href="http://slazav.github.io/he3lib/index_2016.htm">
+http://slazav.github.io/he3lib/index_2016.htm</a>
+
 <ul>
 <li><b>Fortran-77.</b>
 You should use <tt>he3.fh</tt> include file and <tt>libhe3</tt> library for
@@ -51,9 +55,31 @@ to get s-wave BCS gap $\Delta_\mbox{bcs}/T_c$ as a function of $T/T_c$:
 http://slazav.xyz/cgi/he3?he3_bcsgap 0:0.05:1</a>
 </ul>
 
-<p>Old documentation (last updated 2016):
-<a href="http://slazav.github.io/he3lib/index_2016.htm">
-http://slazav.github.io/he3lib/index_2016.htm</a>
+<h3>Complex functions</h3>
+
+<p>There are a few functions in the library with complex return value
+(<tt>he3_lancwire_*</tt>, <tt>math_stokes</tt>). This interface is
+experimental, you can always use separate functions for real/imag
+component, in this case you will call the code twice. Support for complex
+functions in the library:
+<ul>
+<li> [+] C/Fortran interfaces just return {double r,i} structure.
+<li> [+] Command line interface prints two values.
+<li> [+] Octave returns complex numbers.
+<li> [-] Matlab does not support it. It should be easy to implement this, but I do not have Matlab at the moment.
+<li> [-] Python binding does not support it.
+</ul>
+
+<p>Example with command line interface:
+<pre><tt>
+$ he3 he3_lancwire_n 0.011 0 16.5 124 1700
+1.687029e+03 2.546024e+01
+$ he3 he3_lancwire_n_f 0.011 0 16.5 124 1700
+1.687029e+03
+$ he3 he3_lancwire_n_w 0.011 0 16.5 124 1700
+2.546024e+01
+</tt></pre>
+
 
 <h3>Acknowledgements</h3>
 

@@ -659,11 +659,9 @@
 
 
 !>  Evaluates complex Stokes function K + 1i*K'
-!>
 !>  Uses the methods outlined in STOKES - Mathematical and physical papers Vol III.
 !>  For G>=3 use eq.113, for G<3 eq.103-105.
 !>  Code is taken from Lancaster ULT wire calibration program.
-
       function math_stokes(g)  !FC>
         implicit none
         include 'he3.fh'
