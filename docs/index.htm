@@ -34,6 +34,7 @@
 <li><a href='#hh18'>Helium-4 parameters</a>
 <li><a href='#hh19'>3He-4He mixtures</a>
 <li><a href='#hh20'>Vibrating wire calibration programs from Lancaster ULT (original version)</a>
+<li><a href='#hh21'>Magnetic models</a>
 </ul>
 <hr><a name='hh0'></a><h2>About the library</h2>
 <p>This library provides constant and functions for various $^3$He properties.
@@ -1049,5 +1050,25 @@ arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um
 Cylinder programme using wide line treatment and slip fudge.
 arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um], frequency [Hz]
 
+<hr><a name='hh21'></a><h2>Magnetic models
+<a href="https://raw.githubusercontent.com/slazav/he3lib/master/functions//magn.f">[magn.f]</a>
+</h2>
+<h3>Curie-Weiss magnet</h3>
+<p>See <a href="https://arxiv.org/pdf/1301.2141.pdf">[Kochmansky]</a>.</p>
+<p><tt>magn_cw_m(ttc,btc)</tt> -- Magnetization of Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
+<br>
+Solving equation m = \tanh((m+btc)/ttc) by Newton method.
+<br>Works for positive and negative btc.
+
+<p><tt>magn_cw_chi(ttc,btc)</tt> -- Magnetic susceptibility of Curie-Weiss magnet,  chi*kTc/mu^2 vs T/Tc and muB/kTc
+<br>
+
+<p><tt>magn_cw_s(ttc,btc)</tt> -- Entropy of Curie-Weiss magnet, S/R vs T/Tc and muB/kTc
+<br>
+
+<p><tt>magn_cw_c(ttc,btc)</tt> -- Heat capacity of Curie-Weiss magnet,  C/R vs T/Tc and muB/kTc
+<br>
+
+<p><p> <img src="img/magn.cw.png"></p>
 
 </body></html>

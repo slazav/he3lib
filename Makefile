@@ -36,7 +36,7 @@ all: headers\
 LIBOBJS=he3_const he3_phase he3_fermi he3_normal\
         he3_math he3_gap he3_dipole he3_grad he3_text\
         he3_transp_n he3_transp_b he3_b2 he3_other he3_polar\
-        he3_rota he3_bspec he3_a he4 he3_wire_orig he34
+        he3_rota he3_bspec he3_a he4 he3_wire_orig he34 magn
 OBJS= $(patsubst %,functions/%.o,$(LIBOBJS))
 SRCS= $(patsubst %,functions/%.f,$(LIBOBJS))
 
