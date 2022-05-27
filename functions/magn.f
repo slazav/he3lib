@@ -1,8 +1,12 @@
 !HH> Magnetic models
 
-!H> Curie-Weiss magnet with S=1/2
+!H> Curie-Weiss magnet with spin 1/2
 
 !> See <a href="https://arxiv.org/pdf/1301.2141.pdf">[Kochmansky]</a>.
+
+!> <p>Function arguments:
+!> <br>ttc: $T/T_c$
+!> <br>btc: $\gamma \hbar B / 2 k_B T_c$ (note spin factor 1/2)
 
 !> Magnetization of Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
 !> Solving equation m = \tanh((m+btc)/ttc) by Newton method.
@@ -66,8 +70,9 @@
 !H> Paramegnetetic material with internal field
 
 !> See Pobell book f9.15
-
-!> Use muB/kT = gyro*hbar*sqrt(Bext^2 + Bint^2) / kT
+!> <p>Function arguments:
+!> <br>bt: $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$
+!> <br>spin
 
 !> Magnetization of paramagnetic material, M/Ms vs muB/kT and spin
       function magn_par_m(bt, spin) !F>
@@ -105,6 +110,13 @@
       end
 
 !> <p>Example for copper nuclei.  Internal field $B_i$ = 0.36e-3 T, gyromagnetic ratio $\gamma$ = 71.118e6 rad/s/T,
-!> spin $J$ = 3/2. First argument for calling functions is $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$.
+!> spin $J$ = 3/2.
 
 !><p> <img src="img/magn_par.png">
+
+!> <p>Comparison of Curie-Weiss and Paramagnetic models for solid He3 on a surface.
+!> Internal field $B_i$ = 0.7 T, gyromagnetic ratio $\gamma$ =  203.789e6 rad/s/T,
+!> spin $J$ = 1/2, Curie temerature $T_c$ = 0.5 mK.
+
+!><p> <img src="img/magn_he3s.png">
+
