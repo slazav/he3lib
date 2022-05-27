@@ -2,6 +2,7 @@
 
   pkg load he3lib
 
+
   t=0:0.005:1.7;
 
   figure; clf;
@@ -57,6 +58,6 @@
   xlim([0,t(end)])
 
 
-  print magn.cw.png -dpng "-S800,600"
+  print magn_cw.png -dpng "-S800,600"
 
 

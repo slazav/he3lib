@@ -1053,7 +1053,7 @@ arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um
 <hr><a name='hh21'></a><h2>Magnetic models
 <a href="https://raw.githubusercontent.com/slazav/he3lib/master/functions//magn.f">[magn.f]</a>
 </h2>
-<h3>Curie-Weiss magnet</h3>
+<h3>Curie-Weiss magnet with S=1/2</h3>
 <p>See <a href="https://arxiv.org/pdf/1301.2141.pdf">[Kochmansky]</a>.</p>
 <p><tt>magn_cw_m(ttc,btc)</tt> -- Magnetization of Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
 <br>
@@ -1069,6 +1069,21 @@ Solving equation m = \tanh((m+btc)/ttc) by Newton method.
 <p><tt>magn_cw_c(ttc,btc)</tt> -- Heat capacity of Curie-Weiss magnet,  C/R vs T/Tc and muB/kTc
 <br>
 
-<p><p> <img src="img/magn.cw.png"></p>
+<p><p> <img src="img/magn_cw.png"></p>
+<h3>Paramegnetetic material with internal field</h3>
+<p>See Pobell book f9.15</p>
+<p>Use muB/kT = gyro*hbar*sqrt(Bext^2 + Bint^2) / kT</p>
+<p><tt>magn_par_m(bt,spin)</tt> -- Magnetization of paramagnetic material, M/Ms vs muB/kT and spin
+<br>
+
+<p><tt>magn_par_s(bt,spin)</tt> -- Entropy of paramagnetic material, S/R vs muB/kT and spin
+<br>
+
+<p><tt>magn_par_c(bt,spin)</tt> -- Heat capacity of paramagnetic material, C/R vs muB/kT and spin
+<br>
+
+<p><p>Example for copper nuclei.  Internal field $B_i$ = 0.36e-3 T, gyromagnetic ratio $\gamma$ = 71.118e6 rad/s/T,
+spin $J$ = 3/2. First argument for calling functions is $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$.</p>
+<p><p> <img src="img/magn_par.png"></p>
 
 </body></html>
