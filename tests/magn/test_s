@@ -1,0 +1,32 @@
+#!/usr/bin/octave-cli
+
+pkg load he3lib
+
+figure; hold on;
+
+Tc=0.5e-3;
+gyro=203.789e6;
+spin=0.5;
+
+t=(0.1:0.01:10) * 1e-3;
+B=60e-3;
+Bi = 0.7;
+
+S1 = magn_cw_s(t,B,Tc,gyro);
+semilogx(t,S1, 'r-')
+
+S2 = magn_par_s(t,B,Bi,gyro,spin);
+semilogx(t,S2, 'm-')
+
+S2 = magn_par_s(t,B,Bi,gyro,3/2.0);
+semilogx(t,S2, 'm-')
+
+S2 = magn_par_s(t,B,Bi,gyro,5/2.0);
+semilogx(t,S2, 'm-')
+
+semilogx([1e-4,1e-2],[1,1]*log(2), 'k-')
+semilogx([1e-4,1e-2],[1,1]*log(4), 'k-')
+semilogx([1e-4,1e-2],[1,1]*log(6), 'k-')
+
+
+print -dpng "test_s.png"

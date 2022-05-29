@@ -1,0 +1,29 @@
+#!/usr/bin/octave-cli
+
+pkg load he3lib
+
+figure; hold on;
+
+Tc=0.5e-3;
+gyro=203.789e6;
+spin=0.5;
+
+t=(0.1:0.01:10) * 1e-3;
+B=60e-3;
+Bi = 0.1;
+
+dB=1e-4;
+
+chi1 = magn_cw_chi(t,B,Tc,gyro);
+semilogx(t,chi1, 'r-')
+chi1a = (magn_cw_m(t,B+dB,Tc,gyro) - magn_cw_m(t,B,Tc,gyro)) /dB;
+semilogx(t,chi1a, 'b--')
+
+chi2 = magn_par_chi(t,B,Bi,gyro,spin);
+semilogx(t,chi2, 'r-')
+chi2a = (magn_par_m(t,B+dB,Bi,gyro,spin) - magn_par_m(t,B,Bi,gyro,spin)) /dB;
+semilogx(t,chi2a, 'b--')
+
+
+
+print -dpng "test_chi.png"

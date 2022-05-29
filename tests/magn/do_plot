@@ -1,0 +1,95 @@
+#!/usr/bin/octave-cli
+
+function y=yfunc(ttc, btc)
+  if btc<0 s=-1; else s=+1; end
+  y=1; dy=1;
+  while dy>1e-6
+    F = s*y - tanh((s*y+btc)/ttc);
+    Fp = s - (1 - tanh((s*y+btc)/ttc)^2)*s/ttc;
+    dy = F/Fp;
+    y=y-dy;
+  end
+  y=s*y;
+end
+
+function m=magn(ttc,btc)
+  for i=1:length(ttc)
+    m(i)=yfunc(ttc(i), btc);
+  end
+end
+
+function s=susc(ttc,btc)
+  y=magn(ttc, btc);
+  s = (1-y.^2)./(ttc-1+y.^2);
+end
+
+function c=hcap(ttc,btc)
+  y=magn(ttc, btc);
+  c = (1-y.^2).*(y+btc).^2 ./ (ttc - 1 + y.^2)./ttc;
+end
+
+# free energy: f/kTc
+function f=fen(ttc,btc)
+  y=magn(ttc, btc);
+  K = 1./ttc;
+  f = -ttc.*log(2*exp(-K.*y.^2/2) .* cosh(K.*(y+btc)));
+end
+
+# entropy
+function S=entr(ttc,btc)
+  y=magn(ttc, btc);
+  S = log(2*exp(-y.^2/2./ttc) .* cosh((y+btc)./ttc)) - (y/2 + btc).*y./ttc
+end
+
+
+ttc=0:0.01:2;
+
+figure; clf; hold on;
+
+plot(ttc,magn(ttc,0), 'k-')
+plot(ttc,magn(ttc,-0.01), 'm-')
+plot(ttc,magn(ttc,+0.01), 'm-')
+plot(ttc,magn(ttc,-0.1), 'b-')
+plot(ttc,magn(ttc,+0.1), 'b-')
+plot(ttc,magn(ttc,-0.5), 'g-')
+plot(ttc,magn(ttc,+0.5), 'g-')
+
+print -dpng magn.png
+
+figure; clf; hold on;
+
+plot(ttc,susc(ttc,0), 'k-')
+plot(ttc,susc(ttc,0.01), 'm-')
+plot(ttc,susc(ttc,0.1), 'b-')
+plot(ttc,susc(ttc,0.5), 'g-')
+ylim([0, 20])
+
+print -dpng susc.png
+
+
+figure; clf; hold on;
+
+plot(ttc,hcap(ttc,0), 'k-')
+plot(ttc,hcap(ttc,0.01), 'm-')
+plot(ttc,hcap(ttc,0.1), 'b-')
+plot(ttc,hcap(ttc,0.5), 'g-')
+plot(ttc,hcap(ttc,10), 'g-')
+#ylim([0, 20])
+
+print -dpng hcap.png
+
+figure; clf; hold on;
+
+plot(ttc,entr(ttc,0), 'k-')
+plot(ttc,entr(ttc,0.01), 'm-')
+plot(ttc,entr(ttc,0.1), 'b-')
+plot(ttc,entr(ttc,0.5), 'g-')
+plot(ttc,entr(ttc,-0.01), 'm--')
+plot(ttc,entr(ttc,-0.1), 'b--')
+plot(ttc,entr(ttc,-0.5), 'g--')
+#ylim([0, 20])
+
+print -dpng entr.png
+
+
+

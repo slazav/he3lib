@@ -1058,19 +1058,27 @@ arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um
 <p><p>Function arguments:
 <br>ttc: $T/T_c$
 <br>btc: $\gamma \hbar B / 2 k_B T_c$ (note spin factor 1/2)</p>
-<p><tt>magn_cw_m(ttc,btc)</tt> -- Magnetization of Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
+<p><tt>magn_cw_y(ttc,btc)</tt> -- y-function, dimensionless magnetization of S=1/2 Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
 <br>
 Solving equation m = \tanh((m+btc)/ttc) by Newton method.
 <br>Works for positive and negative btc.
 
-<p><tt>magn_cw_chi(ttc,btc)</tt> -- Magnetic susceptibility of Curie-Weiss magnet,  chi*kTc/mu^2 vs T/Tc and muB/kTc
+<p><tt>magn_cw_m(T,B,Tc,gyro)</tt> -- Molar magnetization of S=1/2 Curie-Weiss magnet,  M[J/T/mole] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
 
-<p><tt>magn_cw_s(ttc,btc)</tt> -- Entropy of Curie-Weiss magnet, S/R vs T/Tc and muB/kTc
+<p><tt>magn_cw_chi(T,B,Tc,gyro)</tt> -- Molar magnetic susceptibility of S=1/2 Curie-Weiss magnet, chi [J/T^2/mole] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
 
-<p><tt>magn_cw_c(ttc,btc)</tt> -- Heat capacity of Curie-Weiss magnet,  C/R vs T/Tc and muB/kTc
+<p><tt>magn_cw_s(T,B,Tc,gyro)</tt> -- Entropy of S=1/2 Curie-Weiss magnet, S/R vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
+
+<p><tt>magn_cw_c(T,B,Tc,gyro)</tt> -- Heat capacity of S=1/2 Curie-Weiss magnet,  C/R vs T[K], B[T], Tc[K], gyro[rad/s/T]
+<br>
+
+<p><tt>magn_cw_d(T,B,Tc,gyro)</tt> -- Cooling effect of demagnetization D [K/T] vs T[K], B[T], Tc[K], gyro[rad/s/T]
+<br>
+In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
+<br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
 
 <p><p> <img src="img/magn_cw.png"></p>
 <h3>Paramegnetetic material with internal field</h3>
@@ -1078,13 +1086,13 @@ Solving equation m = \tanh((m+btc)/ttc) by Newton method.
 <p>Function arguments:
 <br>bt: $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$
 <br>spin</p>
-<p><tt>magn_par_m(bt,spin)</tt> -- Magnetization of paramagnetic material, M/Ms vs muB/kT and spin
+<p><tt>magn_par_m(T,B,Bi,gyro,spin)</tt> -- Molar magnetization of paramagnetic material, M[J/K/mole] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 
-<p><tt>magn_par_s(bt,spin)</tt> -- Entropy of paramagnetic material, S/R vs muB/kT and spin
+<p><tt>magn_par_s(T,B,Bi,gyro,spin)</tt> -- Entropy of paramagnetic material, S/R vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 
-<p><tt>magn_par_c(bt,spin)</tt> -- Heat capacity of paramagnetic material, C/R vs muB/kT and spin
+<p><tt>magn_par_c(T,B,Bi,gyro,spin)</tt> -- Heat capacity of paramagnetic material, C/R vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 
 <p><p>Example for copper nuclei.  Internal field $B_i$ = 0.36e-3 T, gyromagnetic ratio $\gamma$ = 71.118e6 rad/s/T,

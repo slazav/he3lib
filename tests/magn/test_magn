@@ -1,0 +1,28 @@
+#!/usr/bin/octave-cli
+
+pkg load he3lib
+figure; hold on;
+
+Tc=0.5e-3;
+gyro=203.789e6;
+spin=0.5;
+
+t=(0.1:0.01:10) * 1e-3;
+B=60e-3;
+Bi=0.1
+
+m_cw = magn_cw_m(t,B,Tc,gyro);
+
+# saturation
+muB=9.274e-24; # [J/T]
+mu0=1.25663706212e-6;
+
+ms = const_na * const_hbar * gyro * spin * ones(size(t));
+
+m_p = magn_par_m(t,B,Bi,gyro, 0.5);
+
+semilogx(t,m_cw, 'r-')
+semilogx(t,m_p, 'm-')
+semilogx(t,ms, 'b-')
+
+print -dpng "test_magn.png"
