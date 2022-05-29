@@ -1,6 +1,9 @@
 <p>This library provides constant and functions for various $^3$He properties.
 Code can be found in <a href="https://github.com/slazav/he3lib">https://github.com/slazav/he3lib</a>
 
+<p>Old documentation (last updated 2016):
+<a href="http://slazav.github.io/he3lib/index_2016.html">
+http://slazav.github.io/he3lib/index_2016.html</a>
 
 <h3>Supported interfaces</h3>
 
@@ -8,9 +11,6 @@ Code can be found in <a href="https://github.com/slazav/he3lib">https://github.c
 command-line interface. Example programs and scripts can be found in the
 <tt>examples/</tt> folder.
 
-<p>Old documentation (last updated 2016):
-<a href="http://slazav.github.io/he3lib/index_2016.htm">
-http://slazav.github.io/he3lib/index_2016.htm</a>
 
 <ul>
 <li><b>Fortran-77.</b>
