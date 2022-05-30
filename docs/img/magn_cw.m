@@ -3,61 +3,66 @@
   pkg load he3lib
 
 
-  t=0:0.005:1.7;
+  t=exp(log(0.1):0.01:log(10))*1e-3;
 
   figure; clf;
   subplot(2,2,1); hold on;
   title("Magnetization")
-  xlabel('T/Tc');
-  ylabel('M/mu');
+  xlabel('T, mK');
+  ylabel('M');
 
-  plot(t,magn_cw_m(t,0), 'k-');
-  plot(t,magn_cw_m(t,0.01), 'm-');
-  plot(t,magn_cw_m(t,0.1), 'b-');
-  plot(t,magn_cw_m(t,1), 'r-');
-  xlim([0,t(end)])
-  legend('muB/kTc=0', 'muB/kTc=0.01', 'muB/kTc=0.1', 'muB/kTc=1', 'Location', 'SouthWest')
+  Tc = 0.5e-3;
+  B0 = 0;
+  B1 = 0.08;
+  B2 = 0.8;
+  B3 = 8;
+  gyro = 203.789e6
+
+  semilogx(t*1e3,magn_cw_m(t,B0,Tc,gyro), 'k-');
+  semilogx(t*1e3,magn_cw_m(t,B1,Tc,gyro), 'm-');
+  semilogx(t*1e3,magn_cw_m(t,B2,Tc,gyro), 'b-');
+  semilogx(t*1e3,magn_cw_m(t,B3,Tc,gyro), 'r-');
+  ylim([0,70000])
+
 
 
   subplot(2,2,2); hold on;
   title("Susceptibility")
-  xlabel('T/Tc');
-  ylabel('Chi Tc/mu^2');
+  xlabel('T,mK');
+  ylabel('Chi');
 
-  plot(t,magn_cw_chi(t,0), 'k-');
-  plot(t,magn_cw_chi(t,0.01), 'm-');
-  plot(t,magn_cw_chi(t,0.1), 'b-');
-  plot(t,magn_cw_chi(t,1), 'r-');
-  ylim([0,20])
-  xlim([0,t(end)])
+  semilogx(t*1e3,magn_cw_chi(t,B0,Tc,gyro), 'k-');
+  semilogx(t*1e3,magn_cw_chi(t,B1,Tc,gyro), 'm-');
+  semilogx(t*1e3,magn_cw_chi(t,B2,Tc,gyro), 'b-');
+  semilogx(t*1e3,magn_cw_chi(t,B3,Tc,gyro), 'r-');
+  ylim([0,200000])
+  legend('B=0', 'B=80mT', 'B=0.8T', 'B=8T', 'Location', 'NorthEast')
 
 
 
   subplot(2,2,3); hold on;
   title("Entropy")
-  xlabel('T/Tc');
+  xlabel('T,mK');
   ylabel('S/R');
 
-  plot(t,magn_cw_s(t,0), 'k-');
-  plot(t,magn_cw_s(t,0.01), 'm-');
-  plot(t,magn_cw_s(t,0.1), 'b-');
-  plot(t,magn_cw_s(t,1), 'r-');
-  xlim([0,t(end)])
+  semilogx(t*1e3,magn_cw_s(t,B0,Tc,gyro), 'k-');
+  semilogx(t*1e3,magn_cw_s(t,B1,Tc,gyro), 'm-');
+  semilogx(t*1e3,magn_cw_s(t,B2,Tc,gyro), 'b-');
+  semilogx(t*1e3,magn_cw_s(t,B3,Tc,gyro), 'r-');
+  ylim([0,0.8])
 
 
 
   subplot(2,2,4); hold on;
   title("Heat capacity")
-  xlabel('T/Tc');
+  xlabel('T,mK');
   ylabel('C/R');
 
-  plot(t,magn_cw_c(t,0), 'k-');
-  plot(t,magn_cw_c(t,0.01), 'm-');
-  plot(t,magn_cw_c(t,0.1), 'b-');
-  plot(t,magn_cw_c(t,1), 'r-');
-  xlim([0,t(end)])
-
+  semilogx(t*1e3,magn_cw_c(t,B0,Tc,gyro), 'k-');
+  semilogx(t*1e3,magn_cw_c(t,B1,Tc,gyro), 'm-');
+  semilogx(t*1e3,magn_cw_c(t,B2,Tc,gyro), 'b-');
+  semilogx(t*1e3,magn_cw_c(t,B3,Tc,gyro), 'r-');
+  ylim([0,1.5])
 
   print magn_cw.png -dpng "-S800,600"
-
 

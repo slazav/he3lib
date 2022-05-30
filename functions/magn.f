@@ -1,14 +1,18 @@
 !HH> Magnetic models
 
+!> <p>TODO: it's better to re-chack magnetization units. It's checked that magnetization
+!> is consistent with susceptibility and entropy is consistent with heat capacity and
+!> demagnetization cooling effect.
+
+
 !H> Curie-Weiss magnet with spin 1/2
 
 !> See <a href="https://arxiv.org/pdf/1301.2141.pdf">[Kochmansky]</a>.
 
-!> <p>TODO: check magnetization units!
 
 !> y-function, dimensionless magnetization of S=1/2 Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
 !> Solving equation m = \tanh((m+btc)/ttc) by Newton method.
-!> <br>Works for positive and negative btc.
+!> Works for positive and negative field.
       function magn_cw_y(ttc, btc) !F>
         implicit none
         include 'he3.fh'
@@ -115,17 +119,17 @@
         magn_cw_d = - ttc/(y+btc) * mu/const_kB
       end
 
+!><p>Example for Curie-Weiss material with Curie temperature $T_c=0.5$ mK and
+!>gyromagnetic ratio $\gamma=203.789\cdot10^6$ rad/s/T:
 
 !><p> <img src="img/magn_cw.png">
 
-!> <p>TODO: check magnetization units!
 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Paramegnetetic material with internal field
 
 !> See Pobell book f9.15
-!> <p>Function arguments:
-!> <br>bt: $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$
-!> <br>spin
 
 !> Molar magnetization of paramagnetic material, M[J/T/mole] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
       function magn_par_m(T, B, Bi, gyro, spin) !F>
@@ -193,14 +197,9 @@
         magn_par_d = - T*B/(B**2 + Bi**2)
       end
 
-!> <p>Example for copper nuclei.  Internal field $B_i$ = 0.36e-3 T, gyromagnetic ratio $\gamma$ = 71.118e6 rad/s/T,
-!> spin $J$ = 3/2.
+!> <p>Example for copper nuclei.  Internal field $B_i = 0.36\cdot 10^{-3}$ T,
+!> gyromagnetic ratio $\gamma = 71.118\cdot10^6$ rad/s/T, spin $J$ = 3/2:
 
 !><p> <img src="img/magn_par.png">
 
-!> <p>Comparison of Curie-Weiss and Paramagnetic models for solid He3 on a surface.
-!> Internal field $B_i$ = 0.7 T, gyromagnetic ratio $\gamma$ =  203.789e6 rad/s/T,
-!> spin $J$ = 1/2, Curie temerature $T_c$ = 0.5 mK.
-
-!><p> <img src="img/magn_he3s.png">
 

@@ -40,6 +40,9 @@
 <p>This library provides constant and functions for various $^3$He properties.
 Code can be found in <a href="https://github.com/slazav/he3lib">https://github.com/slazav/he3lib</a>
 
+<p>Old documentation (last updated 2016):
+<a href="http://slazav.github.io/he3lib/index_2016.html">
+http://slazav.github.io/he3lib/index_2016.html</a>
 
 <h3>Supported interfaces</h3>
 
@@ -47,9 +50,6 @@ Code can be found in <a href="https://github.com/slazav/he3lib">https://github.c
 command-line interface. Example programs and scripts can be found in the
 <tt>examples/</tt> folder.
 
-<p>Old documentation (last updated 2016):
-<a href="http://slazav.github.io/he3lib/index_2016.htm">
-http://slazav.github.io/he3lib/index_2016.htm</a>
 
 <ul>
 <li><b>Fortran-77.</b>
@@ -1053,15 +1053,15 @@ arguments: temperature [K], pressure [bar], rho wire [g/cm^3], wire diameter [um
 <hr><a name='hh21'></a><h2>Magnetic models
 <a href="https://raw.githubusercontent.com/slazav/he3lib/master/functions//magn.f">[magn.f]</a>
 </h2>
+<p><p>TODO: it's better to re-chack magnetization units. It's checked that magnetization
+is consistent with susceptibility and entropy is consistent with heat capacity and
+demagnetization cooling effect.</p>
 <h3>Curie-Weiss magnet with spin 1/2</h3>
 <p>See <a href="https://arxiv.org/pdf/1301.2141.pdf">[Kochmansky]</a>.</p>
-<p><p>Function arguments:
-<br>ttc: $T/T_c$
-<br>btc: $\gamma \hbar B / 2 k_B T_c$ (note spin factor 1/2)</p>
 <p><tt>magn_cw_y(ttc,btc)</tt> -- y-function, dimensionless magnetization of S=1/2 Curie-Weiss magnet,  M/mu vs T/Tc and muB/kTc
 <br>
 Solving equation m = \tanh((m+btc)/ttc) by Newton method.
-<br>Works for positive and negative btc.
+Works for positive and negative field.
 
 <p><tt>magn_cw_m(T,B,Tc,gyro)</tt> -- Molar magnetization of S=1/2 Curie-Weiss magnet,  M[J/T/mole] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
@@ -1075,18 +1075,20 @@ Solving equation m = \tanh((m+btc)/ttc) by Newton method.
 <p><tt>magn_cw_c(T,B,Tc,gyro)</tt> -- Heat capacity of S=1/2 Curie-Weiss magnet,  C/R vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
 
-<p><tt>magn_cw_d(T,B,Tc,gyro)</tt> -- Cooling effect of demagnetization D [K/T] vs T[K], B[T], Tc[K], gyro[rad/s/T]
+<p><tt>magn_cw_d(T,B,Tc,gyro)</tt> -- Cooling effect of demagnetization D[K/T] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
 In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
 <br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
 
+<p><p>Example for Curie-Weiss material with Curie temperature $T_c=0.5$ mK and
+gyromagnetic ratio $\gamma=203.789\cdot10^6$ rad/s/T.</p>
 <p><p> <img src="img/magn_cw.png"></p>
 <h3>Paramegnetetic material with internal field</h3>
-<p>See Pobell book f9.15
-<p>Function arguments:
-<br>bt: $\gamma \hbar \sqrt{B^2 + B_i^2} / k_B T$
-<br>spin</p>
-<p><tt>magn_par_m(T,B,Bi,gyro,spin)</tt> -- Molar magnetization of paramagnetic material, M[J/K/mole] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
+<p>See Pobell book f9.15</p>
+<p><tt>magn_par_m(T,B,Bi,gyro,spin)</tt> -- Molar magnetization of paramagnetic material, M[J/T/mole] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
+<br>
+
+<p><tt>magn_par_chi(T,B,Bi,gyro,spin)</tt> -- Molar magnetic susceptibility of paramagnetic material, chi[J/T^2/mole] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 
 <p><tt>magn_par_s(T,B,Bi,gyro,spin)</tt> -- Entropy of paramagnetic material, S/R vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
@@ -1095,12 +1097,13 @@ In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
 <p><tt>magn_par_c(T,B,Bi,gyro,spin)</tt> -- Heat capacity of paramagnetic material, C/R vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 
-<p><p>Example for copper nuclei.  Internal field $B_i$ = 0.36e-3 T, gyromagnetic ratio $\gamma$ = 71.118e6 rad/s/T,
-spin $J$ = 3/2.</p>
+<p><tt>magn_par_d(T,B,Bi,gyro,spin)</tt> -- Cooling effect of demagnetization D[K/T] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
+<br>
+In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
+<br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
+
+<p><p>Example for copper nuclei.  Internal field $B_i = 0.36\cdot 10^{-3}$ T,
+gyromagnetic ratio $\gamma = 71.118\cdot10^6$ rad/s/T, spin $J$ = 3/2:</p>
 <p><p> <img src="img/magn_par.png"></p>
-<p><p>Comparison of Curie-Weiss and Paramagnetic models for solid He3 on a surface.
-Internal field $B_i$ = 0.7 T, gyromagnetic ratio $\gamma$ =  203.789e6 rad/s/T,
-spin $J$ = 1/2, Curie temerature $T_c$ = 0.5 mK.</p>
-<p><p> <img src="img/magn_he3s.png"></p>
 
 </body></html>
