@@ -104,7 +104,7 @@
 
 !> Cooling effect of demagnetization D[K/T] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 !> In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
-!> <br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
+!> <br>Then $dT = dQ/C - D\,dB$, where $D = (dS/dB)/(dS/dT)$
       function magn_cw_d(T, B, Tc, gyro) !F>
         implicit none
         include 'he3.fh'
@@ -189,7 +189,7 @@
 
 !> Cooling effect of demagnetization D[K/T] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 !> In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
-!> <br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
+!> <br>Then $dT = dQ/C - D\,dB$, where $D = (dS/dB)/(dS/dT)$
       function magn_par_d(T, B, Bi, gyro, spin) !F>
         implicit none
         include 'he3.fh'

@@ -1078,10 +1078,10 @@ Works for positive and negative field.
 <p><tt>magn_cw_d(T,B,Tc,gyro)</tt> -- Cooling effect of demagnetization D[K/T] vs T[K], B[T], Tc[K], gyro[rad/s/T]
 <br>
 In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
-<br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
+<br>Then $dT = dQ/C - D\,dB$, where $D = (dS/dB)/(dS/dT)$
 
 <p><p>Example for Curie-Weiss material with Curie temperature $T_c=0.5$ mK and
-gyromagnetic ratio $\gamma=203.789\cdot10^6$ rad/s/T.</p>
+gyromagnetic ratio $\gamma=203.789\cdot10^6$ rad/s/T:</p>
 <p><p> <img src="img/magn_cw.png"></p>
 <h3>Paramegnetetic material with internal field</h3>
 <p>See Pobell book f9.15</p>
@@ -1100,7 +1100,7 @@ gyromagnetic ratio $\gamma=203.789\cdot10^6$ rad/s/T.</p>
 <p><tt>magn_par_d(T,B,Bi,gyro,spin)</tt> -- Cooling effect of demagnetization D[K/T] vs T[K], B[T], Bi[T], gyro[rad/s/T], spin[half-int]
 <br>
 In the demagnetization process $dQ = T\,dS = T(dS/dT)\,dT + T(dS/dB)\,dB$.
-<br>Then $dT = dQ/C + D\,dB$, where $D = (dS/dB)/(dS/dT)$
+<br>Then $dT = dQ/C - D\,dB$, where $D = (dS/dB)/(dS/dT)$
 
 <p><p>Example for copper nuclei.  Internal field $B_i = 0.36\cdot 10^{-3}$ T,
 gyromagnetic ratio $\gamma = 71.118\cdot10^6$ rad/s/T, spin $J$ = 3/2:</p>
