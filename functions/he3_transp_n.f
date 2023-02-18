@@ -121,7 +121,7 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Quasiparticle lifetimes
 
-!> Normal state quasiparticle lifetime at the Fermi level \tau_N(0,T)
+!> Normal state quasiparticle lifetime at the Fermi level $\tau_N(0,T)$, s
 !> Einzel JLTP32 (1978) p.28,34
 !> Einzel JLTP84 (1991) f.4
 !> Also see VW2.38. tau_n0 is different by pi/4 factor?!
@@ -136,7 +136,7 @@
      .    / W / const_kb / (1D-3*ttc*he3_tc(P))**2
       end
 
-!> Thermal average of normal state quasiparticle lifetime \bar\tau_N(T)
+!> Thermal average of normal state quasiparticle lifetime $3/4\tau_N(0,T)$, s
 !> Einzel JLTP84 (1991) f.5
       function he3_tau_n_av(ttc, p) !F>
         implicit none
@@ -145,7 +145,7 @@
         he3_tau_n_av = 0.75D0 * he3_tau_n0(ttc, p)
       end
 
-!> Spin diffusion transport time for a normal Fermi-liquid, s
+!> Thermal average of normal state spin diffusion transport time, s
 !> Einzel JLTP84 (1991) p.328
       function he3_tau_nd(ttc, p) !F>
         implicit none
@@ -154,6 +154,19 @@
         he3_tau_nd = 0.75D0 * he3_tau_n0(ttc, p)
      .    / (1D0-he3_scatt_l1a(p))
       end
+
+!> Thermal average ot normal state viscous transport time, s
+!> See Einzel JLTP84 (1990) p.41
+      function he3_tau_nv(ttc, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 p,ttc
+        real*8 l2
+        ! qubic fit of l2 from Einzel-1990, table.1:
+        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
+        he3_tau_nv = 0.75D0 * he3_tau_n0(ttc, p) / (1D0-l2)
+      end
+
 
 !> Hydrodynamic spin diffusion in normal liquid, cm2/s
 !> Einzel JLTP84 (1991) f.23
