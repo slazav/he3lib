@@ -238,7 +238,7 @@
      .           math_dint(he3_fpath_int2, 0D0, 1D0, 1000))
       end
 
-!> Rms velosity of Bogoliubov quasiparticles [cm/s]
+!> RMS group velocity of Bogoliubov quasiparticles [cm/s]
 !> Einzel JLTP32 (1990) f.28 and below
       function he3_rmsv(ttc, p) !F>
         implicit none
@@ -280,9 +280,6 @@
         include 'he3.fh'
         real*8 ttc, p
         real*8 gap, Y0,Y2, l2
-
-        ! qubic fit of l2 from Einzel-1990, table.1:
-        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
 
         gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
