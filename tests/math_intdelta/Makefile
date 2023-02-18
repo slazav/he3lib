@@ -9,12 +9,13 @@ FFLAGS= -Werror -Wconversion\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
   -Wno-unused-parameter -fPIC -fno-range-check -O\
-  -std=legacy -g
+  -std=legacy -g\
+  -I../../
 
 all: plot
 
-test2d: test2d.f ../../he3_math.f
-test3d: test3d.f ../../he3_math.f
+test2d: test2d.f ../../functions/he3_math.f
+test3d: test3d.f ../../functions/he3_math.f
 
 %.dat: %
 	./$< > $@
