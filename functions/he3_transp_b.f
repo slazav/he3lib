@@ -85,6 +85,8 @@
      .             + 3.3D0*(xi**2 + gap**2)/(ttc*const_pi)**2)
       end
 
+!><p> <img src="img/he3b_coll_int.png">
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !H> Quasiparticle lifetime, mean free path
@@ -290,6 +292,8 @@
      .   * he3_vf(p) * dsqrt(Y2*Y0)
      .   * he3_visc_fpath(ttc,p)
       end
+
+!><p> <img src="img/he3b_tau.png">
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Spin diffusion
