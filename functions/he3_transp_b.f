@@ -254,6 +254,8 @@
         he3_rmsv = he3_vf(p) * dsqrt(Y2/Y0)
       end
 
+!><p> <img src="img/he3b_tau.png">
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Viscosity
 
@@ -293,7 +295,6 @@
      .   * he3_visc_fpath(ttc,p)
       end
 
-!><p> <img src="img/he3b_tau.png">
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Spin diffusion

@@ -564,19 +564,23 @@ See also VW2.48
 <br>
 
 <h3>Quasiparticle lifetimes</h3>
-<p><tt>he3_tau_n0(ttc,p)</tt> -- Normal state quasiparticle lifetime at the Fermi level \tau_N(0,T)
+<p><tt>he3_tau_n0(ttc,p)</tt> -- Normal state quasiparticle lifetime at the Fermi level $\tau_N(0,T)$, s
 <br>
 Einzel JLTP32 (1978) p.28,34
 Einzel JLTP84 (1991) f.4
 Also see VW2.38. tau_n0 is different by pi/4 factor?!
 
-<p><tt>he3_tau_n_av(ttc,p)</tt> -- Thermal average of normal state quasiparticle lifetime \bar\tau_N(T)
+<p><tt>he3_tau_n_av(ttc,p)</tt> -- Thermal average of normal state quasiparticle lifetime $3/4\tau_N(0,T)$, s
 <br>
 Einzel JLTP84 (1991) f.5
 
-<p><tt>he3_tau_nd(ttc,p)</tt> -- Spin diffusion transport time for a normal Fermi-liquid, s
+<p><tt>he3_tau_nd(ttc,p)</tt> -- Thermal average of normal state spin diffusion transport time, s
 <br>
 Einzel JLTP84 (1991) p.328
+
+<p><tt>he3_tau_nv(ttc,p)</tt> -- Thermal average ot normal state viscous transport time, s
+<br>
+See Einzel JLTP84 (1990) p.41
 
 <p><tt>he3_diffn_hydr(ttc,p)</tt> -- Hydrodynamic spin diffusion in normal liquid, cm2/s
 <br>
@@ -629,6 +633,7 @@ Einzel JLTP32 (1978) f.84
 <br>
 Einzel JLTP32 (1990) f.28 and below
 
+<p><p> <img src="img/he3b_tau.png"></p>
 <h3>Viscosity</h3>
 <p><tt>he3_visc_fpath(ttc,p)</tt> -- Viscous free path of Bogoliubov quasiparticles [cm]
 <br>
@@ -638,7 +643,6 @@ Einzel 1990 Eq.26
 <br>
 Einzel 1990 Eq.28
 
-<p><p> <img src="img/he3b_tau.png"></p>
 <h3>Spin diffusion</h3>
 <p><tt>he3_tau_dperp(ttc,p)</tt> -- Spin diffusion perpendicular transport time, s
 <br>
