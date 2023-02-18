@@ -4,7 +4,7 @@
         external func
         integer i
         common /func_par/ k
-        include "../../he3_math.fh"
+        include "../../functions/he3_math.fh"
         do i=1,1000
           k = dble(i)/10D0
           s0 = 2D0 * datan(k)/k

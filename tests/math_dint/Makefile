@@ -5,13 +5,15 @@ FFLAGS= -Werror -Wconversion\
   -Waliasing  -Wampersand -Warray-bounds -Wcharacter-truncation\
   -Wline-truncation -Wsurprising -Wno-tabs -Wunderflow\
   -Wno-unused-parameter -fPIC -fno-range-check -O\
-  -std=legacy -g
+  -std=legacy -g -I../../
 
 all: plot
 
-test_dint: test_dint.f ../../he3_math.f
-test_dint_gk: test_dint_gk.f ../../he3_math.f
-test_dint_gka: test_dint_gka.f ../../he3_math.f
+FMATH=../../functions/he3_math.f
+
+test_dint: test_dint.f $(FMATH)
+test_dint_gk: test_dint_gk.f $(FMATH)
+test_dint_gka: test_dint_gka.f $(FMATH)
 
 %.dat: %
 	./$< > $@
