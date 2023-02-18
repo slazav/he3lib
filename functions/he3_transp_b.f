@@ -283,7 +283,7 @@
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        real*8 gap, Y0,Y2, l2
+        real*8 gap, Y0,Y2
 
         gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
@@ -293,6 +293,25 @@
         he3_hvisc = 0.2D0 * he3_rho(p)
      .   * he3_vf(p) * dsqrt(Y2*Y0)
      .   * he3_visc_fpath(ttc,p)
+      end
+
+!> Slip length to mean free path ratio
+!> "improved lower bound" from
+!>[<a href="https://link.springer.com/article/10.1007/BF00114360">Hojgaard-1980</a>]
+
+      function he3b_slip_length(ttc, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p
+        real*8 gap, Y0,Y1,Y2,Y3, B1, B2
+        gap = he3_gap(ttc, p)
+        Y0  = he3_yosida(ttc, gap, 0D0)
+        Y1  = he3_yosida(ttc, gap, 1D0)
+        Y2  = he3_yosida(ttc, gap, 2D0)
+        Y3  = he3_yosida(ttc, gap, 3D0)
+        B1  = 8D0/15D0*dsqrt(Y2*Y0/Y1/Y1)
+        B2  = 5D0/8D0*dsqrt(Y3*Y3*Y0/Y2/Y2/Y2)
+        he3b_slip_length = (B1 + B2)/2D0
       end
 
 
