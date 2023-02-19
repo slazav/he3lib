@@ -2,6 +2,15 @@
 
 !H> Crossections
 
+! s-p approximation, only l=0,1 fermi-liquid parameters are non-zero.
+! then (see Einzel-1978 f.81):
+!  As(th, phi) = S0 + S1 cos(th)
+!  At(th, phi) = (T0 + T1 cos(th))cos(ph)
+!  A2s(th, phi) = S0 + S1 cos(th2)
+!  A2t(th, phi) = (T0 + T1 cos(th2))cos(ph2)
+!  
+! S and T are given by following subroutine:
+
 ! Ti, Si parameters (for using in <W> calculations)
 ! Einzel & Wolfle JLTP32 (1978) page 34
       subroutine he3_s0s1t0t1(P, S0,S1,T0,T1)
@@ -26,6 +35,47 @@
         T0 = A0s + A0a
         T1 = A1s + A1a
       end
+
+! Average over angles:
+!  <...>  = int(0, pi) sin(th)/2cos(th/2) dth  int (0..2pi) dphi/2pi ...
+!  <1> = 2
+!  <cos(th)> = -2/3
+!  <cos^2(th)> = 14/15
+!  <cos^3(th)> = -18/35
+!  <cos^2(ph)> = 1
+!  <As> = 2S0 - S1 2/3, <At> = 0
+!
+! W(th, phi) = pi/4 (3 At^2 + As^2)
+! = pi/4 <
+!  + S0^2
+!  + 2 S0 S1 cos(th)
+!  + S1^2 cos^2(th)
+!  + 3 T0^2 cos^2(ph)
+!  + 6 T0 T1 cos(th)cos^2(ph)
+!  + 3 T1^2 cos^2(th)cos^2(ph)
+! >
+
+! <W> =
+! = pi/2 <
+!  + S0^2
+!  - 2/3 S0 S1
+!  + 7/15 S1^2
+!  + 3/2 T0^2
+!  - T0 T1
+!  + 7/10 T1^2
+! >
+
+! <W*cos(th)> =
+! = pi/2 <
+!  - 1/3   S0^2
+!  + 14/15 S0 S1
+!  - 9/35  S1^2
+!  - 1/2   T0^2
+!  + 7/5   T0 T1
+!  - 27/70 T1^2
+! >
+
+
 
 !> Scattering crossection <W>, Einzel & Wolfle JLTP32 (1978) f.82
       function he3_crsect_w(P) !F>
@@ -65,33 +115,29 @@
      .     - 19D0/35D0*T0*T1 + 33D0/70D0*T1**2)
       end
 
-!> Scattering crossection <Wl>, Einzel & Wolfle JLTP32 (1978) f.74 ??
-!> code from Samuli
-      function he3_crsect_wl(P) !F>
-        implicit none
-        include 'he3.fh'
-        real*8 P, S0,S1,T0,T1
-        call he3_s0s1t0t1(P, S0,S1,T0,T1)
-        he3_crsect_wl = const_pi * 1D0/420D0 *
-     .    (- 70D0*S0**2 - 54D0*S1**2 + 175D0*T0**2
-     .     + 28D0*S0*(7D0*S1 + 10D0*T0 - 6D0*T1)
-     .     - 42D0*T0*T1 + 71D0*T1**2
-     .     + 8D0*S1*(-21D0*T0 + 19D0*T1))
-      end
+!> <p>Scattering parameters
+!> $\lambda_n^+$ ($\lambda_n$, $\lambda_n^s$), $\lambda_n^-$ ($\lambda_n^a$),
+!> $\delta_n^+$, $\delta_n^-$,
+!> $\gamma_n^+$, $\gamma_n^-$,
+!> <br>$\lambda_0^+ = \lambda_1^+ = 1$, $\lambda_0^- = 3$,
+!> $\delta_0^+ = \delta_1^+ = \delta_0^-/3 = \delta_0$
+!> <br>See Sykes-1970 f.26-29, Einzel-1978 f66,67,71,74, Einzel-1984 f.24
 
-!> Scattering parameter $\lambda_1$
-!> <br>Einzel & Wolfle JLTP32 (1978) f.71,74, Einzel-1984 f.24
-!> Is l1+ from Einzel-1978 f71 same as l1a from Einzel-1991 f.13?
+
+!> Scattering parameter $\lambda_1^-$ ($\lambda_1^a$)
+!> l1a = 1 + 2 <W*cos(th)>/<W>
       function he3_scatt_l1a(P) !F>
         implicit none
         include 'he3.fh'
-        real*8 P
-        he3_scatt_l1a =
-     .    he3_crsect_wl(P) / he3_crsect_w(P)
+        real*8 P, wl, S0,S1,T0,T1
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        wl = const_pi/2D0 *
+     .    (-1D0/3D0*S0**2 + 14D0/15D0*S0*S1 - 9D0/35D0*S1**2
+     .     - 0.5D0*T0**2 +1.4D0*T0*T1 + 27D0/70D0*T1**2)
+        he3_scatt_l1a = 1D0 + 2D0 * wl / he3_crsect_w(P)
       end
 
 !> Scattering parameter $\gamma_0$,
-!> Einzel & Wolfle JLTP32 (1978) f.66,71,
       function he3_scatt_g0(P) !F>
         implicit none
         include 'he3.fh'
@@ -101,7 +147,6 @@
       end
 
 !> Scattering parameter $\delta_0$,
-!> Einzel & Wolfle JLTP32 (1978) f.67,71, Ein
       function he3_scatt_d0(P) !F>
         implicit none
         include 'he3.fh'
@@ -109,6 +154,8 @@
         he3_scatt_d0 =
      .    he3_crsect_wd(P) / he3_crsect_w(P)
       end
+
+!><br><img src="img/he3_crsect_w.png">
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Quasiparticle lifetimes
