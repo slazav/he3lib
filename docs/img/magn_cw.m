@@ -64,5 +64,5 @@
   semilogx(t*1e3,magn_cw_c(t,B3,Tc,gyro), 'r-');
   ylim([0,1.5])
 
-  print magn_cw.png -dpng "-S800,600"
+  print magn_cw.png -dpng "-S800,600" "-F:6"
 

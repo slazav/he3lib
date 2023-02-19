@@ -65,5 +65,5 @@
   ylim([0 1]);
   set(gca, 'yTick', 0:0.1:1);
   grid on;
-  print he3_gap.png -dpng "-S800,400"
+  print he3_gap.png -dpng "-S800,300" "-F:6"
 

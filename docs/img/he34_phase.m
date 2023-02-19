@@ -44,6 +44,6 @@
   legend('0bar', '1bar', '2bar', '5bar', '10bar')
 
 
-  print he34_phase.png -dpng "-S800,400"
+  print he34_phase.png -dpng "-S800,300" "-F:6"
 
 

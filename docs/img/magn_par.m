@@ -27,7 +27,8 @@
   semilogx(t,magn_par_m(1e-3*t, B2, Bint, gyro, spin)/Ms, 'b-');
   semilogx(t,magn_par_m(1e-3*t, B3, Bint, gyro, spin)/Ms, 'r-');
   xlim([0,t(end)])
-  legend('B=0', 'B=0.08T', 'B=0.8T', 'B=8T', 'Location', 'SouthWest')
+  legend('B=0', 'B=0.08T', 'B=0.8T', 'B=8T',...
+         'Location', 'West')
 
 
   subplot(1,3,2); hold on;
@@ -55,7 +56,7 @@
   xlim([0,t(end)])
   ylim([0,0.8])
 
-  print magn_par.png -dpng "-S800,300"
+  print magn_par.png -dpng "-S800,300" "-F:6"
 
 
 available_graphics_toolkits

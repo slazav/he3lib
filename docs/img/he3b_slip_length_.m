@@ -15,4 +15,4 @@ plot(ttc,v2, 'b-');
 legend('P=0 bar', 'P=30 bar');
 xlim([0,1.1])
 
-print he3b_slip_length.png -dpng "-S400,300"
+print he3b_slip_length.png -dpng "-S400,300" "-F:12"

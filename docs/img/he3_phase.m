@@ -67,6 +67,6 @@
   xlabel('temperature, K');
   ylabel('pressure, bar');
 
-  print he3_phase.png -dpng "-S800,400"
+  print he3_phase.png -dpng "-S800,300" "-F:6"
 
 
