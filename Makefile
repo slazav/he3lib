@@ -105,7 +105,7 @@ bindir  ?= /usr/bin
 libdir  ?= /usr/lib64
 datadir ?= /usr/share
 includedir  ?= /usr/include
-octdir = ${libdir}/octave/site/
+octdir = ${libdir}/octave/packages
 
 install_headers: he3.f90h he3.fh he3.h
 	mkdir -p ${includedir}
@@ -123,7 +123,8 @@ install_octave_local: octave-he3lib.tgz
 	octave-cli --eval "pkg install -local $<"
 
 install_octave_global: octave-he3lib.tgz
-	octave-cli --eval "pkg install -global $<"
+	octave-cli --eval "pkg prefix ${libdir}/octave/packages;\
+	                   pkg install -nodeps -verbose -local octave-he3lib.tgz"
 
 ###################################
 
