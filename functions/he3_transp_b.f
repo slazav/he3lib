@@ -110,6 +110,7 @@
 
         he3_tau0lt = tn * dsqrt(const_2pi) / 3D0 / w0
      .    * (ttc/gap)**1.5D0 * dexp(gap/ttc)
+
         ! First-order correction (Einzel-1984)
         he3_tau0lt = he3_tau0lt * (1D0 + ttc/gap * C)
       end
@@ -278,14 +279,12 @@
         real*8 ttc, p
         real*8 gap, Y0,Y2, l2
 
-        ! qubic fit of l2 from Einzel-1990, table.1:
-        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
-
         gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         Y2  = he3_yosida(ttc, gap, 2D0)
 
-        he3_visc_fpath = he3_fpath(ttc, p) / (1D0 - l2*Y2/Y0)
+        he3_visc_fpath = he3_fpath(ttc, p)
+     .    / (1D0 - he3_scatt_l2(p)*Y2/Y0)
       end
 
 !> Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]

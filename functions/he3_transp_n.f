@@ -8,7 +8,7 @@
 !  At(th, phi) = (T0 + T1 cos(th))cos(ph)
 !  A2s(th, phi) = S0 + S1 cos(th2)
 !  A2t(th, phi) = (T0 + T1 cos(th2))cos(ph2)
-!  
+!
 ! S and T are given by following subroutine:
 
 ! Ti, Si parameters (for using in <W> calculations)
@@ -57,11 +57,11 @@
 
 ! <W> =
 ! = pi/2 <
-!  + S0^2
-!  - 2/3 S0 S1
+!  + 1    S0^2
+!  - 2/3  S0 S1
 !  + 7/15 S1^2
-!  + 3/2 T0^2
-!  - T0 T1
+!  + 3/2  T0^2
+!  - 1    T0 T1
 !  + 7/10 T1^2
 ! >
 
@@ -75,6 +75,15 @@
 !  - 27/70 T1^2
 ! >
 
+! <W*sin^4(th/2)sin^2(phi)> =
+! = pi/2 <
+!  + 4/15    S0^2
+!  - 8/21    S0 S1
+!  + 52/315  S1^2
+!  + 1/5     T0^2
+!  - 2/7     T0 T1
+!  + 13/105  T1^2
+! >
 
 
 !> Scattering crossection <W>, Einzel & Wolfle JLTP32 (1978) f.82
@@ -125,7 +134,7 @@
 
 
 !> Scattering parameter $\lambda_1^-$ ($\lambda_1^a$)
-!> l1a = 1 + 2 <W*cos(th)>/<W>
+!> l1a = 1 + 2 &lt;W*cos(th)&gt;/&lt;W&gt;
       function he3_scatt_l1a(P) !F>
         implicit none
         include 'he3.fh'
@@ -135,6 +144,19 @@
      .    (-1D0/3D0*S0**2 + 14D0/15D0*S0*S1 - 9D0/35D0*S1**2
      .     - 0.5D0*T0**2 +1.4D0*T0*T1 + 27D0/70D0*T1**2)
         he3_scatt_l1a = 1D0 + 2D0 * wl / he3_crsect_w(P)
+      end
+
+!> Scattering parameter $\lambda_2$ ($\lambda_2^+$)
+!> l2 = 1 - 3 &lt;W*sin^4(th/2)sin^2(phi)&gt;/&lt;W&gt;
+      function he3_scatt_l2(P) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 P, wl, S0,S1,T0,T1
+        call he3_s0s1t0t1(P, S0,S1,T0,T1)
+        wl = const_pi/2D0 *
+     .    (4D0/15D0*S0**2 - 8D0/21D0*S0*S1 + 52D0/315D0*S1**2
+     .     + 0.2D0*T0**2 - 2D0/7D0*T0*T1 + 13D0/105D0*T1**2)
+        he3_scatt_l2 = 1D0 - 3D0 * wl / he3_crsect_w(P)
       end
 
 !> Scattering parameter $\gamma_0$,
@@ -200,10 +222,8 @@
         implicit none
         include 'he3.fh'
         real*8 p,ttc
-        real*8 l2
-        ! qubic fit of l2 from Einzel-1990, table.1:
-        l2 = 5D-6*p**3 - 4D-4*p**2 + 9.5D-3*p + 0.68D0
-        he3_tau_nv = 0.75D0 * he3_tau_n0(ttc, p) / (1D0-l2)
+        he3_tau_nv = 0.75D0 * he3_tau_n0(ttc, p)
+     .    / (1D0-he3_scatt_l2(p))
       end
 
 !> Hydrodynamic spin diffusion in normal liquid, cm2/s
