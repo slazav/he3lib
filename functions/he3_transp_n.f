@@ -79,9 +79,9 @@
      .     + 8D0*S1*(-21D0*T0 + 19D0*T1))
       end
 
-!> Scattering parameter l1a, Einzel & Wolfle JLTP32 (1978) f.74
-!> As noticed in Einzel-91 p.350, \lambda_1^a can be set to 0.
-!> See also VW2.48
+!> Scattering parameter $\lambda_1$
+!> <br>Einzel & Wolfle JLTP32 (1978) f.71,74, Einzel-1984 f.24
+!> Is l1+ from Einzel-1978 f71 same as l1a from Einzel-1991 f.13?
       function he3_scatt_l1a(P) !F>
         implicit none
         include 'he3.fh'
@@ -90,7 +90,8 @@
      .    he3_crsect_wl(P) / he3_crsect_w(P)
       end
 
-!> Scattering parameter g0, Einzel & Wolfle JLTP32 (1978) f.66
+!> Scattering parameter $\gamma_0$,
+!> Einzel & Wolfle JLTP32 (1978) f.66,71,
       function he3_scatt_g0(P) !F>
         implicit none
         include 'he3.fh'
@@ -99,7 +100,8 @@
      .    he3_crsect_wi(P) / he3_crsect_w(P)
       end
 
-!> Scattering parameter d0, Einzel & Wolfle JLTP32 (1978) f.67
+!> Scattering parameter $\delta_0$,
+!> Einzel & Wolfle JLTP32 (1978) f.67,71, Ein
       function he3_scatt_d0(P) !F>
         implicit none
         include 'he3.fh'
@@ -108,23 +110,13 @@
      .    he3_crsect_wd(P) / he3_crsect_w(P)
       end
 
-!> Scattering parameter w0
-      function he3_scatt_w0(P) !F>
-        implicit none
-        include 'he3.fh'
-        real*8 P
-        he3_scatt_w0 = 1D0
-     .    - 2D0/3D0 * he3_scatt_g0(P)
-     .    + he3_scatt_d0(P)
-      end
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Quasiparticle lifetimes
 
 !> Normal state quasiparticle lifetime at the Fermi level $\tau_N(0,T)$, s
 !> Einzel JLTP32 (1978) p.28,34
-!> Einzel JLTP84 (1991) f.4
-!> Also see VW2.38. tau_n0 is different by pi/4 factor?!
+!> <br>Einzel JLTP84 (1991) f.4
+!> <br>In VW2.38. tau_n0 is different by pi/4 factor!
       function he3_tau_n0(ttc, p) !F>
         implicit none
         include 'he3.fh'
@@ -167,12 +159,11 @@
         he3_tau_nv = 0.75D0 * he3_tau_n0(ttc, p) / (1D0-l2)
       end
 
-
 !> Hydrodynamic spin diffusion in normal liquid, cm2/s
 !> Einzel JLTP84 (1991) f.23
-!> 1/3 * vf^2 * tau_n0 * (1+f0a) * 3/4 1/(1-L1)  # Einzel-1991
-!> 1/3 * vf^2 * tau_n0 * (1+f0a) * f_e(L1)        # VW 2.40 + 2.71
-!> Result is same if tau_n0 is different by pi/4 factor
+!> <br>1/3 * vf^2 * tau_n0 * (1+f0a) * 3/4 1/(1-L1)  # Einzel-1991
+!> <br>1/3 * vf^2 * tau_n0 * (1+f0a) * f_e(L1)       # VW 2.40 + 2.71
+!> <br>Result is same if tau_n0 is different by pi/4 factor
       function he3_diffn_hydr(ttc, p) !F>
         implicit none
         include 'he3.fh'
