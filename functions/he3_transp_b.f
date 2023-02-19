@@ -88,10 +88,33 @@
 !><p> <img src="img/he3b_coll_int.png">
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 !H> Quasiparticle lifetime, mean free path
 
-!> Quasiparticle lifetime at Fermi level
+!> He3-B quasiparticle lifetime, low temp limit (no Ek dep)
+!> <br>Einzel-1978 f.79
+!> <br>Einzel-1984 f.60,60a
+      function he3_tau0lt(ttc, p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 ttc, p, gap, g0, d0, w0, tn, C
+        if (ttc.lt.0D0.or.ttc.gt.1D0) then
+          he3_tau0 = NaN
+          return
+        endif
+        gap = he3_gap(ttc, p)
+        g0  = he3_scatt_g0(p)
+        d0  = he3_scatt_d0(p)
+        w0  = 1D0 - 2D0/3D0*g0 + d0
+        tn = he3_tau_n0(ttc, p)
+        C  = (d0 - g0/3D0)/w0 - 0.75D0
+
+        he3_tau0lt = tn * dsqrt(const_2pi) / 3D0 / w0
+     .    * (ttc/gap)**1.5D0 * dexp(gap/ttc)
+        ! First-order correction (Einzel-1984)
+        he3_tau0lt = he3_tau0lt * (1D0 + ttc/gap * C)
+      end
+
+!> He3-B quasiparticle lifetime at Fermi level
 !> Einzel JLTP84 (1991) p.344
       function he3_tau0(ttc, p) !F>
         implicit none
@@ -112,20 +135,6 @@
         he3_tau0 = tn / he3_coll_int(0D0, ttc, gap, g0, d0);
       end
 
-!> Quasiparticle lifetime at low temp limit (no Ek dep)
-!> Einzel-1978 f.79
-      function he3_tau0lt(ttc, p) !F>
-        implicit none
-        include 'he3.fh'
-        real*8 ttc, p, gap, g0, d0, tn
-        if (ttc.lt.0D0.or.ttc.gt.1D0) then
-          he3_tau0 = NaN
-          return
-        endif
-        gap = he3_gap(ttc, p)
-        he3_tau0lt = he3_tau_n0(ttc, p) * dsqrt(const_2pi) / 3D0
-     .    * (ttc/gap)**1.5D0 * dexp(gap/ttc) / he3_scatt_w0(p)
-      end
 
 ! Integrand for tau_av calculations
 ! Integration is similar to Y0 calculation in he3_gap.f
@@ -174,6 +183,8 @@
         he3_tau_av = Y0 * tn
      .   / math_dint(he3_tau_av_int, 0D0, 1D0, 100)
       end
+
+
 
 ! Integrands for he3_fpath calculation
 ! Integration is similar to Y0 calculation in he3_gap.f
