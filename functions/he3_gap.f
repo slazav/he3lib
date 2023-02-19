@@ -243,6 +243,9 @@
 
 !> Yosida function of order n vs T/Tc, gap
 !> See D.Einzel JLTP 84
+!> <br>$Y_n = 2\int_0^\infty \left(\frac{\xi}{E}\right)^n\left(-\frac{\partial f^0}{\partial E}\right)$
+!> <br>At T -> 0:
+!> <br>$Y_n = 2\Gamma\left(\frac{n+1}{2}\right)\left(\frac{2k_BT}{\Delta}\right)^{(n-1)/2} \exp\left(-\frac{\Delta}{k_BT}\right)$
       function he3_yosida(ttc, gap, n) !F>
         implicit none
         include 'he3.fh'

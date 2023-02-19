@@ -296,14 +296,34 @@
       end
 
 !> Slip length to mean free path ratio
-!> "improved lower bound" from
+!> "improved lower bound" for diffuse scattering,
 !>[<a href="https://link.springer.com/article/10.1007/BF00114360">Hojgaard-1980</a>]
-
+!><br>$ \frac{\zeta}{l} = \frac12\left(\frac{8}{15}\sqrt{\frac{Y_2 Y_0}{Y_1^2}} + \frac{5}{8}\sqrt{\frac{Y_3^2 Y_0}{Y_2^3}}\right)$
+!><br>TODO: in Einzel-1983 exact calculation is done (no big difference). There is also a calculation for arbitrary diffusive-specular
+!> scattering and Andreev scattering. In Einzel-1990 effect of surface curvature
+!> and roughness is calculated. Good review Einzel-Parpia-1997!
+!><br><img src="img/he3b_slip_length.png">
       function he3b_slip_length(ttc, p) !F>
         implicit none
         include 'he3.fh'
         real*8 ttc, p
-        real*8 gap, Y0,Y1,Y2,Y3, B1, B2
+        real*8 gap, Y0,Y1,Y2,Y3, B1, B2, v0,v1,t1
+        t1 = 0.08D0
+        if (ttc.lt.t1) then
+          ! Linear approximation in low temperature.
+          v0 = 4D0/15D0*dsqrt(const_pi/2D0)
+     .       + 5D0/16D0*dsqrt(8D0/const_pi)
+          gap = he3_gap(t1, p)
+          Y0  = he3_yosida(t1, gap, 0D0)
+          Y1  = he3_yosida(t1, gap, 1D0)
+          Y2  = he3_yosida(t1, gap, 2D0)
+          Y3  = he3_yosida(t1, gap, 3D0)
+          B1  = 8D0/15D0*dsqrt(Y2*Y0/Y1/Y1)
+          B2  = 5D0/8D0*dsqrt(Y3*Y3*Y0/Y2/Y2/Y2)
+          v1 = (B1 + B2)/2D0
+          he3b_slip_length = v0 + (v1-v0)*ttc/t1
+          return
+        endif
         gap = he3_gap(ttc, p)
         Y0  = he3_yosida(ttc, gap, 0D0)
         Y1  = he3_yosida(ttc, gap, 1D0)

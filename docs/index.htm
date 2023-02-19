@@ -369,6 +369,9 @@ and Todoschenko's value 1.99 at melting pressure
 <p><tt>he3_yosida(ttc,gap,n)</tt> -- Yosida function of order n vs T/Tc, gap
 <br>
 See D.Einzel JLTP 84
+<br>$Y_n = 2\int_0^\infty \left(\frac{\xi}{E}\right)^n\left(-\frac{\partial f^0}{\partial E}\right)$
+<br>At T -> 0:
+<br>$Y_n = 2\Gamma\left(\frac{n+1}{2}\right)\left(\frac{2k_BT}{\Delta}\right)^{(n-1)/2} \exp\left(-\frac{\Delta}{k_BT}\right)$
 
 <p><tt>he3_yosida_s(ttc,gap)</tt> -- Entropy Yosida function vs T/Tc, gap, see Einzel-2004
 <br>
@@ -642,6 +645,16 @@ Einzel 1990 Eq.26
 <p><tt>he3_hvisc(ttc,p)</tt> -- Hydrodinamic (freq=0) viscosity of Bogoliubov quasiparticles [g/cm/s]
 <br>
 Einzel 1990 Eq.28
+
+<p><tt>he3b_slip_length(ttc,p)</tt> -- Slip length to mean free path ratio
+<br>
+"improved lower bound" for diffuse scattering,
+[<a href="https://link.springer.com/article/10.1007/BF00114360">Hojgaard-1980</a>]
+<br>$ \frac{\zeta}{l} = \frac12\left(\frac{8}{15}\sqrt{\frac{Y_2 Y_0}{Y_1^2}} + \frac{5}{8}\sqrt{\frac{Y_3^2 Y_0}{Y_2^3}}\right)$
+<br>TODO: in Einzel-1983 exact calculation is done (no big difference). There is also a calculation for arbitrary diffusive-specular
+scattering and Andreev scattering. In Einzel-1990 effect of surface curvature
+and roughness is calculated. Good review Einzel-Parpia-1997!
+<br><img src="img/he3b_slip_length.png">
 
 <h3>Spin diffusion</h3>
 <p><tt>he3_tau_dperp(ttc,p)</tt> -- Spin diffusion perpendicular transport time, s
