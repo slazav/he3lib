@@ -179,6 +179,72 @@
 
 !><br><img src="img/he3_crsect_w.png">
 
+
+!> Normal phase viscosity correction c(\lambda), (Sykes-1970)
+      function he3_sykes_c(l) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 l,s,ds
+        integer n, k
+        if (l.eq.1D0) then
+          he3_sykes_c = 0.75D0
+          return
+        endif
+        if (l.gt.1D0) then
+          he3_sykes_c = NaN
+          return
+        endif
+        s = 0D0
+        do n=0,100
+          k = (n+1)*(2*n+1)
+          ds = (4D0*n + 3D0)/(k*(k-l))
+          s = s + ds
+          if (ds.lt.1D-8*s) then
+            goto 121
+          endif
+        enddo
+121     he3_sykes_c = (1D0-l)/4D0 * s
+      end
+
+!> Normal phase viscosity * T^2 (Sykes-1970)
+      function he3n_visc(p) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 p,l2,B
+        l2 = he3_scatt_l2(p)
+        B = 8D0 * const_pi**4 * const_hbar**6
+     .    / (he3_meff(p)**3 * const_kb**2 * he3_crsect_w(p))
+        he3n_visc = 0.2D0*he3_rho(p)*he3_vf(p)**2*(1D0+he3_f1a/3D0)
+     .     * 2D0/const_pi * B/(1D0-l2) * he3_sykes_c(l2)
+      end
+
+!> Normal phase thermal conductivity correction H(\lambda), (Sykes-1970)
+      function he3_sykes_h(l) !F>
+        implicit none
+        include 'he3.fh'
+        real*8 l,s,ds
+        integer n, k
+        if (l.eq.3D0) then
+          he3_sykes_h = 5D0/12D0
+          return
+        endif
+        if (l.gt.3D0) then
+          he3_sykes_h = NaN
+          return
+        endif
+        s = 0D0
+        do n=0,100
+          k = (n+1)*(2*n+3)
+          ds = (4D0*n + 5D0)/(k*(k-l))
+          s = s + ds
+          if (ds.lt.1D-8*s) then
+            goto 122
+          endif
+        enddo
+122     he3_sykes_h = (3D0-l)/4D0 * s
+      end
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !H> Quasiparticle lifetimes
 
