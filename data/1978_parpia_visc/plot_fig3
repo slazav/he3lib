@@ -1,9 +1,0 @@
-#!/usr/bin/gnuplot
-
-p  = 17.12
-v0 = 1.38
-tc = 2.1472
-
-plot "fig3.txt" using 1:2 w p pt 7
-
-pause -1

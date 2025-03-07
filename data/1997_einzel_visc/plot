@@ -1,9 +1,0 @@
-#!/usr/bin/gnuplot
-
-plot\
- "1997_einzel_parp_00.txt" w lp pt 6,\
- "1997_einzel_parp_10.txt" w lp pt 6,\
- "1997_einzel_parp_20.txt" w lp pt 6,\
- "1997_einzel_parp_30.txt" w lp pt 6
-
-pause -1

@@ -1,8 +1,0 @@
-#!/usr/bin/gnuplot
-
-plot\
- "table1" using 1:2 w p pt 7 title "Parpia-1978",\
- "< ../../he3 he3_visc_n 0.001 0:33" using 2:3 w l title "he3lib"
-
-
-pause -1
