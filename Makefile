@@ -68,7 +68,7 @@ he3: he3.o $(LIBNAME).a
 # octave
 octave: headers he3lib.oct
 he3lib.oct: he3lib_oct.cc libhe3.a he3.h he3tab.h
-	mkoctfile $< libhe3.a -W -std=c++11 -s -v -o $@
+	mkoctfile $< libhe3.a -W -std=c++17 -s -v -o $@
 
 # octave-mex
 octave-mex: headers he3lib.mex
